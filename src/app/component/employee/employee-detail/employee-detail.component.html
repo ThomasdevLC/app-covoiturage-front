@@ -1,0 +1,17 @@
+<!-- employee-detail.component.html -->
+<div *ngIf="employee; else loading">
+    <h2>Employee Details</h2>
+    <div class="employee-info">
+        <p><strong>ID:</strong> {{ employee.id }}</p>
+        <p><strong>First Name:</strong> {{ employee.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ employee.lastName }}</p>
+        <p><strong>Gender:</strong> {{ employee.gender }}</p>
+        <p><strong>Phone:</strong> {{ employee.phone }}</p>
+        <p><strong>Email:</strong> {{ employee.email }}</p>
+        <p><strong>Status:</strong> {{ employee.isActive ? 'Active' : 'Inactive' }}</p>
+    </div>
+</div>
+
+<ng-template #loading>
+    <p>Loading employee details...</p>
+</ng-template>
