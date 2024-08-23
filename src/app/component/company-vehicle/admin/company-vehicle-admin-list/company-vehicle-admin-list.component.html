@@ -1,0 +1,37 @@
+<div>
+    <h2>Liste des véhicules</h2>
+
+    <div>
+        <label for="brandFilter">Marque :</label>
+        <input type="text" id="brandFilter" [(ngModel)]="brandFilter">
+    </div>
+
+    <div>
+        <label for="numberFilter">Numéro d'immatriculation :</label>
+        <input type="text" id="numberFilter" [(ngModel)]="numberFilter">
+    </div>
+
+    <button (click)="filterVehicles()">Filtrer</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Numéro d'immatriculation</th>
+                <!-- ajouter d'autres colonnes si nécessaire -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+                <td>{{ vehicle.brand }}</td>
+                <td>{{ vehicle.model }}</td>
+                <td>{{ vehicle.number }}</td>
+                <td>{{ vehicle.status }}</td>
+                <td>{{ vehicle.type }}</td>
+
+                <!-- ajouter d'autres colonnes si nécessaire -->
+            </tr>
+        </tbody>
+    </table>
+</div>

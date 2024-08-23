@@ -1,13 +1,11 @@
-<div class="search-container">
+<!-- <div class="search-container">
     <h2>Recherche de Véhicules par Marque</h2>
 
-    <!-- Formulaire de recherche -->
     <form (ngSubmit)="searchVehiclesByBrand()">
         <input type="text" [(ngModel)]="brand" name="brand" placeholder="Entrez la marque" required />
         <button type="submit">Rechercher</button>
     </form>
 
-    <!-- Affichage des véhicules -->
     <div *ngIf="vehicles.length > 0; else noResults">
         <ul>
             <li *ngFor="let vehicle of vehicles">
@@ -16,9 +14,8 @@
         </ul>
     </div>
 
-    <!-- Affichage des erreurs ou message aucun résultat -->
     <ng-template #noResults>
         <p *ngIf="errorMessage">{{ errorMessage }}</p>
         <p *ngIf="!errorMessage && vehicles.length === 0">Aucun véhicule trouvé pour la marque : {{ brand }}</p>
     </ng-template>
-</div>
+</div>  -->

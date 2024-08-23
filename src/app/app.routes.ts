@@ -19,6 +19,11 @@ export const routes: Routes = [
   { path: 'rideshares/:id', component: RideshareDetailComponent },
 
   {
+    path: 'company-vehicles',
+    component: CompanyVehicleAdminListComponent,
+  },
+
+  {
     path: 'company-vehicles/status/:status',
     component: CompanyVehicleEmployeeListComponent,
   },
