@@ -1,1 +1,14 @@
-<p>company-vehicle-admin-list works!</p>
+<div *ngIf="vehicle && vehicle.length > 0; else loading">
+  <h2>Liste des véhicules pour la marque</h2>
+
+  <div *ngFor="let vehicle of vehicle" class="vehicleInfo">
+    <p>marque : {{ vehicle.brand }}</p>
+    <p>modele : {{ vehicle.model }}</p>
+    <p>sièges : {{ vehicle.seats }}</p>
+    <p>immatriculation : {{ vehicle.number }}</p>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Aucun véhicule trouvé pour la marque {{ vehicle | json }}.</p>
+</ng-template>
