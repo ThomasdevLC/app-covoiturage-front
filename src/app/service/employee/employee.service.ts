@@ -17,6 +17,7 @@ export class EmployeeService {
    * @returns An Observable of the employee data
    */
   getEmployeeById(id: number): Observable<Employee> {
+    console.log('??id:'+id+' url: '+this.apiURL);
     return this.http.get<Employee>(`${this.apiURL}/${id}`);
   }
 }
