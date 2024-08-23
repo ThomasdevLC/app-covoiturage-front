@@ -1,14 +1,18 @@
-<div *ngIf="vehicle && vehicle.length > 0; else loading">
-  <h2>Liste des véhicules pour la marque</h2>
-
-  <div *ngFor="let vehicle of vehicle" class="vehicleInfo">
-    <p>marque : {{ vehicle.brand }}</p>
-    <p>modele : {{ vehicle.model }}</p>
-    <p>sièges : {{ vehicle.seats }}</p>
-    <p>immatriculation : {{ vehicle.number }}</p>
+<div>
+  <h2>Company Vehicles</h2>
+  <div>
+    <label for="brand">Brand:</label>
+    <input type="text" id="brand" [(ngModel)]="brand" name="brand">
+    <button (click)="searchByBrand()">Search</button>
   </div>
+  <div>
+    <label for="model">Model:</label>
+    <input type="text" id="model" [(ngModel)]="model" name="model">
+    <button (click)="searchByModel()">Search</button>
+  </div>
+  <ul>
+    <li *ngFor="let vehicle of companyVehicles">
+      {{ vehicle.brand }} - {{ vehicle.model }}
+    </li>
+  </ul>
 </div>
-
-<ng-template #loading>
-  <p>Aucun véhicule trouvé pour la marque {{ vehicle | json }}.</p>
-</ng-template>

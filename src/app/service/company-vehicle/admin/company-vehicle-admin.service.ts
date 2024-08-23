@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, retry, throwError } from 'rxjs';
-import { Vehicle } from '../../../models/vehicle.model';
+import { CompanyVehicle } from '../../../models/company-vehicle.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,25 +11,15 @@ export class CompanyVehicleAdminService {
 
   constructor(private http: HttpClient) {}
 
-  getByBrand(brand: string): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(`${this.apiUrl}/brand/${brand}`).pipe(
-      retry(1), // Réessaye une fois en cas d'erreur
-      catchError(this.handleError) // Gère l'erreur
-    );
+  // Méthode pour rechercher par marque
+  searchByBrand(brand: string): Observable<CompanyVehicle[]> {
+    let params = new HttpParams().set('brand', brand);
+    return this.http.get<CompanyVehicle[]>(`${this.apiUrl}/search`, { params });
   }
 
-  getByNumber(number: string): Observable<Vehicle[]> {
-    return this.http
-      .get<Vehicle[]>(`${this.apiUrl}/number/${number}`)
-      .pipe(retry(1), catchError(this.handleError));
+  // Méthode pour rechercher par modèle
+  searchByModel(model: string): Observable<CompanyVehicle[]> {
+    let params = new HttpParams().set('model', model);
+    return this.http.get<CompanyVehicle[]>(`${this.apiUrl}/search`, { params });
   }
-
-  // Méthode de gestion des erreurs
-  private handleError(error: any) {
-    console.error('An error occurred:', error);
-    return throwError(
-      () => new Error('Something went wrong; please try again later.')
-    );
-  }
-  //
 }
