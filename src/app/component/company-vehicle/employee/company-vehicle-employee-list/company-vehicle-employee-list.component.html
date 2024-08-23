@@ -1,1 +1,21 @@
-<p>company-vehicle-employee-list works!</p>
+<div *ngIf="vehicle && vehicle.length > 0; else loading">
+    <h2>Détails des véhicules</h2>
+    <div *ngFor="let veh of vehicle" class="vehicle-info">
+        <p><strong>ID:</strong> {{ veh.id }}</p>
+        <p><strong>Numéro d'immatriculation:</strong> {{ veh.number }}</p>
+        <p><strong>Marque:</strong> {{ veh.brand }}</p>
+        <p><strong>Modèle:</strong> {{ veh.model }}</p>
+        <p><strong>Catégorie:</strong> {{ veh.category }}</p>
+        <p><strong>URL photo:</strong> {{ veh.picUrl }}</p>
+        <p><strong>Motorisation:</strong> {{ veh.motor }}</p>
+        <p><strong>Places disponibles:</strong> {{ veh.seats }}</p>
+        <p><strong>CO²/Km:</strong> {{ veh.co2PerKm }}</p>
+        <p><strong>Status:</strong> {{ veh.status }}</p>
+        <p><strong>Type:</strong> {{ veh.type }}</p>
+    </div>
+</div>
+
+<ng-template #loading>
+    <p>Loading vehicle details...</p>
+    <p>Véhicule en cours de chargement : {{ vehicle | json }}</p>
+</ng-template>
