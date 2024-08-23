@@ -1,6 +1,6 @@
 import { RideShare } from './rideshare.model';
 import { VehicleBooking } from './vehicle-booking.model';
-import { Vehicle } from './vehicle.model';
+import { PrivateVehicle } from './private-vehicle.model';
 
 export interface Employee {
   id: number;
@@ -14,6 +14,6 @@ export interface Employee {
   isActive: boolean;
   organizedRides?: RideShare[];
   vehicleBooking?: VehicleBooking[];
-  vehicle?: Vehicle[];
+  vehicle?: PrivateVehicle[];
   rideShares?: RideShare[];
 }
