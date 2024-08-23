@@ -1,0 +1,13 @@
+<form (ngSubmit)="searchRideShares()">
+    <input [(ngModel)]="departureCity" name="departureCity" placeholder="Ville de départ">
+    <input [(ngModel)]="arrivalCity" name="arrivalCity" placeholder="Ville d'arrivée">
+    <input type="datetime-local" [(ngModel)]="departureTime" name="departureTime">
+    <button type="submit">Rechercher</button>
+</form>
+
+<ul>
+    <li *ngFor="let rideshare of rideshares">
+        {{ rideshare.departureAddress.city }} - {{ rideshare.arrivalAddress.city }} - {{ rideshare.departureTime |
+        date:'medium' }}
+    </li>
+</ul>
