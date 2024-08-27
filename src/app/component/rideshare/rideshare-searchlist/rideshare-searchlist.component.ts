@@ -16,7 +16,7 @@ export class RideshareSearchlistComponent implements OnInit {
   rideshares: RideShare[] = [];
   departureCity: string = '';
   arrivalCity: string = '';
-  departureTime: Date | undefined = undefined;
+  departureTime: string | undefined = undefined; // Store as string
 
   constructor(
     private rideShareService: RideShareService,
@@ -27,34 +27,23 @@ export class RideshareSearchlistComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.departureCity = params['departureCity'] || '';
       this.arrivalCity = params['arrivalCity'] || '';
-      this.departureTime = params['departureTime']
-        ? new Date(params['departureTime'])
-        : undefined;
+      this.departureTime = params['departureTime'] || undefined; // Ensure this is a string
       this.searchRideShares();
     });
   }
-  searchRideShares() {
-    console.log('Form values:', {
+
+  searchRideShares(): void {
+    console.log('Search parameters:', {
       departureCity: this.departureCity,
       arrivalCity: this.arrivalCity,
       departureTime: this.departureTime,
     });
 
-    if (this.departureCity || this.arrivalCity || this.departureTime) {
-      let departureTimeString: string | undefined;
-      if (this.departureTime) {
-        departureTimeString = new Date(this.departureTime).toISOString();
-      }
-      this.rideShareService
-        .getRideShares(
-          this.departureCity,
-          this.arrivalCity,
-          departureTimeString
-        )
-        .subscribe({
-          next: (rideshares: RideShare[]) => (this.rideshares = rideshares),
-          error: (err) => console.error('Error fetching rideshares:', err),
-        });
-    }
+    this.rideShareService
+      .getRideShares(this.departureCity, this.arrivalCity, this.departureTime)
+      .subscribe({
+        next: (rideshares: RideShare[]) => (this.rideshares = rideshares),
+        error: (err) => console.error('Error fetching rideshares:', err),
+      });
   }
 }

@@ -21,9 +21,7 @@ export class RideShareService {
     let params = new HttpParams();
     if (departureCity) params = params.set('departureCity', departureCity);
     if (arrivalCity) params = params.set('arrivalCity', arrivalCity);
-    if (departureTime) {
-      params = params.set('departureTime', departureTime);
-    }
+    if (departureTime) params = params.set('departureTime', departureTime);
 
     return this.http.get<RideShare[]>(`${this.apiURL}/search`, { params });
   }
