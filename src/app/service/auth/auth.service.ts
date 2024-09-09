@@ -12,7 +12,7 @@ import { EmployeeSignup } from '../../models/auth/employee-signup.model';
 })
 export class AuthService {
   private apiURL = 'http://localhost:8080/auth';
-
+  private tokenKey = 'authToken';
   constructor(private http: HttpClient) {}
 
   signup(employee: EmployeeSignup): Observable<any> {
@@ -33,6 +33,18 @@ export class AuthService {
     return this.http
       .post<any>(`${this.apiURL}/login`, data, { headers })
       .pipe(catchError(this.handleError));
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.tokenKey);
   }
 
   private handleError(error: HttpErrorResponse) {

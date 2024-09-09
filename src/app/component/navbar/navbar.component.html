@@ -1,0 +1,21 @@
+<nav class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+        <a class="text-lg font-semibold text-gray-800" href="#">MonApp</a>
+
+        <div class="hidden md:flex space-x-4 items-center" id="navbarNav">
+            <a class="text-gray-600 hover:text-gray-800" routerLink="/" routerLinkActive="text-blue-500">Accueil</a>
+            <a class="text-gray-600 hover:text-gray-800" routerLink="/about" routerLinkActive="text-blue-500">À
+                propos</a>
+            <a class="text-gray-600 hover:text-gray-800" routerLink="/contact"
+                routerLinkActive="text-blue-500">Contact</a>
+
+            <!-- Section utilisateur -->
+            <div *ngIf="currentUser$ | async as user" class="flex items-center space-x-4">
+                <span class="text-gray-800">Bonjour, {{ user.firstName }}!</span>
+                <a routerLink="/profile" class="text-gray-600 hover:text-gray-800">Mon Profil</a>
+                <a (click)="logout()" class="text-gray-600 hover:text-gray-800">Déconnexion</a>
+            </div>
+
+        </div>
+    </div>
+</nav>
