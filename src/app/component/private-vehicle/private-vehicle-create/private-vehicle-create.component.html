@@ -1,1 +1,31 @@
-<p>private-vehicle-create works!</p>
+<div class="vehicle-create-form">
+  <h2>Créer un Véhicule Privé</h2>
+  <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="number">Numéro de véhicule :</label>
+      <input id="number" formControlName="number" type="text" />
+    </div>
+
+    <div>
+      <label for="brand">Marque :</label>
+      <input id="brand" formControlName="brand" type="text" />
+    </div>
+
+    <div>
+      <label for="model">Modèle :</label>
+      <input id="model" formControlName="model" type="text" />
+    </div>
+
+    <div>
+      <label for="seats">Nombre de sièges :</label>
+      <input id="seats" formControlName="seats" type="number" />
+    </div>
+
+    <div>
+      <label for="type">Type :</label>
+      <input id="type" formControlName="type" type="text" />
+    </div>
+
+    <button type="submit" [disabled]="!vehicleForm.valid">Créer</button>
+  </form>
+</div>

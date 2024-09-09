@@ -5,6 +5,7 @@ import { RideshareDetailComponent } from './component/rideshare/rideshare-detail
 import { CompanyVehicleEmployeeListComponent } from './component/company-vehicle/employee/company-vehicle-employee-list/company-vehicle-employee-list.component';
 import { CompanyVehicleAdminListComponent } from './component/company-vehicle/admin/company-vehicle-admin-list/company-vehicle-admin-list.component';
 import { CompanyVehicleSearchBrandComponent } from './component/company-vehicle/admin/company-vehicle-search-brand/company-vehicle-search-brand.component';
+import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,10 @@ export const routes: Routes = [
   {
     path: 'company-vehicles/brand/:brand',
     component: CompanyVehicleSearchBrandComponent,
+  },
+
+  {
+    path: 'private-vehicles',
+    component: PrivateVehicleCreateComponent,
   },
 ];
