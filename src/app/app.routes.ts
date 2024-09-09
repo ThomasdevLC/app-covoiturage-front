@@ -6,6 +6,7 @@ import { CompanyVehicleEmployeeListComponent } from './component/company-vehicle
 import { CompanyVehicleAdminListComponent } from './component/company-vehicle/admin/company-vehicle-admin-list/company-vehicle-admin-list.component';
 import { LoginComponent } from './component/auth/login/login.component';
 import { SignupComponent } from './component/auth/signup/signup.component';
+import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,5 +30,9 @@ export const routes: Routes = [
   {
     path: 'company-vehicles/status-and-booking-dates',
     component: CompanyVehicleEmployeeListComponent,
+  },
+  {
+    path: 'private-vehicles/create',
+    component: PrivateVehicleCreateComponent,
   },
 ];

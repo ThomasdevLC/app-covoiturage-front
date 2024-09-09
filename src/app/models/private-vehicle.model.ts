@@ -1,3 +1,4 @@
+import { EmployeeConnected } from './employee/employee-connected.model';
 import { VehicleType } from './enums/vehicle-type.enum';
 
 export interface PrivateVehicle {
@@ -7,4 +8,5 @@ export interface PrivateVehicle {
   model: string;
   seats: number;
   type: VehicleType;
+  employee: EmployeeConnected;
 }
