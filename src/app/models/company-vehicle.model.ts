@@ -14,5 +14,5 @@ export interface CompanyVehicle {
   seats: number;
   co2PerKm: number;
   status: VehicleStatus;
-  type: VehicleType;
+  type: VehicleType.COMPANY;
 }
