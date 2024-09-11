@@ -9,7 +9,7 @@ import { SignupComponent } from './component/auth/signup/signup.component';
 import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   {
     path: 'employees/:id',
