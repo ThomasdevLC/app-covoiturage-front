@@ -6,12 +6,13 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { EmployeeSignup } from '../../models/auth/employee-signup.model';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiURL = 'http://localhost:8080/auth';
+  private apiURL = environment.apiURL;
   private tokenKey = 'authToken';
   constructor(private http: HttpClient) {}
 
