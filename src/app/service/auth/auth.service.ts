@@ -22,7 +22,7 @@ export class AuthService {
     });
 
     return this.http
-      .post<any>(`${this.apiURL}/signup`, employee, { headers })
+      .post<any>(`${this.apiURL}auth/signup`, employee, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -32,7 +32,7 @@ export class AuthService {
     });
 
     return this.http
-      .post<any>(`${this.apiURL}/login`, data, { headers })
+      .post<any>(`${this.apiURL}auth/login`, data, { headers })
       .pipe(catchError(this.handleError));
   }
 
