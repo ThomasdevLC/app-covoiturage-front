@@ -6,12 +6,13 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { EmployeeSignup } from '../../models/auth/employee-signup.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiURL = 'http://localhost:8080/auth';
+  private apiURL = environment.apiURL;
   private tokenKey = 'authToken';
   constructor(private http: HttpClient) {}
 
@@ -21,7 +22,7 @@ export class AuthService {
     });
 
     return this.http
-      .post<any>(`${this.apiURL}/signup`, employee, { headers })
+      .post<any>(`${this.apiURL}auth/signup`, employee, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -31,7 +32,7 @@ export class AuthService {
     });
 
     return this.http
-      .post<any>(`${this.apiURL}/login`, data, { headers })
+      .post<any>(`${this.apiURL}auth/login`, data, { headers })
       .pipe(catchError(this.handleError));
   }
 

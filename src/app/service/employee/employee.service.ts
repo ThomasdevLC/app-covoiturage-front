@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable } from 'rxjs';
 import { EmployeeConnected } from '../../models/employee/employee-connected.model';
 import { AuthService } from '../auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiURL = 'http://localhost:8080/employees/user';
+  private apiURL = `${environment.apiURL}`;
   private currentUserSubject = new BehaviorSubject<EmployeeConnected | null>(
     null
   );
@@ -23,12 +24,17 @@ export class EmployeeService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<EmployeeConnected>(this.apiURL, { headers }).pipe(
-      catchError((error) => {
-        console.error("Erreur lors de la récupération de l'utilisateur", error);
-        return [];
-      })
-    );
+    return this.http
+      .get<EmployeeConnected>(`${this.apiURL}employees/user`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(
+            "Erreur lors de la récupération de l'utilisateur",
+            error
+          );
+          return [];
+        })
+      );
   }
 
   initializeCurrentUser(): void {

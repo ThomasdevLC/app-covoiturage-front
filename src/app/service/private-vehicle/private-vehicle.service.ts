@@ -24,7 +24,6 @@ export class PrivateVehicleService {
         if (currentUser) {
           const employeeId = { id: currentUser.id };
 
-          // Créer une nouvelle version de l'objet véhicule avec les champs requis
           const vehicleToPost = {
             ...vehicle,
             employee: employeeId,
