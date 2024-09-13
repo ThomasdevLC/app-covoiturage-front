@@ -4,12 +4,13 @@ import { Observable, switchMap, take, throwError } from 'rxjs';
 import { EmployeeService } from '../employee/employee.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrivateVehicleService {
-  private apiURL = 'http://localhost:8080/private-vehicles';
+  private apiURL = environment.apiURL;
 
   constructor(
     private http: HttpClient,
@@ -36,9 +37,13 @@ export class PrivateVehicleService {
             Authorization: `Bearer ${token}`,
           });
 
-          return this.http.post<PrivateVehicle>(this.apiURL, vehicleToPost, {
-            headers,
-          });
+          return this.http.post<PrivateVehicle>(
+            `${this.apiURL}private-vehicles`,
+            vehicleToPost,
+            {
+              headers,
+            }
+          );
         } else {
           return throwError('Utilisateur non authentifié');
         }
