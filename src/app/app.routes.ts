@@ -7,6 +7,7 @@ import { CompanyVehicleAdminListComponent } from './component/company-vehicle/ad
 import { LoginComponent } from './component/auth/login/login.component';
 import { SignupComponent } from './component/auth/signup/signup.component';
 import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
+import { CompanyVehicleCreateComponent } from './component/company-vehicle/admin/company-vehicle-create/company-vehicle-create.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,5 +35,9 @@ export const routes: Routes = [
   {
     path: 'private-vehicles/create',
     component: PrivateVehicleCreateComponent,
+  },
+  {
+    path: 'company-vehicles/create',
+    component: CompanyVehicleCreateComponent,
   },
 ];

@@ -1,1 +1,62 @@
 <p>company-vehicle-create works!</p>
+<div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold mb-6">Formulaire de création de véhicule de service: </h2>
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+     
+      <div class="mb-4">
+        <label for="number" class="block text-gray-700">Immatriculation: </label>
+        <input id="number" formControlName="number" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+      </div>
+      <div class="mb-4">
+        <label for="brand" class="block text-gray-700">Marque: </label>
+        <input id="brand" formControlName="brand" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+      </div>
+      <div class="mb-4">
+        <label for="model" class="block text-gray-700">Modèle: </label>
+        <input id="model" formControlName="model" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+      </div>
+      <div class="mb-4">
+        <label for="category" class="block text-gray-700">Catégorie: </label>
+        <select id="category" formControlName="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="picUrl" class="block text-gray-700">URL de la photo: </label>
+        <input id="picUrl" formControlName="picUrl" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+      </div>
+      <div class="mb-4">
+        <label for="motor" class="block text-gray-700">Motorisation: </label>
+        <select id="motor" formControlName="motor" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+          <option *ngFor="let motor of motors" [value]="motor">{{ motor }}</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="seats" class="block text-gray-700">Places: </label>
+        <input id="seats" formControlName="seats" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+      </div>
+      <div class="mb-4">
+        <label for="co2PerKm" class="block text-gray-700">CO2 au Km: </label>
+        <input id="co2PerKm" formControlName="co2PerKm" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+      </div>
+      <!--
+      <div class="mb-4">
+        <label for="type" class="block text-gray-700">Type</label>
+        <input id="type" formControlName="type" type="text" value="COMPANY" readonly class="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100"/>
+      </div>
+    -->
+      <!-- Message d'erreur global -->
+      <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Bouton de soumission -->
+    <div>
+        <button type="submit"
+            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            Créer le véhicule
+        </button>
+    </div>
+    </form>
+  </div>
+  

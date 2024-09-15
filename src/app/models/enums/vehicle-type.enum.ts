@@ -1,4 +1,4 @@
 export enum VehicleType {
-  PRIVATE,
-  COMPANY,
+  PRIVATE = 'PRIVATE',
+  COMPANY = 'COMPANY',
 }
