@@ -41,7 +41,7 @@ export class CompanyVehicleAdminService {
       Authorization: `Bearer ${token}`,
     });
   
-    return this.http.get<CompanyVehicle[]>(`${this.apiURL}`, { params, headers });
+    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/`, { params, headers });
   }
   
 
