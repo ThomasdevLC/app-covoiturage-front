@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, retry, switchMap, take, throwError } from 'rxjs';
 import { CompanyVehicle } from '../../../models/company-vehicle.model';
@@ -72,6 +72,59 @@ export class CompanyVehicleAdminService {
         }
       })
     );
+  }//fin classe
+  
+  //const API_URL = 'https://api.example.com/company-vehicles'; // URL de votre API
+  
+  updateVehicle(vehicle: CompanyVehicle): Observable<CompanyVehicle> {
+    if (confirm('Êtes-vous sûr de vouloir modifier ce véhicule ?')) {
+      return this.employeeService.currentUser$.pipe(
+        take(1),
+        switchMap((currentUser) => {
+          if (currentUser) {
+            const token = this.authService.getToken();
+            const headers = new HttpHeaders({
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            });
+              return this.http.put<CompanyVehicle>(`${this.apiURL}company-vehicles/${vehicle.number}`, headers);
+              //return this.http.delete<void>(`${this.apiURL}company-vehicles/delete/${id}`, { headers });
+          } else {
+            return throwError(() => new Error('Utilisateur non authentifié'));
+          }
+        })
+      );
+    } else {
+        // Retourner un observable vide si la suppression est annulée
+        return throwError(() => new Error('Suppression annulée'));
+      }
   }
+  //methode pour supprimer un companyVehicle
+  
+    deleteCompagnyVehicle(number: number): Observable<void>{
+      // Vérifier si le véhicule existe
+     
+      if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
+        return this.employeeService.currentUser$.pipe(
+          take(1),
+          switchMap((currentUser) => {
+            if (currentUser) {
+              const token = this.authService.getToken();
+              const headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              });
+    
+                return this.http.delete<void>(`${this.apiURL}company-vehicles/${number}`, { headers });
+            } else {
+              return throwError(() => new Error('Utilisateur non authentifié'));
+            }
+          })
+        );
+      } else {
+          // Retourner un observable vide si la suppression est annulée
+          return throwError(() => new Error('Suppression annulée'));
+        }
+      }
 
 }

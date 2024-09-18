@@ -40,4 +40,12 @@ export const routes: Routes = [
     path: 'company-vehicles/create',
     component: CompanyVehicleCreateComponent,
   },
+  {
+    path: 'company-vehicles/:id',
+    component: CompanyVehicleAdminListComponent,
+  },
+  {
+    path: 'company-vehicles/:id',
+    component: CompanyVehicleAdminListComponent,
+  },
 ];

@@ -1,3 +1,4 @@
+<!--
 <div>
     <h2>Liste des véhicules</h2>
 
@@ -19,7 +20,7 @@
                 <th>Marque</th>
                 <th>Modèle</th>
                 <th>Numéro d'immatriculation</th>
-                <!-- ajouter d'autres colonnes si nécessaire -->
+                !-- ajouter d'autres colonnes si nécessaire --
             </tr>
         </thead>
         <tbody>
@@ -30,8 +31,125 @@
                 <td>{{ vehicle.status }}</td>
                 <td>{{ vehicle.type }}</td>
 
-                <!-- ajouter d'autres colonnes si nécessaire -->
+                -- ajouter d'autres colonnes si nécessaire --
             </tr>
         </tbody>
     </table>
+</div> 
+-->
+<!--
+<div>
+    <h2>Liste des véhicules</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Marque</th>
+          <th>Modèle</th>
+          <th>Numéro d'immatriculation</th>
+          <th>Statut</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of vehicles">
+          <td>{{ vehicle.brand }}</td>
+          <td>{{ vehicle.model }}</td>
+          <td>{{ vehicle.number }}</td>
+          <td>{{ vehicle.status }}</td>
+          <td>{{ vehicle.type }}</td>
+          <td>
+            <button (click)="upDateCompanyVehicle(vehicle)">Modifier</button>
+            <button (click)="deleteCompanyVehicle(vehicle.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+-->
+  <!-- company-vehicle-list.component.html -->
+<div class="max-w-2xl mx-3 p-10 bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-bold mb-6">Liste des véhicules de service: </h2>
+  <div>
+    <label for="brandFilter">Marque :</label>
+    <input type="text" id="brandFilter" [(ngModel)]="brandFilter">
 </div>
+
+<div>
+    <label for="numberFilter">Numéro d'immatriculation :</label>
+    <input type="text" id="numberFilter" [(ngModel)]="numberFilter">
+</div>
+
+<button (click)="filterVehicles()">Filtrer</button>
+
+  <!-- Vérifier s'il y a des erreurs -->
+  <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Afficher la liste des véhicules -->
+  <div *ngIf="vehicles.length > 0">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Identifiant>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Immatriculation</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Marque</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Modèle</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Places</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Motorisation</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CO² par Km</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of vehicles" class="bg-white">
+          <td class="px-6 py-4 whitespace-nowrap">
+            <input type="text" [(ngModel)]="vehicle.id" class="border rounded p-1">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <input type="text" [(ngModel)]="vehicle.number" class="border rounded p-1">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <input type="text" [(ngModel)]="vehicle.brand" class="border rounded p-1">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <input type="text" [(ngModel)]="vehicle.model" class="border rounded p-1">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <!--<input type="text" [(ngModel)]="vehicle.category" class="border rounded p-1">-->
+            <select [(ngModel)]="vehicle.category" class="border rounded p-1">
+              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+            </select>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <input type="number" [(ngModel)]="vehicle.seats" class="border rounded p-1">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <!--<input type="text" [(ngModel)]="vehicle.motor" class="border rounded p-1">-->
+            <select [(ngModel)]="vehicle.motor" class="border rounded p-1">
+              <option *ngFor="let motor of motors" [value]="motor">{{ motor }}</option>
+            </select>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <input type="number" [(ngModel)]="vehicle.co2PerKm" class="border rounded p-1">
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <button (click)="upDateCompanyVehicles(vehicle)" class="modif">Enregistrer</button>
+            <button (click)="deleteCompanyVehicles(vehicle.id)" class="supress">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Message si aucune voiture n'est trouvée -->
+  <div *ngIf="vehicles.length === 0" class="text-gray-500 text-center">
+    Aucun véhicule disponible.
+  </div>
+</div>
+
+
+  
