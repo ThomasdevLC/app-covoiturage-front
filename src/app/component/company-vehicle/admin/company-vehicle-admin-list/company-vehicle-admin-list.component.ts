@@ -25,6 +25,8 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   categories = Object.values(VehicleCategory);
   motors  = Object.values(VehicleMotor);
   statuses = Object.values(VehicleStatus);
+  apiURL: any;
+  http: any;
 
   constructor( 
     private fb: FormBuilder,
@@ -59,9 +61,21 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   //
  
 // Fonction de suppression
-deleteCompanyVehicles(vehicleNumber: number): void {
+deleteCompanyVehicles(vehicleId: number): void {
   console.log("delete companyVehicle");
+  if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?'+vehicleId)) {
+    this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe(
+      () => {
+        // Actualiser la liste des véhicules après suppression
+        this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== vehicleId);
+      },
+      (error) => {
+        console.error('Erreur lors de la suppression du véhicule', error);
+      }
+    );
+  }
   //**this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== id);
+  /*
   const index = this.vehicles.findIndex(v => v.id === vehicleNumber);
     if (index !== -1) {
       this.vehicles.splice(index, 1);
@@ -70,16 +84,19 @@ deleteCompanyVehicles(vehicleNumber: number): void {
     } else {
       this.errorMessage = 'Véhicule introuvable.';
     }
+    */
 }
 
 // Fonction pour éditer un véhicule (vous pouvez implémenter le form ici)
 
-upDateCompanyVehicles(vehicle: CompanyVehicle): void {
+upDateCompanyVehicles(id: number, vehicle: CompanyVehicle): void {
   console.log("edit companyVehicle");
-  alert(`Edit vehicle: ${vehicle.brand} ${vehicle.model}`);
-  console.log("??>"+vehicle.toString());
-  this.vehicleService.updateVehicle(vehicle).subscribe({
+  //**alert(`Edit vehicle: ${vehicle.brand} ${vehicle.model}`);
+  console.log("??>"+vehicle.id+" "+vehicle);
+  this.vehicleService.updateVehicle(vehicle.id, vehicle).subscribe({
+    
     next: (updatedVehicle) => {
+      console.log("updated: "+updatedVehicle);
       const index = this.vehicles.findIndex(v => v.id === updatedVehicle.id);
       if (index !== -1) {
         this.vehicles[index] = { ...updatedVehicle };
@@ -94,3 +111,4 @@ upDateCompanyVehicles(vehicle: CompanyVehicle): void {
   //
 }
 }
+

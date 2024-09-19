@@ -21,7 +21,7 @@ table {
   }
   .modif {
     align-items: flex-start;
-    background-color: lightskyblue;
+    background-color: orange;
     border-radius: 10px;
   }
   .supress {

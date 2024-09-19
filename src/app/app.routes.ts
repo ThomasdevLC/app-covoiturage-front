@@ -41,11 +41,12 @@ export const routes: Routes = [
     component: CompanyVehicleCreateComponent,
   },
   {
-    path: 'company-vehicles/:id',
+    path: 'company-vehicles/delete/:id',
     component: CompanyVehicleAdminListComponent,
   },
   {
-    path: 'company-vehicles/:id',
+    path: 'company-vehicles/update/:id',
     component: CompanyVehicleAdminListComponent,
   },
+  
 ];
