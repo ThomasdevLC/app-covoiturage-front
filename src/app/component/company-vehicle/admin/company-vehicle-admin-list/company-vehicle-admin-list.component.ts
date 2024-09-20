@@ -53,6 +53,7 @@ export class CompanyVehicleAdminListComponent implements OnInit {
     this.vehicleService
       .getAllVehicles(this.brandFilter.trim(), this.numberFilter.trim())
       .subscribe((vehicles) => (this.vehicles = vehicles));
+      console.log("adminlist getall: "+this.vehicles);
   }
 
   filterVehicles(): void {
@@ -62,7 +63,6 @@ export class CompanyVehicleAdminListComponent implements OnInit {
  
 // Fonction de suppression
 deleteCompanyVehicles(vehicleId: number): void {
-  console.log("delete companyVehicle");
   if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?'+vehicleId)) {
     this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe(
       () => {
@@ -74,33 +74,17 @@ deleteCompanyVehicles(vehicleId: number): void {
       }
     );
   }
-  //**this.vehicles = this.vehicles.filter(vehicle => vehicle.id !== id);
-  /*
-  const index = this.vehicles.findIndex(v => v.id === vehicleNumber);
-    if (index !== -1) {
-      this.vehicles.splice(index, 1);
-      // Optionnel : Afficher un message de succès
-      console.log('Véhicule supprimé avec succès', vehicleNumber);
-    } else {
-      this.errorMessage = 'Véhicule introuvable.';
-    }
-    */
 }
 
-// Fonction pour éditer un véhicule (vous pouvez implémenter le form ici)
-
+// Fonction pour éditer un véhicule (vous pouvez implémenter le form ici
 upDateCompanyVehicles(id: number, vehicle: CompanyVehicle): void {
-  console.log("edit companyVehicle");
   //**alert(`Edit vehicle: ${vehicle.brand} ${vehicle.model}`);
-  console.log("??>"+vehicle.id+" "+vehicle);
   this.vehicleService.updateVehicle(vehicle.id, vehicle).subscribe({
-    
     next: (updatedVehicle) => {
-      console.log("updated: "+updatedVehicle);
       const index = this.vehicles.findIndex(v => v.id === updatedVehicle.id);
       if (index !== -1) {
         this.vehicles[index] = { ...updatedVehicle };
-        console.log('Véhicule modifié avec succès', updatedVehicle);
+        //console.log('Véhicule modifié avec succès', updatedVehicle);
       }
     },
     error: (error) => {

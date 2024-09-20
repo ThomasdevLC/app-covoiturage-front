@@ -1,11 +1,24 @@
-<p>company-vehicle-create works!</p>
+<p>company-vehicle-update works!</p>
 <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-    <h2 class="text-2xl font-bold mb-6">Formulaire de création de véhicule de service: </h2>
-    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
-     
+    <h2 class="text-2xl font-bold mb-6">Formulaire de modification de véhicule de service: </h2>
+    
+    <div class="mb-4">
+        <label for="brandFilter" class="block text-sm">Marque :</label>
+        <input type="text" id="brandFilter" [(ngModel)]="brandFilter" class="w-full border rounded p-2">
+      </div>
+      
+      <div class="mb-4">
+        <label for="numberFilter" class="block text-sm">Numéro d'immatriculation :</label>
+        <input type="text" id="numberFilter" [(ngModel)]="numberFilter" class="w-full border rounded p-2">
+      </div>
+      
+      <button (click)="filterVehicles()" class="mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Filtrer</button>
+    
+        <form [formGroup]="vehicleForm">
+            
       <div class="mb-4">
         <label for="number" class="block text-gray-700">Immatriculation: </label>
-        <input id="number" formControlName="number" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+        <input id="number"  formControlName="number"  type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
       </div>
       <div class="mb-4">
         <label for="brand" class="block text-gray-700">Marque: </label>
@@ -36,6 +49,12 @@
         <input id="seats" formControlName="seats" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
       </div>
       <div class="mb-4">
+        <label for="status" class="block text-gray-700">Status: </label>
+            <select id="status" formControlName="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+            </select>
+      </div>
+      <div class="mb-4">
         <label for="co2PerKm" class="block text-gray-700">CO2 au Km: </label>
         <input id="co2PerKm" formControlName="co2PerKm" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
       </div>
@@ -44,10 +63,17 @@
         {{ errorMessage }}
     </div>
     <!-- Bouton de soumission -->
-    <div>
-        <button type="submit"
-            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            Créer le véhicule
+    <div class="bouton">
+        <!-- ajouter (click)="modifier()"-->
+        <button type="submit" (click)="upDateCompanyVehicles()"
+            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 modifier">
+            Modifier
+        </button>
+        <!--(click)="filterVehicles()""-->
+        <button type="submit" (click)="filterVehicles()"
+        
+            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rechercher">
+            Rechercher
         </button>
     </div>
     </form>
