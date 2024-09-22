@@ -1,37 +1,45 @@
 <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6">Vehicle List</h1>
+  <h1 class="text-3xl font-bold mb-6">Vehicle List</h1>
 
-    <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="bg-white p-4 rounded shadow-md mb-6">
-        <div class="mb-4">
-            <label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
-            <input type="datetime-local" id="startTime" formControlName="startTime"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-        </div>
-
-        <div class="mb-4">
-            <label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
-            <input type="datetime-local" id="endTime" formControlName="endTime"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-        </div>
-
-        <button type="submit"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Filtrer
-        </button>
-    </form>
-
-    <div *ngIf="vehicles.length > 0; else noVehicles">
-        <ul class="space-y-4">
-            <li *ngFor="let vehicle of vehicles" class="bg-white p-4 rounded-lg shadow-md">
-                <h5 class="text-lg font-semibold">{{ vehicle.brand }}</h5>
-                <h6 class="text-md font-medium text-gray-600">{{ vehicle.model }}</h6>
-                <p class="text-md font-medium text-gray-700">{{ vehicle.number }}</p>
-                <p class="text-sm text-gray-500">Status: {{ vehicle.status }}</p>
-            </li>
-        </ul>
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="bg-white p-4 rounded shadow-md mb-6">
+    <div class="mb-4">
+      <label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
+      <input type="datetime-local" id="startTime" formControlName="startTime"
+        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
     </div>
 
-    <ng-template #noVehicles>
-        <p class="text-gray-500">No vehicles available.</p>
-    </ng-template>
+    <div class="mb-4">
+      <label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
+      <input type="datetime-local" id="endTime" formControlName="endTime"
+        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+    </div>
+
+    <button type="submit"
+      class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Rechercher Véchicules disponibles</button>
+  </form>
+
+  <div *ngIf="vehicles.length > 0; else noVehicles">
+    <ul class="space-y-4">
+      <li *ngFor="let vehicle of vehicles" class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+        <div>
+          <h5 class="text-lg font-semibold">{{ vehicle.brand }}</h5>
+          <h6 class="text-md font-medium text-gray-600">{{ vehicle.model }}</h6>
+          <p class="text-md font-medium text-gray-700">{{ vehicle.number }}</p>
+          <p class="text-sm text-gray-500">Status: {{ vehicle.status }}</p>
+        </div>
+        <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{
+            startTime: filterForm.value.startTime,
+            endTime: filterForm.value.endTime
+          }"
+          class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Réserver
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noVehicles>
+    <p class="text-gray-500">No vehicles available.</p>
+  </ng-template>
 </div>
