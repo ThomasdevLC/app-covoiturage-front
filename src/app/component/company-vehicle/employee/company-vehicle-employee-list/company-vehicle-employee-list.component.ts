@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { CompanyVehicle } from '../../../../models/company-vehicle.model';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
 import {
@@ -17,22 +17,19 @@ import {
   templateUrl: './company-vehicle-employee-list.component.html',
   styleUrls: ['./company-vehicle-employee-list.component.css'],
 })
-export class CompanyVehicleEmployeeListComponent implements OnInit {
+export class CompanyVehicleEmployeeListComponent {
   vehicles: CompanyVehicle[] = [];
   filterForm: FormGroup;
 
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.filterForm = this.fb.group({
       startTime: [''],
       endTime: [''],
     });
-  }
-
-  ngOnInit(): void {
-    this.loadVehicles();
   }
 
   loadVehicles(): void {

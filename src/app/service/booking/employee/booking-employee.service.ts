@@ -18,19 +18,17 @@ export class BookingEmployeeService {
     private employeeService: EmployeeService
   ) {}
 
-  createBooking(
-    startTime: Date,
-    endTime: Date,
-    vehicleId: number
-  ): Observable<VehicleBooking> {
+  createBooking(booking: VehicleBooking): Observable<VehicleBooking> {
     return this.employeeService.currentUser$.pipe(
       take(1),
       switchMap((currentUser) => {
         if (currentUser) {
+          const employeeId = { id: currentUser.id };
+
           const bookingToPost = {
-            startTime: startTime.toISOString(),
-            endTime: endTime.toISOString(),
-            employee: { id: currentUser.id },
+            ...booking,
+            employee: employeeId,
+            companyVehicle: { id: booking.vehicle.id },
           };
 
           const token = this.authService.getToken();
@@ -42,10 +40,12 @@ export class BookingEmployeeService {
           return this.http.post<VehicleBooking>(
             `${this.apiURL}vehicle-bookings`,
             bookingToPost,
-            { headers }
+            {
+              headers,
+            }
           );
         } else {
-          return throwError(() => new Error('Utilisateur non authentifié'));
+          return throwError('Utilisateur non authentifié');
         }
       })
     );

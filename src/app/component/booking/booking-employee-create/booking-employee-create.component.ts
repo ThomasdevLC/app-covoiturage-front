@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookingEmployeeService } from '../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
+import { CompanyVehicle } from '../../../models/company-vehicle.model';
+import { CompanyVehicleAdminService } from '../../../service/company-vehicle/admin/company-vehicle-admin.service';
 
 @Component({
   selector: 'app-booking-employee-create',
@@ -12,42 +14,58 @@ import { CommonModule } from '@angular/common';
   styleUrl: './booking-employee-create.component.css',
 })
 export class BookingEmployeeCreateComponent implements OnInit {
-  vehicleId: number | null = null;
-  startTime: Date | null = null;
-  endTime: Date | null = null;
-  booking: VehicleBooking | null = null;
+  vehicle: CompanyVehicle | undefined;
+  startTime?: string;
+  endTime?: string;
+  errorMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private bookingService: BookingEmployeeService
+    private vehicleService: CompanyVehicleAdminService,
+    private bookingEmployeeService: BookingEmployeeService
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.vehicleId = +params['vehicleId'];
+    const vehicleId = +this.route.snapshot.paramMap.get('id')!;
 
-      this.startTime = params['startTime']
-        ? new Date(params['startTime'])
-        : null;
-      this.endTime = params['endTime'] ? new Date(params['endTime']) : null;
+    this.route.queryParams.subscribe((params) => {
+      this.startTime = params['startTime'];
+      this.endTime = params['endTime'];
     });
+
+    this.vehicleService.getVehicleById(vehicleId).subscribe(
+      (vehicle) => {
+        this.vehicle = vehicle;
+      },
+      (_error) => {
+        this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
+      }
+    );
   }
 
-  onCreateBooking(): void {
-    if (this.vehicleId && this.startTime && this.endTime) {
-      this.bookingService
-        .createBooking(this.startTime, this.endTime, this.vehicleId)
-        .subscribe({
-          next: (response: VehicleBooking) => {
-            console.log('Booking successful', response);
-            this.booking = response;
-          },
-          error: (error: any) => {
-            console.error('Booking failed', error);
-          },
-        });
-    } else {
-      console.error('Missing required parameters');
+  confirmReservation(): void {
+    if (this.vehicle) {
+      const startTimeFormatted = new Date(this.startTime!)
+        .toISOString()
+        .slice(0, 19);
+      const endTimeFormatted = new Date(this.endTime!)
+        .toISOString()
+        .slice(0, 19);
+
+      const booking: VehicleBooking = {
+        startTime: startTimeFormatted,
+        endTime: endTimeFormatted,
+        vehicle: this.vehicle,
+      };
+
+      this.bookingEmployeeService.createBooking(booking).subscribe(
+        (result) => {
+          console.log('Réservation réussie:', result);
+        },
+        (error) => {
+          this.errorMessage = 'Erreur lors de la réservation du véhicule';
+        }
+      );
     }
   }
 }
