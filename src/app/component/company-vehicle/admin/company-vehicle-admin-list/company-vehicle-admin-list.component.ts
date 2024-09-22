@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { CompanyVehicle } from '../../../../models/company-vehicle.model';
 import { FormBuilder, FormGroup, FormsModule, Validators,ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 @Component({
   selector: 'app-company-vehicle-admin-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './company-vehicle-admin-list.component.html',
   styleUrls: ['./company-vehicle-admin-list.component.css'],
 })
@@ -78,7 +78,7 @@ deleteCompanyVehicles(vehicleId: number): void {
 
 // Fonction pour éditer un véhicule (vous pouvez implémenter le form ici
 upDateCompanyVehicles(id: number, vehicle: CompanyVehicle): void {
-  //**alert(`Edit vehicle: ${vehicle.brand} ${vehicle.model}`);
+  alert(`Edit vehicle: ${vehicle.brand} ${vehicle.model} id: ${vehicle.id}`);
   this.vehicleService.updateVehicle(vehicle.id, vehicle).subscribe({
     next: (updatedVehicle) => {
       const index = this.vehicles.findIndex(v => v.id === updatedVehicle.id);

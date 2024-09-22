@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { CompanyVehicle } from '../../../../models/company-vehicle.model';
 import { FormBuilder, FormGroup, FormsModule, Validators,ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-company-vehicle-update',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './company-vehicle-update.component.html',
   styleUrls: ['./company-vehicle-update.component.css']
 })
@@ -48,32 +48,6 @@ export class CompanyVehicleUpdateComponent {
         //type par defaut = CompanyVehicle
       });
     }
-   
-    // Fonction pour éditer un véhicule (vous pouvez implémenter le form ici
-/*
-upDateCompanyVehicles(id: number, vehicle: CompanyVehicle): void {
-  console.log("edit companyVehicle");
-  //**alert(`Edit vehicle: ${vehicle.brand} ${vehicle.model}`);
-  console.log("??>"+vehicle.id+" "+vehicle);
-  this.vehicleService.updateVehicle(vehicle.id, vehicle).subscribe({
-    
-    next: (updatedVehicle) => {
-      console.log("updated: "+updatedVehicle);
-      const index = this.vehicles.findIndex(v => v.id === updatedVehicle.id);
-      if (index !== -1) {
-        this.vehicles[index] = { ...updatedVehicle };
-        console.log('Véhicule modifié avec succès', updatedVehicle);
-      }
-    },
-    error: (error) => {
-      this.errorMessage = 'Erreur lors de la mise à jour du véhicule.';
-      console.error('Erreur:', error);
-    }
-  });
-  
-  //
-}
-*/
 //
 getAllVehicles(): void {
   console.log("getAllVehicle");
@@ -129,30 +103,6 @@ upDateCompanyVehicles(): void {
       }
     );
   }
-//Faire aec valeurs par defaut dans les champs
-/*
-searchCompanyVehicle(number: string): void{
-  console.log("searchNumber: "+number)
-  this.vehicleService
-      .getAllVehicles(number)
-      .subscribe((vehicles) => (this.vehicles = vehicles));
-  /*
-  this.vehicleService.getVehiclesByNumber(number).subscribe({
-    next: (updatedVehicle) => {
-      console.log("vh: "+updatedVehicle);
-      const index = this.vehicles.findIndex(v => v.id === updatedVehicle.id);
-      if (index !== -1) {
-        this.vehicles[index] = { ...updatedVehicle };
-        //console.log('Véhicule modifié avec succès', updatedVehicle);
-      }
-    },
-    error: (error) => {
-      this.errorMessage = 'Erreur lors de la rechercher du véhicule.';
-      console.error('Erreur:', error);
-    }
-  });
-  */
-
 }
  // Fonction pour rechercher un véhicule par son immatriculation (number)
  getVehicleByNumber(number: string): void {
@@ -169,9 +119,3 @@ searchCompanyVehicle(number: string): void{
   );
 }
 }
-  /*
-  function searchCompanyVehicle(number: any, string: any) {
-    throw new Error('Function not implemented.');
-  }
-  */
-

@@ -46,7 +46,7 @@ export const routes: Routes = [
     component: CompanyVehicleAdminListComponent,
   },
   {
-    path: 'company-vehicles/update',
+    path: 'company-vehicles/update/:id',
     component: CompanyVehicleUpdateComponent,
   },
   
