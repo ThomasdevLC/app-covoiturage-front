@@ -27,6 +27,10 @@ export class NavbarComponent implements OnInit {
     this.employeeService.initializeCurrentUser();
   }
 
+  toggleDropdown(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
   logout(): void {
     this.authService.logout();
     this.employeeService.initializeCurrentUser();

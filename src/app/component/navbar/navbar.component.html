@@ -10,12 +10,21 @@
                 routerLinkActive="text-blue-500">Contact</a>
 
             <!-- Section utilisateur -->
-            <div *ngIf="currentUser$ | async as user" class="flex items-center space-x-4">
-                <span class="text-gray-800">Bonjour, {{ user.firstName }}!</span>
-                <a routerLink="/profile" class="text-gray-600 hover:text-gray-800">Mon Profil</a>
-                <a (click)="logout()" class="text-gray-600 hover:text-gray-800">Déconnexion</a>
+            <div *ngIf="currentUser$ | async as user" class="relative flex items-center space-x-4">
+                <span class="text-gray-800 cursor-pointer" (click)="toggleDropdown()">
+                    Bonjour, {{ user.firstName }}!
+                </span>
+                <div class="relative">
+                    <button class="text-gray-600 hover:text-gray-800 focus:outline-none" (click)="toggleDropdown()">
+                        ▼
+                    </button>
+                    <div *ngIf="menuOpen"
+                        class="absolute right-0 bg-white border border-gray-200 shadow-lg mt-2 w-48 z-10">
+                        <a routerLink="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Mon Profil</a>
+                        <a (click)="logout()" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Déconnexion</a>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </nav>
