@@ -1,0 +1,29 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-6">Confirm Booking</h1>
+  <div *ngIf="vehicleId && startTime && endTime">
+    <p><strong>Vehicle ID:</strong> {{ vehicleId }}</p>
+    <p><strong>Start Time:</strong> {{ startTime | date : "short" }}</p>
+    <p><strong>End Time:</strong> {{ endTime | date : "short" }}</p>
+
+    <button
+      (click)="onCreateBooking()"
+      class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    >
+      Confirm Booking
+    </button>
+  </div>
+
+  <div *ngIf="booking">
+    <h2 class="text-xl font-semibold mt-6">Booking Details</h2>
+    <p><strong>Booking ID:</strong> {{ booking.id }}</p>
+    <p><strong>Vehicle Brand:</strong> {{ booking.companyVehicle.brand }}</p>
+    <p><strong>Vehicle Model:</strong> {{ booking.companyVehicle.model }}</p>
+    <p>
+      <strong>Booking Start Time:</strong>
+      {{ booking.startTime | date : "short" }}
+    </p>
+    <p>
+      <strong>Booking End Time:</strong> {{ booking.endTime | date : "short" }}
+    </p>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { SignupComponent } from './component/auth/signup/signup.component';
 import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
 import { CompanyVehicleCreateComponent } from './component/company-vehicle/admin/company-vehicle-create/company-vehicle-create.component';
 import { CompanyVehicleUpdateComponent } from './component/company-vehicle/admin/company-vehicle-update/company-vehicle-update.component';
+import { BookingEmployeeCreateComponent } from './component/booking/booking-employee-create/booking-employee-create.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -41,4 +42,6 @@ export const routes: Routes = [
     path: 'company-vehicles/update/:id',
     component: CompanyVehicleUpdateComponent,
   },
+
+  { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
 ];

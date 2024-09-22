@@ -37,4 +37,16 @@ export class CompanyVehicleEmployeeService {
       { params, headers }
     );
   }
+  getVehicleById(id: number): Observable<CompanyVehicle> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<CompanyVehicle>(
+      `${this.apiURL}company-vehicles/${id}`,
+      { headers }
+    );
+  }
 }
