@@ -1,6 +1,6 @@
 export enum VehicleMotor {
-  GASOLINE,
-  DIESEL,
-  HYBRID,
-  ELECTRIC,
+  GASOLINE = 'GASOLINE',
+  DIESEL = 'DIESEL',
+  HYBRID = 'HYBRID',
+  ELECTRIC = 'ELECTRIC',
 }

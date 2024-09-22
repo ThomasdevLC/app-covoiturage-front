@@ -1,0 +1,10 @@
+.modifier {
+    align-items: flex-start;
+    background-color: orange;
+    border-radius: 10px;
+  }
+.rechercher {
+    align-items: flex-end;
+    background-color: blue;
+    border-radius: 10px;
+  }

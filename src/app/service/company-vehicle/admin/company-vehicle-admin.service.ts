@@ -1,27 +1,25 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, catchError, retry, throwError } from 'rxjs';
+import { Injectable, Optional } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, catchError, retry, switchMap, take, throwError } from 'rxjs';
 import { CompanyVehicle } from '../../../models/company-vehicle.model';
+import { EmployeeService } from '../../employee/employee.service';
+import { AuthService } from '../../auth/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyVehicleAdminService {
-  private apiUrl = 'http://localhost:8080/company-vehicles';
+  
+  private apiURL = environment.apiURL;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private employeeService: EmployeeService,
+    private authService: AuthService
+  ) {}
 
-  // Méthode pour rechercher par marque
-  searchByBrand(brand: string): Observable<CompanyVehicle[]> {
-    let params = new HttpParams().set('brand', brand);
-    return this.http.get<CompanyVehicle[]>(`${this.apiUrl}/search`, { params });
-  }
 
-  // Méthode pour rechercher par modèle
-  searchByModel(model: string): Observable<CompanyVehicle[]> {
-    let params = new HttpParams().set('model', model);
-    return this.http.get<CompanyVehicle[]>(`${this.apiUrl}/search`, { params });
-  }
   getAllVehicles(
     brand?: string,
     number?: string
@@ -29,10 +27,146 @@ export class CompanyVehicleAdminService {
     let params = new HttpParams();
     if (brand) {
       params = params.set('brand', brand);
+      console.log("api allveh: "+this.apiURL+" brand: "+brand);
     }
     if (number) {
       params = params.set('number', number);
+      console.log("api allveh: "+this.apiURL+" num: "+number);
     }
-    return this.http.get<CompanyVehicle[]>(`${this.apiUrl}/`, { params });
+    console.log("serv param: "+params);
+    // Récupérez le token d'authentification
+    const token = this.authService.getToken();
+  console.log('token:'+token)
+    // Configurez les en-têtes de la requête
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    console.log("api allveh: "+this.apiURL+" num: "+number+" brand: "+brand+" params: "+params);
+
+    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/`, { params, headers });
+  }
+  
+
+  createVehicle(vehicle: CompanyVehicle): Observable<CompanyVehicle> {
+    return this.employeeService.currentUser$.pipe(
+      take(1),
+      switchMap((currentUser) => {
+        if (currentUser) {
+          const employeeId = { id: currentUser.id };
+
+          const vehicleToPost = {
+            ...vehicle,
+            employee: employeeId,
+            type: 'COMPANY',
+          };
+
+          const token = this.authService.getToken();
+          const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          });
+
+            return this.http.post<CompanyVehicle>(`${this.apiURL}company-vehicles`, vehicleToPost, {
+            headers,
+          });
+        } else {
+          return throwError('Utilisateur non authentifié');
+        }
+      })
+    );
+  }//fin classe
+  
+  //const API_URL = 'https://api.example.com/company-vehicles'; // URL de votre API
+  updateVehicle(id: number, vehicle: CompanyVehicle): Observable<CompanyVehicle> {
+    console.log("update admin service"+vehicle+"\n !!"+vehicle.brand+" "+vehicle.category+" "+vehicle.status+" "+vehicle.model);
+    if (confirm('Êtes-vous sûr de vouloir modifier ce véhicule ?')) {
+      return this.employeeService.currentUser$.pipe(
+        take(1),
+        switchMap((currentUser) => {
+          if (currentUser) {
+            const token = this.authService.getToken();
+            const headers = new HttpHeaders({
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            });
+            console.log("url: "+this.apiURL+" vh id: "+vehicle.id+"\n vh: "+vehicle.number+"\n "+vehicle.toString()+"\n head: "+headers);
+              return this.http.put<CompanyVehicle>(`${this.apiURL}company-vehicles/${id}`,vehicle,  {headers });
+          } else {
+            return throwError(() => new Error('Utilisateur non authentifié'));
+          }
+        })
+      );
+    } else {
+        // Retourner un observable vide si la suppression est annulée
+        return throwError(() => new Error('Suppression annulée'));
+      }
+  }
+  //methode pour supprimer un companyVehicle
+    deleteCompanyVehicle(number: number): Observable<void>{
+      // Vérifier si le véhicule existe
+     console.log("sup: "+number);
+      if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
+        return this.employeeService.currentUser$.pipe(
+          take(1),
+          switchMap((currentUser) => {
+            if (currentUser) {
+              const token = this.authService.getToken();
+              const headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              });
+    
+                return this.http.delete<void>(`${this.apiURL}company-vehicles/${number}`, { headers });
+            } else {
+              return throwError(() => new Error('Utilisateur non authentifié'));
+            }
+          })
+        );
+      } else {
+          // Retourner un observable vide si la suppression est annulée
+          return throwError(() => new Error('Suppression annulée'));
+        }
+      }
+      //
+    getVehiclesByBrand(brand: string): Observable<CompanyVehicle[]>{
+        let params = new HttpParams();
+        if (brand) {
+          params = params.set('brand', brand);
+        }
+        // Récupérez le token d'authentification
+        const token = this.authService.getToken();
+      console.log('token:'+token)
+        // Configurez les en-têtes de la requête
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        });
+        return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles`, { params, headers });
+      }
+      /*
+  getVehiclesByNumber(number: string): Observable<CompanyVehicle>{
+    console.log("recherche par immatriculation");
+        let params = new HttpParams();
+        if (number) {
+          params = params.set('number', number);
+        }
+        // Récupérez le token d'authentification
+        const token = this.authService.getToken();
+        console.log('token:'+token)
+        // Configurez les en-têtes de la requête
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        });
+        console.log("?? "+`${this.apiURL}${params}`);
+        return this.http.get<CompanyVehicle>(`${this.apiURL}company-vehicles/${params}`, {headers} );
+      
+      }
+        */
+     // Récupérer un véhicule par son numéro d'immatriculation
+  getVehicleByNumber(number: string): Observable<CompanyVehicle> {
+    console.log("getVehicleByNumber de services");
+    return this.http.get<CompanyVehicle>(`${this.apiURL}/${number}`);
   }
 }

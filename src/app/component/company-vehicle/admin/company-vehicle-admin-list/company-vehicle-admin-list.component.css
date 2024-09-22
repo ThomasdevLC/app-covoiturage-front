@@ -1,0 +1,31 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  button {
+    background-color: lightskyblue;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .modif {
+    align-items: flex-start;
+    background-color: orange;
+    border-radius: 10px;
+  }
+  .supress {
+    align-items: flex-end;
+    background-color: red;
+    border-radius: 10px;
+  }
