@@ -1,81 +1,76 @@
-<p>company-vehicle-update works!</p>
-<div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-    <h2 class="text-2xl font-bold mb-6">Formulaire de modification de véhicule de service: </h2>
-    
-    <div class="mb-4">
-        <label for="brandFilter" class="block text-sm">Marque :</label>
-        <input type="text" id="brandFilter" [(ngModel)]="brandFilter" class="w-full border rounded p-2">
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-bold mb-6">Modifier le Véhicule</h2>
+
+  <form [formGroup]="vehicleForm" (ngSubmit)="upDateCompanyVehicles()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="number" class="block text-sm font-medium text-gray-700">Numéro d'immatriculation</label>
+        <input type="text" id="number" formControlName="number"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
       </div>
-      
-      <div class="mb-4">
-        <label for="numberFilter" class="block text-sm">Numéro d'immatriculation :</label>
-        <input type="text" id="numberFilter" [(ngModel)]="numberFilter" class="w-full border rounded p-2">
+
+      <div>
+        <label for="brand" class="block text-sm font-medium text-gray-700">Marque</label>
+        <input type="text" id="brand" formControlName="brand"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
       </div>
-      
-      <button (click)="filterVehicles()" class="mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Filtrer</button>
-    
-        <form [formGroup]="vehicleForm">
-            
-      <div class="mb-4">
-        <label for="number" class="block text-gray-700">Immatriculation: </label>
-        <input id="number"  formControlName="number"  type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+
+      <div>
+        <label for="model" class="block text-sm font-medium text-gray-700">Modèle</label>
+        <input type="text" id="model" formControlName="model"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
       </div>
-      <div class="mb-4">
-        <label for="brand" class="block text-gray-700">Marque: </label>
-        <input id="brand" formControlName="brand" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
-      </div>
-      <div class="mb-4">
-        <label for="model" class="block text-gray-700">Modèle: </label>
-        <input id="model" formControlName="model" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
-      </div>
-      <div class="mb-4">
-        <label for="category" class="block text-gray-700">Catégorie: </label>
-        <select id="category" formControlName="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+      <div>
+        <label for="category" class="block text-sm font-medium text-gray-700">Catégorie</label>
+        <select id="category" formControlName="category"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
       </div>
-      <div class="mb-4">
-        <label for="picUrl" class="block text-gray-700">URL de la photo: </label>
-        <input id="picUrl" formControlName="picUrl" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+
+      <div>
+        <label for="picUrl" class="block text-sm font-medium text-gray-700">URL de l'image</label>
+        <input type="text" id="picUrl" formControlName="picUrl"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
       </div>
-      <div class="mb-4">
-        <label for="motor" class="block text-gray-700">Motorisation: </label>
-        <select id="motor" formControlName="motor" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+      <div>
+        <label for="motor" class="block text-sm font-medium text-gray-700">Motorisation</label>
+        <select id="motor" formControlName="motor"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
           <option *ngFor="let motor of motors" [value]="motor">{{ motor }}</option>
         </select>
       </div>
-      <div class="mb-4">
-        <label for="seats" class="block text-gray-700">Places: </label>
-        <input id="seats" formControlName="seats" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+
+      <div>
+        <label for="seats" class="block text-sm font-medium text-gray-700">Nombre de places</label>
+        <input type="number" id="seats" formControlName="seats"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
       </div>
-      <div class="mb-4">
-        <label for="status" class="block text-gray-700">Status: </label>
-            <select id="status" formControlName="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-            </select>
+
+      <div>
+        <label for="co2PerKm" class="block text-sm font-medium text-gray-700">CO₂ par Km</label>
+        <input type="number" id="co2PerKm" formControlName="co2PerKm"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
       </div>
-      <div class="mb-4">
-        <label for="co2PerKm" class="block text-gray-700">CO2 au Km: </label>
-        <input id="co2PerKm" formControlName="co2PerKm" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"/>
+
+      <div>
+        <label for="status" class="block text-sm font-medium text-gray-700">Statut</label>
+        <select id="status" formControlName="status"
+          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
       </div>
-      <!-- Message d'erreur global -->
-      <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
-        {{ errorMessage }}
     </div>
-    <!-- Bouton de soumission -->
-    <div class="bouton">
-        <!-- ajouter (click)="modifier()"-->
-        <button type="submit" (click)="upDateCompanyVehicles()"
-            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 modifier">
-            Modifier
-        </button>
-        <!--(click)="filterVehicles()""-->
-        <button type="submit" (click)="filterVehicles()"
-        
-            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rechercher">
-            Rechercher
-        </button>
+
+    <div class="mt-6">
+      <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600">Mettre
+        à jour le véhicule</button>
     </div>
-    </form>
-  </div>
-  
+
+    <div *ngIf="errorMessage" class="mt-4 text-red-500 text-sm">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
