@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleBooking } from '../../../models/vehicle-booking.model';
+import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookingEmployeeService } from '../../../service/booking/employee/booking-employee.service';
+import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
-import { CompanyVehicle } from '../../../models/company-vehicle.model';
-import { CompanyVehicleAdminService } from '../../../service/company-vehicle/admin/company-vehicle-admin.service';
+import { CompanyVehicle } from '../../../../models/company-vehicle.model';
+import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
+import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-booking-employee-create',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DateFormatterPipe],
   templateUrl: './booking-employee-create.component.html',
   styleUrl: './booking-employee-create.component.css',
 })
