@@ -94,6 +94,7 @@ populateForm(vehicle: CompanyVehicle): void {
 upDateCompanyVehicles(): void {
   if (this.vehicleForm.valid) {
     const updatedVehicle = this.vehicleForm.value;
+    console.log("up vh: "+this.vehicleForm.value);
     this.vehicleService.updateVehicle(updatedVehicle.id, updatedVehicle).subscribe(
       (response) => {
         console.log('Véhicule mis à jour avec succès');
