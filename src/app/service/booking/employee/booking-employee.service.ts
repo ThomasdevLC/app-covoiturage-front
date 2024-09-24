@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { EmployeeService } from '../../employee/employee.service';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
@@ -50,4 +50,38 @@ export class BookingEmployeeService {
       })
     );
   }
+  //Faire avec IdEmployee
+  getAllBookings(): Observable <VehicleBooking[]>{
+          const token = this.authService.getToken();
+          
+          const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          });
+          console.log("bookings employ service url: "+this.apiURL+"vehicle-bookings/");
+          return this.http.get<VehicleBooking[]>(`${this.apiURL}vehicle-bookings`,{headers});
+  }
+    /*
+     brand?: string,
+    number?: string
+  ): Observable<CompanyVehicle[]> {
+    let params = new HttpParams();
+    if (brand) {
+      params = params.set('brand', brand);
+    }
+    if (number) {
+      params = params.set('number', number);
+    }
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/`, {
+      params,
+      headers,
+    });
+    */
+  //
 }

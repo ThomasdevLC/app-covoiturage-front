@@ -10,6 +10,7 @@ import { PrivateVehicleCreateComponent } from './component/private-vehicle/priva
 import { CompanyVehicleCreateComponent } from './component/company-vehicle/admin/company-vehicle-create/company-vehicle-create.component';
 import { CompanyVehicleUpdateComponent } from './component/company-vehicle/admin/company-vehicle-update/company-vehicle-update.component';
 import { BookingEmployeeCreateComponent } from './component/booking/employee/booking-employee-create/booking-employee-create.component';
+import { BookingEmployeeListComponent } from './component/booking/employee/booking-employee-list/booking-employee-list.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -42,6 +43,14 @@ export const routes: Routes = [
     path: 'company-vehicles/update/:id',
     component: CompanyVehicleUpdateComponent,
   },
-
-  { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
+  {
+    path: 'company-vehicles/create',
+    component: CompanyVehicleCreateComponent,
+  },
+  { 
+    path: 'vehicle-bookings/employee/:id', component: BookingEmployeeCreateComponent,
+  },
+  { 
+    path: 'vehicle-bookings', component: BookingEmployeeListComponent,
+  },
 ];

@@ -9,6 +9,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { VehicleBooking } from '../../../../models/vehicle-booking.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
@@ -49,4 +51,19 @@ export class CompanyVehicleEmployeeListComponent {
   onFilter(): void {
     this.loadVehicles();
   }
+  /*
+  getEmployeeBooking(): Observable<VehicleBooking[]>{
+
+    this.VehicleBookings
+    .getVehiclesBookings(employeeId,)
+    .subscribe({
+      next: (data: VehicleBooking[]) => {
+        this.vehicles = data;
+      },
+      error: (error: any) => {
+        console.error('Error fetching vehicles', error);
+      },
+    });
+  }
+  */
 }

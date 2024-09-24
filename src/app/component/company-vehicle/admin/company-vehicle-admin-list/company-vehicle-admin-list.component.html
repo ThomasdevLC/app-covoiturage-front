@@ -38,7 +38,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let vehicle of vehicles" class="bg-white">
-          <td class="px-2 py-2 w-24"><input type="text" [(ngModel)]="vehicle.id" class="w-full border rounded p-1"></td>
+          <td class="px-2 py-2 w-24"><input type="text" [(ngModel)]="vehicle.id" class="w-full border rounded p-1">
+          </td>
           <td class="px-2 py-2 w-48"><input type="text" [(ngModel)]="vehicle.number" class="w-full border rounded p-1">
           </td>
           <td class="px-2 py-2 w-48"><input type="text" [(ngModel)]="vehicle.brand" class="w-full border rounded p-1">

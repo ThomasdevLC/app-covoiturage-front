@@ -1,1 +1,41 @@
 <p>booking-employee-list works!</p>
+<p><a href ="mailto:penon.mickael@orange.fr">envoyer un mail</a></p>
+<!--OK pour boite mail google-->
+<div *ngIf="bookings && bookings.length > 0; else noBookings">
+  <table class="table-auto w-full">
+    <thead>
+      <tr>
+        <!--<th class="px-2 py-2 w-24 text-left text-xs font-medium text-gray-500 uppercase">Id: </th>-->
+        <th class="px-2 py-2 w-48 text-left text-xs font-medium text-gray-500 uppercase">Véhicule: </th>
+        <th class="px-2 py-2 w-48 text-left text-xs font-medium text-gray-500 uppercase">Date début: </th>
+        <th class="px-2 py-2 w-48 text-left text-xs font-medium text-gray-500 uppercase">Date fin: </th>
+        <th class="px-2 py-2 w-120 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr *ngFor="let booking of bookings" class="bg-white">
+        <!--
+        <td class="px-2 py-2 w-24"><input type="text" [(ngModel)]="booking.vehicle" class="w-full border rounded p-1">
+        </td>-->
+        <td class="px-2 py-2 w-48"><input type="text" [(ngModel)]="booking.vehicle.brand" class="w-full border rounded p-1">
+        </td>
+        <td class="px-2 py-2 w-48"><input type="text" [(ngModel)]="booking.startTime" class="w-full border rounded p-1">
+        </td>
+        <td class="px-2 py-2 w-56"><input type="text" [(ngModel)]="booking.endTime" class="w-full border rounded p-1">
+        </td>
+        <td>
+          <!--<button [routerLink]="['/vehicle-bookings/update', booking.id]"-->
+          <button [routerLink]="['/vehicle-bookings/update']"
+            class="bg-yellow-500 text-black px-2 py-1 rounded hover:bg-yellow-600 modif">Modifier</button>
+          <button (click)="deleteVehicleBooking()"
+            class="bg-red-500 text-black px-2 py-1 rounded hover:bg-red-600 supress">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  
+  </table>
+</div>
+<ng-template #noBookings>
+  <p>Aucune réservation trouvée.</p>
+</ng-template>

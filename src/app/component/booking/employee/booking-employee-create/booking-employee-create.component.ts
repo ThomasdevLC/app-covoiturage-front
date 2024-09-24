@@ -33,10 +33,12 @@ export class BookingEmployeeCreateComponent implements OnInit {
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
     });
-
+    console.log("create: "+vehicleId+" start: "+this.startTime+" end: "+this.endTime);
+    console.log("onInitcreate: "+vehicleId);
     this.vehicleService.getVehicleById(vehicleId).subscribe(
       (vehicle) => {
         this.vehicle = vehicle;
+        console.log("vehiclecreate: "+this.vehicle);
       },
       (_error) => {
         this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
