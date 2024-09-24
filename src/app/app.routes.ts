@@ -31,12 +31,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'company-vehicles/create',
+    component: CompanyVehicleCreateComponent,
+  },
+
+  {
     path: 'company-vehicles/status-and-booking-dates',
     component: CompanyVehicleEmployeeListComponent,
-  },
-  {
-    path: 'private-vehicles/create',
-    component: PrivateVehicleCreateComponent,
   },
   {
     path: 'company-vehicles/update/:id',
@@ -44,4 +45,9 @@ export const routes: Routes = [
   },
 
   { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
+
+  {
+    path: 'private-vehicles/create',
+    component: PrivateVehicleCreateComponent,
+  },
 ];

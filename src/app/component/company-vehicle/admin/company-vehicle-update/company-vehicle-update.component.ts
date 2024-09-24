@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterModule,
+} from '@angular/router';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { CompanyVehicle } from '../../../../models/company-vehicle.model';
 import {
@@ -40,7 +45,8 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
-    private route: ActivatedRoute // Injection de ActivatedRoute
+    private route: ActivatedRoute, // Injection de ActivatedRoute
+    private router: Router
   ) {
     this.vehicleForm = this.fb.group({
       number: ['', Validators.required],
@@ -93,6 +99,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
         .subscribe(
           (response) => {
             console.log('Véhicule mis à jour avec succès');
+            this.router.navigate(['/company-vehicles']);
           },
           (error) => {
             this.errorMessage = 'Erreur lors de la mise à jour du véhicule';
