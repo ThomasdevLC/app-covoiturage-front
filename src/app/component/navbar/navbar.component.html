@@ -3,13 +3,12 @@
         <a class="text-lg font-semibold text-gray-800" href="#">MonApp</a>
 
         <div class="hidden md:flex space-x-4 items-center" id="navbarNav">
-            <a class="text-gray-600 hover:text-gray-800" routerLink="/" routerLinkActive="text-blue-500">Accueil</a>
-            <a class="text-gray-600 hover:text-gray-800" routerLink="/about" routerLinkActive="text-blue-500">À
-                propos</a>
-            <a class="text-gray-600 hover:text-gray-800" routerLink="/contact"
-                routerLinkActive="text-blue-500">Contact</a>
+            <a class="text-gray-600 hover:text-gray-800" routerLink="/" routerLinkActive="text-blue-500">Rechercher</a>
+            <a class="text-gray-600 hover:text-gray-800" routerLink="/" routerLinkActive="text-blue-500">Publier
+                trajet</a>
+            <a class="text-gray-600 hover:text-gray-800" routerLink="/company-vehicles/status-and-booking-dates"
+                routerLinkActive="text-blue-500">Véhicules de service</a>
 
-            <!-- Section utilisateur -->
             <div *ngIf="currentUser$ | async as user" class="relative flex items-center space-x-4">
                 <span class="text-gray-800 cursor-pointer" (click)="toggleDropdown()">
                     Bonjour, {{ user.firstName }}!
@@ -21,6 +20,8 @@
                     <div *ngIf="menuOpen"
                         class="absolute right-0 bg-white border border-gray-200 shadow-lg mt-2 w-48 z-10">
                         <a routerLink="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Mon Profil</a>
+                        <a routerLink="/company-vehicles"
+                            class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Gestion véhicules</a>
                         <a (click)="logout()" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Déconnexion</a>
                     </div>
                 </div>

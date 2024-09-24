@@ -1,17 +1,9 @@
 import { Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {
-  Observable,
-  catchError,
-  retry,
-  switchMap,
-  take,
-  throwError,
-} from 'rxjs';
+import { Observable, switchMap, throwError } from 'rxjs';
 import { CompanyVehicle } from '../../../models/company-vehicle.model';
-import { EmployeeService } from '../../employee/employee.service';
-import { AuthService } from '../../auth/auth.service';
 import { environment } from '../../../../environments/environment';
+import { SecureApiService } from '../../api/secure-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +13,7 @@ export class CompanyVehicleAdminService {
 
   constructor(
     private http: HttpClient,
-    private employeeService: EmployeeService,
-    private authService: AuthService
+    private secureApiService: SecureApiService
   ) {}
 
   getAllVehicles(
@@ -36,42 +27,29 @@ export class CompanyVehicleAdminService {
     if (number) {
       params = params.set('number', number);
     }
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
 
     return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/`, {
       params,
-      headers,
+      headers: this.secureApiService.getHeaders(),
     });
   }
 
   createVehicle(vehicle: CompanyVehicle): Observable<CompanyVehicle> {
-    return this.employeeService.currentUser$.pipe(
-      take(1),
+    return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         if (currentUser) {
           const employeeId = { id: currentUser.id };
-
           const vehicleToPost = {
             ...vehicle,
             employee: employeeId,
             type: 'COMPANY',
           };
 
-          const token = this.authService.getToken();
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          });
-
           return this.http.post<CompanyVehicle>(
             `${this.apiURL}company-vehicles`,
             vehicleToPost,
             {
-              headers,
+              headers: this.secureApiService.getHeaders(),
             }
           );
         } else {
@@ -82,15 +60,11 @@ export class CompanyVehicleAdminService {
   }
 
   getVehicleById(id: number): Observable<CompanyVehicle> {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-
     return this.http.get<CompanyVehicle>(
       `${this.apiURL}company-vehicles/${id}`,
-      { headers }
+      {
+        headers: this.secureApiService.getHeaders(),
+      }
     );
   }
 
@@ -99,20 +73,15 @@ export class CompanyVehicleAdminService {
     vehicle: CompanyVehicle
   ): Observable<CompanyVehicle> {
     if (confirm('Êtes-vous sûr de vouloir modifier ce véhicule ?')) {
-      return this.employeeService.currentUser$.pipe(
-        take(1),
+      return this.secureApiService.getCurrentUser().pipe(
         switchMap((currentUser) => {
           if (currentUser) {
-            const token = this.authService.getToken();
-            const headers = new HttpHeaders({
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            });
-
             return this.http.put<CompanyVehicle>(
               `${this.apiURL}company-vehicles/${id}`,
               vehicle,
-              { headers }
+              {
+                headers: this.secureApiService.getHeaders(),
+              }
             );
           } else {
             return throwError(() => new Error('Utilisateur non authentifié'));
@@ -126,19 +95,14 @@ export class CompanyVehicleAdminService {
 
   deleteCompanyVehicle(number: number): Observable<void> {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
-      return this.employeeService.currentUser$.pipe(
-        take(1),
+      return this.secureApiService.getCurrentUser().pipe(
         switchMap((currentUser) => {
           if (currentUser) {
-            const token = this.authService.getToken();
-            const headers = new HttpHeaders({
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            });
-
             return this.http.delete<void>(
               `${this.apiURL}company-vehicles/${number}`,
-              { headers }
+              {
+                headers: this.secureApiService.getHeaders(),
+              }
             );
           } else {
             return throwError(() => new Error('Utilisateur non authentifié'));
@@ -149,24 +113,21 @@ export class CompanyVehicleAdminService {
       return throwError(() => new Error('Suppression annulée'));
     }
   }
-  //
+
   getVehiclesByBrand(brand: string): Observable<CompanyVehicle[]> {
     let params = new HttpParams();
     if (brand) {
       params = params.set('brand', brand);
     }
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
     return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles`, {
       params,
-      headers,
+      headers: this.secureApiService.getHeaders(),
     });
   }
 
   getVehicleByNumber(number: string): Observable<CompanyVehicle> {
-    return this.http.get<CompanyVehicle>(`${this.apiURL}/${number}`);
+    return this.http.get<CompanyVehicle>(`${this.apiURL}/${number}`, {
+      headers: this.secureApiService.getHeaders(),
+    });
   }
 }

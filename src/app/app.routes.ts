@@ -32,25 +32,23 @@ export const routes: Routes = [
   },
 
   {
+    path: 'company-vehicles/create',
+    component: CompanyVehicleCreateComponent,
+  },
+
+  {
     path: 'company-vehicles/status-and-booking-dates',
     component: CompanyVehicleEmployeeListComponent,
-  },
-  {
-    path: 'private-vehicles/create',
-    component: PrivateVehicleCreateComponent,
   },
   {
     path: 'company-vehicles/update/:id',
     component: CompanyVehicleUpdateComponent,
   },
+
+  { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
+
   {
-    path: 'company-vehicles/create',
-    component: CompanyVehicleCreateComponent,
-  },
-  { 
-    path: 'vehicle-bookings/employee/:id', component: BookingEmployeeCreateComponent,
-  },
-  { 
-    path: 'vehicle-bookings', component: BookingEmployeeListComponent,
+    path: 'private-vehicles/create',
+    component: PrivateVehicleCreateComponent,
   },
 ];
