@@ -15,12 +15,10 @@
   <button (click)="filterVehicles()"
     class="mb-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Filtrer</button>
 
-  <!-- Message d'erreur -->
   <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
     {{ errorMessage }}
   </div>
 
-  <!-- Table avec des colonnes de largeur réduite -->
   <div *ngIf="vehicles.length > 0">
     <table class="table-auto w-full">
       <thead>
@@ -38,28 +36,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let vehicle of vehicles" class="bg-white">
-          <td class="px-2 py-2 w-24"><input type="text" [(ngModel)]="vehicle.id" class="w-full border rounded p-1"></td>
-          <td class="px-2 py-2 w-48"><input type="text" [(ngModel)]="vehicle.number" class="w-full border rounded p-1">
-          </td>
-          <td class="px-2 py-2 w-48"><input type="text" [(ngModel)]="vehicle.brand" class="w-full border rounded p-1">
-          </td>
-          <td class="px-2 py-2 w-56"><input type="text" [(ngModel)]="vehicle.model" class="w-full border rounded p-1">
-          </td>
-          <td class="px-2 py-2 w-56">
-            <select [(ngModel)]="vehicle.category" class="w-full border rounded p-1">
-              <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-            </select>
-          </td>
-          <td class="px-2 py-2 w-32"><input type="number" [(ngModel)]="vehicle.seats" class="w-full border rounded p-1">
-          </td>
-          <td class="px-2 py-2 w-56">
-            <select [(ngModel)]="vehicle.motor" class="w-full border rounded p-1">
-              <option *ngFor="let motor of motors" [value]="motor">{{ motor }}</option>
-            </select>
-          </td>
-          <td class="px-2 py-2 w-48"><input type="number" [(ngModel)]="vehicle.co2PerKm"
-              class="w-full border rounded p-1"></td>
-          <td class="px-2 py-2 w-48">
+          <td class="px-2 py-2 w-24"><span>{{ vehicle.id }}</span></td>
+          <td class="px-2 py-2 w-48"><span>{{ vehicle.number }}</span></td>
+          <td class="px-2 py-2 w-48"><span>{{ vehicle.brand }}</span></td>
+          <td class="px-2 py-2 w-56"><span>{{ vehicle.model }}</span></td>
+          <td class="px-2 py-2 w-56"><span>{{ vehicle.category }}</span></td>
+          <td class="px-2 py-2 w-32"><span>{{ vehicle.seats }}</span></td>
+          <td class="px-2 py-2 w-56"><span>{{ vehicle.motor }}</span></td>
+          <td class="px-2 py-2 w-48"><span>{{ vehicle.co2PerKm }}</span></td>
+          <td class="px-2 py-2 w-120">
             <button [routerLink]="['/company-vehicles/update', vehicle.id]"
               class="bg-yellow-500 text-black px-2 py-1 rounded hover:bg-yellow-600 modif">Modifier</button>
             <button (click)="deleteCompanyVehicles(vehicle.id)"
@@ -70,7 +55,7 @@
     </table>
   </div>
 
-  <!-- Message si aucun véhicule n'est trouvé -->
+
   <div *ngIf="vehicles.length === 0" class="text-gray-500 text-center">
     Aucun véhicule disponible.
   </div>
