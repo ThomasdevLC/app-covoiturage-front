@@ -22,14 +22,14 @@ import { take } from 'rxjs';
 })
 
 export class BookingEmployeeListComponent implements OnInit{
-  //vehicles: CompanyVehicle[] = [];
- // employeeId: number = 0;
+  
   bookings: VehicleBooking[] =[];
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
   futureBookings: VehicleBooking[] = [];
   pastBookings: VehicleBooking[] = [];
-  //employeeId: number | undefined = 0;
+  histo: boolean = false; //Pour la valeur de l'historique
+ 
 
   constructor(
     private route: ActivatedRoute,
@@ -49,43 +49,95 @@ export class BookingEmployeeListComponent implements OnInit{
         const employeeId = currentUser.id;
         //this.employeeId = currentUser.id;
         console.log("ID de l'utilisateur connecté :", employeeId);
-  
         // Vous pouvez maintenant utiliser l'ID de l'utilisateur
         //this.getAllBookings(employeeId);
       } else {
         console.error("Utilisateur non authentifié.");
       }
     });
-   
-    //console.log("onInit company-vehicle-employee-list.component "+employeeId);
+  
     //Pour afficher une liste de reservations(bookings)
     this.getAllBookings();
   }
-  //employee/:id = id employee_courant -> 'vehicles-bookings/bookings-search/:id'
+  //
   getAllBookings(): void {
     const date = new Date();
-    console.log("date: "+date.toISOString());//OK heure GMT -> ISO
     const jour = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-    //const jour = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDay();Day=num jours semaine
     const heure = date.getHours()+":"+date.getMinutes();
-    console.log("jour: "+jour+" à: "+heure);
     this.bookingEmployeeService
       .getAllBookings()//retirer this.bookings
       .subscribe((bookings) => {
         this.bookings = bookings;
       if(!bookings || bookings.length===0){
-        console.log("Pas de réservations trouvées?");
-        //
         this.errorMessage ="Aucune reservation trouvée!"
       }
       else {
-        console.log("nb reservation: "+bookings.length);
-        //extraire des infos de bookings
         for(let i =0;i<bookings.length;i++){
-          console.log("bookings: "+bookings[i].vehicle.brand+"\n "+bookings[i].startTime+"\n "+bookings[i].endTime);
+          //console.log("bookings: "+bookings[i].vehicle.brand+"\n "+bookings[i].startTime+"\n "+bookings[i].endTime);
           //extraire les données de startTime et endTime pour verfiier si passees ou a venir
+          //pour les données de fin
+          const anEnd = bookings[i].endTime.substring(0,4);
+          const moisEnd = bookings[i].endTime.substring(5,7);
+          const jourEnd = bookings[i].endTime.substring(8,10);
+          const heureEnd = bookings[i].endTime.substring(11,13);
+          const minEnd = bookings[i].endTime.substring(15,16);
+          //pour le données de debut
+          const anStart = bookings[i].startTime.substring(0,4);
+          const moisStart = bookings[i].startTime.substring(5,7);
+          const jourStart = bookings[i].startTime.substring(8,10);
+          const heureStart = bookings[i].endTime.substring(11,13);
+          const minStart = bookings[i].endTime.substring(15,16);
+          //pour les données de la date
+          const anSys = date.getFullYear();
+          const moisSys = date.getMonth()+1;
+          const jourSys = date.getDate();
+          const heureSys = date.getHours();
+          const minSys = date.getMinutes();
+          
+          if(anSys>parseInt(anEnd,10)){
+            this.pastBookings.push(bookings[i]);
+          }
+          else if(anSys<parseInt(anEnd,10)){
+            this.futureBookings.push(bookings[i]);
+          }
+          else if(anSys===parseInt(anEnd,10)){
+              if(moisSys>parseInt(moisEnd,10)){
+                this.pastBookings.push(bookings[i]);
+              }
+              else if(moisSys<parseInt(moisEnd,10)){
+                this.futureBookings.push(bookings[i]);
+              }
+              else if(moisSys===parseInt(moisEnd,10)){
+                if(jourSys>parseInt(jourEnd,10)){
+                  this.pastBookings.push(bookings[i]);
+                }
+                else if(jourSys<parseInt(jourEnd,10)){
+                  this.futureBookings.push(bookings[i]);
+                }
+                else if(jourSys===parseInt(jourEnd,10)){
+                  this.futureBookings.push(bookings[i]);
+                  //Ajouter traitement heures
+                 if(heureSys>parseInt(heureEnd,10)){
+                  this.pastBookings.push(bookings[i]);
+                 }
+                 else if(heureSys<parseInt(heureEnd,10)){
+                  this.futureBookings.push(bookings[i]);
+                 }
+                 else if(heureSys===parseInt(heureEnd,10)){
+                  if(minSys>parseInt(minEnd)){
+                    this.pastBookings.push(bookings[i]);
+                  }
+                  else if(minSys<parseInt(minEnd)){
+                    this.futureBookings.push(bookings[i]);
+                  }
+                  else if(minSys===parseInt(minEnd)){
+                    this.futureBookings.push(bookings[i]);
+                  }
+                 }
+                }
+              }
+          }
         }
-    
       }
       },
       (error) => {
@@ -95,10 +147,24 @@ export class BookingEmployeeListComponent implements OnInit{
     );
   }
   //
-  deleteVehicleBooking(){
+  deleteVehicleBooking(): void{
     console.log("delete booking -> Id???");
+    if(this.bookings.length>0){
+      //affichage id vehicle = OK
+     
+  }//fin if(bookings.length)
+  else if(this.bookings.length==0){
+    this.errorMessage=" Pas de réservation.";
+  }
   }
   //
-
+  afficherHistorique(){
+    if(this.histo==false){
+      this.histo=true;
+    }
+    else if(this.histo==true){
+      this.histo=false;
+    }
+  }
   //
 }

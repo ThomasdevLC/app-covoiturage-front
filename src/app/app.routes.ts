@@ -51,4 +51,14 @@ export const routes: Routes = [
     path: 'private-vehicles/create',
     component: PrivateVehicleCreateComponent,
   },
+  {
+    path: 'vehicle-bookings/employee',
+    component: BookingEmployeeListComponent,
+  },
+/*
+  {
+    path: 'vehicle-bookings/employee/:id',
+    component: BookingEmployeeListComponent,
+  },
+  */
 ];

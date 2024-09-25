@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import { EmployeeService } from '../../employee/employee.service';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
 import { Observable, take, switchMap, throwError } from 'rxjs';
+import { SecureApiService } from '../../api/secure-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class BookingEmployeeService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private secureApiService: SecureApiService
   ) {}
 
   createBooking(booking: VehicleBooking): Observable<VehicleBooking> {
@@ -61,27 +63,26 @@ export class BookingEmployeeService {
           console.log("bookings employ service url: "+this.apiURL+"vehicle-bookings/");
           return this.http.get<VehicleBooking[]>(`${this.apiURL}vehicle-bookings`,{headers});
   }
-    /*
-     brand?: string,
-    number?: string
-  ): Observable<CompanyVehicle[]> {
-    let params = new HttpParams();
-    if (brand) {
-      params = params.set('brand', brand);
+   //
+   deleteBooking(id: number):Observable <void>{
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
+      return this.secureApiService.getCurrentUser().pipe(
+        switchMap((currentUser) => {
+          if (currentUser) {
+            return this.http.delete<void>(
+              `${this.apiURL}vehicle-bookings/${id}`,
+              {
+                headers: this.secureApiService.getHeaders(),
+              }
+            );
+          } else {
+            return throwError(() => new Error('Utilisateur non authentifié'));
+          }
+        })
+      );
+    } else {
+      return throwError(() => new Error('Suppression annulée'));
     }
-    if (number) {
-      params = params.set('number', number);
-    }
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/`, {
-      params,
-      headers,
-    });
-    */
+   } 
   //
 }
