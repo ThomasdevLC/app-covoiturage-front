@@ -21,12 +21,13 @@ export class RideShareService {
   getRideShares(
     departureCity?: string,
     arrivalCity?: string,
-    departureTime?: string
+    departureDateTime?: string
   ): Observable<RideShare[]> {
     let params = new HttpParams();
     if (departureCity) params = params.set('departureCity', departureCity);
     if (arrivalCity) params = params.set('arrivalCity', arrivalCity);
-    if (departureTime) params = params.set('departureTime', departureTime);
+    if (departureDateTime)
+      params = params.set('departureDateTime', departureDateTime);
 
     return this.http.get<RideShare[]>(`${this.apiURL}rideshares/search`, {
       params,
