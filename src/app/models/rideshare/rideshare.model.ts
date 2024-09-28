@@ -1,6 +1,6 @@
-import { Address } from './address.model';
-import { Employee } from './employee.model';
-import { PrivateVehicle } from './private-vehicle.model';
+import { Address } from '../Address/address.model';
+import { Employee } from '../employee.model';
+import { PrivateVehicle } from '../private-vehicle.model';
 
 export interface RideShare {
   id: number;

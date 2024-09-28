@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RideShare } from '../../models/rideshare.model';
+import { RideShare } from '../../models/rideshare/rideshare.model';
 import { environment } from '../../../environments/environment';
 import { SecureApiService } from '../api/secure-api.service';
+import { RideShareCreate } from '../../models/rideshare/rideshare-create.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,15 @@ export class RideShareService {
     return this.http.get<RideShare>(`${this.apiURL}/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
+  }
+
+  createRideShare(rideShare: RideShareCreate): Observable<RideShareCreate> {
+    return this.http.post<RideShareCreate>(
+      `${this.apiURL}rideshares`,
+      rideShare,
+      {
+        headers: this.secureApiService.getHeaders(),
+      }
+    );
   }
 }

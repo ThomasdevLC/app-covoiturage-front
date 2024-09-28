@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RideShare } from '../../../models/rideshare.model';
+import { RideShare } from '../../../models/rideshare/rideshare.model';
 import { RideShareService } from '../../../service/rideshare/rideshare.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
