@@ -50,4 +50,26 @@ export class BookingEmployeeService {
       })
     );
   }
+
+  getBookings(past: boolean): Observable<VehicleBooking[]> {
+    return this.employeeService.currentUser$.pipe(
+      take(1),
+      switchMap((currentUser) => {
+        if (currentUser) {
+          const employeeId = currentUser.id;
+
+          const token = this.authService.getToken();
+          const headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`,
+          });
+
+          const url = `${this.apiURL}vehicle-bookings/search/${employeeId}?past=${past}`;
+
+          return this.http.get<VehicleBooking[]>(url, { headers });
+        } else {
+          return throwError('Utilisateur non authentifié');
+        }
+      })
+    );
+  }
 }

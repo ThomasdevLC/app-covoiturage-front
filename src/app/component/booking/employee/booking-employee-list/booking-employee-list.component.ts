@@ -1,12 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { VehicleBooking } from '../../../../models/vehicle-booking.model';
+import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
+import { CommonModule } from '@angular/common';
+import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-booking-employee-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, DateFormatterPipe],
   templateUrl: './booking-employee-list.component.html',
-  styleUrl: './booking-employee-list.component.css'
+  styleUrl: './booking-employee-list.component.css',
 })
-export class BookingEmployeeListComponent {
+export class BookingEmployeeListComponent implements OnInit {
+  bookings$!: Observable<VehicleBooking[]>; // Observable pour les réservations
+  past: boolean = false; // Paramètre `past` pour déterminer si on affiche les anciennes réservations
 
+  constructor(private bookingEmployeeService: BookingEmployeeService) {}
+
+  ngOnInit(): void {
+    this.loadBookings(); // Charger les réservations à l'initialisation
+  }
+
+  // Fonction pour charger les réservations en fonction de `past`
+  loadBookings(): void {
+    this.bookings$ = this.bookingEmployeeService.getBookings(this.past);
+  }
+
+  // Fonction pour activer l'historique
+  togglePastBookings(): void {
+    this.past = !this.past; // Inverser la valeur de `past`
+    this.loadBookings(); // Recharger les réservations avec la nouvelle valeur de `past`
+  }
 }

@@ -1,1 +1,44 @@
-<p>booking-employee-list works!</p>
+<div class="booking-list p-6 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+        {{ past ? 'Historique des réservations' : 'Vos réservations en cours' }}
+    </h2>
+
+
+    <div class="text-center mb-8">
+        <button (click)="togglePastBookings()"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none transition">
+            {{ past ? 'Retour réservations en cours' : 'Voir l\'historique des réservations' }}
+        </button>
+    </div>
+
+
+
+    <ul *ngIf="bookings$ | async as bookings; else noBookings" class="space-y-4">
+        <li *ngFor="let booking of bookings" class="bg-white shadow rounded-lg p-6">
+            <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-lg font-semibold text-gray-700">
+                        <strong>Véhicule:</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}
+                    </p>
+                    <p class="text-gray-500">
+                        <strong>Numéro:</strong> {{ booking.vehicle.number }}
+                    </p>
+                </div>
+                <div>
+                    <p class="text-gray-600">
+                        <strong>Date de début:</strong> {{ booking.startTime | dateFormatter }}
+                    </p>
+                    <p class="text-gray-600">
+                        <strong>Date de fin:</strong> {{ booking.endTime | dateFormatter }}
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+
+    <!-- Message si aucune réservation n'est trouvée -->
+    <ng-template #noBookings>
+        <p class="text-center text-gray-500">Aucune réservation trouvée.</p>
+    </ng-template>
+</div>
