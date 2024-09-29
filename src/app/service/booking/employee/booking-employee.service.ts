@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../../auth/auth.service';
-import { EmployeeService } from '../../employee/employee.service';
+import { HttpClient } from '@angular/common/http';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
-import { Observable, take, switchMap, throwError } from 'rxjs';
+import { Observable, switchMap, throwError } from 'rxjs';
+import { SecureApiService } from '../../api/secure-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +13,11 @@ export class BookingEmployeeService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private employeeService: EmployeeService
+    private secureApiService: SecureApiService
   ) {}
 
   createBooking(booking: VehicleBooking): Observable<VehicleBooking> {
-    return this.employeeService.currentUser$.pipe(
-      take(1),
+    return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         if (currentUser) {
           const employeeId = { id: currentUser.id };
@@ -31,17 +28,11 @@ export class BookingEmployeeService {
             companyVehicle: { id: booking.vehicle.id },
           };
 
-          const token = this.authService.getToken();
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          });
-
           return this.http.post<VehicleBooking>(
             `${this.apiURL}vehicle-bookings`,
             bookingToPost,
             {
-              headers,
+              headers: this.secureApiService.getHeaders(),
             }
           );
         } else {
@@ -52,20 +43,16 @@ export class BookingEmployeeService {
   }
 
   getBookings(past: boolean): Observable<VehicleBooking[]> {
-    return this.employeeService.currentUser$.pipe(
-      take(1),
+    return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         if (currentUser) {
           const employeeId = currentUser.id;
 
-          const token = this.authService.getToken();
-          const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`,
-          });
-
           const url = `${this.apiURL}vehicle-bookings/search/${employeeId}?past=${past}`;
 
-          return this.http.get<VehicleBooking[]>(url, { headers });
+          return this.http.get<VehicleBooking[]>(url, {
+            headers: this.secureApiService.getHeaders(),
+          });
         } else {
           return throwError('Utilisateur non authentifié');
         }

@@ -1,5 +1,5 @@
-import { Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, switchMap, throwError } from 'rxjs';
 import { CompanyVehicle } from '../../../models/company-vehicle.model';
 import { environment } from '../../../../environments/environment';
