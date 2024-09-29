@@ -1,4 +1,4 @@
-import { RideShare } from './rideshare.model';
+import { RideShare } from './rideshare/rideshare.model';
 import { VehicleBooking } from './vehicle-booking.model';
 import { PrivateVehicle } from './private-vehicle.model';
 

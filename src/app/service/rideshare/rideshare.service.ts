@@ -1,32 +1,54 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RideShare } from '../../models/rideshare.model';
+import { RideShare } from '../../models/rideshare/rideshare.model';
+import { environment } from '../../../environments/environment';
+import { SecureApiService } from '../api/secure-api.service';
+import { RideShareCreate } from '../../models/rideshare/rideshare-create.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RideShareService {
-  private apiURL = 'http://localhost:8080/rideshares';
+  private apiURL = environment.apiURL;
   private ridesharesSubject = new BehaviorSubject<RideShare[]>([]);
   rideshares$ = this.ridesharesSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private secureApiService: SecureApiService
+  ) {}
 
   getRideShares(
     departureCity?: string,
     arrivalCity?: string,
-    departureTime?: string
+    departureDateTime?: string
   ): Observable<RideShare[]> {
     let params = new HttpParams();
     if (departureCity) params = params.set('departureCity', departureCity);
     if (arrivalCity) params = params.set('arrivalCity', arrivalCity);
-    if (departureTime) params = params.set('departureTime', departureTime);
+    if (departureDateTime)
+      params = params.set('departureDateTime', departureDateTime);
 
-    return this.http.get<RideShare[]>(`${this.apiURL}/search`, { params });
+    return this.http.get<RideShare[]>(`${this.apiURL}rideshares/search`, {
+      params,
+      headers: this.secureApiService.getHeaders(),
+    });
   }
 
   getRideShareById(id: number): Observable<RideShare> {
-    return this.http.get<RideShare>(`${this.apiURL}/${id}`);
+    return this.http.get<RideShare>(`${this.apiURL}/${id}`, {
+      headers: this.secureApiService.getHeaders(),
+    });
+  }
+
+  createRideShare(rideShare: RideShareCreate): Observable<RideShareCreate> {
+    return this.http.post<RideShareCreate>(
+      `${this.apiURL}rideshares`,
+      rideShare,
+      {
+        headers: this.secureApiService.getHeaders(),
+      }
+    );
   }
 }
