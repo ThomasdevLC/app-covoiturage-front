@@ -4,39 +4,40 @@ import { switchMap } from 'rxjs';
 import { SecureApiService } from '../../../service/api/secure-api.service';
 import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-rideshare-create',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './rideshare-create.component.html',
   styleUrl: './rideshare-create.component.css',
 })
 export class RideshareCreateComponent {
+  rideShareData: Omit<RideShareCreate, 'organizer'> = {
+    departureTime: new Date(),
+    arrivalTime: new Date(),
+    departureAddress: {
+      number: null,
+      street: '',
+      code: '',
+      city: '',
+    },
+    arrivalAddress: {
+      number: null,
+      street: '',
+      code: '',
+      city: '',
+    },
+    availableSeats: 1,
+  };
+
   constructor(
-    private rideShareService: RideShareService,
-    private secureApiService: SecureApiService
+    private secureApiService: SecureApiService,
+    private rideShareService: RideShareService
   ) {}
 
   createNewRideShare() {
-    const rideShareData: Omit<RideShareCreate, 'organizer'> = {
-      departureTime: new Date('2024-12-28T16:30:00'),
-      arrivalTime: new Date('2024-12-28T17:45:00'),
-      departureAddress: {
-        number: 18,
-        street: 'Boulevard de la Liberté',
-        code: '35000',
-        city: 'Rennes',
-      },
-      arrivalAddress: {
-        number: 25,
-        street: 'Avenue de France',
-        code: '44000',
-        city: 'Nantes',
-      },
-      availableSeats: 4,
-    };
-
     this.secureApiService
       .getCurrentUser()
       .pipe(
@@ -44,10 +45,9 @@ export class RideshareCreateComponent {
           if (currentUser) {
             const organizer = { id: currentUser.id };
             const newRideShare: RideShareCreate = {
-              ...rideShareData,
+              ...this.rideShareData,
               organizer,
             };
-
             return this.rideShareService.createRideShare(newRideShare);
           } else {
             throw new Error('Current user is not available');
