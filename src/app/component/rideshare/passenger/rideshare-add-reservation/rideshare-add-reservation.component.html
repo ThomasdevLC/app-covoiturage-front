@@ -3,8 +3,8 @@
         <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Détails du Covoiturage</h2>
 
         <div class="border-b border-gray-300 pb-4 mb-4">
-            <p class="text-lg mb-1"><strong>Heure de Départ :</strong> {{ rideShare.departureTime | date:'medium' }}</p>
-            <p class="text-lg mb-1"><strong>Heure d'Arrivée :</strong> {{ rideShare.arrivalTime | date:'medium' }}</p>
+            <p class="text-lg mb-1"><strong>Heure de Départ :</strong> {{ rideShare.departureTime | dateFormatter }}</p>
+            <p class="text-lg mb-1"><strong>Heure d'Arrivée :</strong> {{ rideShare.arrivalTime | dateFormatter }}</p>
         </div>
 
         <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Adresse de Départ :</h3>
@@ -29,7 +29,7 @@
         </button>
         <button (click)="joinAsPassenger()"
             class="mt-6 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-            Réserver
+            Confirmer la Réservation
         </button>
     </div>
 </div>

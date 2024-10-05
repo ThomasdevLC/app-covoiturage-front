@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideShareService } from '../../../../service/rideshare/rideshare.service';
 import { CommonModule } from '@angular/common';
+import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-rideshare-add-reservation',
   standalone: true,
-  imports: [CommonModule, RouterModule ],
+  imports: [CommonModule, RouterModule,DateFormatterPipe ],
   templateUrl: './rideshare-add-reservation.component.html',
   styleUrl: './rideshare-add-reservation.component.css'
 })
