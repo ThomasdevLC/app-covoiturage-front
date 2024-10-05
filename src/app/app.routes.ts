@@ -13,46 +13,26 @@ import { CompanyVehicleUpdateComponent } from './component/company-vehicle/admin
 import { BookingEmployeeCreateComponent } from './component/booking/employee/booking-employee-create/booking-employee-create.component';
 import { BookingEmployeeListComponent } from './component/booking/employee/booking-employee-list/booking-employee-list.component';
 import { RideshareAddReservationComponent } from './component/rideshare/passenger/rideshare-add-reservation/rideshare-add-reservation.component';
+import { RideshareOrganizerListComponent } from './component/rideshare/organizer/rideshare-organizer-list/rideshare-organizer-list.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  {
-    path: 'employees/:id',
-    component: EmployeeDetailComponent,
-  },
-  {
-    path: 'rideshares/create',
-    component: RideshareCreateComponent,
-  },
-  {
-    path: 'rideshares/search',
-    component: RideshareSearchlistComponent,
-  },
-
+  { path: 'employees/:id',component: EmployeeDetailComponent},
+  //RIDESHARES
+  { path: 'rideshares/create',component: RideshareCreateComponent},
+  { path: 'rideshares/search',component: RideshareSearchlistComponent},
   { path: 'rideshares/:id/add-passenger', component: RideshareAddReservationComponent },
-
-
+  { path: 'rideshares/organizer', component: RideshareOrganizerListComponent },
   { path: 'rideshares/:id', component: RideshareDetailComponent },
-
-  {
-    path: 'company-vehicles', component: CompanyVehicleAdminListComponent,},
-
-  {
-    path: 'company-vehicles/create', component:CompanyVehicleCreateComponent, },
-
+  //COMPANY-VEHICLES
+  { path: 'company-vehicles', component: CompanyVehicleAdminListComponent},
+  { path: 'company-vehicles/create', component:CompanyVehicleCreateComponent},
   { path: 'company-vehicles/status-and-booking-dates',component: CompanyVehicleEmployeeListComponent, },
-  {
-    path: 'company-vehicles/update/:id',
-    component: CompanyVehicleUpdateComponent,
-  },
-
+  { path: 'company-vehicles/update/:id',component: CompanyVehicleUpdateComponent},
+  //BOOKINGS
   { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
-
   { path: 'bookings-list', component: BookingEmployeeListComponent },
-
-  {
-    path: 'private-vehicles/create',
-    component: PrivateVehicleCreateComponent,
-  },
+  //PRIVATE-VEHICLES
+  { path: 'private-vehicles/create',component: PrivateVehicleCreateComponent},
 ];
