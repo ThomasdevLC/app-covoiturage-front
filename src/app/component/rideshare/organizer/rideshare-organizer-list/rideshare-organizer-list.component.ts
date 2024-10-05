@@ -4,11 +4,12 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { RideshareOrganizerItemComponent } from '../rideshare-organizer-item/rideshare-organizer-item.component';
 
 @Component({
   selector: 'app-rideshare-organizer-list',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe],
+  imports: [CommonModule, DateFormatterPipe, RideshareOrganizerItemComponent],
   templateUrl: './rideshare-organizer-list.component.html',
   styleUrl: './rideshare-organizer-list.component.css'
 })
