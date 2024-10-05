@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { EmployeeDetailComponent } from './component/employee/employee-detail/employee-detail.component';
-import { RideshareCreateComponent } from './component/rideshare/rideshare-create/rideshare-create.component';
-import { RideshareSearchlistComponent } from './component/rideshare/rideshare-searchlist/rideshare-searchlist.component';
+import { RideshareCreateComponent } from './component/rideshare/organizer/rideshare-create/rideshare-create.component';
+import { RideshareSearchlistComponent } from './component/rideshare/passenger/rideshare-searchlist/rideshare-searchlist.component';
 import { RideshareDetailComponent } from './component/rideshare/rideshare-detail/rideshare-detail.component';
 import { CompanyVehicleEmployeeListComponent } from './component/company-vehicle/employee/company-vehicle-employee-list/company-vehicle-employee-list.component';
 import { CompanyVehicleAdminListComponent } from './component/company-vehicle/admin/company-vehicle-admin-list/company-vehicle-admin-list.component';
@@ -29,22 +29,23 @@ export const routes: Routes = [
     component: RideshareSearchlistComponent,
   },
 
+  {
+    path: 'rideshares/search',
+    component: RideshareSearchlistComponent,
+  },
+
+
+
+
   { path: 'rideshares/:id', component: RideshareDetailComponent },
 
   {
-    path: 'company-vehicles',
-    component: CompanyVehicleAdminListComponent,
-  },
+    path: 'company-vehicles', component: CompanyVehicleAdminListComponent,},
 
   {
-    path: 'company-vehicles/create',
-    component: CompanyVehicleCreateComponent,
-  },
+    path: 'company-vehicles/create', component:CompanyVehicleCreateComponent, },
 
-  {
-    path: 'company-vehicles/status-and-booking-dates',
-    component: CompanyVehicleEmployeeListComponent,
-  },
+  { path: 'company-vehicles/status-and-booking-dates',component: CompanyVehicleEmployeeListComponent, },
   {
     path: 'company-vehicles/update/:id',
     component: CompanyVehicleUpdateComponent,

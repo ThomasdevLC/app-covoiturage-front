@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { RideShareService } from '../../../service/rideshare/rideshare.service';
+import { RideShareService } from '../../../../service/rideshare/rideshare.service';
 import { switchMap } from 'rxjs';
-import { SecureApiService } from '../../../service/api/secure-api.service';
-import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
+import { SecureApiService } from '../../../../service/api/secure-api.service';
+import { RideShareCreate } from '../../../../models/rideshare/rideshare-create.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
