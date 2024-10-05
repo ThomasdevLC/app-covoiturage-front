@@ -5,7 +5,6 @@ import { RideShareService } from '../../../../service/rideshare/rideshare.servic
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerItemComponent } from '../rideshare-passenger-item/rideshare-passenger-item.component'; 
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 @Component({
   selector: 'app-rideshare-searchlist',
   standalone: true,
@@ -13,7 +12,7 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
   templateUrl: './rideshare-searchlist.component.html',
   styleUrl: './rideshare-searchlist.component.css',
 })
-export class RideshareSearchlistComponent implements OnInit {
+export class RideshareSearchlistComponent {
   rideshares: RideShare[] = [];
   departureCity = '';
   arrivalCity = '';
@@ -23,42 +22,39 @@ export class RideshareSearchlistComponent implements OnInit {
     private rideShareService: RideShareService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
+  ) {
+    // Souscription aux paramètres de requête dans le constructeur
     this.route.queryParams.subscribe((params) => {
       this.departureCity = params['departureCity'] || '';
       this.arrivalCity = params['arrivalCity'] || '';
       this.departureDateTime = params['departureDateTime'] || '';
 
-      this.searchRideShares(); // Perform initial search
+      this.searchRideShares(); // Effectuer la recherche initiale
     });
   }
 
   onInputChange(): void {
-    // Trigger search if at least one field is filled
+    // Déclencher la recherche si au moins un champ est rempli
     if (this.departureCity || this.arrivalCity || this.departureDateTime) {
       this.searchRideShares();
     } else {
-      this.rideshares = []; // Clear results if all fields are empty
+      this.rideshares = []; // Effacer les résultats si tous les champs sont vides
     }
   }
 
   searchRideShares(): void {
-    // If all fields are empty, reset rideshares
+    // Si tous les champs sont vides, réinitialiser les covoiturages
     if (!this.departureCity && !this.arrivalCity && !this.departureDateTime) {
       this.rideshares = [];
       return;
     }
 
-    
-
-    // Request to get rideshares
+    // Demande pour obtenir les covoiturages
     this.rideShareService
       .getRideShares(this.departureCity, this.arrivalCity, this.departureDateTime)
       .subscribe({
         next: (rideshares: RideShare[]) => (this.rideshares = rideshares),
-        error: (err) => console.error('Error fetching rideshares:', err),
+        error: (err) => console.error('Erreur lors de la récupération des covoiturages:', err),
       });
   }
 }
