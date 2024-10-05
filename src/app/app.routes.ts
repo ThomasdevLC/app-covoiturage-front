@@ -12,6 +12,7 @@ import { CompanyVehicleCreateComponent } from './component/company-vehicle/admin
 import { CompanyVehicleUpdateComponent } from './component/company-vehicle/admin/company-vehicle-update/company-vehicle-update.component';
 import { BookingEmployeeCreateComponent } from './component/booking/employee/booking-employee-create/booking-employee-create.component';
 import { BookingEmployeeListComponent } from './component/booking/employee/booking-employee-list/booking-employee-list.component';
+import { RideshareAddReservationComponent } from './component/rideshare/passenger/rideshare-add-reservation/rideshare-add-reservation.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,12 +30,7 @@ export const routes: Routes = [
     component: RideshareSearchlistComponent,
   },
 
-  {
-    path: 'rideshares/search',
-    component: RideshareSearchlistComponent,
-  },
-
-
+  { path: 'rideshares/:id/add-passenger', component: RideshareAddReservationComponent },
 
 
   { path: 'rideshares/:id', component: RideshareDetailComponent },

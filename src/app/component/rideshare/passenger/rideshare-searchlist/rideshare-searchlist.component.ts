@@ -4,11 +4,11 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideShareService } from '../../../../service/rideshare/rideshare.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { RidesharePassengerItemComponent } from '../rideshare-passenger-item/rideshare-passenger-item.component'; 
 @Component({
   selector: 'app-rideshare-searchlist',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RidesharePassengerItemComponent ],
   templateUrl: './rideshare-searchlist.component.html',
   styleUrl: './rideshare-searchlist.component.css',
 })

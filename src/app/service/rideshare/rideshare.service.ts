@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { RideShare } from '../../models/rideshare/rideshare.model';
 import { environment } from '../../../environments/environment';
 import { SecureApiService } from '../api/secure-api.service';
@@ -37,7 +37,7 @@ export class RideShareService {
   }
 
   getRideShareById(id: number): Observable<RideShare> {
-    return this.http.get<RideShare>(`${this.apiURL}/${id}`, {
+    return this.http.get<RideShare>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
   }
@@ -51,4 +51,16 @@ export class RideShareService {
       }
     );
   }
+
+  joinAsPassenger(rideShareId: number): Observable<any> {
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        const userId = currentUser.id; 
+        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/add-passenger/${userId}`, {}, {
+          headers: this.secureApiService.getHeaders(),
+        });
+      })
+    );
+  }
 }
+
