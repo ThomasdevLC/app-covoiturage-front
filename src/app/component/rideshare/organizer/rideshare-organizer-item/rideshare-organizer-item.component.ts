@@ -23,7 +23,6 @@ export class RideshareOrganizerItemComponent {
 
 onCancel() {
   console.log('Annuler', this.rideshare);
-  // Ajoutez votre logique d'annulation ici
 }
 
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
 import { RideShare } from '../../../models/rideshare/rideshare.model';
-import { BehaviorSubject, map, Observable, switchMap, take, tap, throwError } from 'rxjs';
+import { map, Observable, switchMap, take, tap, throwError } from 'rxjs';
 import { EmployeeService } from '../../employee/employee.service';
 import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
 
