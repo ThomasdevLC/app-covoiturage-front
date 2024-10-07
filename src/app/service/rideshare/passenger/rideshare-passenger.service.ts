@@ -22,13 +22,22 @@ export class RidesharePassengerService {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id; 
-        return this.http.get<RideShare[]>(`${this.apiURL}rideshares/organizer/${userId}?past=${past}`, {
+        return this.http.get<RideShare[]>(`${this.apiURL}rideshares/passenger/${userId}?past=${past}`, {
           headers: this.secureApiService.getHeaders(),
         });
       })
     );
   }
 
-
+  cancelAsPassenger(rideShareId: number): Observable<any> {
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        const userId = currentUser.id; 
+        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`, {}, {
+          headers: this.secureApiService.getHeaders(),
+        });
+      })
+    );
+  }
 
 }
