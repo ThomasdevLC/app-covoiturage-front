@@ -9,10 +9,10 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
   selector: 'app-rideshare-reservation-details',
   standalone: true,
   imports: [CommonModule, DateFormatterPipe],
-  templateUrl: './rideshare-reservation-details.component.html',
-  styleUrl: './rideshare-reservation-details.component.css'
+  templateUrl: './rideshare-passenger-reservation-details.component.html',
+  styleUrl: './rideshare-passenger-reservation-details.component.css'
 })
-export class RideshareReservationDetailsComponent {
+export class RidesharePassengerReservationDetailsComponent {
 
   @Input() rideshare!: RideShare;
   

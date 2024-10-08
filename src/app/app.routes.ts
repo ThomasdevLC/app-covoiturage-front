@@ -15,7 +15,7 @@ import { RideshareAddReservationComponent } from './component/rideshare/passenge
 import { RideshareOrganizerListComponent } from './component/rideshare/organizer/rideshare-organizer-list/rideshare-organizer-list.component';
 import { RideshareOrganizerUpdateComponent } from './component/rideshare/organizer/rideshare-organizer-update/rideshare-organizer-update.component';
 import { RideshareReservationListComponent } from './component/rideshare/passenger/rideshare-reservation-list/rideshare-reservation-list.component';
-import { RideshareReservationDetailsComponent } from './component/rideshare/passenger/rideshare-reservation-details/rideshare-reservation-details.component';
+import { RidesharePassengerReservationDetailsComponent } from './component/rideshare/passenger/rideshare-passenger-reservation-details/rideshare-passenger-reservation-details';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -29,7 +29,7 @@ export const routes: Routes = [
   { path: 'rideshares/search',component: RideshareSearchlistComponent},
   { path: 'rideshares/:id/add-passenger', component: RideshareAddReservationComponent },
   { path: 'rideshares/passenger', component: RideshareReservationListComponent },
-  { path: 'rideshares/passenger/:id', component: RideshareReservationDetailsComponent },
+  { path: 'rideshares/passenger/:id', component:RidesharePassengerReservationDetailsComponent },
 
   //COMPANY-VEHICLES
   { path: 'company-vehicles', component: CompanyVehicleAdminListComponent},

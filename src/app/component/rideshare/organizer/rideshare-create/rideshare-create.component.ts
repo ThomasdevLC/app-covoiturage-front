@@ -5,6 +5,7 @@ import { SecureApiService } from '../../../../service/api/secure-api.service';
 import { RideShareCreate } from '../../../../models/rideshare/rideshare-create.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rideshare-create',
@@ -34,7 +35,9 @@ export class RideshareCreateComponent {
 
   constructor(
     private secureApiService: SecureApiService,
-    private rideShareService: RideShareService
+    private rideShareService: RideShareService,
+    private router: Router
+
   ) {}
 
   createNewRideShare() {
@@ -49,6 +52,7 @@ export class RideshareCreateComponent {
               organizer,
             };
             return this.rideShareService.createRideShare(newRideShare);
+
           } else {
             throw new Error('Current user is not available');
           }
@@ -57,6 +61,8 @@ export class RideshareCreateComponent {
       .subscribe(
         (response) => {
           console.log('Ride share created successfully:', response);
+          this.router.navigate(['/rideshares/organizer']);
+
         },
         (error) => {
           console.error('Error creating ride share:', error);
