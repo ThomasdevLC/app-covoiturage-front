@@ -20,7 +20,5 @@ export class RideshareReservationItemComponent {
   
   }
 
-  onCancel() {
-    console.log('Annuler', this.rideshare);
-  }
+ 
 }

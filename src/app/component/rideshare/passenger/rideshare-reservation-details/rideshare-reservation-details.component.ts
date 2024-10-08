@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
+import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 
 @Component({
   selector: 'app-rideshare-reservation-details',
@@ -15,7 +15,7 @@ export class RideshareReservationDetailsComponent {
   @Input() rideshare!: RideShare;
   
   constructor(
-    private rideshareService: RideshareOrganizerService,
+    private rideshareService: RidesharePassengerService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -35,6 +35,10 @@ export class RideshareReservationDetailsComponent {
         console.error('Erreur lors de la récupération du covoiturage:', err);
       },
     });
+  }
+
+  onCancel() {
+    console.log('Annuler', this.rideshare);
   }
 
 }

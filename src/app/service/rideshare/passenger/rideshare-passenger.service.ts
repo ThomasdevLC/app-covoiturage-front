@@ -29,6 +29,12 @@ export class RidesharePassengerService {
     );
   }
 
+  getRideShareById(id: number): Observable<RideShare> {
+    return this.http.get<RideShare>(`${this.apiURL}rideshares/${id}`, {
+      headers: this.secureApiService.getHeaders(),
+    });
+  }
+
   cancelAsPassenger(rideShareId: number): Observable<any> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
