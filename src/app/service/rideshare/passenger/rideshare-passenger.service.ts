@@ -39,7 +39,7 @@ export class RidesharePassengerService {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id; 
-        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`, {}, {
+        return this.http.delete<any>(`${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`, {
           headers: this.secureApiService.getHeaders(),
         });
       })

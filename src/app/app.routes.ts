@@ -21,6 +21,7 @@ export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'employees/:id',component: EmployeeDetailComponent},
+
   //RIDESHARES
   { path: 'rideshares/create',component: RideshareCreateComponent},
   { path: 'rideshares/organizer', component: RideshareOrganizerListComponent },
@@ -30,15 +31,16 @@ export const routes: Routes = [
   { path: 'rideshares/passenger', component: RideshareReservationListComponent },
   { path: 'rideshares/passenger/:id', component: RideshareReservationDetailsComponent },
 
-
   //COMPANY-VEHICLES
   { path: 'company-vehicles', component: CompanyVehicleAdminListComponent},
   { path: 'company-vehicles/create', component:CompanyVehicleCreateComponent},
   { path: 'company-vehicles/status-and-booking-dates',component: CompanyVehicleEmployeeListComponent, },
   { path: 'company-vehicles/update/:id',component: CompanyVehicleUpdateComponent},
+
   //BOOKINGS
   { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
   { path: 'bookings-list', component: BookingEmployeeListComponent },
+  
   //PRIVATE-VEHICLES
   { path: 'private-vehicles/create',component: PrivateVehicleCreateComponent},
 ];

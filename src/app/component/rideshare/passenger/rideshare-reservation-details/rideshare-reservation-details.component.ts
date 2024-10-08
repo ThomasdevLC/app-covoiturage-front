@@ -2,11 +2,13 @@ import { Component, Input } from '@angular/core';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
+import { CommonModule } from '@angular/common';
+import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-rideshare-reservation-details',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, DateFormatterPipe],
   templateUrl: './rideshare-reservation-details.component.html',
   styleUrl: './rideshare-reservation-details.component.css'
 })
@@ -29,7 +31,7 @@ export class RideshareReservationDetailsComponent {
     this.rideshareService.getRideShareById(id).subscribe({
       next: (rideShare: RideShare) => {
         this.rideshare = rideShare; 
-        console.log('Fetched RideShare:', rideShare);
+        console.log(' RideShare:', rideShare);
       },
       error: (err) => {
         console.error('Erreur lors de la récupération du covoiturage:', err);
@@ -37,8 +39,17 @@ export class RideshareReservationDetailsComponent {
     });
   }
 
-  onCancel() {
-    console.log('Annuler', this.rideshare);
+  onCancel(): void {
+    if (!this.rideshare || !this.rideshare.id) return;
+    
+    this.rideshareService.cancelAsPassenger(this.rideshare.id).subscribe({
+      next: () => {
+        console.log('RideShare cancelled ');
+        this.router.navigate(['/rideshares/passenger']); 
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'annulation du covoiturage:', err);
+      },
+    });
   }
-
 }
