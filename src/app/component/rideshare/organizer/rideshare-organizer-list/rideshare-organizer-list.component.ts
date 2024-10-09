@@ -18,14 +18,14 @@ export class RideshareOrganizerListComponent implements OnInit {
 
   past: boolean = false;
 
-  constructor(private rideshareOrganizerService: RideshareOrganizerService) {}
+  constructor(private rideshareService: RideshareOrganizerService) {}
 
   ngOnInit(): void {
     this.loadRideShares();
   }
 
   loadRideShares(): void {
-    this.rideshares$ = this.rideshareOrganizerService.loadOrganizerRideShares(this.past);
+    this.rideshares$ = this.rideshareService.loadOrganizerRideShares(this.past);
   }
 
   togglePastRideshares(): void {

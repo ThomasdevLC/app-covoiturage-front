@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
-import { RideShareService } from '../../../../service/rideshare/rideshare.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-search-item/rideshare-passenger-search-item.component';
+import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
@@ -19,7 +19,7 @@ export class RidesharePassengerSearchListComponent {
   departureDateTime = '';
 
   constructor(
-    private rideShareService: RideShareService,
+    private rideShareService: RidesharePassengerService,
     private route: ActivatedRoute,
     private router: Router
   ) {

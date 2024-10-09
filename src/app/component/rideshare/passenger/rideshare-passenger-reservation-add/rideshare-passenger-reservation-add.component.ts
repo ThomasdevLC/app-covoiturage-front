@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
-import { RideShareService } from '../../../../service/rideshare/rideshare.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,
@@ -18,7 +18,7 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
   
     constructor(
       private route: ActivatedRoute,
-      private rideShareService: RideShareService
+      private rideShareService: RidesharePassengerService
     ) {}
   
     ngOnInit(): void {

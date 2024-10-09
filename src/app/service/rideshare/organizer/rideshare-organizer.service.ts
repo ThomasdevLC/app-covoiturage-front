@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
 import { RideShare } from '../../../models/rideshare/rideshare.model';
-import { Observable, switchMap, } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, } from 'rxjs';
 import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
 
 @Injectable({
@@ -11,6 +11,8 @@ import { RideShareCreate } from '../../../models/rideshare/rideshare-create.mode
 })
 export class RideshareOrganizerService {
   private apiURL = environment.apiURL;
+  private ridesharesSubject = new BehaviorSubject<RideShare[]>([]);
+  rideshares$ = this.ridesharesSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -30,7 +32,8 @@ export class RideshareOrganizerService {
 
   loadOrganizerRideShares(past: boolean): Observable<RideShare[]> {
     return this.secureApiService.getCurrentUser().pipe(
-      switchMap((userId) => {
+      switchMap((currentUser) => {
+        const userId = currentUser.id; 
         return this.http.get<RideShare[]>(`${this.apiURL}rideshares/organizer/${userId}?past=${past}`, {
           headers: this.secureApiService.getHeaders(),
         });
@@ -40,8 +43,9 @@ export class RideshareOrganizerService {
 
   updateRideShare(id: number, updatedData: Partial<RideShareCreate>): Observable<RideShareCreate> {
     return this.secureApiService.getCurrentUser().pipe(
-      switchMap((userId) => {
-        return this.http.post<RideShareCreate>(
+      switchMap((currentUser) => {
+        const userId = currentUser.id;
+           return this.http.post<RideShareCreate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,
           updatedData,
           {
