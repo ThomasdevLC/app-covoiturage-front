@@ -22,6 +22,7 @@ export class BookingEmployeeCreateComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private vehicleService: CompanyVehicleAdminService,
     private bookingEmployeeService: BookingEmployeeService
   ) {}
@@ -62,6 +63,8 @@ export class BookingEmployeeCreateComponent implements OnInit {
       this.bookingEmployeeService.createBooking(booking).subscribe(
         (result) => {
           console.log('Réservation réussie:', result);
+          this.router.navigate(['/bookings-list']); 
+
         },
         (error) => {
           this.errorMessage = 'Erreur lors de la réservation du véhicule';
