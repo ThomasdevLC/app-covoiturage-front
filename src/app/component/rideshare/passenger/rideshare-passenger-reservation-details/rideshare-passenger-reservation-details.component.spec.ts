@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RidesharePassengerReservationDetailsComponent } from './rideshare-passenger-reservation-details';
+import { RidesharePassengerReservationDetailsComponent } from './rideshare-passenger-reservation-details.component';
 
-describe('RideshareReservationDetailsComponent', () => {
+describe('RidesharePassengerReservationDetailsComponent', () => {
   let component: RidesharePassengerReservationDetailsComponent;
   let fixture: ComponentFixture<RidesharePassengerReservationDetailsComponent>;
 

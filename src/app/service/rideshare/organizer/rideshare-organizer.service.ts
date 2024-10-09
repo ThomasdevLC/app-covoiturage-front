@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
 import { RideShare } from '../../../models/rideshare/rideshare.model';
-import { map, Observable, switchMap, take, tap, throwError } from 'rxjs';
-import { EmployeeService } from '../../employee/employee.service';
+import { Observable, switchMap, } from 'rxjs';
 import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
 
 @Injectable({
@@ -16,24 +15,21 @@ export class RideshareOrganizerService {
   constructor(
     private http: HttpClient,
     private secureApiService: SecureApiService,
-    private employeeService: EmployeeService
   ) {}
 
-  private getCurrentUserId(): Observable<number> {
-    return this.employeeService.currentUser$.pipe(
-      take(1),
-      map(currentUser => {
-        if (currentUser) {
-          return currentUser.id;
-        } else {
-          throw new Error('Utilisateur non authentifié');
-        }
-      })
+
+  createRideShare(rideShare: RideShareCreate): Observable<RideShareCreate> {
+    return this.http.post<RideShareCreate>(
+      `${this.apiURL}rideshares`,
+      rideShare,
+      {
+        headers: this.secureApiService.getHeaders(),
+      }
     );
   }
 
   loadOrganizerRideShares(past: boolean): Observable<RideShare[]> {
-    return this.getCurrentUserId().pipe(
+    return this.secureApiService.getCurrentUser().pipe(
       switchMap((userId) => {
         return this.http.get<RideShare[]>(`${this.apiURL}rideshares/organizer/${userId}?past=${past}`, {
           headers: this.secureApiService.getHeaders(),
@@ -43,7 +39,7 @@ export class RideshareOrganizerService {
   }
 
   updateRideShare(id: number, updatedData: Partial<RideShareCreate>): Observable<RideShareCreate> {
-    return this.getCurrentUserId().pipe(
+    return this.secureApiService.getCurrentUser().pipe(
       switchMap((userId) => {
         return this.http.post<RideShareCreate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,

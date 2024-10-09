@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
 @Component({
-  selector: 'app-rideshare-passenger-item',
+  selector: 'app-rideshare-passenger-search-item',
   standalone: true,
   imports: [CommonModule,RouterModule, DateFormatterPipe],
-  templateUrl: './rideshare-passenger-item.component.html',
-  styleUrl: './rideshare-passenger-item.component.css'
+  templateUrl: './rideshare-passenger-search-item.component.html',
+  styleUrl: './rideshare-passenger-search-item.component.css'
 })
-export class RidesharePassengerItemComponent {
+export class RidesharePassengerSearchItemComponent {
   @Input() rideshare!: RideShare; 
+
 }

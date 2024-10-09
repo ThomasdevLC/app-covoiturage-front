@@ -5,8 +5,9 @@ import { RidesharePassengerService } from '../../../../service/rideshare/passeng
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
+
 @Component({
-  selector: 'app-rideshare-reservation-details',
+  selector: 'app-rideshare-passenger-reservation-details',
   standalone: true,
   imports: [CommonModule, DateFormatterPipe],
   templateUrl: './rideshare-passenger-reservation-details.component.html',
@@ -53,3 +54,5 @@ export class RidesharePassengerReservationDetailsComponent {
     });
   }
 }
+
+

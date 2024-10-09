@@ -3,17 +3,16 @@ import { Observable } from 'rxjs';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { CommonModule } from '@angular/common';
-import { RideshareReservationItemComponent } from '../rideshare-reservation-item/rideshare-reservation-item.component';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { RidesharePassengerReservationItemComponent } from '../rideshare-passenger-reservation-item/rideshare-passenger-reservation-item.component';
 
 @Component({
-  selector: 'app-rideshare-reservation-list',
+  selector: 'app-rideshare-passenger-reservation-list',
   standalone: true,
-  imports: [CommonModule, RideshareReservationItemComponent],
-  templateUrl: './rideshare-reservation-list.component.html',
-  styleUrl: './rideshare-reservation-list.component.css'
+  imports: [CommonModule, RidesharePassengerReservationItemComponent],
+  templateUrl: './rideshare-passenger-reservation-list.component.html',
+  styleUrl: './rideshare-passenger-reservation-list.component.css'
 })
-export class RideshareReservationListComponent {
+export class RidesharePassengerReservationListComponent {
   rideshares$!: Observable<RideShare[]>; 
 
   past: boolean = false;
@@ -32,6 +31,4 @@ export class RideshareReservationListComponent {
     this.past = !this.past;
     this.loadRideShares(); 
   }
-
-
 }

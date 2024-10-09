@@ -4,15 +4,15 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideShareService } from '../../../../service/rideshare/rideshare.service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RidesharePassengerItemComponent } from '../rideshare-passenger-item/rideshare-passenger-item.component'; 
+import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-search-item/rideshare-passenger-search-item.component';
+
 @Component({
-  selector: 'app-rideshare-searchlist',
+  selector: 'app-rideshare-passenger-search-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RidesharePassengerItemComponent ],
-  templateUrl: './rideshare-searchlist.component.html',
-  styleUrl: './rideshare-searchlist.component.css',
+  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent ],  templateUrl: './rideshare-passenger-search-list.component.html',
+  styleUrl: './rideshare-passenger-search-list.component.css'
 })
-export class RideshareSearchlistComponent {
+export class RidesharePassengerSearchListComponent {
   rideshares: RideShare[] = [];
   departureCity = '';
   arrivalCity = '';

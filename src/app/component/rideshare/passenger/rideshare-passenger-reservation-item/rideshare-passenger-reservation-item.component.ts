@@ -4,13 +4,13 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-rideshare-reservation-item',
+  selector: 'app-rideshare-passenger-reservation-item',
   standalone: true,
   imports: [DateFormatterPipe,RouterModule],
-  templateUrl: './rideshare-reservation-item.component.html',
-  styleUrl: './rideshare-reservation-item.component.css'
+  templateUrl: './rideshare-passenger-reservation-item.component.html',
+  styleUrl: './rideshare-passenger-reservation-item.component.css'
 })
-export class RideshareReservationItemComponent {
+export class RidesharePassengerReservationItemComponent {
   @Input() rideshare!: RideShare;
 
   constructor(private router: Router) {}
@@ -19,6 +19,4 @@ export class RideshareReservationItemComponent {
     this.router.navigate(['/rideshares/passenger/', this.rideshare.id]);
   
   }
-
- 
 }
