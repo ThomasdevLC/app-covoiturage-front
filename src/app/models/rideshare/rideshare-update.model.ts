@@ -7,5 +7,5 @@ export interface RideShareUpdate {
   departureAddress: AddressCreateRideShare;
   arrivalAddress: AddressCreateRideShare;
   organizer: { id: number };
-  availableSeats: number;
+  availableSeats: number | null;
 }

@@ -5,6 +5,7 @@ import { SecureApiService } from '../../api/secure-api.service';
 import { RideShare } from '../../../models/rideshare/rideshare.model';
 import { BehaviorSubject, Observable, switchMap, } from 'rxjs';
 import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
+import { RideShareUpdate } from '../../../models/rideshare/rideshare-update.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,11 @@ export class RideshareOrganizerService {
     );
   }
 
-  updateRideShare(id: number, updatedData: Partial<RideShareCreate>): Observable<RideShareCreate> {
+  updateRideShare(id: number, updatedData: Partial<RideShareUpdate>): Observable<RideShareUpdate> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id;
-           return this.http.post<RideShareCreate>(
+           return this.http.put<RideShareUpdate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,
           updatedData,
           {
@@ -56,8 +57,8 @@ export class RideshareOrganizerService {
     );
   }
 
-  getRideShareById(id: number): Observable<RideShareCreate> {
-    return this.http.get<RideShareCreate>(`${this.apiURL}rideshares/${id}`, {
+  getRideShareById(id: number): Observable<RideShareUpdate> {
+    return this.http.get<RideShareUpdate>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
   }
