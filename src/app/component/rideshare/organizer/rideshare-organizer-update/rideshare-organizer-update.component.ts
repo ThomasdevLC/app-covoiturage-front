@@ -45,17 +45,14 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
     if (this.rideShareData.id !== undefined) {
       this.rideshareService.updateRideShare(this.rideShareData.id, this.rideShareData).subscribe({
         next: (updatedRideShare) => {
-          console.log('RideShare updated successfully:', updatedRideShare);
-          // Optionally, navigate to another page or show a success message
+          console.log('RideShare updated :', updatedRideShare);
         },
         error: (err) => {
           console.error('Error updating RideShare:', err);
-          // Handle the error, such as showing an error message to the user
         },
       });
     } else {
       console.error('RideShare ID is undefined. Cannot update RideShare.');
-      // Handle the error, such as showing an error message to the user
     }
   }
 }

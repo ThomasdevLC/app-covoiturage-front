@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
 import { RideShare } from '../../../models/rideshare/rideshare.model';
-import { BehaviorSubject, Observable, switchMap, } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap, } from 'rxjs';
 import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
 import { RideShareUpdate } from '../../../models/rideshare/rideshare-update.model';
 
@@ -62,4 +62,25 @@ export class RideshareOrganizerService {
       headers: this.secureApiService.getHeaders(),
     });
   }
+
+
+  deleteRideShare(id: number): Observable<RideShare> {
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        const organizerId = currentUser.id;
+        return this.http.delete<RideShare>(
+          `${this.apiURL}rideshares/${id}/delete/${organizerId}`,
+          {
+            headers: this.secureApiService.getHeaders(),
+          }
+        );
+      }),
+      tap(() => {
+        this.ridesharesSubject.next(
+          this.ridesharesSubject.getValue().filter(ride => ride.id !== id)
+        );
+      })
+    );
+  }
+  
 }
