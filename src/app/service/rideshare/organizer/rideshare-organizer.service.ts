@@ -57,8 +57,8 @@ export class RideshareOrganizerService {
     );
   }
 
-  getRideShareById(id: number): Observable<RideShareUpdate> {
-    return this.http.get<RideShareUpdate>(`${this.apiURL}rideshares/${id}`, {
+  getRideShareById(id: number): Observable<RideShare> {
+    return this.http.get<RideShare>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
   }
