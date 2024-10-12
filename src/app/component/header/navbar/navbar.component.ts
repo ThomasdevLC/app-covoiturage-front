@@ -14,7 +14,7 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent  {
   currentUser$: Observable<EmployeeConnected | null>;
   menuOpen: boolean = false;
 
@@ -27,9 +27,6 @@ export class NavbarComponent implements OnInit {
     this.currentUser$ = this.employeeService.currentUser$;
   }
 
-  ngOnInit(): void {
-    this.employeeService.initializeCurrentUser();
-  }
 
   toggleDropdown(): void {
     this.menuOpen = !this.menuOpen;
@@ -37,9 +34,8 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.employeeService.initializeCurrentUser();
+    // this.employeeService.initializeCurrentUser();
     this.router.navigate(['/']); 
-
 
   }
 }
