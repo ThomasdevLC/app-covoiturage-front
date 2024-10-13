@@ -1,0 +1,67 @@
+<div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg overflow-hidden my-6">
+    <div class="bg-blue-600 text-white p-4">
+        <h2 class="text-2xl font-semibold">Covoiturage</h2>
+        <p class="mt-1">{{ rideshare.departureTime | dateFormatter }} - {{ rideshare.arrivalTime | dateFormatter }}</p>
+        <p class="mt-1 font-medium text-lg">
+            {{ rideshare.departureAddress.city }} ➔ {{ rideshare.arrivalAddress.city }}
+        </p>
+    </div>
+
+    <div class="p-6 space-y-4">
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800">Départ</h3>
+            <p class="text-gray-700">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}, {{
+                rideshare.departureAddress.city }}, {{ rideshare.departureAddress.code }}</p>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800">Arrivée</h3>
+            <p class="text-gray-700">{{ rideshare.arrivalAddress.number }} {{ rideshare.arrivalAddress.street }}, {{
+                rideshare.arrivalAddress.city }}, {{ rideshare.arrivalAddress.code }}</p>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800">Organisateur</h3>
+            <div class="flex items-center">
+                <p class="text-gray-700 font-medium">{{ rideshare.organizer.firstName }} {{ rideshare.organizer.lastName
+                    }}</p>
+                <p class="ml-4 text-sm text-gray-500">📞 {{ rideshare.organizer.phone }} | 📧 {{
+                    rideshare.organizer.email }}</p>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800">Véhicule</h3>
+            <p class="text-gray-700">{{ rideshare.vehicle.brand }} {{ rideshare.vehicle.model }} </p>
+            <p class="text-gray-500">Immatriculation : {{ rideshare.vehicle.number }} | Places : {{
+                rideshare.vehicle.seats }}</p>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800">Passagers</h3>
+            <ul class="space-y-2">
+                <li *ngFor="let passenger of rideshare.passengers" class="flex items-center text-gray-700">
+                    <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+                    <p class="ml-4 text-sm text-gray-500">📞 {{ passenger.phone }} | 📧 {{ passenger.email }}</p>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="flex justify-between items-center mt-4">
+            <p class="text-gray-800 font-medium">Places disponibles : {{ rideshare.availableSeats }}</p>
+        </div>
+
+        <div class="flex gap-2">
+
+            <button (click)="onEdit()"
+                class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded">
+                Modifier le trajet
+            </button>
+            <button (click)="onCancel()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
+                Annuler le trajet
+            </button>
+        </div>
+    </div>
+</div>

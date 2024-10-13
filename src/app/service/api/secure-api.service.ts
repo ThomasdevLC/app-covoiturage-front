@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { EmployeeService } from '../employee/employee.service';
 
@@ -23,6 +23,11 @@ export class SecureApiService {
   }
 
   getCurrentUser(): Observable<any> {
-    return this.employeeService.currentUser$.pipe(take(1));
+    return this.employeeService.currentUser$.pipe(
+      take(1),
+      tap((currentUser) => {
+        console.log('Current user:', currentUser); 
+      })
+    );
   }
 }

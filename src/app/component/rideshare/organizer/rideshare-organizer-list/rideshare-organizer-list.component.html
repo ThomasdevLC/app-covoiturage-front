@@ -1,0 +1,21 @@
+<div *ngIf="(rideshares$ | async) as rideshares">
+    <!-- Boutons au-dessus des cartes -->
+    <div class="flex justify-center gap-4 my-6">
+        <div class="text-center mb-8">
+            <button (click)="togglePastRideshares()"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none transition">
+                {{ past ? 'Retour à vos trajets proposés à venir' : 'Voir l\'historique de vos trajets proposés' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="flex flex-col mx-auto gap-6 mt-10 w-64 ">
+        <div *ngFor="let rideshare of rideshares">
+            <app-rideshare-organizer-item [rideshare]="rideshare"></app-rideshare-organizer-item>
+        </div>
+    </div>
+
+    <p *ngIf="rideshares.length === 0" class="text-center text-gray-500 mt-6">
+        Vous n'avez pas encore organisé de trajet.
+    </p>
+</div>

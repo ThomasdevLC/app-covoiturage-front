@@ -1,0 +1,27 @@
+<div class="bg-white shadow-lg rounded-lg p-6">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900">{{ rideshare.departureAddress.city }}</h2>
+        <span class="text-gray-500">→</span>
+        <h2 class="text-lg font-semibold text-gray-900">{{ rideshare.arrivalAddress.city }}</h2>
+    </div>
+
+    <div class="text-sm text-gray-700 mb-4">
+        <p>Départ:
+            <span class="font-medium text-gray-900">{{ rideshare.departureTime | dateFormatter }}</span>
+        </p>
+        <p>Arrivée:
+            <span class="font-medium text-gray-900">{{ rideshare.arrivalTime | dateFormatter }}</span>
+        </p>
+        <p>Nombre de Passagers:
+            <span class="font-medium text-gray-900">{{ rideshare.passengers.length }}</span>
+        </p>
+    </div>
+
+    <div class="flex justify-center gap-2 mt-4">
+
+        <button (click)="onCheckDetails()"
+            class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
+            Détails
+        </button>
+    </div>
+</div>

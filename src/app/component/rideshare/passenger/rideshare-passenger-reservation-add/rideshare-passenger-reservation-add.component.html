@@ -1,0 +1,35 @@
+<div class="fixed inset-0 bg-gray-500 bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-10">
+    <div *ngIf="rideShare$ | async as rideShare" class="bg-white p-8 rounded-sm shadow-xl max-w-md w-full z-20">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Détails du Covoiturage</h2>
+
+        <div class="border-b border-gray-300 pb-4 mb-4">
+            <p class="text-lg mb-1"><strong>Heure de Départ :</strong> {{ rideShare.departureTime | dateFormatter }}</p>
+            <p class="text-lg mb-1"><strong>Heure d'Arrivée :</strong> {{ rideShare.arrivalTime | dateFormatter }}</p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Adresse de Départ :</h3>
+        <p class="text-gray-600">{{ rideShare.departureAddress.number }} {{ rideShare.departureAddress.street }}</p>
+        <p class="text-gray-600">{{ rideShare.departureAddress.code }} {{ rideShare.departureAddress.city }}</p>
+
+        <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Adresse d'Arrivée :</h3>
+        <p class="text-gray-600">{{ rideShare.arrivalAddress.number }} {{ rideShare.arrivalAddress.street }}</p>
+        <p class="text-gray-600">{{ rideShare.arrivalAddress.code }} {{ rideShare.arrivalAddress.city }}</p>
+
+        <div class="border-b border-gray-300 pb-4 mb-4">
+            <p class="text-lg mb-1"><strong>Places Disponibles :</strong> {{ rideShare.availableSeats }}</p>
+        </div>
+
+        <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Détails du Véhicule :</h3>
+        <p class="text-gray-600"><strong>Marque :</strong> {{ rideShare.vehicle.brand }}</p>
+        <p class="text-gray-600"><strong>Modèle :</strong> {{ rideShare.vehicle.model }}</p>
+        <p class="text-gray-600"><strong>Numéro :</strong> {{ rideShare.vehicle.number }}</p>
+        <button [routerLink]="['/rideshares/search']"
+            class="mt-4 w-full bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 transition">
+            Retourner à la recherche
+        </button>
+        <button (click)="joinAsPassenger()"
+            class="mt-6 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+            Confirmer la Réservation
+        </button>
+    </div>
+</div>
