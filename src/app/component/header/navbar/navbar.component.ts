@@ -34,7 +34,7 @@ export class NavbarComponent  {
 
   logout(): void {
     this.authService.logout();
-    // this.employeeService.initializeCurrentUser();
+    this.employeeService.initializeCurrentUser();
     this.router.navigate(['/']); 
 
   }

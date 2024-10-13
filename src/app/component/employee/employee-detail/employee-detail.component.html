@@ -1,0 +1,25 @@
+<div *ngIf="errorMessage; else employeeDetails"
+    class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-md mb-4">
+    <p class="font-semibold">{{ errorMessage }}</p>
+</div>
+
+<ng-template #employeeDetails>
+    <div class="p-6 w-96 mx-auto bg-white shadow-lg rounded-lg ">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Votre profile</h2>
+        <div *ngIf="employeeProfile$ | async as employeeProfile" class=" space-y-4">
+            <p class="text-lg"><strong>Nom :</strong> {{ employeeProfile.firstName }} {{ employeeProfile.lastName }}</p>
+            <p class="text-lg"><strong>Téléphone :</strong> {{ employeeProfile.phone }}</p>
+            <p class="text-lg"><strong>Email :</strong> {{ employeeProfile.email }}</p>
+            <h3 class="text-xl font-semibold mt-4">Véhicules</h3>
+            <ul class="mt-2 space-y-2">
+                <li *ngFor="let vehicle of employeeProfile.vehicle" class="bg-gray-100 p-3 rounded-md shadow-sm ">
+                    {{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.number }})
+                </li>
+            </ul>
+            <button (click)="onClick()"
+                class="bg-indigo-500 text-white p-5 rounded-lg shadow-md hover:bg-indigo-600 transition duration-200">
+                Ajouter un véhicule
+            </button>
+        </div>
+    </div>
+</ng-template>

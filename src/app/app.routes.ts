@@ -22,7 +22,7 @@ import { RideshareOrganizerDetailsComponent } from './component/rideshare/organi
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'employees/:id',component: EmployeeDetailComponent},
+  { path: 'employees',component: EmployeeDetailComponent},
 
   //RIDESHARES
   { path: 'rideshares/create',component: RideshareOrganizerCreateComponent},
