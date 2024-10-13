@@ -14,6 +14,7 @@ import { BookingEmployeeService } from '../../../../service/booking/employee/boo
 })
 export class BookingEmployeeItemComponent {
   @Input() booking!: VehicleBooking;
+  @Input() isPast: boolean = false;
   @Output() bookingDeleted = new EventEmitter<void>();
   errorMessage: string | undefined;
 

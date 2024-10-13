@@ -16,7 +16,7 @@
     <ul *ngIf="bookings$ | async as bookings; else noBookings" class="space-y-4">
         <li *ngFor="let booking of bookings" class="bg-white shadow rounded-lg p-6">
             <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <app-booking-employee-item [booking]="booking" (bookingDeleted)="loadBookings()">
+                <app-booking-employee-item [booking]="booking" [isPast]="past" (bookingDeleted)="loadBookings()">
 
                 </app-booking-employee-item>
             </div>
