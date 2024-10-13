@@ -16,22 +16,9 @@
     <ul *ngIf="bookings$ | async as bookings; else noBookings" class="space-y-4">
         <li *ngFor="let booking of bookings" class="bg-white shadow rounded-lg p-6">
             <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                    <p class="text-lg font-semibold text-gray-700">
-                        <strong>Véhicule:</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}
-                    </p>
-                    <p class="text-gray-500">
-                        <strong>Numéro:</strong> {{ booking.vehicle.number }}
-                    </p>
-                </div>
-                <div>
-                    <p class="text-gray-600">
-                        <strong>Date de début:</strong> {{ booking.startTime | dateFormatter }}
-                    </p>
-                    <p class="text-gray-600">
-                        <strong>Date de fin:</strong> {{ booking.endTime | dateFormatter }}
-                    </p>
-                </div>
+                <app-booking-employee-item [booking]="booking">
+                    
+                </app-booking-employee-item>
             </div>
         </li>
     </ul>

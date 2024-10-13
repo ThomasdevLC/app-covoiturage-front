@@ -4,11 +4,12 @@ import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { BookingEmployeeItemComponent } from "../booking-employee-item/booking-employee-item.component";
 
 @Component({
   selector: 'app-booking-employee-list',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe],
+  imports: [CommonModule, DateFormatterPipe, BookingEmployeeItemComponent],
   templateUrl: './booking-employee-list.component.html',
   styleUrl: './booking-employee-list.component.css',
 })

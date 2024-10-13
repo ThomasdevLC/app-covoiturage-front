@@ -1,0 +1,27 @@
+
+            <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-lg font-semibold text-gray-700">
+                        <strong>Véhicule:</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}
+                    </p>
+                    <p class="text-gray-500">
+                        <strong>Numéro:</strong> {{ booking.vehicle.number }}
+                    </p>
+                </div>
+                <div>
+                    <p class="text-gray-600">
+                        <strong>Date de début:</strong> {{ booking.startTime | dateFormatter }}
+                    </p>
+                    <p class="text-gray-600">
+                        <strong>Date de fin:</strong> {{ booking.endTime | dateFormatter }}
+                    </p>
+                </div>
+                <button (click)="onCheckDetails()"
+                    class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
+                    Détails
+                </button>
+            </div>
+
+    <ng-template #noBookings>
+        <p class="text-center text-gray-500">Aucune réservation trouvée.</p>
+    </ng-template>

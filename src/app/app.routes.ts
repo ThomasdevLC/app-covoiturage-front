@@ -17,6 +17,7 @@ import { RidesharePassengerSearchListComponent } from './component/rideshare/pas
 import { RidesharePassengerReservationAddComponent } from './component/rideshare/passenger/rideshare-passenger-reservation-add/rideshare-passenger-reservation-add.component';
 import { RideshareOrganizerCreateComponent } from './component/rideshare/organizer/rideshare-organizer-create/rideshare-organizer-create.component';
 import { RideshareOrganizerDetailsComponent } from './component/rideshare/organizer/rideshare-organizer-details/rideshare-organizer-details.component';
+import { BookingEmployeeDetailsComponent } from './component/booking/employee/booking-employee-details/booking-employee-details.component';
 
 
 export const routes: Routes = [
@@ -43,7 +44,8 @@ export const routes: Routes = [
   //BOOKINGS
   { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
   { path: 'bookings-list', component: BookingEmployeeListComponent },
-  
+  { path: 'bookings/:id', component: BookingEmployeeDetailsComponent },
+
   //PRIVATE-VEHICLES
   { path: 'private-vehicles/create',component: PrivateVehicleCreateComponent},
 ];
