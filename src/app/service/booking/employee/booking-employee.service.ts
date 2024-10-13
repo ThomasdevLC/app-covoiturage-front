@@ -72,7 +72,6 @@ export class BookingEmployeeService {
   }
 
   
-  // Modifier une réservation de véhicule
   updateBooking(booking: VehicleBooking): Observable<VehicleBooking> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
@@ -88,6 +87,22 @@ export class BookingEmployeeService {
     );
   }
   
+  deleteBooking(bookingId: number): Observable<void> {
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        if (currentUser) {
+          const url = `${this.apiURL}vehicle-bookings/${bookingId}?employeeId=${currentUser.id}`;
   
-
-}
+          return this.http.delete<void>(url, {
+            headers: this.secureApiService.getHeaders(),
+          });
+        } else {
+          return throwError('Utilisateur non authentifié');
+        }
+      }),
+      catchError((error) => {
+        return throwError('Erreur lors de la suppression de la réservation');
+      })
+    );
+  }
+} 

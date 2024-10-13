@@ -3,6 +3,7 @@ import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 
 @Component({
   selector: 'app-booking-employee-item',
@@ -13,12 +14,30 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
 })
 export class BookingEmployeeItemComponent {
   @Input() booking!: VehicleBooking;
+  errorMessage: string | undefined;
 
-constructor(private router: Router ){
+constructor(private router: Router, private bookingEmployeeService: BookingEmployeeService  ){
 
 }
-onCheckDetails() {
-  this.router.navigate(['/bookings/', this.booking.id]);
+onUpdateBooking() {
+  this.router.navigate(['/bookings-update/', this.booking.id]);
 
+}
+
+deleteBooking(): void {
+  if (this.booking && this.booking.id) {
+    this.bookingEmployeeService.deleteBooking(this.booking.id).subscribe({
+      next: () => {
+        console.log('Booking deleted successfully');
+        this.router.navigate(['/bookings-list']); 
+      },
+      error: (err) => {
+        this.errorMessage = 'Erreur lors de la suppression de la réservation';
+        console.error('Error deleting booking:', err);
+      }
+    });
+  } else {
+    this.errorMessage = 'Détails de la réservation non valides';
+  }
 }
 }

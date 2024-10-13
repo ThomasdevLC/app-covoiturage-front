@@ -18,6 +18,7 @@ import { RidesharePassengerReservationAddComponent } from './component/rideshare
 import { RideshareOrganizerCreateComponent } from './component/rideshare/organizer/rideshare-organizer-create/rideshare-organizer-create.component';
 import { RideshareOrganizerDetailsComponent } from './component/rideshare/organizer/rideshare-organizer-details/rideshare-organizer-details.component';
 import { BookingEmployeeDetailsComponent } from './component/booking/employee/booking-employee-details/booking-employee-details.component';
+import { BookingEmployeeUpdateComponent } from './component/booking/employee/booking-employee-update/booking-employee-update.component';
 
 
 export const routes: Routes = [
@@ -44,7 +45,7 @@ export const routes: Routes = [
   //BOOKINGS
   { path: 'bookings-create/:id', component: BookingEmployeeCreateComponent },
   { path: 'bookings-list', component: BookingEmployeeListComponent },
-  { path: 'bookings/:id', component: BookingEmployeeDetailsComponent },
+  { path: 'bookings-update/:id', component: BookingEmployeeUpdateComponent },
 
   //PRIVATE-VEHICLES
   { path: 'private-vehicles/create',component: PrivateVehicleCreateComponent},
