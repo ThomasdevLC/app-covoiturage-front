@@ -16,7 +16,8 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
 export class RideshareOrganizerDetailsComponent {
 
   @Input() rideshare!: RideShare;
-
+  past = false;
+  
   constructor(
     private rideshareService: RideshareOrganizerService,
     private route: ActivatedRoute,
@@ -24,6 +25,9 @@ export class RideshareOrganizerDetailsComponent {
   ) {}
 
   ngOnInit(): void {
+    this.rideshareService.past$.subscribe((value) => {
+      this.past = value; // Mise à jour de `past` avec la valeur du service
+    });
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.loadRideShare(id); 
   }

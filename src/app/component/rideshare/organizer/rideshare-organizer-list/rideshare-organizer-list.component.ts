@@ -30,6 +30,7 @@ export class RideshareOrganizerListComponent implements OnInit {
 
   togglePastRideshares(): void {
     this.past = !this.past;
+    this.rideshareService.setPast(this.past); 
     this.loadRideShares(); 
   }
 }
