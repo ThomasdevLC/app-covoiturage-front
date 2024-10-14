@@ -15,7 +15,6 @@ import { RideshareOrganizerItemComponent } from '../rideshare-organizer-item/rid
 })
 export class RideshareOrganizerListComponent implements OnInit {
   rideshares$!: Observable<RideShare[]>; 
-
   past: boolean = false;
 
   constructor(private rideshareService: RideshareOrganizerService) {}

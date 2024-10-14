@@ -14,7 +14,7 @@ export class RideshareOrganizerService {
   private apiURL = environment.apiURL;
   private ridesharesSubject = new BehaviorSubject<RideShare[]>([]);
   rideshares$ = this.ridesharesSubject.asObservable();
-  past$ = new BehaviorSubject<boolean>(false); // Utilisez un BehaviorSubject pour rendre `past` réactif
+  past$ = new BehaviorSubject<boolean>(false); // BehaviorSubject pour rendre `past` réactif
 
   constructor(
     private http: HttpClient,

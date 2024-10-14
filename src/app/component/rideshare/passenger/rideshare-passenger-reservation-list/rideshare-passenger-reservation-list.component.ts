@@ -14,21 +14,21 @@ import { RidesharePassengerReservationItemComponent } from '../rideshare-passeng
 })
 export class RidesharePassengerReservationListComponent {
   rideshares$!: Observable<RideShare[]>; 
-
   past: boolean = false;
 
-  constructor(private rideshareOrganizerService: RidesharePassengerService) {}
+  constructor(private ridesharePassengerService: RidesharePassengerService) {}
 
   ngOnInit(): void {
     this.loadRideShares();
   }
 
   loadRideShares(): void {
-    this.rideshares$ = this.rideshareOrganizerService.loadPassengerRideShares(this.past);
+    this.rideshares$ = this.ridesharePassengerService.loadPassengerRideShares(this.past);
   }
 
   togglePastRideshares(): void {
     this.past = !this.past;
+    this.ridesharePassengerService.setPast(this.past); 
     this.loadRideShares(); 
   }
 }

@@ -12,7 +12,7 @@ export class RidesharePassengerService {
   private apiURL = environment.apiURL;
   private ridesharesSubject = new BehaviorSubject<RideShare[]>([]);
   rideshares$ = this.ridesharesSubject.asObservable();
-
+  past$ = new BehaviorSubject<boolean>(false); //  BehaviorSubject pour rendre `past` réactif
 
   constructor(
     private http: HttpClient,
@@ -75,6 +75,10 @@ export class RidesharePassengerService {
     return this.http.get<RideShare>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
+  }
+
+  setPast(value: boolean) {
+    this.past$.next(value); // Méthode pour changer la valeur de `past`
   }
 
 }
