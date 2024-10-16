@@ -17,21 +17,21 @@ export class RideshareOrganizerListComponent implements OnInit {
   rideshares$!: Observable<RideShare[]>; 
   past: boolean = false;
 
-  constructor(private rideshareService: RideshareOrganizerService) {}
+  constructor(private rideshareOrganizerService: RideshareOrganizerService) {}
 
   ngOnInit(): void {
     this.loadRideShares();
-    this.rideshareService.setPast(this.past); 
+    this.rideshareOrganizerService.setPast(this.past); 
 
   }
 
   loadRideShares(): void {
-    this.rideshares$ = this.rideshareService.loadOrganizerRideShares(this.past);
+    this.rideshares$ = this.rideshareOrganizerService.loadOrganizerRideShares(this.past);
   }
 
-  togglePastRideshares(): void {
-    this.past = !this.past;
-    this.rideshareService.setPast(this.past); 
+  togglePastRideshares(value: boolean): void {
+    this.past = value; // Modifie directement la valeur de past
+    this.rideshareOrganizerService.setPast(this.past); 
     this.loadRideShares(); 
   }
 }

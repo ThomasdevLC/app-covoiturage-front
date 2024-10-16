@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, catchError, Observable } from 'rxjs';
+import { HttpClient,  } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { EmployeeConnected } from '../../models/employee/employee-connected.model';
 import { AuthService } from '../auth/auth.service';
 import { environment } from '../../../environments/environment';
@@ -17,43 +17,11 @@ export class EmployeeService {
   public currentUser$: Observable<EmployeeConnected | null> =
     this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient,) {}
 
-  getAuthenticatedEmployee(): Observable<EmployeeConnected> {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
 
-    return this.http
-      .get<EmployeeConnected>(`${this.apiURL}employees/user`, { headers })
-      .pipe(
-        catchError((error) => {
-          console.error(
-            "Erreur lors de la récupération de l'utilisateur",
-            error
-          );
-          return [];
-        })
-      );
-  }
-
-  initializeCurrentUser(): void {
-    this.getAuthenticatedEmployee().subscribe(
-      (user) => {
-        this.currentUserSubject.next(user);
-        console.log('Utilisateur ', user);
-      },
-      (error) => {
-        console.error("Erreur lors de la récupération de l'utilisateur", error);
-        this.currentUserSubject.next(null);
-      }
-    );
-  }
-  //
-// Méthode pour récupérer les informations d'un employé par son ID, y compris ses réservations
+// Méthode pour récupérer les informations d'un employé 
   getEmployeeById(employeeId: number): Observable<Employee> {
   return this.http.get<Employee>(`${this.apiURL}/${employeeId}`);
 }
-  //
 }

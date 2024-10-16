@@ -1,10 +1,14 @@
 <div *ngIf="(rideshares$ | async) as rideshares">
-    <!-- Boutons au-dessus des cartes -->
-    <div class="flex justify-center gap-4 my-6">
-        <div class="text-center mb-8">
-            <button (click)="togglePastRideshares()"
+
+    <div class="flex justify-around gap-4 my-4">
+        <div class="text-center mb-2">
+            <button (click)="togglePastRideshares(false)"
                 class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none transition">
-                {{ past ? 'Retour à vos trajets proposés à venir' : 'Voir l\'historique de vos trajets proposés' }}
+                Vos trajets
+            </button>
+            <button (click)="togglePastRideshares(true)"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none transition">
+                Historique
             </button>
         </div>
     </div>
@@ -15,7 +19,10 @@
         </div>
     </div>
 
-    <p *ngIf="rideshares.length === 0" class="text-center text-gray-500 mt-6">
-        Vous n'avez pas encore organisé de trajet.
+    <p *ngIf="rideshares.length === 0 && !past" class="text-center text-gray-500 mt-6">
+        Vous n'avez pas encore proposé de trajets.
+    </p>
+    <p *ngIf="rideshares.length === 0 && past " class="text-center text-gray-500 mt-6">
+        Vous n'avez pas encore de trajets passés.
     </p>
 </div>

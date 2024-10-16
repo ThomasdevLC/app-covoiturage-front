@@ -27,8 +27,8 @@ export class RidesharePassengerReservationListComponent {
     this.rideshares$ = this.ridesharePassengerService.loadPassengerRideShares(this.past);
   }
 
-  togglePastRideshares(): void {
-    this.past = !this.past;
+  togglePastRideshares(value: boolean): void {
+    this.past = value; // Modifie directement la valeur de past
     this.ridesharePassengerService.setPast(this.past); 
     this.loadRideShares(); 
   }

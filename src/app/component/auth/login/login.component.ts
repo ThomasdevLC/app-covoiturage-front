@@ -19,7 +19,6 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private employeeService: EmployeeService
   ) {}
 
   login(): void {
@@ -28,7 +27,7 @@ export class LoginComponent {
       .subscribe((response) => {
         const token = response.token;
         this.authService.setToken(token);
-        this.employeeService.initializeCurrentUser();
+        this.authService.initializeCurrentUser();
         this.router.navigate(['/']);
       });
   }

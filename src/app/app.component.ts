@@ -4,6 +4,8 @@ import { NavbarComponent } from './component/header/navbar/navbar.component';
 import { EmployeeService } from './service/employee/employee.service';
 import { Observable } from 'rxjs';
 import { EmployeeConnected } from './models/employee/employee-connected.model';
+import { AuthService } from './service/auth/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -20,13 +22,15 @@ export class AppComponent {
 
   constructor(
     private employeeService: EmployeeService,
+    private authService: AuthService,
+
 
   ) {
-    this.currentUser$ = this.employeeService.currentUser$;
+    this.currentUser$ = this.authService.currentUser$;
   }
 
 
   ngOnInit(): void {
-    this.employeeService.initializeCurrentUser();
+    this.authService.initializeCurrentUser();
   }
 }

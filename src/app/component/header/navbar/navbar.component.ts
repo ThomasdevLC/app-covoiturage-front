@@ -19,12 +19,11 @@ export class NavbarComponent  {
   menuOpen: boolean = false;
 
   constructor(
-    private employeeService: EmployeeService,
     private authService: AuthService,
     private router: Router
 
   ) {
-    this.currentUser$ = this.employeeService.currentUser$;
+    this.currentUser$ = this.authService.currentUser$;
   }
 
 
@@ -34,7 +33,7 @@ export class NavbarComponent  {
 
   logout(): void {
     this.authService.logout();
-    this.employeeService.initializeCurrentUser();
+    this.authService.initializeCurrentUser();
     this.router.navigate(['/']); 
 
   }
