@@ -20,6 +20,7 @@ export class RidesharePassengerReservationListComponent {
 
   ngOnInit(): void {
     this.loadRideShares();
+    this.ridesharePassengerService.setPast(this.past); 
   }
 
   loadRideShares(): void {

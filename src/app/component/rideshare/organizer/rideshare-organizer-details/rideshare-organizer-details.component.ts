@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
-import { RideShareCreate } from '../../../../models/rideshare/rideshare-create.model';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 
@@ -16,7 +15,7 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
 export class RideshareOrganizerDetailsComponent {
 
   @Input() rideshare!: RideShare;
-  past = false;
+  past: boolean = false;
   
   constructor(
     private rideshareService: RideshareOrganizerService,
@@ -27,8 +26,11 @@ export class RideshareOrganizerDetailsComponent {
   ngOnInit(): void {
     this.rideshareService.past$.subscribe((value) => {
       this.past = value; // Mise à jour de `past` avec la valeur du service
+    console.log('Past:', this.past);
     });
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+console.log('RideShare:', this.rideshare);
+ const id = Number(this.route.snapshot.paramMap.get('id'));
     this.loadRideShare(id); 
   }
 

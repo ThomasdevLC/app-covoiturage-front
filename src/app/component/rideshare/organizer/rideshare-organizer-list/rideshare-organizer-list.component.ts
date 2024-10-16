@@ -21,6 +21,8 @@ export class RideshareOrganizerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRideShares();
+    this.rideshareService.setPast(this.past); 
+
   }
 
   loadRideShares(): void {
