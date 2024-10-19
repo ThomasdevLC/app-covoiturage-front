@@ -15,8 +15,14 @@
         <p class="text-gray-600">{{ rideShare.arrivalAddress.number }} {{ rideShare.arrivalAddress.street }}</p>
         <p class="text-gray-600">{{ rideShare.arrivalAddress.code }} {{ rideShare.arrivalAddress.city }}</p>
 
-        <div class="border-b border-gray-300 pb-4 mb-4">
-            <p class="text-lg mb-1"><strong>Places Disponibles :</strong> {{ rideShare.availableSeats }}</p>
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800">Passagers</h3>
+            <ul class="space-y-2">
+                <li *ngFor="let passenger of rideShare.passengers" class="flex items-center text-gray-700">
+                    <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+
+                </li>
+            </ul>
         </div>
 
         <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Détails du Véhicule :</h3>

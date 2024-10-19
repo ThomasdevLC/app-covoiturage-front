@@ -57,11 +57,11 @@ export class RidesharePassengerService {
     );
   }
 
-loadPassengerRideShares(past: boolean): Observable<RideSharePassengerDetails[]> {
+loadPassengerRideShares(past: boolean): Observable<RideSharePassengerList[]> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id;
-        return this.http.get<RideSharePassengerDetails[]>(`${this.apiURL}rideshares/passenger/${userId}?past=${past}`, {
+        return this.http.get<RideSharePassengerList[]>(`${this.apiURL}rideshares/passenger/${userId}?past=${past}`, {
           headers: this.secureApiService.getHeaders(),
         });
       }),   
