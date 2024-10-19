@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { CompanyVehicle } from '../../../models/company-vehicle.model';
+import {  Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../auth/auth.service';
 import { Employee } from '../../../models/employee.model';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
 import { EmployeeService } from '../../employee/employee.service';
 import { ActivatedRoute } from '@angular/router';
+import { CompanyVehicle } from '../../../models/company-vehicle/company-vehicle.model';
 
 
 @Injectable({

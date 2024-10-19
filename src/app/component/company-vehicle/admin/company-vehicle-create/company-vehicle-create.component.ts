@@ -1,17 +1,17 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CompanyVehicle } from '../../../../models/company-vehicle.model';
 import { CommonModule } from '@angular/common';
 import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum';
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { Router } from '@angular/router';
+import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 
 @Component({
   selector: 'app-company-vehicle-create',

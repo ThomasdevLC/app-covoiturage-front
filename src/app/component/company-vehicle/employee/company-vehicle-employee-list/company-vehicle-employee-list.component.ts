@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { CompanyVehicle } from '../../../../models/company-vehicle.model';
+import { RouterModule, Router } from '@angular/router';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
 import {
   FormBuilder,
@@ -11,6 +10,7 @@ import {
 } from '@angular/forms';
 import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { Observable } from 'rxjs';
+import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
