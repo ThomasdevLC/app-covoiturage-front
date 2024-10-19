@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { Router, RouterModule } from '@angular/router';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
+import { RideShareOrganizerList } from '../../../../models/rideshare/organizer/rideshare-organizer-list.model';
 
 @Component({
   selector: 'app-rideshare-organizer-item',
@@ -13,7 +14,7 @@ import { RideshareOrganizerService } from '../../../../service/rideshare/organiz
   styleUrl: './rideshare-organizer-item.component.css'
 })
 export class RideshareOrganizerItemComponent {
-  @Input() rideshare!: RideShare;
+  @Input() rideshare!: RideShareOrganizerList;
   @Output() rideShareDeleted = new EventEmitter<number>();
 
 

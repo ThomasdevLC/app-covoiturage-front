@@ -4,6 +4,7 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { RideShareOrganizerDetails } from '../../../../models/rideshare/organizer/rideshare-organizer-details.model';
 
 @Component({
   selector: 'app-rideshare-organizer-details',
@@ -14,7 +15,7 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
 })
 export class RideshareOrganizerDetailsComponent {
 
-  @Input() rideshare!: RideShare;
+  @Input() rideshare!: RideShareOrganizerDetails;
   past: boolean = false;
   
   constructor(

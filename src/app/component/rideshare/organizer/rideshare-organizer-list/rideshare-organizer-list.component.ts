@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { RideshareOrganizerItemComponent } from '../rideshare-organizer-item/rideshare-organizer-item.component';
+import { RideShareOrganizerList } from '../../../../models/rideshare/organizer/rideshare-organizer-list.model';
 
 @Component({
   selector: 'app-rideshare-organizer-list',
@@ -14,7 +14,7 @@ import { RideshareOrganizerItemComponent } from '../rideshare-organizer-item/rid
   styleUrl: './rideshare-organizer-list.component.css'
 })
 export class RideshareOrganizerListComponent implements OnInit {
-  rideshares$!: Observable<RideShare[]>; 
+  rideshares$!: Observable<RideShareOrganizerList[]>; 
   past: boolean = false;
 
   constructor(private rideshareOrganizerService: RideshareOrganizerService) {}

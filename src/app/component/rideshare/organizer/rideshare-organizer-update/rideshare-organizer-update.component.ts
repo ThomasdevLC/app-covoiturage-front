@@ -28,7 +28,7 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
   }
 
   loadRideShare(id: number): void {
-    this.rideshareService.getRideShareById(id).subscribe({
+    this.rideshareService.getRideShareByIdForUpdate(id).subscribe({
       next: (rideShare) => {
         this.rideShareData = rideShare; 
         console.log('Fetched RideShare:', rideShare);
