@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { switchMap } from 'rxjs';
 import { SecureApiService } from '../../../../service/api/secure-api.service';
-import { RideShareCreate } from '../../../../models/rideshare/rideshare-create.model';
+import { RideShareOrganizerCreate } from '../../../../models/rideshare/rideshare-organizer-create.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { RideshareOrganizerService } from '../../../../service/rideshare/organiz
   styleUrl: './rideshare-organizer-create.component.css'
 })
 export class RideshareOrganizerCreateComponent {
-  rideShareData: Omit<RideShareCreate, 'organizer'> = {
+  rideShareData: Omit<RideShareOrganizerCreate, 'organizer'> = {
     departureTime: new Date(),
     arrivalTime: new Date(),
     departureAddress: {
@@ -47,7 +47,7 @@ export class RideshareOrganizerCreateComponent {
         switchMap((currentUser) => {
           if (currentUser) {
             const organizer = { id: currentUser.id };
-            const newRideShare: RideShareCreate = {
+            const newRideShare: RideShareOrganizerCreate = {
               ...this.rideShareData,
               organizer,
             };

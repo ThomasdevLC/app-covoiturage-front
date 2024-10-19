@@ -4,7 +4,7 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RideShareCreate } from '../../../../models/rideshare/rideshare-create.model';
+import { RideShareOrganizerUpdate } from '../../../../models/rideshare/rideshare-organizer-update.model';
 
 @Component({
   selector: 'app-rideshare-organizer-update',
@@ -14,7 +14,7 @@ import { RideShareCreate } from '../../../../models/rideshare/rideshare-create.m
   styleUrl: './rideshare-organizer-update.component.css'
 })
 export class RideshareOrganizerUpdateComponent implements OnInit {
-  rideShareData!: RideShareCreate; 
+  rideShareData!: RideShareOrganizerUpdate; 
 
   constructor(
     private rideshareService: RideshareOrganizerService,

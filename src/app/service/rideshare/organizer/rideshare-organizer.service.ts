@@ -2,12 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
-import { RideShare } from '../../../models/rideshare/rideshare.model';
 import { BehaviorSubject, Observable, switchMap, tap, } from 'rxjs';
-import { RideShareCreate } from '../../../models/rideshare/rideshare-create.model';
-import { RideShareUpdate } from '../../../models/rideshare/rideshare-update.model';
 import { RideShareOrganizerList } from '../../../models/rideshare/organizer/rideshare-organizer-list.model';
 import { RideShareOrganizerDetails } from '../../../models/rideshare/organizer/rideshare-organizer-details.model';
+import { RideShareOrganizerCreate } from '../../../models/rideshare/rideshare-organizer-create.model';
+import { RideShareOrganizerUpdate } from '../../../models/rideshare/rideshare-organizer-update.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +25,8 @@ export class RideshareOrganizerService {
   ) {}
 
 
-  createRideShare(rideShare: RideShareCreate): Observable<RideShareCreate> {
-    return this.http.post<RideShareCreate>(
+  createRideShare(rideShare: RideShareOrganizerCreate): Observable<RideShareOrganizerCreate> {
+    return this.http.post<RideShareOrganizerCreate>(
       `${this.apiURL}rideshares`,
       rideShare,
       {
@@ -47,11 +46,11 @@ export class RideshareOrganizerService {
     );
   }
 
-  updateRideShare(id: number, updatedData: Partial<RideShareUpdate>): Observable<RideShareUpdate> {
+  updateRideShare(id: number, updatedData: Partial<RideShareOrganizerUpdate>): Observable<RideShareOrganizerUpdate> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id;
-           return this.http.put<RideShareUpdate>(
+           return this.http.put<RideShareOrganizerUpdate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,
           updatedData,
           {
@@ -68,8 +67,8 @@ export class RideshareOrganizerService {
     });
   }
 
-  getRideShareByIdForUpdate(id: number): Observable<RideShareUpdate> {
-    return this.http.get<RideShareUpdate>(`${this.apiURL}rideshares/${id}`, {
+  getRideShareByIdForUpdate(id: number): Observable<RideShareOrganizerUpdate> {
+    return this.http.get<RideShareOrganizerUpdate>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
   }

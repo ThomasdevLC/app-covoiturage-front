@@ -1,7 +1,8 @@
 import { AddressCreateRideShare } from '../Address/address-create-rideshare';
 
 
-export interface RideShareUpdate {
+export interface RideShareOrganizerUpdate {
+  id?: number;
   departureTime: Date;
   arrivalTime: Date;
   departureAddress: AddressCreateRideShare;
