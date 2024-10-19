@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatte
 })
 export class RidesharePassengerReservationDetailsComponent {
 
-  @Input() rideshare!: RideShare;
+  @Input() rideshare!: RideSharePassengerDetails;
   past = false;
 
   constructor(
@@ -34,7 +35,7 @@ export class RidesharePassengerReservationDetailsComponent {
 
   loadRideShare(id: number): void {
     this.rideshareService.getRideShareById(id).subscribe({
-      next: (rideShare: RideShare) => {
+      next: (rideShare: RideSharePassengerDetails) => {
         this.rideshare = rideShare; 
         console.log(' RideShare:', rideShare);
       },

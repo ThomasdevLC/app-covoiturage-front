@@ -4,6 +4,7 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { CommonModule } from '@angular/common';
 import { RidesharePassengerReservationItemComponent } from '../rideshare-passenger-reservation-item/rideshare-passenger-reservation-item.component';
+import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 
 @Component({
   selector: 'app-rideshare-passenger-reservation-list',
@@ -13,7 +14,7 @@ import { RidesharePassengerReservationItemComponent } from '../rideshare-passeng
   styleUrl: './rideshare-passenger-reservation-list.component.css'
 })
 export class RidesharePassengerReservationListComponent {
-  rideshares$!: Observable<RideShare[]>; 
+  rideshares$!: Observable<RideSharePassengerDetails[]>; 
   past: boolean = false;
 
   constructor(private ridesharePassengerService: RidesharePassengerService) {}
