@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { SecureApiService } from '../../../../service/api/secure-api.service';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
+import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
+import { PrivateVehicle } from '../../../../models/private-vehicle.model';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
@@ -16,11 +18,15 @@ import { RideshareOrganizerService } from '../../../../service/rideshare/organiz
 })
 export class RideshareOrganizerCreateComponent {
   rideShareForm: FormGroup;
+  vehicles: PrivateVehicle[] = [];
 
+  
   constructor(
     private formBuilder: FormBuilder,
     private secureApiService: SecureApiService,
     private rideShareService: RideshareOrganizerService,
+    private privateVehicleService: PrivateVehicleService,
+
     private router: Router
   ) {
     // Initialisation du formulaire avec FormBuilder, ajout du champ vehicleId
@@ -76,5 +82,25 @@ export class RideshareOrganizerCreateComponent {
           console.error('Error creating ride share:', error);
         }
       );
+  }
+
+  ngOnInit(): void {
+    this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        if (currentUser) {
+          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);  
+        } else {
+          throw new Error('Utilisateur non authentifié');
+        }
+      })
+    ).subscribe(
+      (vehicles) => {
+        this.vehicles = vehicles;  
+        console.log('Véhicules récupérés avec succès :', vehicles);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des véhicules :', error);
+      }
+    );
   }
 }
