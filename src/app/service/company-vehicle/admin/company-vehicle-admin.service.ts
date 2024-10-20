@@ -4,6 +4,7 @@ import { Observable, switchMap, throwError } from 'rxjs';
 import { CompanyVehicle } from '../../../models/company-vehicle.model';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
+import { VehicleBooking } from '../../../models/vehicle-booking.model';
 
 @Injectable({
   providedIn: 'root',
@@ -129,5 +130,9 @@ export class CompanyVehicleAdminService {
     return this.http.get<CompanyVehicle>(`${this.apiURL}/${number}`, {
       headers: this.secureApiService.getHeaders(),
     });
+  }
+  //
+  getBookingsByVehicleId(vehicleId: number): Observable<VehicleBooking[]> {
+    return this.http.get<VehicleBooking[]>(`${this.apiURL}?vehicleId=${vehicleId}`);
   }
 }

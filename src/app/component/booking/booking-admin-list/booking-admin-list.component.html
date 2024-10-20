@@ -1,0 +1,14 @@
+<p>booking-admin-list works!</p>
+<div>
+    <h2>Réservations pour le Véhicule ID: {{ vehicleId }}</h2>
+    <ul>
+      <li *ngFor="let booking of bookings">
+        ID: {{ booking.id }}, De: {{ booking.startTime }} À: {{ booking.endTime }}
+      </li>
+    </ul>
+  
+    <div *ngIf="bookings.length === 0">
+      <p>Aucune réservation trouvée pour ce véhicule.</p>
+    </div>
+  </div>
+  
