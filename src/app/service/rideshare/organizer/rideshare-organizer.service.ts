@@ -46,13 +46,17 @@ export class RideshareOrganizerService {
     );
   }
 
-  updateRideShare(id: number, updatedData: Partial<RideShareOrganizerUpdate>): Observable<RideShareOrganizerUpdate> {
+  updateRideShare(id: number, updatedData: RideShareOrganizerUpdate): Observable<RideShareOrganizerUpdate> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id;
-           return this.http.put<RideShareOrganizerUpdate>(
+        const updatedRideShare = {
+          ...updatedData,
+          organizer: { id: userId },
+        };
+        return this.http.put<RideShareOrganizerUpdate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,
-          updatedData,
+          updatedRideShare,
           {
             headers: this.secureApiService.getHeaders(),
           }
@@ -60,6 +64,7 @@ export class RideshareOrganizerService {
       })
     );
   }
+  
 
   getRideShareById(id: number): Observable<RideShareOrganizerDetails> {
     return this.http.get<RideShareOrganizerDetails>(`${this.apiURL}rideshares/${id}`, {
@@ -70,7 +75,15 @@ export class RideshareOrganizerService {
   getRideShareByIdForUpdate(id: number): Observable<RideShareOrganizerUpdate> {
     return this.http.get<RideShareOrganizerUpdate>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
-    });
+    })
+    .pipe(
+      tap((rideShare) => {
+        console.log('Fetched update RideShare:', rideShare);
+      })
+    );
+
+
+  
   }
 
 

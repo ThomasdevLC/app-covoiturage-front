@@ -7,6 +7,7 @@ export interface RideShareOrganizerCreate {
   arrivalTime: Date;
   departureAddress: AddressCreateRideShare;
   arrivalAddress: AddressCreateRideShare;
-  organizer: { id: number };
   availableSeats: number | null;
+  organizer: { id: number };
+  vehicle: { id: number };
 }

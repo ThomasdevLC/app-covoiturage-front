@@ -1,12 +1,14 @@
 import { AddressCreateRideShare } from '../Address/address-create-rideshare';
+import { PrivateVehicle } from '../private-vehicle.model';
 
 
 export interface RideShareOrganizerUpdate {
   id?: number;
-  departureTime: Date;
-  arrivalTime: Date;
+  departureTime: string;
+  arrivalTime: string;
   departureAddress: AddressCreateRideShare;
   arrivalAddress: AddressCreateRideShare;
-  organizer: { id: number };
   availableSeats: number | null;
+  organizer: { id: number };
+  vehicle: { id: number };
 }

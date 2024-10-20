@@ -63,9 +63,9 @@ export class RideshareOrganizerCreateComponent {
           if (currentUser) {
             const organizer = { id: currentUser.id };
             const newRideShare = {
-              ...this.rideShareForm.value, // On récupère toutes les valeurs du formulaire, y compris vehicleId
+              ...this.rideShareForm.value, 
               organizer,
-              vehicle: { id: this.rideShareForm.value.vehicleId } // On associe le vehicleId au véhicule
+              vehicle: { id: this.rideShareForm.value.vehicleId } 
             };
             return this.rideShareService.createRideShare(newRideShare);
           } else {

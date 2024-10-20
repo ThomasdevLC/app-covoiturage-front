@@ -1,72 +1,79 @@
-<form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()"
-    class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-    <div formGroupName="departureAddress" class="mb-4">
-        <h2 class="text-lg font-semibold mb-2">Adresse de départ</h2>
+<div class="container mx-auto py-20 px-96">
 
-        <label for="departureNumber" class="block text-sm font-medium text-gray-700">Numéro de départ</label>
-        <input id="departureNumber" formControlName="number" type="number"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+    <h2 class="text-2xl font-bold mb-4">Publier votre trajet</h2>
+    <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="space-y-6">
+        <!-- Heure de départ -->
+        <div>
+            <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
+            <input type="datetime-local" id="departureTime" formControlName="departureTime"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+        </div>
 
-        <label for="departureStreet" class="block text-sm font-medium text-gray-700 mt-4">Rue de départ</label>
-        <input id="departureStreet" formControlName="street" type="text"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        <!-- Heure d'arrivée -->
+        <div>
+            <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
+            <input type="datetime-local" id="arrivalTime" formControlName="arrivalTime"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+        </div>
 
-        <label for="departureCode" class="block text-sm font-medium text-gray-700 mt-4">Code postal de départ</label>
-        <input id="departureCode" formControlName="code" type="text"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        <!-- Adresse de départ -->
+        <div formGroupName="departureAddress">
+            <label class="block text-sm font-medium text-gray-700">Adresse de départ</label>
+            <div class="mt-1 grid grid-cols-4 gap-2">
+                <input type="number" placeholder="Numéro" formControlName="number"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Rue" formControlName="street"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Code Postal" formControlName="code"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Ville" formControlName="city"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+            </div>
+        </div>
 
-        <label for="departureCity" class="block text-sm font-medium text-gray-700 mt-4">Ville de départ</label>
-        <input id="departureCity" formControlName="city" type="text"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-    </div>
+        <!-- Adresse d'arrivée -->
+        <div formGroupName="arrivalAddress">
+            <label class="block text-sm font-medium text-gray-700">Adresse d'arrivée</label>
+            <div class="mt-1 grid grid-cols-4 gap-2">
+                <input type="number" placeholder="Numéro" formControlName="number"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Rue" formControlName="street"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Code Postal" formControlName="code"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Ville" formControlName="city"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+            </div>
+        </div>
 
-    <div formGroupName="arrivalAddress" class="mb-4">
-        <h2 class="text-lg font-semibold mb-2">Adresse d'arrivée</h2>
+        <!-- Nombre de places disponibles -->
+        <div>
+            <label for="availableSeats" class="block text-sm font-medium text-gray-700">Nombre de places
+                disponibles</label>
+            <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+        </div>
 
-        <label for="arrivalNumber" class="block text-sm font-medium text-gray-700">Numéro d'arrivée</label>
-        <input id="arrivalNumber" formControlName="number" type="number"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+        <!-- Vehicle selection -->
+        <div>
+            <label for="vehicleId" class="block text-sm font-medium text-gray-700">Véhicule</label>
+            <select id="vehicleId" formControlName="vehicleId"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required>
+                <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.brand}} -{{vehicle.model}} -
+                    {{vehicle.number}}</option>
+            </select>
+        </div>
 
-        <label for="arrivalStreet" class="block text-sm font-medium text-gray-700 mt-4">Rue d'arrivée</label>
-        <input id="arrivalStreet" formControlName="street" type="text"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-
-        <label for="arrivalCode" class="block text-sm font-medium text-gray-700 mt-4">Code postal d'arrivée</label>
-        <input id="arrivalCode" formControlName="code" type="text"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-
-        <label for="arrivalCity" class="block text-sm font-medium text-gray-700 mt-4">Ville d'arrivée</label>
-        <input id="arrivalCity" formControlName="city" type="text"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-    </div>
-
-    <div class="mb-4">
-        <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
-        <input id="departureTime" formControlName="departureTime" type="datetime-local"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-    </div>
-
-    <div class="mb-4">
-        <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
-        <input id="arrivalTime" formControlName="arrivalTime" type="datetime-local"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-    </div>
-
-    <div class="mb-4">
-        <label for="availableSeats" class="block text-sm font-medium text-gray-700">Places disponibles</label>
-        <input id="availableSeats" formControlName="availableSeats" type="number" min="1"
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-    </div>
-
-    <label for="vehicleId">Sélectionnez un véhicule :</label>
-    <select id="vehicleId" formControlName="vehicleId" required>
-        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
-            {{ vehicle.brand }} - {{ vehicle.model }} ({{ vehicle.number }})
-        </option>
-    </select>
-
-
-    <button type="submit" [disabled]="rideShareForm.invalid"
-        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Créer
-        un covoiturage</button>
-</form>
+        <!-- Bouton de soumission -->
+        <div class="flex justify-center">
+            <button type="submit"
+                class="w-fit bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Publier trajet
+            </button>
+        </div>
+    </form>
+</div>
