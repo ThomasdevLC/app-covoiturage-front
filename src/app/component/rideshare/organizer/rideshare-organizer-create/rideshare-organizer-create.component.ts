@@ -8,6 +8,7 @@ import { SecureApiService } from '../../../../service/api/secure-api.service';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';
+import { ErrorHandlerService } from '../../../../service/errors/error-handler.service';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
@@ -19,13 +20,14 @@ import { PrivateVehicle } from '../../../../models/private-vehicle.model';
 export class RideshareOrganizerCreateComponent {
   rideShareForm: FormGroup;
   vehicles: PrivateVehicle[] = [];
-
+  errorMessage: string = '';
   
   constructor(
     private formBuilder: FormBuilder,
     private secureApiService: SecureApiService,
     private rideShareService: RideshareOrganizerService,
     private privateVehicleService: PrivateVehicleService,
+    private errorHandlerService: ErrorHandlerService,
 
     private router: Router
   ) {
@@ -73,15 +75,20 @@ export class RideshareOrganizerCreateComponent {
           }
         })
       )
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           console.log('Ride share created successfully:', response);
           this.router.navigate(['/rideshares/organizer']);
         },
-        (error) => {
-          console.error('Error creating ride share:', error);
+        error: (error) => {
+          this.errorHandlerService.handleError(error).subscribe({
+            next: (errorObject) => {
+              this.errorMessage = errorObject.message;
+               // Access the error message from the custom error object
+            }
+          });
         }
-      );
+      });
   }
 
   ngOnInit(): void {
@@ -93,14 +100,14 @@ export class RideshareOrganizerCreateComponent {
           throw new Error('Utilisateur non authentifié');
         }
       })
-    ).subscribe(
-      (vehicles) => {
+    ).subscribe({
+      next: (vehicles) => {
         this.vehicles = vehicles;  
         console.log('Véhicules récupérés avec succès :', vehicles);
       },
-      (error) => {
+      error: (error) => {
         console.error('Erreur lors de la récupération des véhicules :', error);
       }
-    );
+    });
   }
 }
