@@ -23,17 +23,18 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   loadEmployeeProfile(): void {
-    this.employeeProfileService.getEmployeeProfileById().subscribe(
-      (profile) => {
-        this.employeeProfile$.next(profile); 
+    this.employeeProfileService.getEmployeeProfileById().subscribe({
+      next: (profile) => {
+        this.employeeProfile$.next(profile);
         console.log('Profil de l\'employé :', profile);
       },
-      (error) => {
-        console.error('Erreur lors de la récupération du profil de l\'employé', error);
-        this.errorMessage = 'Unable to load employee profile'; 
+      error: (err) => {
+        console.error('Erreur lors de la récupération du profil de l\'employé:', err);
+        this.errorMessage = 'Unable to load employee profile';
       }
-    );
+    });
   }
+  
 
   onClick(): void {
     this.router.navigate(['/private-vehicles/create']);

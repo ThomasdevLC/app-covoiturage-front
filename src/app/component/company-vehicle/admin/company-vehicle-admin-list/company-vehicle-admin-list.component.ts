@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import {
-  FormBuilder,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -61,20 +60,17 @@ export class CompanyVehicleAdminListComponent implements OnInit {
 
   // Fonction de suppression
   deleteCompanyVehicles(vehicleId: number): void {
-    if (
-      confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)
-    ) {
-      this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe(
-        () => {
-          // Actualiser la liste des véhicules après suppression
+    if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)) {
+      this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({
+        next: () => {
           this.vehicles = this.vehicles.filter(
             (vehicle) => vehicle.id !== vehicleId
           );
         },
-        (error) => {
-          console.error('Erreur lors de la suppression du véhicule', error);
-        }
-      );
+        error: (err) => {
+          console.error('Erreur lors de la suppression du véhicule:', err);
+        },
+      });
     }
   }
 }

@@ -98,7 +98,6 @@ export class CompanyVehicleUpdateComponent implements OnInit {
         next: (response) => {
           console.log('Véhicule mis à jour avec succès', updatedVehicle);
   
-          // Change the vehicle status after the vehicle details are updated
           const newStatus = this.vehicleForm.value.status;
           this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
             next: () => {

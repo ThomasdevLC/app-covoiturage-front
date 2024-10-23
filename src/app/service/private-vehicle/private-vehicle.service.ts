@@ -15,16 +15,14 @@ export class PrivateVehicleService {
 
   constructor(
     private http: HttpClient,
-    private employeeService: EmployeeService,
     private authService: AuthService,
     private secureApiService: SecureApiService,
 
   ) {}
 
   createVehicle(vehicle: PrivateVehicle): Observable<PrivateVehicle> {
-    return this.employeeService.currentUser$.pipe(
-      take(1),
-      switchMap((currentUser) => {
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) =>  {
         if (currentUser) {
           const employeeId = { id: currentUser.id };
 

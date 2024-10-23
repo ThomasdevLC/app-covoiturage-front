@@ -48,20 +48,20 @@ export class CompanyVehicleCreateComponent {
   onSubmit(): void {
     if (this.vehicleForm.valid) {
       const newVehicle: CompanyVehicle = this.vehicleForm.value;
-      this.vehicleService.createVehicle(newVehicle).subscribe(
-        (vehicle) => {
+      this.vehicleService.createVehicle(newVehicle).subscribe({
+        next: (vehicle) => {
           console.log('Véhicule créé avec succès', vehicle);
           this.router.navigate(['/company-vehicles']);
         },
-        (error) => {
-          console.error('Erreur lors de la création du véhicule', error);
+        error: (err) => {
+          console.error('Erreur lors de la création du véhicule:', err);
           this.errorMessage =
             "Une erreur s'est produite lors de la création du véhicule.";
-        }
-      );
+        },
+      });
     } else {
       console.log('error-> champs');
       this.errorMessage = 'Veuillez remplir tous les champs correctement.';
     }
-  }
+  }  
 }
