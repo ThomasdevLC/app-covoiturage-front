@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient,  } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EmployeeConnected } from '../../models/employee/employee-connected.model';
-import { AuthService } from '../auth/auth.service';
 import { environment } from '../../../environments/environment';
 import { Employee } from '../../models/employee.model';
 
@@ -20,7 +19,7 @@ export class EmployeeService {
   constructor(private http: HttpClient,) {}
 
 
-// Méthode pour récupérer les informations d'un employé 
+//  récupérer les informations d'un employé 
   getEmployeeById(employeeId: number): Observable<Employee> {
   return this.http.get<Employee>(`${this.apiURL}/${employeeId}`);
 }

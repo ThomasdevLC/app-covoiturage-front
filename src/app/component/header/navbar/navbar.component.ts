@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmployeeService } from '../../../service/employee/employee.service';
 import { EmployeeConnected } from '../../../models/employee/employee-connected.model';
 import { AuthService } from '../../../service/auth/auth.service';
 import { CommonModule } from '@angular/common';

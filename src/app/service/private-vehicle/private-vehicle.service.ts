@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PrivateVehicle } from '../../models/private-vehicle.model';
 import { Observable, switchMap, take, throwError } from 'rxjs';
-import { EmployeeService } from '../employee/employee.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { environment } from '../../../environments/environment';

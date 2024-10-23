@@ -22,7 +22,7 @@ export class CompanyVehicleEmployeeService {
 
 
 
-  constructor(private http: HttpClient, private authService: AuthService, private employeeService: EmployeeService, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private authService: AuthService, private route: ActivatedRoute) {}
 
   /*
   ngOnInit(): void {
