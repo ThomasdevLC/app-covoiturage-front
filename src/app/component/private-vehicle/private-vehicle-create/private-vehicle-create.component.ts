@@ -25,7 +25,13 @@ export class PrivateVehicleCreateComponent {
     private vehicleService: PrivateVehicleService // private router: Router
   ) {
     this.vehicleForm = this.fb.group({
-      number: ['', Validators.required],
+      number: [
+        '', 
+        [
+          Validators.required, 
+          Validators.pattern(/^[a-z]{2}-\d{3}-[a-z]{2}$/)
+        ]
+      ],
       brand: ['', Validators.required],
       model: ['', Validators.required],
       seats: [1, [Validators.required, Validators.min(1)]],
