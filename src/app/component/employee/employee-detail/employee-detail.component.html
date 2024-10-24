@@ -12,7 +12,7 @@
             <p class="text-lg"><strong>Email :</strong> {{ employeeProfile.email }}</p>
             <h3 class="text-xl font-semibold mt-4">Véhicules</h3>
             <ul class="mt-2 space-y-2">
-                <li *ngFor="let vehicle of employeeProfile.vehicle" class="bg-gray-100 p-3 rounded-md shadow-sm ">
+                <li *ngFor="let vehicle of vehicles" class="bg-gray-100 p-3 rounded-md shadow-sm ">
                     {{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.number }})
                 </li>
             </ul>

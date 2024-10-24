@@ -24,7 +24,6 @@ export class PrivateVehicleService {
       switchMap((currentUser) =>  {
         if (currentUser) {
           const employeeId = { id: currentUser.id };
-
           const vehicleToPost = {
             ...vehicle,
             employee: employeeId,

@@ -29,9 +29,9 @@ export class PrivateVehicleCreateComponent {
         '', 
         [
           Validators.required, 
-          Validators.pattern(/^[a-z]{2}-\d{3}-[a-z]{2}$/)
+          Validators.pattern(/^[A-Z]{2}-\d{3}-[A-Z]{2}$/)
         ]
-      ],
+      ], 
       brand: ['', Validators.required],
       model: ['', Validators.required],
       seats: [1, [Validators.required, Validators.min(1)]],
