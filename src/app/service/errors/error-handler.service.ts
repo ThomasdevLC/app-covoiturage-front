@@ -16,7 +16,7 @@ export class ErrorHandlerService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Erreur: ${error.error.message}`;
     } else {
-      if (error.status === 400) {
+      if (error.status === 400 || error.status === 401 || error.status === 403) {
         errorMessage = error.error; // Message de validation ou logique métier renvoyé par le backend
       } else if (error.status === 404) {
         errorMessage = 'La ressource demandée est introuvable.';
