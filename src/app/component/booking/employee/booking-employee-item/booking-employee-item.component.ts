@@ -42,4 +42,11 @@ deleteBooking(): void {
     this.errorMessage = 'Détails de la réservation non valides';
   }
 }
+//
+onCancelBooking(){
+  //pour retourner a la lsite des resrvations
+  console.log("on cancel booking??");
+  this.router.navigate(['/bookings-list', this.booking.id]);
+
+}
 }
