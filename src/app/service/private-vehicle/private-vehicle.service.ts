@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PrivateVehicle } from '../../models/private-vehicle.model';
-import { Observable, switchMap, take, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../auth/auth.service';
+import { Observable, switchMap, throwError } from 'rxjs';
+import { HttpClient,  } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { SecureApiService } from '../api/secure-api.service';
 
@@ -14,7 +13,6 @@ export class PrivateVehicleService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
     private secureApiService: SecureApiService,
 
   ) {}
@@ -27,21 +25,13 @@ export class PrivateVehicleService {
           const vehicleToPost = {
             ...vehicle,
             employee: employeeId,
-            type: 'PRIVATE',
           };
 
-          const token = this.authService.getToken();
-          const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          });
-
-          return this.http.post<PrivateVehicle>(
+        return this.http.post<PrivateVehicle>(
             `${this.apiURL}private-vehicles`,
             vehicleToPost,
             {
-              headers,
-            }
+              headers: this.secureApiService.getHeaders(),            }
           );
         } else {
           return throwError('Utilisateur non authentifié');

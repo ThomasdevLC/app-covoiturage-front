@@ -42,7 +42,6 @@ export class CompanyVehicleAdminService {
           const vehicleToPost = {
             ...vehicle,
             employee: employeeId,
-            type: 'COMPANY',
           };
 
           return this.http.post<CompanyVehicle>(
