@@ -26,7 +26,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployeeProfile();
-    this.loadEmployeePrivateVehciles(); 
+    this.loadEmployeePrivateVehicles(); 
 
   }
 
@@ -43,7 +43,7 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
 
-  loadEmployeePrivateVehciles(): void {
+  loadEmployeePrivateVehicles(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         if (currentUser) {
@@ -67,4 +67,7 @@ export class EmployeeDetailComponent implements OnInit {
   onClick(): void {
     this.router.navigate(['/private-vehicles/create']);
   }
+
+//appeler la fonction deleteVehicle du service privateVehicleService
+
 }

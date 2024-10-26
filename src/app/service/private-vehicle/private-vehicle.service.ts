@@ -53,12 +53,15 @@ export class PrivateVehicleService {
   getVehiclesByEmployeeId(userId: number): Observable<PrivateVehicle[]> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-         userId = currentUser.id;
- 
+         userId = currentUser.id; 
     return this.http.get<PrivateVehicle[]>(
       `${this.apiURL}private-vehicles/employees/${userId}`,  
       {   headers: this.secureApiService.getHeaders(), }  
     );
   }))  
 }
+
+//faire delete
+//faire update
+
 }
