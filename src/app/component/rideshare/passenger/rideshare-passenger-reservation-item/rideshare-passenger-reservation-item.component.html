@@ -12,8 +12,14 @@
         <p>Arrivée:
             <span class="font-medium text-gray-900">{{ rideshare.arrivalTime | dateFormatter }}</span>
         </p>
-        <p>Nombre de Passagers:
-            <span class="font-medium text-gray-900">{{ rideshare.passengers.length }}</span>
+        <p>Véhicule:
+            <span class="font-medium text-gray-900">{{ rideshare.vehicle.brand }}</span> - <span
+                class="font-medium text-gray-900">{{ rideshare.vehicle.model }}</span>- <span
+                class="font-medium text-gray-900">{{ rideshare.vehicle.number }}</span>
+        </p>
+
+        <p>Places disponibles:
+            <span class="font-medium text-gray-900">{{ rideshare.availableSeats }}</span>
         </p>
     </div>
 

@@ -3,9 +3,10 @@ import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
-import { CompanyVehicle } from '../../../../models/company-vehicle.model';
+
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 
 @Component({
   selector: 'app-booking-employee-create',
@@ -49,30 +50,27 @@ export class BookingEmployeeCreateComponent implements OnInit {
 
   confirmReservation(): void {
     if (this.vehicle) {
-      const startTimeFormatted = new Date(this.startTime!)
-        .toISOString()
-        .slice(0, 19);
-      const endTimeFormatted = new Date(this.endTime!)
-        .toISOString()
-        .slice(0, 19);
-
+      const startTimeFormatted = new Date(this.startTime!).toISOString().slice(0, 19);
+      const endTimeFormatted = new Date(this.endTime!).toISOString().slice(0, 19);
+  
       const booking: VehicleBooking = {
         startTime: startTimeFormatted,
         endTime: endTimeFormatted,
         vehicle: this.vehicle,
         id: 0
       };
-
-      this.bookingEmployeeService.createBooking(booking).subscribe(
-        (result) => {
+  
+      this.bookingEmployeeService.createBooking(booking).subscribe({
+        next: (result) => {
           console.log('Réservation réussie:', result);
-          this.router.navigate(['/bookings-list']); 
-
+          this.router.navigate(['/bookings-list']);
         },
-        (error) => {
+        error: (err) => {
+          console.error('Erreur lors de la réservation du véhicule:', err);
           this.errorMessage = 'Erreur lors de la réservation du véhicule';
         }
-      );
+      });
     }
   }
+  
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmployeeService } from '../../../service/employee/employee.service';
 import { EmployeeConnected } from '../../../models/employee/employee-connected.model';
 import { AuthService } from '../../../service/auth/auth.service';
 import { CommonModule } from '@angular/common';
@@ -19,12 +18,11 @@ export class NavbarComponent  {
   menuOpen: boolean = false;
 
   constructor(
-    private employeeService: EmployeeService,
     private authService: AuthService,
     private router: Router
 
   ) {
-    this.currentUser$ = this.employeeService.currentUser$;
+    this.currentUser$ = this.authService.currentUser$;
   }
 
 
@@ -34,7 +32,7 @@ export class NavbarComponent  {
 
   logout(): void {
     this.authService.logout();
-    this.employeeService.initializeCurrentUser();
+    this.authService.initializeCurrentUser();
     this.router.navigate(['/']); 
 
   }

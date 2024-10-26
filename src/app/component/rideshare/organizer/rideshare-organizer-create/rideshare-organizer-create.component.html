@@ -1,12 +1,11 @@
 <div class="container mx-auto py-20 px-96">
-    <h2 class="text-2xl font-bold mb-4">Créer un nouveau covoiturage</h2>
 
-    <form (ngSubmit)="createNewRideShare()" class="space-y-6">
+    <h2 class="text-2xl font-bold mb-4">Publier votre trajet</h2>
+    <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="space-y-6">
         <!-- Heure de départ -->
         <div>
             <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
-            <input type="datetime-local" id="departureTime" [(ngModel)]="rideShareData.departureTime"
-                name="departureTime"
+            <input type="datetime-local" id="departureTime" formControlName="departureTime"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
         </div>
@@ -14,38 +13,38 @@
         <!-- Heure d'arrivée -->
         <div>
             <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
-            <input type="datetime-local" id="arrivalTime" [(ngModel)]="rideShareData.arrivalTime" name="arrivalTime"
+            <input type="datetime-local" id="arrivalTime" formControlName="arrivalTime"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
         </div>
 
         <!-- Adresse de départ -->
-        <div>
+        <div formGroupName="departureAddress">
             <label class="block text-sm font-medium text-gray-700">Adresse de départ</label>
             <div class="mt-1 grid grid-cols-4 gap-2">
-                <input type="number" placeholder="Numéro" [(ngModel)]="rideShareData.departureAddress.number"
-                    name="departureNumber" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-                <input type="text" placeholder="Rue" [(ngModel)]="rideShareData.departureAddress.street"
-                    name="departureStreet" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-                <input type="text" placeholder="Code Postal" [(ngModel)]="rideShareData.departureAddress.code"
-                    name="departureCode" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-                <input type="text" placeholder="Ville" [(ngModel)]="rideShareData.departureAddress.city"
-                    name="departureCity" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="number" placeholder="Numéro" formControlName="number"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Rue" formControlName="street"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Code Postal" formControlName="code"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Ville" formControlName="city"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
             </div>
         </div>
 
         <!-- Adresse d'arrivée -->
-        <div>
+        <div formGroupName="arrivalAddress">
             <label class="block text-sm font-medium text-gray-700">Adresse d'arrivée</label>
             <div class="mt-1 grid grid-cols-4 gap-2">
-                <input type="number" placeholder="Numéro" [(ngModel)]="rideShareData.arrivalAddress.number"
-                    name="arrivalNumber" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-                <input type="text" placeholder="Rue" [(ngModel)]="rideShareData.arrivalAddress.street"
-                    name="arrivalStreet" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-                <input type="text" placeholder="Code Postal" [(ngModel)]="rideShareData.arrivalAddress.code"
-                    name="arrivalCode" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-                <input type="text" placeholder="Ville" [(ngModel)]="rideShareData.arrivalAddress.city"
-                    name="arrivalCity" class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="number" placeholder="Numéro" formControlName="number"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Rue" formControlName="street"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Code Postal" formControlName="code"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                <input type="text" placeholder="Ville" formControlName="city"
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
             </div>
         </div>
 
@@ -53,18 +52,31 @@
         <div>
             <label for="availableSeats" class="block text-sm font-medium text-gray-700">Nombre de places
                 disponibles</label>
-            <input type="number" id="availableSeats" [(ngModel)]="rideShareData.availableSeats" name="availableSeats"
-                min="1"
+            <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
+        </div>
+
+        <!-- Vehicle selection -->
+        <div>
+            <label for="vehicleId" class="block text-sm font-medium text-gray-700">Véhicule</label>
+            <select id="vehicleId" formControlName="vehicleId"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required>
+                <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.brand}} -{{vehicle.model}} -
+                    {{vehicle.number}}</option>
+            </select>
         </div>
 
         <!-- Bouton de soumission -->
         <div class="flex justify-center">
             <button type="submit"
                 class="w-fit bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Créer un covoiturage
+                Publier trajet
             </button>
+        </div>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
         </div>
     </form>
 </div>

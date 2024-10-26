@@ -25,7 +25,13 @@ export class PrivateVehicleCreateComponent {
     private vehicleService: PrivateVehicleService // private router: Router
   ) {
     this.vehicleForm = this.fb.group({
-      number: ['', Validators.required],
+      number: [
+        '', 
+        [
+          Validators.required, 
+          Validators.pattern(/^[A-Z]{2}-\d{3}-[A-Z]{2}$/)
+        ]
+      ], 
       brand: ['', Validators.required],
       model: ['', Validators.required],
       seats: [1, [Validators.required, Validators.min(1)]],
@@ -35,19 +41,18 @@ export class PrivateVehicleCreateComponent {
   onSubmit(): void {
     if (this.vehicleForm.valid) {
       const newVehicle: PrivateVehicle = this.vehicleForm.value;
-      this.vehicleService.createVehicle(newVehicle).subscribe(
-        (vehicle) => {
+      this.vehicleService.createVehicle(newVehicle).subscribe({
+        next: (vehicle) => {
           console.log('Véhicule créé avec succès', vehicle);
-          // this.router.navigate(['/vehicles']);
         },
-        (error) => {
-          console.error('Erreur lors de la création du véhicule', error);
+        error: (err) => {
+          console.error('Erreur lors de la création du véhicule:', err);
           this.errorMessage =
             "Une erreur s'est produite lors de la création du véhicule.";
         }
-      );
+      });
     } else {
       this.errorMessage = 'Veuillez remplir tous les champs correctement.';
     }
-  }
+  } 
 }

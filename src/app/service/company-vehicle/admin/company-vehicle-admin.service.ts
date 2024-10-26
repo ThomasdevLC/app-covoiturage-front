@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, switchMap, throwError } from 'rxjs';
-import { CompanyVehicle } from '../../../models/company-vehicle.model';
 import { environment } from '../../../../environments/environment';
 import { SecureApiService } from '../../api/secure-api.service';
-import { VehicleBooking } from '../../../models/vehicle-booking.model';
+import { CompanyVehicle } from '../../../models/company-vehicle/company-vehicle.model';
 
 @Injectable({
   providedIn: 'root',
@@ -131,8 +130,31 @@ export class CompanyVehicleAdminService {
       headers: this.secureApiService.getHeaders(),
     });
   }
-  //
-  getBookingsByVehicleId(vehicleId: number): Observable<VehicleBooking[]> {
-    return this.http.get<VehicleBooking[]>(`${this.apiURL}?vehicleId=${vehicleId}`);
+
+  changeVehicleStatus(
+    vehicleId: number,
+    newStatus: string
+  ): Observable<CompanyVehicle> {
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        if (currentUser) {
+          const employeeId = currentUser.id; 
+          const params = new HttpParams()
+            .set('newStatus', newStatus)
+            .set('employeeId', employeeId.toString());
+  
+          return this.http.put<CompanyVehicle>(
+            `${this.apiURL}company-vehicles/${vehicleId}/status`,
+            {}, 
+            {
+              params,
+              headers: this.secureApiService.getHeaders(),
+            }
+          );
+        } else {
+          return throwError(() => new Error('Utilisateur non authentifié'));
+        }
+      })
+    );
   }
 }

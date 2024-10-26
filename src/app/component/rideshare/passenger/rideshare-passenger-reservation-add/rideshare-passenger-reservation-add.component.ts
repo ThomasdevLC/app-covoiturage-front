@@ -5,6 +5,7 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
+import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,
@@ -14,7 +15,7 @@ import { RidesharePassengerService } from '../../../../service/rideshare/passeng
 })
 export class RidesharePassengerReservationAddComponent implements OnInit {
     rideShareId!: number;
-    rideShare$!: Observable<RideShare>; 
+    rideShare$!: Observable<RideSharePassengerDetails>; 
   
     constructor(
       private route: ActivatedRoute,

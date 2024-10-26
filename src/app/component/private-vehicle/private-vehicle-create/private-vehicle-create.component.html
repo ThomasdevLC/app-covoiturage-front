@@ -13,7 +13,12 @@
                 placeholder="Entrez le numéro du véhicule" />
             <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
                 class="text-red-500 text-sm mt-1">
-                Le numéro du véhicule est requis.
+                <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
+                    Le numéro du véhicule est requis.
+                </div>
+                <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
+                    Le numéro doit respecter le format suivant : FF-855-BJ.
+                </div>
             </div>
         </div>
 
@@ -23,7 +28,7 @@
                 Marque du véhicule
             </label>
             <input id="brand" type="text" formControlName="brand"
-                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 top-5 text-transform: capitalize"
                 placeholder="Entrez la marque" />
             <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
                 class="text-red-500 text-sm mt-1">
@@ -37,7 +42,7 @@
                 Modèle du véhicule
             </label>
             <input id="model" type="text" formControlName="model"
-                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-transform: capitalize"
                 placeholder="Entrez le modèle" />
             <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
                 class="text-red-500 text-sm mt-1">

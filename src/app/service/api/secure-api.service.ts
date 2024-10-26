@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, take, tap } from 'rxjs';
+import { filter, Observable, take, tap } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { EmployeeService } from '../employee/employee.service';
+import { EmployeeConnected } from '../../models/employee/employee-connected.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,6 @@ export class SecureApiService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private employeeService: EmployeeService
   ) {}
 
   getHeaders(): HttpHeaders {
@@ -22,11 +21,12 @@ export class SecureApiService {
     });
   }
 
-  getCurrentUser(): Observable<any> {
-    return this.employeeService.currentUser$.pipe(
+  getCurrentUser(): Observable<EmployeeConnected> {
+    return this.authService.currentUser$.pipe(
+      filter((currentUser) => !!currentUser), // N'avance que si l'utilisateur est non-null
       take(1),
       tap((currentUser) => {
-        console.log('Current user:', currentUser); 
+        console.log('Current user:', currentUser);
       })
     );
   }

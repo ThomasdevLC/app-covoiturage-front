@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,8 @@ import { BookingEmployeeService } from '../../../../service/booking/employee/boo
 })
 export class BookingEmployeeItemComponent {
   @Input() booking!: VehicleBooking;
+  @Input() isPast: boolean = false;
+  @Output() bookingDeleted = new EventEmitter<void>();
   errorMessage: string | undefined;
 
 constructor(private router: Router, private bookingEmployeeService: BookingEmployeeService  ){
@@ -29,7 +31,7 @@ deleteBooking(): void {
     this.bookingEmployeeService.deleteBooking(this.booking.id).subscribe({
       next: () => {
         console.log('Booking deleted successfully');
-        this.router.navigate(['/bookings-list']); 
+        this.bookingDeleted.emit(); 
       },
       error: (err) => {
         this.errorMessage = 'Erreur lors de la suppression de la réservation';

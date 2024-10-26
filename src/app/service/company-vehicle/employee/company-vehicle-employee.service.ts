@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { CompanyVehicle } from '../../../models/company-vehicle.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {  Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../auth/auth.service';
 import { Employee } from '../../../models/employee.model';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
-import { EmployeeService } from '../../employee/employee.service';
 import { ActivatedRoute } from '@angular/router';
+import { CompanyVehicle } from '../../../models/company-vehicle/company-vehicle.model';
+import { SecureApiService } from '../../api/secure-api.service';
 
 
 @Injectable({
@@ -20,16 +20,9 @@ export class CompanyVehicleEmployeeService {
   futureBookings: VehicleBooking[] = [];
   pastBookings: VehicleBooking[] = [];
 
+  constructor(private http: HttpClient, private authService: AuthService,    private secureApiService: SecureApiService,
+    private route: ActivatedRoute) {}
 
-
-  constructor(private http: HttpClient, private authService: AuthService, private employeeService: EmployeeService, private route: ActivatedRoute) {}
-
-  /*
-  ngOnInit(): void {
-    const employeeId = +this.route.snapshot.paramMap.get('id');
-    this.getEmployeeBookings(employeeId);
-  }
-*/
 
   getVehiclesByStatusAndBookingDates(
     startTime?: string,
@@ -43,19 +36,14 @@ export class CompanyVehicleEmployeeService {
     if (endTime) {
       params = params.set('endTime', endTime);
     }
-
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-
+    const headers = this.secureApiService.getHeaders();
     return this.http.get<CompanyVehicle[]>(
       `${this.apiURL}company-vehicles/status-and-booking-dates`,
       { params, headers }
     );
   }
- //
+ 
+
 getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking[]>{
   let params = new HttpParams();
 
@@ -65,35 +53,25 @@ getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking
   if(past){
     params = params.set('past', past);//si ==true -> historique, sinon en cours
   }
-  const token = this.authService.getToken();
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  });
-  console.log("vh books->"+this.apiURL+"company-vehicles/bookings-search");
+  const headers = this.secureApiService.getHeaders();
   return this.http.get<VehicleBooking[]>(
     `${this.apiURL}company-vehicles/bookings-search`,
     { params, headers }
   );
 }
- //
+ 
+
  getVehicleById(vehicleId: number): Observable<VehicleBooking> {
   const token = this.authService.getToken();
   let params =  new HttpParams()
   if(vehicleId){
     params = params.set('vehicleId', vehicleId);
   }
-  
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  });
+  const headers = this.secureApiService.getHeaders();
   return this.http.get<VehicleBooking>(
     `${this.apiURL}company-vehicles/bookings-search`,
     { params, headers }
   );
- //
+ 
 }
-//
-
 }

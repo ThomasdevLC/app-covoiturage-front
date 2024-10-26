@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { CompanyVehicle } from '../../../../models/company-vehicle.model';
+import { RouterModule, Router } from '@angular/router';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { VehicleBooking } from '../../../../models/vehicle-booking.model';
-import { Observable } from 'rxjs';
+import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
@@ -26,7 +23,6 @@ export class CompanyVehicleEmployeeListComponent {
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
     private fb: FormBuilder,
-    private router: Router
   ) {
     this.filterForm = this.fb.group({
       startTime: [''],
@@ -51,19 +47,4 @@ export class CompanyVehicleEmployeeListComponent {
   onFilter(): void {
     this.loadVehicles();
   }
-  /*
-  getEmployeeBooking(): Observable<VehicleBooking[]>{
-
-    this.VehicleBookings
-    .getVehiclesBookings(employeeId,)
-    .subscribe({
-      next: (data: VehicleBooking[]) => {
-        this.vehicles = data;
-      },
-      error: (error: any) => {
-        console.error('Error fetching vehicles', error);
-      },
-    });
-  }
-  */
 }

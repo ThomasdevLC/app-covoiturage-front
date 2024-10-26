@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-search-item/rideshare-passenger-search-item.component';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
+import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
@@ -13,7 +14,7 @@ import { RidesharePassengerService } from '../../../../service/rideshare/passeng
   styleUrl: './rideshare-passenger-search-list.component.css'
 })
 export class RidesharePassengerSearchListComponent {
-  rideshares: RideShare[] = [];
+  rideshares: RideSharePassengerList[] = [];
   departureCity = '';
   arrivalCity = '';
   departureDateTime = '';
@@ -53,7 +54,10 @@ export class RidesharePassengerSearchListComponent {
     this.rideShareService
       .getRideShares(this.departureCity, this.arrivalCity, this.departureDateTime)
       .subscribe({
-        next: (rideshares: RideShare[]) => (this.rideshares = rideshares),
+        next: (rideshares: RideSharePassengerList[]) => {
+          this.rideshares = rideshares;
+          console.log('Covoiturages récupérés:', this.rideshares);
+        },
         error: (err) => console.error('Erreur lors de la récupération des covoiturages:', err),
       });
   }

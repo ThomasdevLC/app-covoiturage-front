@@ -1,14 +1,31 @@
 <div class="bg-white p-4 mb-4 rounded-lg shadow-md flex gap-4 items-center">
-    <p class="text-gray-800 text-base">
-        <span class="font-semibold">{{ rideshare.departureAddress.city }}</span> →
-        <span class="font-semibold">{{ rideshare.arrivalAddress.city }}</span> à
-        <span class="font-semibold">{{ rideshare.departureTime | dateFormatter }}</span>
-    </p>
-    <button [routerLink]="['/rideshares', rideshare.id, 'add-passenger']" [disabled]="rideshare.availableSeats < 1"
-        [ngClass]="{
-        'inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white bg-indigo-600 hover:bg-indigo-700': rideshare.availableSeats >= 1,
-        'inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out cursor-not-allowed text-gray-400 bg-gray-300': rideshare.availableSeats < 1
-    }">
+
+    <div class="flex flex-col">
+        <p class="text-gray-800 text-base">
+            <span class="font-semibold">{{ rideshare.departureAddress.city }}</span> →
+            <span class="font-semibold">{{ rideshare.arrivalAddress.city }}</span>
+
+
+        </p>
+        <p>
+            <span class="font-semibold">{{ rideshare.departureTime | dateFormatter }}</span> -
+            <span class="font-semibold">{{ rideshare.arrivalTime | dateFormatter }}</span>
+        </p>
+        <p>{{rideshare.formattedTripDuration}}</p>
+
+    </div>
+
+
+    <!-- Bouton actif si des sièges sont disponibles -->
+    <button *ngIf="rideshare.availableSeats >= 1" [routerLink]="['/rideshares', rideshare.id, 'add-passenger']"
+        class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white bg-indigo-600 hover:bg-indigo-700">
         Réserver
     </button>
+
+    <!-- Bouton désactivé si aucun siège n'est disponible -->
+    <button *ngIf="rideshare.availableSeats < 1"
+        class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out cursor-not-allowed text-gray-400 bg-gray-300">
+        Réserver
+    </button>
+
 </div>

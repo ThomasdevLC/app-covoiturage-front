@@ -1,28 +1,32 @@
-<div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
-    <div>
-        <p class="text-lg font-semibold text-gray-700">
-            <strong>Véhicule:</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}
-        </p>
-        <p class="text-gray-500">
-            <strong>Numéro:</strong> {{ booking.vehicle.number }}
-        </p>
+<div class="flex">
+    <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6 ">
+        <div>
+            <p class="text-lg font-semibold text-gray-700">
+                <strong>Véhicule:</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}
+            </p>
+            <p class="text-gray-500">
+                <strong>Numéro:</strong> {{ booking.vehicle.number }}
+            </p>
+        </div>
+        <div>
+            <p class="text-gray-600">
+                <strong>Date de début:</strong> {{ booking.startTime | dateFormatter }}
+            </p>
+            <p class="text-gray-600">
+                <strong>Date de fin:</strong> {{ booking.endTime | dateFormatter }}
+            </p>
+        </div>
+        <ng-container *ngIf="!isPast">
+            <button (click)="onUpdateBooking()"
+                class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
+                Modifier
+            </button>
+            <button (click)="deleteBooking()"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
+                Supprimer
+            </button>
+        </ng-container>
     </div>
-    <div>
-        <p class="text-gray-600">
-            <strong>Date de début:</strong> {{ booking.startTime | dateFormatter }}
-        </p>
-        <p class="text-gray-600">
-            <strong>Date de fin:</strong> {{ booking.endTime | dateFormatter }}
-        </p>
-    </div>
-    <button (click)="onUpdateBooking()"
-        class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
-        Modifier
-    </button>
-    <button (click)="onCancelBooking()"
-        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
-        Supprimer
-    </button>
 </div>
 
 <ng-template #noBookings>

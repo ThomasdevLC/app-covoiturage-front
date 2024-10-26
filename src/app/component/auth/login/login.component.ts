@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../service/auth/auth.service';
-import { EmployeeService } from '../../../service/employee/employee.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +18,6 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private employeeService: EmployeeService
   ) {}
 
   login(): void {
@@ -28,7 +26,7 @@ export class LoginComponent {
       .subscribe((response) => {
         const token = response.token;
         this.authService.setToken(token);
-        this.employeeService.initializeCurrentUser();
+        this.authService.initializeCurrentUser();
         this.router.navigate(['/']);
       });
   }
