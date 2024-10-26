@@ -11,6 +11,9 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
+import { catchError, of } from 'rxjs';
+import { BookingAdminServiceService } from '../../../service/booking/admin/booking-admin.service';
+
 @Component({
   selector: 'app-booking-admin-list',
   standalone: true,
@@ -24,24 +27,32 @@ import {
   styleUrl: './booking-admin-list.component.css'
 })
 
-export class BookingAdminListComponent implements OnInit{
-  vehicleId: number = 0;
+export class BookingAdminListComponent implements OnInit {
   bookings: VehicleBooking[] = [];
+  bookingType: 'past' | 'now' | 'future' = 'future'; // Type de réservation par défaut
+  errorMessage: string | null = null;
 
   constructor(
-    private route: ActivatedRoute,
-    private companyVehicleAdminService: CompanyVehicleAdminService
+    private bookingAdminService: BookingAdminServiceService // Injection du service
   ) {}
 
   ngOnInit(): void {
-    this.vehicleId = Number(this.route.snapshot.paramMap.get('id')); // Récupération de l'ID du véhicule
-    this.loadBookings(); // Chargez les réservations
+    this.loadBookings(this.bookingType); // Charge les réservations au démarrage
   }
 
-  loadBookings(): void {
-    this.companyVehicleAdminService.getBookingsByVehicleId(this.vehicleId).subscribe(bookings => {
-      this.bookings = bookings;
+  loadBookings(type: 'past' | 'now' | 'future'): void {
+    this.bookingAdminService.getBookingsByType(type).pipe(
+      catchError((error) => {
+        this.errorMessage = error; // Gérer l'erreur ici
+        return of([]); // Retourne un tableau vide en cas d'erreur
+      })
+    ).subscribe((bookings) => {
+      this.bookings = bookings; // Stocker les réservations dans la variable
     });
   }
 
+  onTypeChange(type: 'past' | 'now' | 'future'): void {
+    this.bookingType = type; // Met à jour le type de réservation
+    this.loadBookings(type); // Recharge les réservations en fonction du type sélectionné
+  }
 }
