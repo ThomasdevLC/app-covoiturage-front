@@ -37,7 +37,7 @@ export const routes: Routes = [
   //COMPANY-VEHICLES
   { path: 'company-vehicles', component: CompanyVehicleAdminListComponent},
   { path: 'company-vehicles/create', component:CompanyVehicleCreateComponent},
-  { path: 'company-vehicles/status-and-booking-dates',component: CompanyVehicleEmployeeListComponent, },
+  { path: 'company-vehicles/status-and-booking-dates',component: CompanyVehicleEmployeeListComponent},
   { path: 'company-vehicles/update/:id',component: CompanyVehicleUpdateComponent},
 
   //BOOKINGS
