@@ -51,7 +51,17 @@ export class PrivateVehicleService {
   }))  
 }
 
+getVehicleById(vehicleId: number): Observable<PrivateVehicle[]> {
+  return this.http.get<PrivateVehicle[]>(
+    `${this.apiURL}private-vehicles//${vehicleId}`,  
+    {   headers: this.secureApiService.getHeaders(), }  
+  );
+  }
+ 
 //faire delete
 //faire update
-
 }
+
+
+
+
