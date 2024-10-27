@@ -28,11 +28,11 @@
                                 vehicle.number }})</p>
                         </div>
                         <div class="flex space-x-3">
-                            <button
+                            <button (click)="editVehicle(vehicle)"
                                 class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
                                 Modifier
                             </button>
-                            <button
+                            <button (click)="deleteVehicle(vehicle)"
                                 class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
                                 Supprimer
                             </button>

@@ -1,1 +1,29 @@
-<p>private-vehicle-edit works!</p>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<form [formGroup]="vehicleForm" (ngSubmit)="saveChanges()">
+  <div>
+    <label for="brand">Marque :</label>
+    <input id="brand" formControlName="brand" type="text" />
+    <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched">
+      La marque est requise.
+    </div>
+  </div>
+
+  <div>
+    <label for="model">Modèle :</label>
+    <input id="model" formControlName="model" type="text" />
+    <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched">
+      Le modèle est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="number">Numéro :</label>
+    <input id="number" formControlName="number" type="text" />
+    <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched">
+      Le numéro est requis.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="vehicleForm.invalid">Enregistrer</button>
+</form>

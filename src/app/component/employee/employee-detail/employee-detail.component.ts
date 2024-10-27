@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { EmployeeProfile } from '../../../models/employee/employee-profile.models';
-import { EmployeeService } from '../../../service/employee/employee.service';
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
 import { SecureApiService } from '../../../service/api/secure-api.service';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
@@ -21,13 +20,16 @@ export class EmployeeDetailComponent implements OnInit {
   vehicles: PrivateVehicle[] = [];
   errorMessage: string | null = null; 
 
-  constructor(private employeeProfileService: EmployeeProfileService,
-    private secureApiService :SecureApiService,  private privateVehicleService :PrivateVehicleService , private router: Router) {}
+  constructor(
+    private employeeProfileService: EmployeeProfileService,
+    private secureApiService: SecureApiService, 
+    private privateVehicleService: PrivateVehicleService, 
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadEmployeeProfile();
     this.loadEmployeePrivateVehicles(); 
-
   }
 
   loadEmployeeProfile(): void {
@@ -63,11 +65,26 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
   
-
   onClick(): void {
     this.router.navigate(['/private-vehicles/create']);
   }
 
-//appeler la fonction deleteVehicle du service privateVehicleService
+  editVehicle(vehicle: PrivateVehicle): void {
+    this.router.navigate(['/private-vehicles/edit', vehicle.id]);
+  }
 
+  deleteVehicle(vehicle: PrivateVehicle): void {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer le véhicule ${vehicle.brand} ${vehicle.model} (${vehicle.number}) ?`)) {
+      this.privateVehicleService.deleteVehicle(vehicle.id).subscribe({
+        next: () => {
+          console.log(`Véhicule avec l'ID ${vehicle.id} supprimé avec succès.`);
+          this.vehicles = this.vehicles.filter(v => v.id !== vehicle.id);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la suppression du véhicule :', error);
+          this.errorMessage = 'Erreur lors de la suppression du véhicule';
+        }
+      });
+    }
+  }
 }

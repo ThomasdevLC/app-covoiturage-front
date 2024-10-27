@@ -1,12 +1,75 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
+import { PrivateVehicle } from '../../../models/private-vehicle.model';
+import { CommonModule } from '@angular/common'; // Pour les directives comme *ngIf
 
 @Component({
   selector: 'app-private-vehicle-edit',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule], // Ajout de CommonModule pour *ngIf et ReactiveFormsModule pour les formulaires
   templateUrl: './private-vehicle-edit.component.html',
-  styleUrl: './private-vehicle-edit.component.css'
+  styleUrls: ['./private-vehicle-edit.component.css']
 })
-export class PrivateVehicleEditComponent {
+export class PrivateVehicleEditComponent implements OnInit {
+  vehicleId!: number;
+  vehicleForm!: FormGroup;
+  errorMessage: string | null = null;
 
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private privateVehicleService: PrivateVehicleService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.vehicleId = Number(this.route.snapshot.paramMap.get('id')); // Récupération de l'ID du véhicule
+    this.initializeForm();
+    this.loadVehicle();
+  }
+
+  // Initialisation du formulaire avec des validations
+  initializeForm(): void {
+    this.vehicleForm = this.fb.group({
+      brand: ['', Validators.required],
+      model: ['', Validators.required],
+      number: ['', Validators.required],
+    });
+  }
+
+  // Chargement des données du véhicule dans le formulaire
+  loadVehicle(): void {
+    this.privateVehicleService.getVehicleById(this.vehicleId).subscribe({
+      next: (vehicle: { brand: any; model: any; number: any; }) => {
+        this.vehicleForm.patchValue({
+          brand: vehicle.brand,
+          model: vehicle.model,
+          number: vehicle.number,
+        });
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement du véhicule :', err);
+        this.errorMessage = 'Impossible de charger les détails du véhicule.';
+      }
+    });
+  }
+
+  // Sauvegarde des modifications
+  saveChanges(): void {
+    if (this.vehicleForm.valid) {
+      const updatedVehicle: PrivateVehicle = { id: this.vehicleId, ...this.vehicleForm.value };
+      this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
+        next: () => {
+          console.log('Véhicule mis à jour avec succès');
+          this.router.navigate(['/employees']);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la mise à jour du véhicule :', err);
+          this.errorMessage = 'Impossible de mettre à jour le véhicule.';
+        }
+      });
+    }
+  }
 }
