@@ -8,9 +8,6 @@
             <input type="datetime-local" id="departureTime" formControlName="departureTime"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
-                <div *ngIf="rideShareForm.get('departureTime')?.errors?.['required']">
-                    L'heure de départ est requise.
-                </div>
         </div>
 
         <!-- Heure d'arrivée -->
@@ -19,9 +16,6 @@
             <input type="datetime-local" id="arrivalTime" formControlName="arrivalTime"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
-                <div *ngIf="rideShareForm.get('arrivalTime')?.errors?.['required']">
-                    L'heure d'arrivée est requise.
-                </div>
         </div>
 
         <!-- Adresse de départ -->
@@ -37,8 +31,9 @@
                 <input type="text" placeholder="Ville" formControlName="city"
                     class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
             </div>
-            <div *ngIf="rideShareForm.get('departureAdress')?.errors?.['required']">
-                L'adresse de départ est requise.
+            <div *ngIf="rideShareForm.get('departureAddress')?.invalid && rideShareForm.get('departureAddress')?.touched"
+                class="text-red-500 text-sm mt-1">
+                L'adresse de départ du covoiturage est requies.
             </div>
         </div>
 
@@ -55,9 +50,10 @@
                 <input type="text" placeholder="Ville" formControlName="city"
                     class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
             </div>
-            <div *ngIf="rideShareForm.get('arrivalAddress')?.errors?.['required']">
-                L'adresse d'arrivée est requise.
-            </div>
+            <div *ngIf="rideShareForm.get('arrivalAddress')?.invalid && rideShareForm.get('arrivalAddress')?.touched"
+            class="text-red-500 text-sm mt-1">
+            L'adresse d'arrivée du covoiturage est requise.
+        </div>
         </div>
 
         <!-- Nombre de places disponibles -->
@@ -67,9 +63,6 @@
             <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
-                <div *ngIf="rideShareForm.get('availableSeats')?.errors?.['required']">
-                    Le nombre de places disponibles est requis.
-                </div>
         </div>
 
         <!-- Vehicle selection -->
@@ -81,6 +74,10 @@
                 <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.brand}} -{{vehicle.model}} -
                     {{vehicle.number}}</option>
             </select>
+            <div *ngIf="rideShareForm.get('vehicleId')?.invalid && rideShareForm.get('vehicleId')?.touched"
+                class="text-red-500 text-sm mt-1">
+                Sélectionner le véhicule du covoiturage!
+            </div>
         </div>
 
         <!-- Bouton de soumission -->

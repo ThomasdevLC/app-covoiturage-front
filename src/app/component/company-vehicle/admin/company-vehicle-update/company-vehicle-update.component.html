@@ -19,18 +19,19 @@
         <label for="brand" class="block text-sm font-medium text-gray-700">Marque</label>
         <input type="text" id="brand" formControlName="brand"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
-          <div *ngIf="vehicleForm.get('brand')?.errors?.['required']">
-            La marque du véhicule est obligatoire.
-          </div>
+          <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
+          class="text-red-500 text-sm mt-1">
+          La marque du véhicule est requise.
         </div>
-
+      </div>
       <div>
         <label for="model" class="block text-sm font-medium text-gray-700">Modèle</label>
         <input type="text" id="model" formControlName="model"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
-          <div *ngIf="vehicleForm.get('model')?.errors?.['required']">
-            Le modèle du véhicule est obligatoire.
-          </div>
+          <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Le modèle du véhicule est requis.
+        </div>
         </div>
 
       <div>
@@ -39,18 +40,20 @@
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
           <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
         </select>
-        <div *ngIf="vehicleForm.get('category')?.errors?.['required']">
-          La catégorie du véhicule est obligatoire.
-        </div>
+        <div *ngIf="vehicleForm.get('category')?.invalid && vehicleForm.get('category')?.touched"
+            class="text-red-500 text-sm mt-1">
+            La catégorie du véhicule est requise.
+          </div>
       </div>
 
       <div>
         <label for="picUrl" class="block text-sm font-medium text-gray-700">URL de l'image</label>
         <input type="text" id="picUrl" formControlName="picUrl"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
-          <div *ngIf="vehicleForm.get('picUrl')?.errors?.['required']">
-            La pollution émise par le véhicule est requise.
-        </div>
+          <div *ngIf="vehicleForm.get('picUrl')?.invalid && vehicleForm.get('picUrl')?.touched"
+            class="text-red-500 text-sm mt-1">
+            L'url de la photo du véhicule est requis.
+          </div>
         </div>
 
       <div>
@@ -59,17 +62,19 @@
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
           <option *ngFor="let motor of motors" [value]="motor">{{ motor }}</option>
         </select>
-        <div *ngIf="vehicleForm.get('motor')?.errors?.['required']">
-          La motorisation du véhicule est requise.
-        </div>
+        <div *ngIf="vehicleForm.get('motor')?.invalid && vehicleForm.get('motor')?.touched"
+            class="text-red-500 text-sm mt-1">
+            Le type de motorisation du véhicule est requis.
+          </div>
       </div>
 
       <div>
         <label for="seats" class="block text-sm font-medium text-gray-700">Nombre de places</label>
         <input type="number" id="seats" formControlName="seats"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
-          <div *ngIf="vehicleForm.get('seats')?.errors?.['required']">
-            Le nombre de places du véhicule est requis.
+          <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched"
+            class="text-red-500 text-sm mt-1">
+            Le nombre de places disponibles du véhicule est requis(Minimum 1).
           </div>
         </div>
 
@@ -77,8 +82,9 @@
         <label for="co2PerKm" class="block text-sm font-medium text-gray-700">CO₂ par Km</label>
         <input type="number" id="co2PerKm" formControlName="co2PerKm"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
-          <div *ngIf="vehicleForm.get('co2PerKm')?.errors?.['required']">
-            Le taux de co2 émis par le véhicule est requis.
+          <div *ngIf="vehicleForm.get('co2PerKm')?.invalid && vehicleForm.get('co2PerKm')?.touched"
+            class="text-red-500 text-sm mt-1">
+            Le taux de co2 émis par kilomètre du véhicule est requis.
           </div>
         </div>
 
@@ -88,9 +94,10 @@
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
           <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
         </select>
-        <div *ngIf="vehicleForm.get('status')?.errors?.['required']">
-          Le statut du véhicule est requis.
-        </div>
+        <div *ngIf="vehicleForm.get('status')?.invalid && vehicleForm.get('status')?.touched"
+            class="text-red-500 text-sm mt-1">
+            Le statut du véhicule est requise.
+          </div>
       </div>
     </div>
 
