@@ -21,6 +21,7 @@ export class RideshareOrganizerCreateComponent {
   rideShareForm: FormGroup;
   vehicles: PrivateVehicle[] = [];
   errorMessage: string = '';
+  submitted = false;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -54,6 +55,7 @@ export class RideshareOrganizerCreateComponent {
 
   createNewRideShare() {
     if (this.rideShareForm.invalid) {
+      this.submitted = true;
       console.error('Le formulaire est invalide');
       return;
     }

@@ -87,5 +87,8 @@
                 Mettre à jour
             </button>
         </div>
+        <div *ngIf="submitted && !rideShareForm.valid" class="text-red-500 text-sm mt-1">
+            Veuillez remplir ou vérifier les valeursdes champs du formulaire avant de soumettre.
+        </div>
     </form>
 </div>

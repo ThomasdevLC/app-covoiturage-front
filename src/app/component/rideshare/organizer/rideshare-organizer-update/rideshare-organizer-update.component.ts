@@ -19,7 +19,7 @@ import { PrivateVehicle } from '../../../../models/private-vehicle.model';
 export class RideshareOrganizerUpdateComponent implements OnInit {
   rideShareForm: FormGroup; // Ajoutez le FormGroup pour le formulaire
   vehicles: PrivateVehicle[] = [];
-
+  submitted = false;
   constructor(
     private formBuilder: FormBuilder, 
     private rideshareService: RideshareOrganizerService,
@@ -92,6 +92,7 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
   
   updateRideShare(): void {
     if (this.rideShareForm.invalid) {
+      this.submitted=true;
       console.error('Le formulaire est invalide');
       return;
     }
