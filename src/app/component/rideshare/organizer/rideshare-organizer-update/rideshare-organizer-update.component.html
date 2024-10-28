@@ -23,7 +23,7 @@
             <label class="block text-sm font-medium text-gray-700">Adresse de départ</label>
             <div class="mt-1 grid grid-cols-4 gap-2">
                 <input type="number" placeholder="Numéro" formControlName="number"
-                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" min="1"required />
                 <input type="text" placeholder="Rue" formControlName="street"
                     class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
                 <input type="text" placeholder="Code Postal" formControlName="code"
@@ -42,7 +42,7 @@
             <label class="block text-sm font-medium text-gray-700">Adresse d'arrivée</label>
             <div class="mt-1 grid grid-cols-4 gap-2">
                 <input type="number" placeholder="Numéro" formControlName="number"
-                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
+                    class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" min="1"required />
                 <input type="text" placeholder="Rue" formControlName="street"
                     class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
                 <input type="text" placeholder="Code Postal" formControlName="code"
@@ -88,7 +88,7 @@
             </button>
         </div>
         <div *ngIf="submitted && !rideShareForm.valid" class="text-red-500 text-sm mt-1">
-            Veuillez remplir ou vérifier les valeursdes champs du formulaire avant de soumettre.
+            Veuillez remplir ou vérifier les valeurs des champs du formulaire avant de soumettre.
         </div>
     </form>
 </div>

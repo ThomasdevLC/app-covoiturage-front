@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class RideshareOrganizerCreateComponent {
   errorMessage: string = '';
   submitted = false;
   
+
   constructor(
     private formBuilder: FormBuilder,
     private secureApiService: SecureApiService,
@@ -52,7 +53,7 @@ export class RideshareOrganizerCreateComponent {
       vehicleId: [null, Validators.required],  // Ajout du champ vehicleId avec validation
     });
   }
-
+  
   createNewRideShare() {
     if (this.rideShareForm.invalid) {
       this.submitted = true;
@@ -92,7 +93,7 @@ export class RideshareOrganizerCreateComponent {
         }
       });
   }
-
+  
   ngOnInit(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
@@ -112,4 +113,5 @@ export class RideshareOrganizerCreateComponent {
       }
     });
   }
+  
 }
