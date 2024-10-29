@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../models/private-vehicle.model';
-import { CommonModule } from '@angular/common'; // Pour les directives comme *ngIf
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-private-vehicle-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule], // Ajout de CommonModule pour *ngIf et ReactiveFormsModule pour les formulaires
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './private-vehicle-edit.component.html',
   styleUrls: ['./private-vehicle-edit.component.css']
 })
@@ -16,7 +16,7 @@ export class PrivateVehicleEditComponent implements OnInit {
   vehicleId!: number;
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
-
+  vehicle: PrivateVehicle | undefined;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -25,12 +25,11 @@ export class PrivateVehicleEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.vehicleId = Number(this.route.snapshot.paramMap.get('id')); // Récupération de l'ID du véhicule
+    this.vehicleId = Number(this.route.snapshot.paramMap.get('id'));
     this.initializeForm();
     this.loadVehicle();
   }
 
-  // Initialisation du formulaire avec des validations
   initializeForm(): void {
     this.vehicleForm = this.fb.group({
       brand: ['', Validators.required],
@@ -40,7 +39,6 @@ export class PrivateVehicleEditComponent implements OnInit {
     });
   }
 
-  // Chargement des données du véhicule dans le formulaire
   loadVehicle(): void {
     this.privateVehicleService.getVehicleById(this.vehicleId).subscribe({
       next: (vehicle: { brand: string; model: string; number: any, seats: number; }) => {
@@ -58,7 +56,6 @@ export class PrivateVehicleEditComponent implements OnInit {
     });
   }
 
-  // Sauvegarde des modifications
   saveChanges(): void {
     if (this.vehicleForm.valid) {
       const updatedVehicle: PrivateVehicle = {
