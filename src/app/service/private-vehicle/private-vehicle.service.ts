@@ -77,17 +77,24 @@ export class PrivateVehicleService {
 
   // Mise à jour des informations d'un véhicule
   updateVehicle(vehicleId: number, updatedVehicle: PrivateVehicle): Observable<PrivateVehicle> {
-    return this.http.put<PrivateVehicle>(
-      `${this.apiURL}private-vehicles/${vehicleId}`,
-      updatedVehicle,
-      {
-        headers: this.secureApiService.getHeaders(),
-      }
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        const employeeId = currentUser.id; 
+  
+        const vehicleToUpdate = {
+          ...updatedVehicle,
+          employee: { id: employeeId },
+        };
+  
+        return this.http.put<PrivateVehicle>(
+          `${this.apiURL}private-vehicles/${vehicleId}`,
+          vehicleToUpdate,
+          {
+            headers: this.secureApiService.getHeaders(),
+          }
+        );
+      })
     );
   }
 }
-
-
-
-
 

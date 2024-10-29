@@ -36,17 +36,19 @@ export class PrivateVehicleEditComponent implements OnInit {
       brand: ['', Validators.required],
       model: ['', Validators.required],
       number: ['', Validators.required],
+      seats: [ Validators.required], 
     });
   }
 
   // Chargement des données du véhicule dans le formulaire
   loadVehicle(): void {
     this.privateVehicleService.getVehicleById(this.vehicleId).subscribe({
-      next: (vehicle: { brand: any; model: any; number: any; }) => {
+      next: (vehicle: { brand: string; model: string; number: any, seats: number; }) => {
         this.vehicleForm.patchValue({
           brand: vehicle.brand,
           model: vehicle.model,
           number: vehicle.number,
+          seats: vehicle.seats,
         });
       },
       error: (err: any) => {
@@ -59,11 +61,15 @@ export class PrivateVehicleEditComponent implements OnInit {
   // Sauvegarde des modifications
   saveChanges(): void {
     if (this.vehicleForm.valid) {
-      const updatedVehicle: PrivateVehicle = { id: this.vehicleId, ...this.vehicleForm.value };
+      const updatedVehicle: PrivateVehicle = {
+        ...this.vehicleForm.value 
+      };
+
+      // Appeler le service pour mettre à jour le véhicule
       this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
         next: () => {
           console.log('Véhicule mis à jour avec succès');
-          this.router.navigate(['/employees']);
+          this.router.navigate(['/employees']); // Redirection après la mise à jour
         },
         error: (err) => {
           console.error('Erreur lors de la mise à jour du véhicule :', err);
