@@ -9,10 +9,10 @@
          <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
                 class="text-red-500 text-sm mt-1">
                 <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
-                    Le numéro du véhicule est requis.
+                    L'immatriculation du véhicule est requise.
                 </div>
                 <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
-                    Le numéro doit respecter le format suivant : FF-855-BJ.
+                    L'immatriculation doit respecter le format suivant : FF-855-BJ.
                 </div>
             </div>
       </div>
@@ -83,16 +83,16 @@
           Veuillez entrer le taux de co2 émis par kilomètres.
         </div>
       </div>
+      <!-- Bouton de soumission -->
+    <div>
+      <button type="submit"
+          class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+          Créer le véhicule
+      </button>
+    </div>
       <!-- Message d'erreur global -->
       <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
         {{ errorMessage }}
-    </div>
-    <!-- Bouton de soumission -->
-    <div>
-        <button type="submit"
-            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            Créer le véhicule
-        </button>
     </div>
     </form>
   </div>

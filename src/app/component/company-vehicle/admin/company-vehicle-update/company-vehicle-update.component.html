@@ -8,10 +8,10 @@
         <input type="text" id="number" formControlName="number"
           class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500" />
           <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
-            Le numéro du véhicule est requis.
+            L'immatriculation du véhicule est requise.
         </div>
         <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
-            Le numéro doit respecter le format suivant : FF-855-BJ.
+            L'immatriculation doit respecter le format suivant : FF-855-BJ.
         </div>
         </div>
 
