@@ -28,7 +28,7 @@ export class CompanyVehicleAdminService {
       params = params.set('number', number);
     }
 
-    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/`, {
+    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/admin/`, {
       params,
       headers: this.secureApiService.getHeaders(),
     });
@@ -45,7 +45,7 @@ export class CompanyVehicleAdminService {
           };
 
           return this.http.post<CompanyVehicle>(
-            `${this.apiURL}company-vehicles`,
+            `${this.apiURL}company-vehicles/admin`,
             vehicleToPost,
             {
               headers: this.secureApiService.getHeaders(),
@@ -60,7 +60,7 @@ export class CompanyVehicleAdminService {
 
   getVehicleById(id: number): Observable<CompanyVehicle> {
     return this.http.get<CompanyVehicle>(
-      `${this.apiURL}company-vehicles/${id}`,
+      `${this.apiURL}company-vehicles/admin/${id}`,
       {
         headers: this.secureApiService.getHeaders(),
       }
@@ -76,7 +76,7 @@ export class CompanyVehicleAdminService {
         switchMap((currentUser) => {
           if (currentUser) {
             return this.http.put<CompanyVehicle>(
-              `${this.apiURL}company-vehicles/${id}`,
+              `${this.apiURL}company-vehicles/admin/${id}`,
               vehicle,
               {
                 headers: this.secureApiService.getHeaders(),
@@ -98,7 +98,7 @@ export class CompanyVehicleAdminService {
         switchMap((currentUser) => {
           if (currentUser) {
             return this.http.delete<void>(
-              `${this.apiURL}company-vehicles/${number}`,
+              `${this.apiURL}company-vehicles/admin/${number}`,
               {
                 headers: this.secureApiService.getHeaders(),
               }
@@ -113,22 +113,6 @@ export class CompanyVehicleAdminService {
     }
   }
 
-  getVehiclesByBrand(brand: string): Observable<CompanyVehicle[]> {
-    let params = new HttpParams();
-    if (brand) {
-      params = params.set('brand', brand);
-    }
-    return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles`, {
-      params,
-      headers: this.secureApiService.getHeaders(),
-    });
-  }
-
-  getVehicleByNumber(number: string): Observable<CompanyVehicle> {
-    return this.http.get<CompanyVehicle>(`${this.apiURL}/${number}`, {
-      headers: this.secureApiService.getHeaders(),
-    });
-  }
 
   changeVehicleStatus(
     vehicleId: number,
@@ -143,7 +127,7 @@ export class CompanyVehicleAdminService {
             .set('employeeId', employeeId.toString());
   
           return this.http.put<CompanyVehicle>(
-            `${this.apiURL}company-vehicles/${vehicleId}/status`,
+            `${this.apiURL}company-vehicles/admin/${vehicleId}/status`,
             {}, 
             {
               params,
