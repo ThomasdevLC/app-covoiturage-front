@@ -20,7 +20,7 @@ export class BookingAdminServiceService {
       return this.secureApiService.getCurrentUser().pipe(
         switchMap((currentUser) => {
           if (currentUser) {
-            const url = `${this.apiURL}vehicle-bookings/search?type=${type}&employeeId=${currentUser.id}`;
+            const url = `${this.apiURL}vehicle-bookings/admin/search?type=${type}&employeeId=${currentUser.id}`;
             
             return this.http.get<VehicleBooking[]>(url, {
               headers: this.secureApiService.getHeaders(),
