@@ -7,6 +7,7 @@ import { RideShareOrganizerList } from '../../../models/rideshare/organizer/ride
 import { RideShareOrganizerDetails } from '../../../models/rideshare/organizer/rideshare-organizer-details.model';
 import { RideShareOrganizerCreate } from '../../../models/rideshare/rideshare-organizer-create.model';
 import { RideShareOrganizerUpdate } from '../../../models/rideshare/rideshare-organizer-update.model';
+import { ApiResponse, ApiResponseService } from '../../api-response/api-response.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class RideshareOrganizerService {
   constructor(
     private http: HttpClient,
     private secureApiService: SecureApiService,
+    private apiResponseService: ApiResponseService,
   ) {}
 
 
@@ -39,9 +41,14 @@ export class RideshareOrganizerService {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id; 
-        return this.http.get<RideShareOrganizerList[]>(`${this.apiURL}rideshares/organizer/${userId}?past=${past}`, {
-          headers: this.secureApiService.getHeaders(),
-        });
+        return this.apiResponseService.handleResponse(
+          this.http.get<ApiResponse<RideShareOrganizerList[]>>(
+            `${this.apiURL}rideshares/organizer/${userId}?past=${past}`, 
+            {
+              headers: this.secureApiService.getHeaders(),
+            }
+          )
+        );
       })
     );
   }
