@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
-import { SecureApiService } from '../../api/secure-api.service';
+import { SecureApiService } from '../../api/api-security/secure-api.service';
 import { RideSharePassengerDetails } from '../../../models/rideshare/passenger/rideshare-passenger-details.model';
 import { RideSharePassengerList } from '../../../models/rideshare/passenger/ridehare-passenger-list.model';
 

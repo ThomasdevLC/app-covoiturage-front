@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { SecureApiService } from '../../../../service/api/secure-api.service';
+import { SecureApiService } from '../../../../service/api/api-security/secure-api.service';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';

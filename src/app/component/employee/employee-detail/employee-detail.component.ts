@@ -4,7 +4,7 @@ import { RouterModule, Router } from '@angular/router';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { EmployeeProfile } from '../../../models/employee/employee-profile.models';
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
-import { SecureApiService } from '../../../service/api/secure-api.service';
+import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../models/private-vehicle.model';
 

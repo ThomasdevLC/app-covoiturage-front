@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { SecureApiService } from '../../api/secure-api.service';
+import { SecureApiService } from '../../api/api-security/secure-api.service';
 import { CompanyVehicle } from '../../../models/company-vehicle/company-vehicle.model';
 
 @Injectable({

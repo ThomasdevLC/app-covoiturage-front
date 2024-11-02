@@ -7,7 +7,7 @@ import { Employee } from '../../../models/employee.model';
 import { VehicleBooking } from '../../../models/vehicle-booking.model';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyVehicle } from '../../../models/company-vehicle/company-vehicle.model';
-import { SecureApiService } from '../../api/secure-api.service';
+import { SecureApiService } from '../../api/api-security/secure-api.service';
 
 
 @Injectable({

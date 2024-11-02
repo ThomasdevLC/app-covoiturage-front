@@ -4,7 +4,7 @@ import { RideshareOrganizerService } from '../../../../service/rideshare/organiz
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RideShareOrganizerUpdate } from '../../../../models/rideshare/rideshare-organizer-update.model';
-import { SecureApiService } from '../../../../service/api/secure-api.service';
+import { SecureApiService } from '../../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { switchMap } from 'rxjs';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';

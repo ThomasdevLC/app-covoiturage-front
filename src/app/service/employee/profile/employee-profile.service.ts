@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap, tap, catchError, throwError } from 'rxjs';
 import { EmployeeProfile } from '../../../models/employee/employee-profile.models';
 import { HttpClient } from '@angular/common/http';
-import { SecureApiService } from '../../api/secure-api.service';
+import { SecureApiService } from '../../api/api-security/secure-api.service';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({

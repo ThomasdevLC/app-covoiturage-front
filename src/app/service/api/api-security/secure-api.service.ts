@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { filter, Observable, take, tap } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
-import { EmployeeConnected } from '../../models/employee/employee-connected.model';
+import { AuthService } from '../../auth/auth.service';
+import { EmployeeConnected } from '../../../models/employee/employee-connected.model';
 
 @Injectable({
   providedIn: 'root',
