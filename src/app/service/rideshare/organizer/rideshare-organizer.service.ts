@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { SecureApiService } from '../../api/secure-api.service';
-import { BehaviorSubject, Observable, switchMap, tap, } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap, tap, } from 'rxjs';
 import { RideShareOrganizerList } from '../../../models/rideshare/organizer/rideshare-organizer-list.model';
 import { RideShareOrganizerDetails } from '../../../models/rideshare/organizer/rideshare-organizer-details.model';
 import { RideShareOrganizerCreate } from '../../../models/rideshare/rideshare-organizer-create.model';
 import { RideShareOrganizerUpdate } from '../../../models/rideshare/rideshare-organizer-update.model';
-import { ApiResponse, ApiResponseService } from '../../api-response/api-response.service';
+import { SecureApiService } from '../../api/api-security/secure-api.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,11 @@ export class RideshareOrganizerService {
 
   private ridesharesSubject = new BehaviorSubject<RideShareOrganizerList[]>([]);
   rideshares$ = this.ridesharesSubject.asObservable();
-
   past$ = new BehaviorSubject<boolean>(false); // BehaviorSubject pour rendre `past` réactif
 
   constructor(
     private http: HttpClient,
     private secureApiService: SecureApiService,
-    private apiResponseService: ApiResponseService,
   ) {}
 
 
@@ -40,18 +38,17 @@ export class RideshareOrganizerService {
   loadOrganizerRideShares(past: boolean): Observable<RideShareOrganizerList[]> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-        const userId = currentUser.id; 
-        return this.apiResponseService.handleResponse(
-          this.http.get<ApiResponse<RideShareOrganizerList[]>>(
-            `${this.apiURL}rideshares/organizer/${userId}?past=${past}`, 
-            {
-              headers: this.secureApiService.getHeaders(),
-            }
-          )
+        const userId = currentUser.id;
+        return this.http.get<RideShareOrganizerList[]>(
+          `${this.apiURL}rideshares/organizer/${userId}?past=${past}`,
+          {
+            headers: this.secureApiService.getHeaders(),
+          }
         );
       })
     );
   }
+  
 
   updateRideShare(id: number, updatedData: RideShareOrganizerUpdate): Observable<RideShareOrganizerUpdate> {
     return this.secureApiService.getCurrentUser().pipe(
@@ -88,9 +85,7 @@ export class RideshareOrganizerService {
         console.log('Fetched update RideShare:', rideShare);
       })
     );
-
-
-  
+ 
   }
 
 

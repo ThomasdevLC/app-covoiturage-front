@@ -84,7 +84,6 @@ export class RideshareOrganizerCreateComponent {
           this.errorHandlerService.handleError(error).subscribe({
             next: (errorObject) => {
               this.errorMessage = errorObject.message;
-               // Access the error message from the custom error object
             }
           });
         }

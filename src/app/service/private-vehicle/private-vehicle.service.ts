@@ -67,13 +67,19 @@ export class PrivateVehicleService {
 
   // Suppression d'un véhicule
   deleteVehicle(vehicleId: number): Observable<void> {
-    return this.http.delete<void>(
-      `${this.apiURL}private-vehicles/${vehicleId}`,
-      {
-        headers: this.secureApiService.getHeaders(),
-      }
+    return this.secureApiService.getCurrentUser().pipe(
+      switchMap((currentUser) => {
+        const currentUserId =  currentUser.id;
+        return this.http.delete<void>(
+          `${this.apiURL}private-vehicles/${vehicleId}?employeeId=${currentUserId}`,
+          {
+            headers: this.secureApiService.getHeaders(),
+          }
+        );
+      })
     );
   }
+  
 
   // Mise à jour des informations d'un véhicule
   updateVehicle(vehicleId: number, updatedVehicle: PrivateVehicle): Observable<PrivateVehicle> {

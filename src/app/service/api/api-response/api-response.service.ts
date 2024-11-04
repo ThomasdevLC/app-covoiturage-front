@@ -17,21 +17,18 @@ export class ApiResponseService {
 
   constructor() {}
 
-  handleResponse<T>(response: Observable<ApiResponse<T>>): Observable<T> {
+  handleResponse<T>(response: Observable<ApiResponse<T>>): Observable<ApiResponse<T>> {
     return response.pipe(
-      map(res => {
-        if (res.success) {
-          return res.data; 
-        } else {
-          console.error('API Error:', res.message);
-          throw new Error(res.message);
-        }
-      }),
-      catchError(this.handleError) 
+      map(res => ({
+        data: res.data,
+        message: res.message,
+        success: res.success
+      })),
+      catchError(this.handleError)
     );
   }
 
-  private handleError(error: HttpErrorResponse): Observable<any> {
+  private handleError(error: HttpErrorResponse): Observable<ApiResponse<any>> {
     let errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Erreur: ${error.error.message}`;
@@ -40,6 +37,12 @@ export class ApiResponseService {
     }
     console.error('Error status:', error.status);
     console.error('Error body:', error.error);
-    return of({ status: error.status, message: errorMessage });
+    
+    // Retourne un objet ApiResponse simulé avec success: false
+    return of({
+      data: null,
+      message: errorMessage,
+      success: false
+    });
   }
 }
