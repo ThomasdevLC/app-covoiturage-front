@@ -1,53 +1,50 @@
-<div *ngIf="errorMessage; else employeeDetails"
-    class="p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg shadow-sm mb-6">
-    <p class="font-medium text-red-600">{{ errorMessage }}</p>
-</div>
+<div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6">
+    <h2 class="text-3xl font-extrabold mb-4 text-gray-900">Votre profil</h2>
 
-<ng-template #employeeDetails>
-    <div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6">
-        <h2 class="text-3xl font-extrabold mb-4 text-gray-900">Votre profil</h2>
+    <div *ngIf="employeeProfile$ | async as employeeProfile" class="space-y-6">
+        <!-- Employee Info -->
+        <div class="space-y-2">
+            <p class="text-lg font-medium text-gray-700"><strong>Nom :</strong> {{ employeeProfile.firstName }} {{
+                employeeProfile.lastName }}</p>
+            <p class="text-lg font-medium text-gray-700"><strong>Téléphone :</strong> {{ employeeProfile.phone }}
+            </p>
+            <p class="text-lg font-medium text-gray-700"><strong>Email :</strong> {{ employeeProfile.email }}</p>
+        </div>
 
-        <div *ngIf="employeeProfile$ | async as employeeProfile" class="space-y-6">
-            <!-- Employee Info -->
-            <div class="space-y-2">
-                <p class="text-lg font-medium text-gray-700"><strong>Nom :</strong> {{ employeeProfile.firstName }} {{
-                    employeeProfile.lastName }}</p>
-                <p class="text-lg font-medium text-gray-700"><strong>Téléphone :</strong> {{ employeeProfile.phone }}
-                </p>
-                <p class="text-lg font-medium text-gray-700"><strong>Email :</strong> {{ employeeProfile.email }}</p>
-            </div>
+        <!-- Vehicle Info -->
+        <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
+            <ul class="space-y-4">
+                <li *ngFor="let vehicle of vehicles"
+                    class="p-4 bg-gray-50 border border-gray-200 rounded-lg flex justify-between items-center shadow-sm">
+                    <div>
+                        <p class="text-gray-800 font-semibold">{{ vehicle.brand }} {{ vehicle.model }} ({{
+                            vehicle.number }})</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button (click)="editVehicle(vehicle)"
+                            class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
+                            Modifier
+                        </button>
+                        <button (click)="deleteVehicle(vehicle)"
+                            class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
+                            Supprimer
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-            <!-- Vehicle Info -->
-            <div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
-                <ul class="space-y-4">
-                    <li *ngFor="let vehicle of vehicles"
-                        class="p-4 bg-gray-50 border border-gray-200 rounded-lg flex justify-between items-center shadow-sm">
-                        <div>
-                            <p class="text-gray-800 font-semibold">{{ vehicle.brand }} {{ vehicle.model }} ({{
-                                vehicle.number }})</p>
-                        </div>
-                        <div class="flex space-x-3">
-                            <button (click)="editVehicle(vehicle)"
-                                class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
-                                Modifier
-                            </button>
-                            <button (click)="deleteVehicle(vehicle)"
-                                class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
-                                Supprimer
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Add Vehicle Button -->
-            <div class="text-center">
-                <button (click)="onClick()"
-                    class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
-                    Ajouter un véhicule
-                </button>
-            </div>
+        <!-- Add Vehicle Button -->
+        <div class="text-center">
+            <button (click)="onClick()"
+                class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
+                Ajouter un véhicule
+            </button>
+        </div>
+        <div *ngIf="errorMessage"
+            class="p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg shadow-sm mb-6">
+            <p class="font-medium text-red-600">{{ errorMessage }}</p>
         </div>
     </div>
-</ng-template>
+</div>

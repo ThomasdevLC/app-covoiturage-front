@@ -7,6 +7,7 @@ import { EmployeeProfileService } from '../../../service/employee/profile/employ
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../models/private-vehicle.model';
+import { ErrorHandlerService } from '../../../service/errors/error-handler.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -23,7 +24,8 @@ export class EmployeeDetailComponent implements OnInit {
   constructor(
     private employeeProfileService: EmployeeProfileService,
     private secureApiService: SecureApiService, 
-    private privateVehicleService: PrivateVehicleService, 
+    private privateVehicleService: PrivateVehicleService,
+    private errorHandlerService: ErrorHandlerService,
     private router: Router
   ) {}
 
@@ -81,8 +83,11 @@ export class EmployeeDetailComponent implements OnInit {
           this.vehicles = this.vehicles.filter(v => v.id !== vehicle.id);
         },
         error: (error) => {
-          console.error('Erreur lors de la suppression du véhicule :', error);
-          this.errorMessage = 'Erreur lors de la suppression du véhicule';
+          this.errorHandlerService.handleError(error).subscribe({
+            next: (errorObject) => {
+              this.errorMessage = errorObject.message;
+            }
+          });
         }
       });
     }
