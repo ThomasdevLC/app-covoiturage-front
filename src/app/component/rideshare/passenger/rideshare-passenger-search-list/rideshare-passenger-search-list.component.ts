@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RideShare } from '../../../../models/rideshare/rideshare.model';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-search-item/rideshare-passenger-search-item.component';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
+import { ErrorHandlerService } from '../../../../service/errors/error-handler.service';
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
@@ -18,11 +18,14 @@ export class RidesharePassengerSearchListComponent {
   departureCity = '';
   arrivalCity = '';
   departureDateTime = '';
+  errorMessage: string = '';
 
   constructor(
     private rideShareService: RidesharePassengerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService,
+
   ) {
     // Souscription aux paramètres de requête dans le constructeur
     this.route.queryParams.subscribe((params) => {
@@ -58,7 +61,13 @@ export class RidesharePassengerSearchListComponent {
           this.rideshares = rideshares;
           console.log('Covoiturages récupérés:', this.rideshares);
         },
-        error: (err) => console.error('Erreur lors de la récupération des covoiturages:', err),
+        error: (error) => {
+          this.errorHandlerService.handleError(error).subscribe({
+            next: (errorObject) => {
+              this.errorMessage = errorObject.message;
+            }
+          });
+        }
       });
   }
 }
