@@ -14,7 +14,7 @@
                 Mon Profil
             </a>
 
-            <a *ngIf="user?.admin" routerLink="/company-vehicles"
+            <a *ngIf="user?.roles?.includes('ROLE_ADMIN')" routerLink="/company-vehicles"
                 class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
                 Gestion parc véhicules
             </a>
