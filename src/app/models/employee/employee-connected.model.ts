@@ -3,5 +3,4 @@ export interface EmployeeConnected {
   firstName: string;
   lastName: string;
   gender: string;
-  admin: boolean;
-}
+  roles: string[];}
