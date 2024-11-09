@@ -21,9 +21,8 @@
 
 <!-- Liste des covoiturages -->
 <div class="mt-8 max-w-md mx-auto">
-    <div *ngIf="errorMessage" class="p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg shadow-sm mb-6">
-        <p class="font-medium text-red-600">{{ errorMessage }}</p>
-    </div>
+    <p-messages [(value)]="messages" [closable]="true"></p-messages> <!-- Composant Messages de PrimeNG -->
+
     <app-rideshare-passenger-search-item *ngFor="let rideshare of rideshares" [rideshare]="rideshare">
     </app-rideshare-passenger-search-item>
 </div>

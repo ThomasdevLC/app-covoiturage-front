@@ -6,11 +6,13 @@ import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-se
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 import { ErrorHandlerService } from '../../../../service/errors/error-handler.service';
+import { Message } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent ],  templateUrl: './rideshare-passenger-search-list.component.html',
+  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent, MessagesModule ],  templateUrl: './rideshare-passenger-search-list.component.html',
   styleUrl: './rideshare-passenger-search-list.component.css'
 })
 export class RidesharePassengerSearchListComponent {
@@ -18,7 +20,7 @@ export class RidesharePassengerSearchListComponent {
   departureCity = '';
   arrivalCity = '';
   departureDateTime = '';
-  errorMessage: string = '';
+  messages: Message[] = []; // Tableau pour stocker les messages
 
   constructor(
     private rideShareService: RidesharePassengerService,
@@ -64,7 +66,8 @@ export class RidesharePassengerSearchListComponent {
         error: (error) => {
           this.errorHandlerService.handleError(error).subscribe({
             next: (errorObject) => {
-              this.errorMessage = errorObject.message;
+              this.messages = []; // Effacer les messages précédents
+              this.messages.push({ severity: 'error', detail: errorObject.message }); // Ajouter le nouveau message d'erreur
             }
           });
         }
