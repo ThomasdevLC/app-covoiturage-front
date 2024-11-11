@@ -5,7 +5,7 @@ import { CompanyVehicleAdminListComponent } from './component/company-vehicle/ad
 import { LoginComponent } from './component/auth/login/login.component';
 import { SignupComponent } from './component/auth/signup/signup.component';
 import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
-import { PrivateVehicleEditComponent } from './component/private-vehicle/private-vehicle-edit/private-vehicle-edit.component';  // <--- Ajouté ici
+import { PrivateVehicleEditComponent } from './component/private-vehicle/private-vehicle-edit/private-vehicle-edit.component'; 
 import { CompanyVehicleCreateComponent } from './component/company-vehicle/admin/company-vehicle-create/company-vehicle-create.component';
 import { CompanyVehicleUpdateComponent } from './component/company-vehicle/admin/company-vehicle-update/company-vehicle-update.component';
 import { BookingEmployeeCreateComponent } from './component/booking/employee/booking-employee-create/booking-employee-create.component';
@@ -20,6 +20,7 @@ import { RideshareOrganizerCreateComponent } from './component/rideshare/organiz
 import { RideshareOrganizerDetailsComponent } from './component/rideshare/organizer/rideshare-organizer-details/rideshare-organizer-details.component';
 import { BookingEmployeeUpdateComponent } from './component/booking/employee/booking-employee-update/booking-employee-update.component';
 import { BookingAdminListComponent } from './component/booking/booking-admin-list/booking-admin-list.component';
+import { RolesManagementComponent } from './component/roles-management/roles-management/roles-management.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -50,5 +51,8 @@ export const routes: Routes = [
 
   // PRIVATE-VEHICLES
   { path: 'private-vehicles/create',component: PrivateVehicleCreateComponent},
-  { path: 'private-vehicles/edit/:id', component: PrivateVehicleEditComponent },  // <--- Nouvelle route ajoutée ici
+  { path: 'private-vehicles/edit/:id', component: PrivateVehicleEditComponent },
+  
+  // ROLES-MANAGEMENT
+  { path: 'roles-management',component: RolesManagementComponent},
 ];
