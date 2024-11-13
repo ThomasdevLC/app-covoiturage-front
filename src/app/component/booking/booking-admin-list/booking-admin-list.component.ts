@@ -13,6 +13,7 @@ import {
 
 import { catchError, of } from 'rxjs';
 import { BookingAdminServiceService } from '../../../service/booking/admin/booking-admin.service';
+import { VehicleBookingList } from '../../../models/vehicle-booking-list.model';
 
 @Component({
   selector: 'app-booking-admin-list',
@@ -28,7 +29,7 @@ import { BookingAdminServiceService } from '../../../service/booking/admin/booki
 })
 
 export class BookingAdminListComponent implements OnInit {
-  bookings: VehicleBooking[] = [];
+  bookings: VehicleBookingList[] = [];
   bookingType: 'past' | 'now' | 'future' = 'future'; // Type de réservation par défaut
   errorMessage: string | null = null;
 
@@ -48,6 +49,7 @@ export class BookingAdminListComponent implements OnInit {
       })
     ).subscribe((bookings) => {
       this.bookings = bookings; // Stocker les réservations dans la variable
+      console.log(bookings); // Afficher les réservations dans la console
     });
   }
 

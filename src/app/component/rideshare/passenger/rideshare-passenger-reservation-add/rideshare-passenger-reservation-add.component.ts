@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { RideSharePassengerDetails } from '../../../../models/rideshare/passenge
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,
-  imports: [CommonModule, RouterModule,DateFormatterPipe ],
+  imports: [CommonModule, RouterModule,DateFormatterPipe, RouterLink ],
   templateUrl: './rideshare-passenger-reservation-add.component.html',
   styleUrl: './rideshare-passenger-reservation-add.component.css'
 })
@@ -19,7 +19,8 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
   
     constructor(
       private route: ActivatedRoute,
-      private rideShareService: RidesharePassengerService
+      private rideShareService: RidesharePassengerService,
+      private router: Router,
     ) {}
   
     ngOnInit(): void {
@@ -45,6 +46,7 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
       this.rideShareService.joinAsPassenger(this.rideShareId).subscribe({
         next: () => {
           console.log('covoiturage réservé',);
+          this.router.navigate(['/rideshares/passenger']);
         },
         error: (err) => {
           console.error('Erreur lors de la tentative de rejoindre le covoiturage:', err);

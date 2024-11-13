@@ -61,17 +61,13 @@ getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking
 }
  
 
- getVehicleById(vehicleId: number): Observable<VehicleBooking> {
-  const token = this.authService.getToken();
-  let params =  new HttpParams()
-  if(vehicleId){
-    params = params.set('vehicleId', vehicleId);
-  }
-  const headers = this.secureApiService.getHeaders();
-  return this.http.get<VehicleBooking>(
-    `${this.apiURL}company-vehicles/bookings-search`,
-    { params, headers }
+getVehicleById(id: number): Observable<CompanyVehicle> {
+  return this.http.get<CompanyVehicle>(
+    `${this.apiURL}company-vehicles/${id}`,
+    {
+      headers: this.secureApiService.getHeaders(),
+    }
   );
- 
 }
+
 }

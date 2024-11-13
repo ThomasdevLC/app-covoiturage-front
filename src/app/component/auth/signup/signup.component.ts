@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,8 +19,8 @@ import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
 })
 export class SignupComponent {
   signupForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+ 
     this.signupForm = this.fb.group({
       gender: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -37,6 +38,7 @@ export class SignupComponent {
       this.authService.signup(employeeSignup).subscribe(
         (response) => {
           console.log('Signup successful', response);
+          this.router.navigate(['/']);
         },
         (error) => {
           console.error('Signup error', error);

@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-private-vehicle-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './private-vehicle-create.component.html',
   styleUrl: './private-vehicle-create.component.css',
 })
@@ -20,9 +21,11 @@ export class PrivateVehicleCreateComponent {
   vehicleForm: FormGroup;
   errorMessage: string | null = null;
 
+
+
   constructor(
     private fb: FormBuilder,
-    private vehicleService: PrivateVehicleService // private router: Router
+    private vehicleService: PrivateVehicleService , private router: Router
   ) {
     this.vehicleForm = this.fb.group({
       number: [
@@ -44,6 +47,7 @@ export class PrivateVehicleCreateComponent {
       this.vehicleService.createVehicle(newVehicle).subscribe({
         next: (vehicle) => {
           console.log('Véhicule créé avec succès', vehicle);
+           this.router.navigate(['/employees']);
         },
         error: (err) => {
           console.error('Erreur lors de la création du véhicule:', err);

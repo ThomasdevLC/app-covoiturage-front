@@ -79,7 +79,11 @@ loadPassengerRideShares(past: boolean): Observable<RideSharePassengerList[]> {
       }),
       tap(() => {
         // Met à jour le BehaviorSubject en supprimant le trajet annulé
-        const updatedRideShares = this.passengerRideSharesSubject.value.filter(
+        const currentRideShares = Array.isArray(this.passengerRideSharesSubject.value)
+          ? this.passengerRideSharesSubject.value
+          : []; // Ensure it's an array
+          
+        const updatedRideShares = currentRideShares.filter(
           rideShare => rideShare.id !== rideShareId
         );
         this.passengerRideSharesSubject.next(updatedRideShares);  // Met à jour l'état

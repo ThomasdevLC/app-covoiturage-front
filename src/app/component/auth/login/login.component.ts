@@ -12,8 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  username: string = 'mark@test.com';
-  password: string = 'Mark123';
+  username: string = '@test.com';
+  password: string = 'Test123';
 
   constructor(
     private authService: AuthService,
@@ -27,7 +27,7 @@ export class LoginComponent {
         const token = response.token;
         this.authService.setToken(token);
         this.authService.initializeCurrentUser();
-        this.router.navigate(['/']);
+        this.router.navigate(['/rideshares/search']);
       });
   }
 }
