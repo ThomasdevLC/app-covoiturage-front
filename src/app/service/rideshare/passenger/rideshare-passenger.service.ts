@@ -11,11 +11,6 @@ import { RideSharePassengerList } from '../../../models/rideshare/passenger/ride
 })
 export class RidesharePassengerService {
   private apiURL = environment.apiURL;
-  private ridesharesSubject = new BehaviorSubject<RideSharePassengerList[]>([]);
-  rideshares$ = this.ridesharesSubject.asObservable();
-
-  private passengerRideSharesSubject = new BehaviorSubject<RideSharePassengerDetails[]>([]);
-  passengerRideShares$ = this.passengerRideSharesSubject.asObservable();
 
   past$ = new BehaviorSubject<boolean>(false); //  BehaviorSubject pour rendre `past` réactif
 
@@ -23,7 +18,6 @@ export class RidesharePassengerService {
     private http: HttpClient,
     private secureApiService: SecureApiService,
   ) {}
-
 
   getRideShares(
     departureCity?: string,
@@ -49,26 +43,21 @@ export class RidesharePassengerService {
         return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/add-passenger/${userId}`, {}, {
           headers: this.secureApiService.getHeaders(),
         });
-        
-      }),
-      tap((details: RideSharePassengerDetails[]) => {
-        this.passengerRideSharesSubject.next(details);  // Met à jour l'état du BehaviorSubject
       })
     );
   }
 
-loadPassengerRideShares(past: boolean): Observable<RideSharePassengerList[]> {
+  loadPassengerRideShares(past: boolean): Observable<RideSharePassengerList[]> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id;
         return this.http.get<RideSharePassengerList[]>(`${this.apiURL}rideshares/passenger/${userId}?past=${past}`, {
           headers: this.secureApiService.getHeaders(),
         });
-      }),   
+      })
     );
   }
 
-  // Annuler la participation du passager et mettre à jour le BehaviorSubject
   cancelAsPassenger(rideShareId: number): Observable<any> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
@@ -76,27 +65,17 @@ loadPassengerRideShares(past: boolean): Observable<RideSharePassengerList[]> {
         return this.http.delete<any>(`${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`, {
           headers: this.secureApiService.getHeaders(),
         });
-      }),
-      tap(() => {
-        // Met à jour le BehaviorSubject en supprimant le trajet annulé
-        const currentRideShares = Array.isArray(this.passengerRideSharesSubject.value)
-          ? this.passengerRideSharesSubject.value
-          : []; // Ensure it's an array
-          
-        const updatedRideShares = currentRideShares.filter(
-          rideShare => rideShare.id !== rideShareId
-        );
-        this.passengerRideSharesSubject.next(updatedRideShares);  // Met à jour l'état
       })
     );
   }
-
 
   getRideShareById(id: number): Observable<RideSharePassengerDetails> {
     return this.http.get<RideSharePassengerDetails>(`${this.apiURL}rideshares/${id}`, {
       headers: this.secureApiService.getHeaders(),
     });
   }
+
+
 
   setPast(value: boolean) {
     this.past$.next(value); // Méthode pour changer la valeur de `past`

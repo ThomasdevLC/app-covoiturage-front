@@ -61,4 +61,12 @@ export class RidesharePassengerSearchListComponent {
         }
       });
   }
+
+  clearSearch(): void {
+    this.departureCity = '';
+    this.arrivalCity = '';
+    this.departureDateTime = '';
+    this.rideshares = []; 
+    this.messages = []; 
+  }
 }
