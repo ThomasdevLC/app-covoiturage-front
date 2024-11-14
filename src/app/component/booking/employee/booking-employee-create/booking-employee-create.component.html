@@ -1,24 +1,31 @@
-<div class="container mx-auto p-6">
-  <h1 class="text-3xl font-bold mb-6">Réservation du véhicule</h1>
+<div class="container mx-auto p-6 max-w-lg bg-white rounded-xl shadow-lg border border-gray-200">
+  <h1 class="text-3xl font-extrabold text-gray-800 mb-6 text-center">Réservation du véhicule</h1>
 
-  <div *ngIf="vehicle; else loading">
-    <h2 class="text-lg font-semibold">{{ vehicle.brand }} {{ vehicle.model }}</h2>
-    <p class="text-md font-medium">Numéro: {{ vehicle.number }}</p>
-    <p class="text-sm text-gray-500">Statut: {{ vehicle.status }}</p>
-    <p class="text-md font-medium">Heure de début: <span class="font-bold">{{ startTime | dateFormatter }}</span></p>
-    <p class="text-md font-medium">Heure de fin: <span class="font-bold">{{ endTime | dateFormatter }}</span></p>
+  <div *ngIf="vehicle" class="flex flex-col items-center text-center">
+    <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
+      class="w-full h-48 object-cover rounded-lg shadow-md mb-4">
+    <h2 class="text-2xl font-semibold text-gray-900">{{ vehicle.brand }} {{ vehicle.model }}</h2>
+    <p class="text-md font-medium text-gray-700 mt-1"> {{ vehicle.number }}</p>
 
-    <button (click)="confirmReservation()"
-      class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
-      Confirmer réservation
-    </button>
+    <p class="text-md font-medium text-gray-700 mt-4">Heure de début: <span class="font-bold">{{ startTime |
+        dateFormatter }}</span></p>
+    <p class="text-md font-medium text-gray-700">Heure de fin: <span class="font-bold">{{ endTime | dateFormatter
+        }}</span></p>
+
+    <div class="flex gap-4 mt-6">
+      <button [routerLink]="['/company-vehicles/status-and-booking-dates']"
+        class="inline-flex items-center px-6 py-3 rounded-md shadow text-indigo-600 bg-white border border-indigo-600 hover:bg-gray-100 focus:ring-4 focus:ring-indigo-300 focus:outline-none font-semibold text-lg transition-all duration-150 ease-in-out">
+        Annuler
+      </button>
+      <button (click)="confirmReservation()"
+        class=" inline-flex items-center px-6 py-3 rounded-md shadow text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 focus:outline-none font-semibold text-lg transition-all duration-150 ease-in-out">
+        Confirmer réservation
+      </button>
+    </div>
   </div>
 
 
-
-  <ng-template #loading>
-    <p>Chargement des détails du véhicule...</p>
-  </ng-template>
-
-  <div *ngIf="errorMessage" class="text-red-500">{{ errorMessage }}</div>
+  <div *ngIf="errorMessage" class="text-red-500 text-center mt-4 font-semibold">
+    {{ errorMessage }}
+  </div>
 </div>
