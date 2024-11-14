@@ -56,7 +56,6 @@ export class BookingEmployeeCreateComponent implements OnInit {
         startTime: startTimeFormatted,
         endTime: endTimeFormatted,
         vehicle: this.vehicle,
-        id: 0
       };
   
       this.bookingEmployeeService.createBooking(booking).subscribe({
