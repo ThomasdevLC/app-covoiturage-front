@@ -35,9 +35,14 @@
 
   <!-- Vehicle Cards -->
   <div *ngIf="vehicles.length > 0" class="flex flex-col gap-2">
-    <div *ngFor="let vehicle of vehicles" class="bg-white shadow-lg rounded-lg p-6 flex justify-between ">
-      <div class="">
+    <div *ngFor="let vehicle of vehicles" class="bg-white shadow-lg rounded-lg p-6 flex space-x-4">
 
+      <!-- Vehicle Image -->
+      <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
+        class="w-32 h-24 object-cover rounded-lg shadow-md">
+
+      <!-- Vehicle Details -->
+      <div class="flex-grow">
         <h3 class="text-lg font-bold text-gray-800">{{ vehicle.brand }} {{ vehicle.model }}</h3>
         <div class="mb-4">
           <p class="text-sm text-gray-600"><strong>Immatriculation: </strong>{{ vehicle.number }}</p>
