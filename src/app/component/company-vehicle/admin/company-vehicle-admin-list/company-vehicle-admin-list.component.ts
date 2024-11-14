@@ -56,7 +56,15 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   filterVehicles(): void {
     this.getAllVehicles();
   }
-  //
+  
+  clearFilters(): void {
+    // Reset filters
+    this.brandFilter = '';
+    this.numberFilter = '';
+    // Reload the full list of vehicles
+    this.getAllVehicles();
+  }
+
 
   // Fonction de suppression
   deleteCompanyVehicles(vehicleId: number): void {
