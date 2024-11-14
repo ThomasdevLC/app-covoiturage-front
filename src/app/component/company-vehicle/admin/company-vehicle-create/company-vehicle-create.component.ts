@@ -40,8 +40,8 @@ export class CompanyVehicleCreateComponent {
       category: ['', Validators.required],
       picUrl: ['', Validators.required],
       motor: ['', Validators.required],
-      seats: [null, Validators.required],
-      co2PerKm: [null, Validators.required],
+      seats: [1, [Validators.required, Validators.min(1)]],
+      co2PerKm: [1, Validators.required],
     });
   }
 
