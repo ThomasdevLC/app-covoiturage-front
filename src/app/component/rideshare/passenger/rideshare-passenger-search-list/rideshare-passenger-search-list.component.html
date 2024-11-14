@@ -1,29 +1,29 @@
-<form class="bg-white p-8 rounded-xl shadow-lg max-w-lg mx-auto transform transition-all duration-300 hover:shadow-2xl">
+<form class="bg-white p-8 rounded-xl shadow-lg max-w-lg mx-auto transition-all duration-300 hover:shadow-2xl">
     <h2 class="text-3xl font-extrabold mb-6 text-gray-900 text-center">Rechercher un covoiturage</h2>
 
     <label for="departureCity" class="block text-gray-700 font-medium mb-2">Ville de départ :</label>
     <input type="text" id="departureCity" [(ngModel)]="departureCity" name="departureCity"
         placeholder="Entrez la ville de départ"
-        class="w-full p-4 border border-gray-300 rounded-lg mb-5 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300 transform focus:scale-105" />
+        class="w-full p-4 border border-gray-300 rounded-lg mb-5 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" />
 
     <label for="arrivalCity" class="block text-gray-700 font-medium mb-2">Ville d'arrivée :</label>
     <input type="text" id="arrivalCity" [(ngModel)]="arrivalCity" name="arrivalCity"
         placeholder="Entrez la ville d'arrivée"
-        class="w-full p-4 border border-gray-300 rounded-lg mb-5 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300 transform focus:scale-105" />
+        class="w-full p-4 border border-gray-300 rounded-lg mb-5 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" />
 
     <label for="departureDateTime" class="block text-gray-700 font-medium mb-2">Date et heure de départ :</label>
     <input type="datetime-local" id="departureDateTime" [(ngModel)]="departureDateTime" name="departureDateTime"
-        class="w-full p-4 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300 transform focus:scale-105" />
+        class="w-full p-4 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" />
 
     <!-- Boutons Rechercher et Effacer -->
     <div class="flex space-x-4">
-        <button type="button" (click)="searchRideShares()"
-            class="flex-1 p-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400">
-            Rechercher
-        </button>
         <button type="button" (click)="clearSearch()"
-            class="flex-1 p-4 bg-gray-400 text-gray-900 font-semibold rounded-lg shadow-md hover:bg-gray-500 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-300">
+            class="flex-1 p-4 bg-gray-400 text-gray-900 font-semibold rounded-lg shadow-md hover:bg-gray-500 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-gray-300">
             Effacer
+        </button>
+        <button type="button" (click)="searchRideShares()"
+            class="flex-1 p-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-400">
+            Rechercher
         </button>
     </div>
 </form>
