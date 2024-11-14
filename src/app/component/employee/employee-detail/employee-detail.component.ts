@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { EmployeeProfile } from '../../../models/employee/employee-profile.models';
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
@@ -17,9 +17,9 @@ import { ErrorHandlerService } from '../../../service/errors/error-handler.servi
   styleUrls: ['./employee-detail.component.css'],
 })
 export class EmployeeDetailComponent implements OnInit {
-  employeeProfile$ = new BehaviorSubject<EmployeeProfile | null>(null); 
+  employeeProfile$: Observable<EmployeeProfile> | undefined;
   vehicles: PrivateVehicle[] = [];
-  errorMessage: string | null = null; 
+  errorMessage: string | null = null;
 
   constructor(
     private employeeProfileService: EmployeeProfileService,
@@ -35,16 +35,8 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   loadEmployeeProfile(): void {
-    this.employeeProfileService.getEmployeeProfileById().subscribe({
-      next: (profile) => {
-        this.employeeProfile$.next(profile);
-        console.log('Profil de l\'employé :', profile);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du profil de l\'employé:', err);
-        this.errorMessage = 'Unable to load employee profile';
-      }
-    });
+    // Directly assign the Observable from the service
+    this.employeeProfile$ = this.employeeProfileService.getEmployeeProfileById();
   }
 
   loadEmployeePrivateVehicles(): void {
@@ -66,7 +58,7 @@ export class EmployeeDetailComponent implements OnInit {
       }
     });
   }
-  
+
   onClick(): void {
     this.router.navigate(['/private-vehicles/create']);
   }
