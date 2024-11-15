@@ -7,7 +7,7 @@ import { EmployeeProfileService } from '../../../service/employee/profile/employ
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../models/private-vehicle.model';
-import { ErrorHandlerService } from '../../../service/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../service/api/errors/error-handler.service';
 
 @Component({
   selector: 'app-employee-detail',

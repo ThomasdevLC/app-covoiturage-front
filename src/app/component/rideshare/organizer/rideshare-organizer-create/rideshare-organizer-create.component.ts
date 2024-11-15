@@ -8,7 +8,7 @@ import { SecureApiService } from '../../../../service/api/api-security/secure-ap
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';
-import { ErrorHandlerService } from '../../../../service/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../service/api/errors/error-handler.service';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
