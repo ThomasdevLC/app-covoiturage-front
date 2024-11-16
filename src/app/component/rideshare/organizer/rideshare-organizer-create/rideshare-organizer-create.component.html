@@ -3,21 +3,39 @@
     <h2 class="text-2xl font-bold mb-4">Publier votre trajet</h2>
     <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="space-y-6">
         <!-- Heure de départ -->
-        <div>
+        <!-- <div>
             <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
             <input type="datetime-local" id="departureTime" formControlName="departureTime"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 required />
+        </div> -->
+
+        <!-- Heure d'arrivée -->
+        <!-- <div>
+            <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
+            <input type="datetime-local" id="arrivalTime" formControlName="arrivalTime"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required />
+        </div> -->
+
+
+        <!-- Heure de départ -->
+        <div>
+            <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
+            <p-calendar inputId="departureTime" formControlName="departureTime" [showTime]="true" hourFormat="24"
+                placeholder="Sélectionnez la date et l'heure de départ"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required></p-calendar>
         </div>
 
         <!-- Heure d'arrivée -->
         <div>
             <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
-            <input type="datetime-local" id="arrivalTime" formControlName="arrivalTime"
+            <p-calendar inputId="arrivalTime" formControlName="arrivalTime" [showTime]="true" hourFormat="24"
+                placeholder="Sélectionnez la date et l'heure d'arrivée"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                required />
+                required></p-calendar>
         </div>
-
         <!-- Adresse de départ -->
         <div formGroupName="departureAddress">
             <label class="block text-sm font-medium text-gray-700">Adresse de départ</label>

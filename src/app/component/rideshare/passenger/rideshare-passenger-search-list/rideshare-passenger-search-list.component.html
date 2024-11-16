@@ -12,9 +12,9 @@
         class="w-full p-4 border border-gray-300 rounded-lg mb-5 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" />
 
     <label for="departureDateTime" class="block text-gray-700 font-medium mb-2">Date et heure de départ :</label>
-    <input type="datetime-local" id="departureDateTime" [(ngModel)]="departureDateTime" name="departureDateTime"
-        class="w-full p-4 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300" />
-
+    <p-calendar inputId="departureDateTime" [(ngModel)]="departureDateTime" name="departureDateTime" [showTime]="true"
+        hourFormat="24" placeholder="Sélectionnez la date et l'heure"
+        class="w-full p-4 border border-gray-300 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-300"></p-calendar>
     <!-- Boutons Rechercher et Effacer -->
     <div class="flex space-x-4">
         <button type="button" (click)="clearSearch()"

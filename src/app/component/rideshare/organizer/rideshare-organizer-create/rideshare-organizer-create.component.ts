@@ -9,11 +9,12 @@ import { RideshareOrganizerService } from '../../../../service/rideshare/organiz
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CalendarModule],
   templateUrl: './rideshare-organizer-create.component.html',
   styleUrl: './rideshare-organizer-create.component.css',
 })

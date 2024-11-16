@@ -6,11 +6,12 @@ import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-se
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent  ],  templateUrl: './rideshare-passenger-search-list.component.html',
+  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent, CalendarModule  ],  templateUrl: './rideshare-passenger-search-list.component.html',
   styleUrl: './rideshare-passenger-search-list.component.css'
 })
 export class RidesharePassengerSearchListComponent {
@@ -43,9 +44,14 @@ export class RidesharePassengerSearchListComponent {
       return;
     }
 
+    let formattedDateTime = '';
+    if (this.departureDateTime) {
+      // Formatez la date selon les besoins de votre backend, par exemple en ISO string
+      formattedDateTime = new Date(this.departureDateTime).toISOString();
+    }
     // Demande pour obtenir les covoiturages
     this.rideShareService
-      .getRideShares(this.departureCity, this.arrivalCity, this.departureDateTime)
+      .getRideShares(this.departureCity, this.arrivalCity,formattedDateTime)
       .subscribe({
         next: (rideshares: RideSharePassengerList[]) => {
           this.rideshares = rideshares;
