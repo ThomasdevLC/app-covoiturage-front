@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { LicensePlateDirective } from '../../../service/shared/directives/license-plate/license-plate.directive';
 import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
+import { ToastService } from '../../../service/shared/toast/toast.service';
 
 @Component({
   selector: 'app-private-vehicle-create',
@@ -27,7 +28,9 @@ export class PrivateVehicleCreateComponent {
 
   constructor(
     private fb: FormBuilder,
-    private vehicleService: PrivateVehicleService , private router: Router
+    private vehicleService: PrivateVehicleService ,
+    private toastService: ToastService,
+    private router: Router
   ) {
     this.vehicleForm = this.fb.group({
       number: [
@@ -49,6 +52,7 @@ export class PrivateVehicleCreateComponent {
       this.vehicleService.createVehicle(newVehicle).subscribe({
         next: (vehicle) => {
           console.log('Véhicule créé avec succès', vehicle);
+          this.toastService.showSuccess('Votre véhicule a bien été enregistré.');
            this.router.navigate(['/employees']);
         },
         error: (err) => {
