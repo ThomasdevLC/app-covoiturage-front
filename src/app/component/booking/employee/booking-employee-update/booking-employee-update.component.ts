@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/route
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { VehicleBooking } from '../../../../models/vehicle-booking.model';
 import { DateFormatterPipe } from "../../../../pipe/date-formatter/date-formatter.pipe";
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-booking-employee-update',
@@ -18,7 +19,12 @@ export class BookingEmployeeUpdateComponent {
   @Input() booking!: VehicleBooking;
   errorMessage: string | undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute, private bookingEmployeeService: BookingEmployeeService  ){
+  constructor(
+  private router: Router,
+  private route: ActivatedRoute,
+  private bookingEmployeeService: BookingEmployeeService,
+  private errorHandlerService: ErrorHandlerService,
+  ){
   }
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -32,10 +38,9 @@ export class BookingEmployeeUpdateComponent {
       next: (booking) => {
         this.booking = booking;
       },
-      error: (err) => {
-        this.errorMessage = 'Erreur lors de la récupération de la réservation';
-        console.error('Error retrieving booking:', err);
-      }
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+      },
     });
   }
 
@@ -45,10 +50,9 @@ export class BookingEmployeeUpdateComponent {
         console.log('Booking updated successfully', updatedBooking);
         this.router.navigate(['/bookings-list']);
       },
-      error: (err) => {
-        this.errorMessage = 'Erreur lors de la mise à jour de la réservation';
-        console.error('Error updating booking:', err);
-      }
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+      },
     });
   }
 
