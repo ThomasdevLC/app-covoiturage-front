@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
@@ -23,6 +24,8 @@ export class CompanyVehicleEmployeeListComponent {
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
     private fb: FormBuilder,
+    private errorHandlerService: ErrorHandlerService,
+
   ) {
     this.filterForm = this.fb.group({
       startTime: [''],
@@ -38,8 +41,8 @@ export class CompanyVehicleEmployeeListComponent {
         next: (data: CompanyVehicle[]) => {
           this.vehicles = data;
         },
-        error: (error: any) => {
-          console.error('Error fetching vehicles', error);
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
         },
       });
   }
