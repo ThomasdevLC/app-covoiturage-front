@@ -9,11 +9,12 @@ import {
 import { CommonModule } from '@angular/common';
 import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
 import { Router } from '@angular/router';
+import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CapitalizeDirective],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
