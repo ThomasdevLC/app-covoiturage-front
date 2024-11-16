@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'app-covoiturage-front';
 
-  @ViewChild(ErrorToastComponent) errorToast!: ErrorToastComponent;
 
   currentUser$: Observable<EmployeeConnected | null>;
 
@@ -36,10 +35,6 @@ export class AppComponent {
     this.authService.initializeCurrentUser();
   }
 
-  showErrorToast(status: number, message: string): void {
-    if (this.errorToast) {
-      this.errorToast.showError(status, message);
-    }
-  }
+
 }
 

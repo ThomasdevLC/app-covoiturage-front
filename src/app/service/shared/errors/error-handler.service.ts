@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs'; 
+import { ErrorToastService } from '../toast/error-toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorHandlerService {
 
-  constructor() {}
+  constructor(private errorToastService: ErrorToastService) {}
 
   // Méthode pour gérer les erreurs HTTP
   handleError(error: HttpErrorResponse): Observable<any> {
@@ -28,10 +29,12 @@ export class ErrorHandlerService {
     console.error('Error status:', error.status);
     console.error('Error body:', error.error);
 
-    // Return an Observable of a custom error object
+    this.errorToastService.showError(error.status, errorMessage);
     return of({
       status: error.status,
       message: errorMessage
     });
   }
+
+
 }

@@ -8,7 +8,7 @@ import { SecureApiService } from '../../../../service/api/api-security/secure-ap
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';
-import { ErrorHandlerService } from '../../../../service/api/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
@@ -81,12 +81,8 @@ export class RideshareOrganizerCreateComponent {
           this.router.navigate(['/rideshares/organizer']);
         },
         error: (error) => {
-          this.errorHandlerService.handleError(error).subscribe({
-            next: (errorObject) => {
-              this.errorMessage = errorObject.message;
-            }
-          });
-        }
+          this.errorHandlerService.handleError(error);
+        },
       });
   }
 
