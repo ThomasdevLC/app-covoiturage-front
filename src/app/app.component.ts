@@ -4,14 +4,14 @@ import { NavbarComponent } from './component/header/navbar/navbar.component';
 import { Observable } from 'rxjs';
 import { EmployeeConnected } from './models/employee/employee-connected.model';
 import { AuthService } from './service/auth/auth.service';
-import { ErrorToastComponent } from './component/api/error-toast/error-toast.component';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ErrorToastComponent, CommonModule],
+  imports: [RouterOutlet, NavbarComponent, CommonModule, ToastModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
