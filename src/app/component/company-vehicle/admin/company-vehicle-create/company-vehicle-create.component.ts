@@ -12,11 +12,14 @@ import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { Router } from '@angular/router';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
+import { LicensePlateDirective } from '../../../../service/shared/directives/license-plate/license-plate.directive';
+import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
 
 @Component({
   selector: 'app-company-vehicle-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CapitalizeDirective,
+    LicensePlateDirective,],
   templateUrl: './company-vehicle-create.component.html',
   styleUrl: './company-vehicle-create.component.css',
 })
@@ -33,17 +36,23 @@ export class CompanyVehicleCreateComponent {
     private vehicleService: CompanyVehicleAdminService,
     private router: Router
   ) {
-    this.vehicleForm = this.fb.group({
-      number: ['', Validators.required],
-      brand: ['', Validators.required],
-      model: ['', Validators.required],
-      category: ['', Validators.required],
-      picUrl: ['', Validators.required],
-      motor: ['', Validators.required],
-      seats: [1, [Validators.required, Validators.min(1)]],
-      co2PerKm: [1, Validators.required],
-    });
-  }
+  this.vehicleForm = this.fb.group({
+    number: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(/^[A-Z]{2}-\d{3}-[A-Z]{2}$/), // Format pour numéro d'immatriculation
+      ],
+    ],
+    brand: ['', Validators.required],
+    model: ['', Validators.required],
+    category: ['', Validators.required],
+    picUrl: ['', Validators.required],
+    motor: ['', Validators.required],
+    seats: [1, [Validators.required, Validators.min(1)]],
+    co2PerKm: [1, [Validators.required, Validators.min(0)]],
+  });
+}
 
   onSubmit(): void {
     if (this.vehicleForm.valid) {

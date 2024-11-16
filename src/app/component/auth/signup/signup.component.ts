@@ -20,17 +20,36 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   signupForm: FormGroup;
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
- 
-    this.signupForm = this.fb.group({
-      gender: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+           {
+      this.signupForm = this.fb.group({
+        gender: ['', Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        phone: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^0\d{9}$/),  
+          ],
+        ],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email, 
+          ],
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8), // Minimum 8 caractères
+            Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/), // Une majuscule, une minuscule, un chiffre, un caractère spécial
+          ],
+        ],
+      });
+    }
   }
-
   onSubmit(): void {
     if (this.signupForm.valid) {
       const employeeSignup: EmployeeSignup = this.signupForm.value;

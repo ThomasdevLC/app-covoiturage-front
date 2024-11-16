@@ -9,11 +9,13 @@ import {
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { LicensePlateDirective } from '../../../service/shared/directives/license-plate/license-plate.directive';
+import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
 
 @Component({
   selector: 'app-private-vehicle-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, LicensePlateDirective,CapitalizeDirective],
   templateUrl: './private-vehicle-create.component.html',
   styleUrl: './private-vehicle-create.component.css',
 })
