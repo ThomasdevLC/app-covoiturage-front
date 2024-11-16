@@ -14,12 +14,14 @@ import { Router } from '@angular/router';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { LicensePlateDirective } from '../../../../service/shared/directives/license-plate/license-plate.directive';
 import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
+import { VehicleCategoryPipe } from '../../../../pipe/vehicle-category/vehicle-category.pipe';
+import { MotorPipe } from '../../../../pipe/motor/motor.pipe';
 
 @Component({
   selector: 'app-company-vehicle-create',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CapitalizeDirective,
-    LicensePlateDirective,],
+    LicensePlateDirective,VehicleCategoryPipe, MotorPipe],
   templateUrl: './company-vehicle-create.component.html',
   styleUrl: './company-vehicle-create.component.css',
 })
@@ -35,6 +37,8 @@ export class CompanyVehicleCreateComponent {
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
     private router: Router
+    
+
   ) {
   this.vehicleForm = this.fb.group({
     number: [
