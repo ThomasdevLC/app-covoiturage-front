@@ -30,8 +30,6 @@
 
 <!-- Liste des covoiturages -->
 <div class="mt-10 max-w-lg mx-auto">
-    <p-messages [(value)]="messages" [closable]="true" class="mb-6"></p-messages> <!-- Composant Messages de PrimeNG -->
-
     <app-rideshare-passenger-search-item *ngFor="let rideshare of rideshares" [rideshare]="rideshare" class="mb-4">
     </app-rideshare-passenger-search-item>
 </div>

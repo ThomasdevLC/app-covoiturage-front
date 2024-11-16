@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './component/header/navbar/navbar.component';
 import { Observable } from 'rxjs';
 import { EmployeeConnected } from './models/employee/employee-connected.model';
 import { AuthService } from './service/auth/auth.service';
+import { ErrorToastComponent } from './component/api/error-toast/error-toast.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, ErrorToastComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'app-covoiturage-front';
+
+  @ViewChild(ErrorToastComponent) errorToast!: ErrorToastComponent;
 
   currentUser$: Observable<EmployeeConnected | null>;
 
@@ -31,4 +35,11 @@ export class AppComponent {
   ngOnInit(): void {
     this.authService.initializeCurrentUser();
   }
+
+  showErrorToast(status: number, message: string): void {
+    if (this.errorToast) {
+      this.errorToast.showError(status, message);
+    }
+  }
 }
+
