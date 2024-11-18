@@ -28,24 +28,31 @@ export class BookingEmployeeCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const vehicleId = +this.route.snapshot.paramMap.get('id')!;
+    const vehicleIdParam = this.route.snapshot.paramMap.get('id');
+    const vehicleId = vehicleIdParam ? +vehicleIdParam : null;
+
+    if (vehicleId !== null) {      
+      this.vehicleService.getVehicleById(vehicleId).subscribe({
+        next: (vehicle) => {
+          this.vehicle = vehicle;
+          console.log("vehiclecreate: ", this.vehicle);
+        },
+        error: (_error) => {
+          this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
+          console.error('Erreur lors du chargement du véhicule:', _error);
+        }
+      });
+    } else {
+      this.errorMessage = 'ID du véhicule invalide';
+      console.error('ID du véhicule est null ou invalide');
+    }
 
     this.route.queryParams.subscribe((params) => {
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
     });
-    console.log("create: "+ vehicleId + " start: "+this.startTime+" end: "+this.endTime);
-    console.log("onInitcreate: "+vehicleId);
-    this.vehicleService.getVehicleById(vehicleId).subscribe(
-      (vehicle) => {
-        this.vehicle = vehicle;
-        console.log("vehiclecreate: "+ this.vehicle);
-      },
-      (_error) => {
-        this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
-      }
-    );
   }
+
 
   confirmReservation(): void {
     if (this.vehicle) {
