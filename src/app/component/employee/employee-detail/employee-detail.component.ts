@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { EmployeeProfile } from '../../../models/employee/employee-profile.models';
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
@@ -42,20 +42,15 @@ export class EmployeeDetailComponent implements OnInit {
   loadEmployeePrivateVehicles(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-        if (currentUser) {
           return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);  
-        } else {
-          throw new Error('Utilisateur non authentifié');
-        }
       })
     ).subscribe({
       next: (vehicles) => {
         this.vehicles = vehicles;  
-        console.log('Véhicules récupérés avec succès :', vehicles);
       },
       error: (error) => {
-        console.error('Erreur lors de la récupération des véhicules :', error);
-      }
+        this.errorHandlerService.handleError(error); 
+      },
     });
   }
 
@@ -71,7 +66,6 @@ export class EmployeeDetailComponent implements OnInit {
     if (confirm(`Êtes-vous sûr de vouloir supprimer le véhicule ${vehicle.brand} ${vehicle.model} (${vehicle.number}) ?`)) {
       this.privateVehicleService.deleteVehicle(vehicle.id).subscribe({
         next: () => {
-          console.log(`Véhicule avec l'ID ${vehicle.id} supprimé avec succès.`);
           this.vehicles = this.vehicles.filter(v => v.id !== vehicle.id);
         },
         error: (error) => {

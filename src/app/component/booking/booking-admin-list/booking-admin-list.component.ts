@@ -1,19 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { VehicleBooking } from '../../../models/vehicle-booking.model';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { CompanyVehicleAdminService } from '../../../service/company-vehicle/admin/company-vehicle-admin.service';
+import { RouterLink, RouterModule } from '@angular/router';
 import {
-  FormBuilder,
-  FormGroup,
   FormsModule,
-  Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-
-import { catchError, of } from 'rxjs';
 import { BookingAdminServiceService } from '../../../service/booking/admin/booking-admin.service';
 import { VehicleBookingList } from '../../../models/vehicle-booking-list.model';
+import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-booking-admin-list',
@@ -34,7 +28,8 @@ export class BookingAdminListComponent implements OnInit {
   errorMessage: string | null = null;
 
   constructor(
-    private bookingAdminService: BookingAdminServiceService // Injection du service
+    private bookingAdminService: BookingAdminServiceService,    // Injection du service
+    private errorHandlerService: ErrorHandlerService,
   ) {}
 
   ngOnInit(): void {
@@ -42,16 +37,16 @@ export class BookingAdminListComponent implements OnInit {
   }
 
   loadBookings(type: 'past' | 'now' | 'future'): void {
-    this.bookingAdminService.getBookingsByType(type).pipe(
-      catchError((error) => {
-        this.errorMessage = error; // Gérer l'erreur ici
-        return of([]); // Retourne un tableau vide en cas d'erreur
-      })
-    ).subscribe((bookings) => {
-      this.bookings = bookings; // Stocker les réservations dans la variable
-      console.log(bookings); // Afficher les réservations dans la console
+    this.bookingAdminService.getBookingsByType(type).subscribe({
+      next: (bookings) => {
+        this.bookings = bookings; // Stocker les réservations dans la variable
+      },
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+      },
     });
   }
+  
 
   onTypeChange(type: 'past' | 'now' | 'future'): void {
     this.bookingType = type; // Met à jour le type de réservation

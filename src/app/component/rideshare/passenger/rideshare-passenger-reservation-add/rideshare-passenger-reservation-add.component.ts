@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,
@@ -21,6 +21,7 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
       private route: ActivatedRoute,
       private rideShareService: RidesharePassengerService,
       private router: Router,
+      private errorHandlerService: ErrorHandlerService
     ) {}
   
     ngOnInit(): void {
@@ -36,9 +37,9 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
       next: (rideShare) => {
         console.log('Récupération du covoiturage:', rideShare);
       },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du covoiturage:', err);
-      }
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+      },
     });
     }
   
@@ -48,9 +49,9 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
           console.log('covoiturage réservé',);
           this.router.navigate(['/rideshares/passenger']);
         },
-        error: (err) => {
-          console.error('Erreur lors de la tentative de rejoindre le covoiturage:', err);
-        }
+        error: (error) => {
+          this.errorHandlerService.handleError(error); 
+        },
       });
     }
   }

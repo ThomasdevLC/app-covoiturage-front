@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { PrivateVehicle } from '../../../models/private-vehicle.model';
 import { CommonModule } from '@angular/common';
+import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-private-vehicle-edit',
@@ -21,6 +22,7 @@ export class PrivateVehicleEditComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private privateVehicleService: PrivateVehicleService,
+    private errorHandlerService: ErrorHandlerService,
     private router: Router
   ) {}
 
@@ -49,30 +51,30 @@ export class PrivateVehicleEditComponent implements OnInit {
           seats: vehicle.seats,
         });
       },
-      error: (err: any) => {
-        console.error('Erreur lors du chargement du véhicule :', err);
-        this.errorMessage = 'Impossible de charger les détails du véhicule.';
-      }
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+      },
     });
   }
 
-  saveChanges(): void {
-    if (this.vehicleForm.valid) {
-      const updatedVehicle: PrivateVehicle = {
-        ...this.vehicleForm.value 
-      };
-
-      // Appeler le service pour mettre à jour le véhicule
-      this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
-        next: () => {
-          console.log('Véhicule mis à jour avec succès');
-          this.router.navigate(['/employees']); // Redirection après la mise à jour
-        },
-        error: (err) => {
-          console.error('Erreur lors de la mise à jour du véhicule :', err);
-          this.errorMessage = 'Impossible de mettre à jour le véhicule.';
-        }
-      });
+ saveChanges(): void {
+    if (!this.vehicleForm.valid) {
+      this.errorMessage = 'Veuillez remplir tous les champs';
+      return; 
     }
+
+    const updatedVehicle: PrivateVehicle = {
+      ...this.vehicleForm.value,
+    };
+
+    this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
+      next: () => {
+        this.errorMessage = null; 
+        this.router.navigate(['/employees']);
+      },
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
+      },
+    });
   }
 }

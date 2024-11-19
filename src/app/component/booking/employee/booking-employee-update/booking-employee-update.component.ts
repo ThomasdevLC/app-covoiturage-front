@@ -46,8 +46,7 @@ export class BookingEmployeeUpdateComponent {
 
   updateBooking(): void {
     this.bookingEmployeeService.updateBooking(this.booking).subscribe({
-      next: (updatedBooking) => {
-        console.log('Booking updated successfully', updatedBooking);
+      next: () => {
         this.router.navigate(['/bookings-list']);
       },
       error: (error) => {

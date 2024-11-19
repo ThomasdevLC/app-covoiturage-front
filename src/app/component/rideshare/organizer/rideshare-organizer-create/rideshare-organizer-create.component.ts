@@ -62,18 +62,14 @@ export class RideshareOrganizerCreateComponent {
     this.secureApiService
       .getCurrentUser()
       .pipe(
-        switchMap((currentUser) => {
-          if (currentUser) {
+        switchMap((currentUser) => { 
             const organizer = { id: currentUser.id };
             const newRideShare = {
               ...this.rideShareForm.value, 
               organizer,
               vehicle: { id: this.rideShareForm.value.vehicleId } 
             };
-            return this.rideShareService.createRideShare(newRideShare);
-          } else {
-            throw new Error('Current user is not available');
-          }
+            return this.rideShareService.createRideShare(newRideShare);        
         })
       )
       .subscribe({
@@ -90,11 +86,8 @@ export class RideshareOrganizerCreateComponent {
   ngOnInit(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-        if (currentUser) {
           return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);  
-        } else {
-          throw new Error('Utilisateur non authentifié');
-        }
+        
       })
     ).subscribe({
       next: (vehicles) => {

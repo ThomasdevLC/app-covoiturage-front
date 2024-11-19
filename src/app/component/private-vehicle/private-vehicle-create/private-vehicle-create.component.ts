@@ -12,6 +12,7 @@ import { Router, RouterLink } from '@angular/router';
 import { LicensePlateDirective } from '../../../service/shared/directives/license-plate/license-plate.directive';
 import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
 import { ToastService } from '../../../service/shared/toast/toast.service';
+import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-private-vehicle-create',
@@ -29,6 +30,7 @@ export class PrivateVehicleCreateComponent {
   constructor(
     private fb: FormBuilder,
     private vehicleService: PrivateVehicleService ,
+    private errorHandlerService: ErrorHandlerService,
     private toastService: ToastService,
     private router: Router
   ) {
@@ -50,19 +52,16 @@ export class PrivateVehicleCreateComponent {
     if (this.vehicleForm.valid) {
       const newVehicle: PrivateVehicle = this.vehicleForm.value;
       this.vehicleService.createVehicle(newVehicle).subscribe({
-        next: (vehicle) => {
-          console.log('Véhicule créé avec succès', vehicle);
+        next: () => {
           this.toastService.showSuccess('Votre véhicule a bien été enregistré.');
-           this.router.navigate(['/employees']);
+          this.router.navigate(['/employees']);
         },
-        error: (err) => {
-          console.error('Erreur lors de la création du véhicule:', err);
-          this.errorMessage =
-            "Une erreur s'est produite lors de la création du véhicule.";
-        }
+        error: (error) => {
+          this.errorHandlerService.handleError(error); 
+        },
       });
     } else {
-      this.errorMessage = 'Veuillez remplir tous les champs correctement.';
+      this.errorMessage = 'Veuillez remplir tous les champs.';
     }
   } 
 }

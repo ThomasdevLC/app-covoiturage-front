@@ -69,17 +69,14 @@ export class CompanyVehicleAdminService {
     vehicle: CompanyVehicle
   ): Observable<CompanyVehicle> {
     if (confirm('Êtes-vous sûr de vouloir modifier ce véhicule ?')) {
-      return this.secureApiService.getCurrentUser().pipe(
-        switchMap((currentUser) => {
-            return this.http.put<CompanyVehicle>(
-              `${this.apiURL}company-vehicles/admin/${id}`,
-              vehicle,
-              {
-                headers: this.secureApiService.getHeaders(),
-              }
-            );   
-        }),
-        catchError((error) => {
+      return this.http.put<CompanyVehicle>(
+        `${this.apiURL}company-vehicles/admin/${id}`,
+        vehicle,
+        {
+          headers: this.secureApiService.getHeaders(),
+        }
+      ).pipe(
+        catchError(() => {
           return throwError(() => new Error('Erreur lors de la mise à jour du véhicule'));
         })
       );
@@ -87,24 +84,24 @@ export class CompanyVehicleAdminService {
       return throwError(() => new Error('Modification annulée'));
     }
   }
-
-
+  
   deleteCompanyVehicle(number: number): Observable<void> {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
-      return this.secureApiService.getCurrentUser().pipe(
-        switchMap((currentUser) => {
-            return this.http.delete<void>(
-              `${this.apiURL}company-vehicles/admin/${number}`,
-              {
-                headers: this.secureApiService.getHeaders(),
-              }
-            );    
+      return this.http.delete<void>(
+        `${this.apiURL}company-vehicles/admin/${number}`,
+        {
+          headers: this.secureApiService.getHeaders(),
+        }
+      ).pipe(
+        catchError(() => {
+          return throwError(() => new Error('Erreur lors de la suppression du véhicule'));
         })
       );
     } else {
       return throwError(() => new Error('Suppression annulée'));
     }
   }
+  
 
 
   changeVehicleStatus(

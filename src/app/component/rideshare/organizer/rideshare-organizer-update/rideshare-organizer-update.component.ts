@@ -8,6 +8,7 @@ import { SecureApiService } from '../../../../service/api/api-security/secure-ap
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { switchMap } from 'rxjs';
 import { PrivateVehicle } from '../../../../models/private-vehicle.model';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-rideshare-organizer-update',
@@ -25,6 +26,7 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
     private rideshareService: RideshareOrganizerService,
     private secureApiService: SecureApiService,
     private privateVehicleService: PrivateVehicleService,
+    private errorHandlerService: ErrorHandlerService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -52,26 +54,21 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.loadRideShare(id); // Charger les données du covoiturage pour mise à jour
-
-    // Récupération des véhicules comme dans le composant create
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-        if (currentUser) {
-          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);  
-        } else {
-          throw new Error('Utilisateur non authentifié');
-        }
+          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);         
       })
-    ).subscribe(
-      (vehicles) => {
+    ).subscribe({
+      next: (vehicles) => {
         this.vehicles = vehicles;  
         console.log('Véhicules récupérés avec succès :', vehicles);
       },
-      (error) => {
-        console.error('Erreur lors de la récupération des véhicules :', error);
-      }
-    );
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+      },
+    });
   }
+  
 
   loadRideShare(id: number): void {
     this.rideshareService.getRideShareByIdForUpdate(id).subscribe({
@@ -82,8 +79,8 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
         });
         console.log('Fetched RideShare:', rideShare);
       },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du covoiturage:', err);
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
       },
     });
   }
@@ -91,11 +88,6 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
 
   
   updateRideShare(): void {
-    if (this.rideShareForm.invalid) {
-      console.error('Le formulaire est invalide');
-      return;
-    }
-  
     // Préparer l'objet pour la mise à jour en incluant le vehicleId
     const updatedRideShare: RideShareOrganizerUpdate = {
       ...this.rideShareForm.value,
@@ -107,10 +99,10 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
     this.rideshareService.updateRideShare(id, updatedRideShare).subscribe({
       next: (updatedRideShare) => {
         console.log('RideShare updated successfully:', updatedRideShare);
-        this.router.navigate(['/rideshares/organizer']);  // Redirection après mise à jour
+        this.router.navigate(['/rideshares/organizer']); 
       },
-      error: (err) => {
-        console.error('Error updating RideShare:', err);
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
       },
     });
   }

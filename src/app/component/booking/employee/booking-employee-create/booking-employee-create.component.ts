@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-booking-employee-create',
@@ -24,7 +25,8 @@ export class BookingEmployeeCreateComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private vehicleService: CompanyVehicleEmployeeService,
-    private bookingEmployeeService: BookingEmployeeService
+    private bookingEmployeeService: BookingEmployeeService,
+    private errorHandlerService: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -35,18 +37,12 @@ export class BookingEmployeeCreateComponent implements OnInit {
       this.vehicleService.getVehicleById(vehicleId).subscribe({
         next: (vehicle) => {
           this.vehicle = vehicle;
-          console.log("vehiclecreate: ", this.vehicle);
         },
-        error: (_error) => {
-          this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
-          console.error('Erreur lors du chargement du véhicule:', _error);
-        }
+        error: (error) => {
+          this.errorHandlerService.handleError(error); 
+        },
       });
-    } else {
-      this.errorMessage = 'ID du véhicule invalide';
-      console.error('ID du véhicule est null ou invalide');
-    }
-
+    } 
     this.route.queryParams.subscribe((params) => {
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
@@ -66,14 +62,12 @@ export class BookingEmployeeCreateComponent implements OnInit {
       };
   
       this.bookingEmployeeService.createBooking(booking).subscribe({
-        next: (result) => {
-          console.log('Réservation réussie:', result);
+        next: () => {
           this.router.navigate(['/bookings-list']);
         },
-        error: (err) => {
-          console.error('Erreur lors de la réservation du véhicule:', err);
-          this.errorMessage = 'Erreur lors de la réservation du véhicule';
-        }
+        error: (error) => {
+          this.errorHandlerService.handleError(error); 
+        },
       });
     }
   }

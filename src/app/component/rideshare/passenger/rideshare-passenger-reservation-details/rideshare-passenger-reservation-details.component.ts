@@ -5,6 +5,7 @@ import { RidesharePassengerService } from '../../../../service/rideshare/passeng
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class RidesharePassengerReservationDetailsComponent {
   constructor(
     private rideshareService: RidesharePassengerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +41,9 @@ export class RidesharePassengerReservationDetailsComponent {
         this.rideshare = rideShare; 
         console.log(' RideShare:', rideShare);
       },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du covoiturage:', err);
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
+
       },
     });
   }
@@ -53,8 +56,8 @@ export class RidesharePassengerReservationDetailsComponent {
         console.log('RideShare cancelled ');
         this.router.navigate(['/rideshares/passenger']); 
       },
-      error: (err) => {
-        console.error('Erreur lors de l\'annulation du covoiturage:', err);
+      error: (error) => {
+        this.errorHandlerService.handleError(error); 
       },
     });
   }
