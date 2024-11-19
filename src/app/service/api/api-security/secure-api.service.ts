@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, Observable, take, tap } from 'rxjs';
+import { filter, Observable, take, tap, throwIfEmpty } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { EmployeeConnected } from '../../../models/employee/employee-connected.model';
 import { EmployeeRole } from '../../../models/employee/employee-role.model';
@@ -25,11 +25,12 @@ export class SecureApiService {
 
   getCurrentUser(): Observable<EmployeeConnected> {
     return this.authService.currentUser$.pipe(
-      filter((currentUser) => !!currentUser), // N'avance que si l'utilisateur est non-null
+      filter((currentUser): currentUser is EmployeeConnected => !!currentUser), // Type guard
       take(1),
       tap((currentUser) => {
         console.log('Current user:', currentUser);
-      })
+      }),
+      throwIfEmpty(() => new Error('Utilisateur non authentifié'))
     );
   }
 

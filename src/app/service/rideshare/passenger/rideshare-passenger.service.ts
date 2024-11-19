@@ -32,7 +32,6 @@ export class RidesharePassengerService {
 
     return this.http.get<RideSharePassengerList[]>(`${this.apiURL}rideshares/search`, {
       params,
-      headers: this.secureApiService.getHeaders(),
     });
   }
 
@@ -40,9 +39,8 @@ export class RidesharePassengerService {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id; 
-        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/add-passenger/${userId}`, {}, {
-          headers: this.secureApiService.getHeaders(),
-        });
+        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/add-passenger/${userId}`, {}, 
+        );
       })
     );
   }
@@ -52,7 +50,6 @@ export class RidesharePassengerService {
       switchMap((currentUser) => {
         const userId = currentUser.id;
         return this.http.get<RideSharePassengerList[]>(`${this.apiURL}rideshares/passenger/${userId}?past=${past}`, {
-          headers: this.secureApiService.getHeaders(),
         });
       })
     );
@@ -63,7 +60,6 @@ export class RidesharePassengerService {
       switchMap((currentUser) => {
         const userId = currentUser.id;
         return this.http.delete<any>(`${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`, {
-          headers: this.secureApiService.getHeaders(),
         });
       })
     );
@@ -71,7 +67,6 @@ export class RidesharePassengerService {
 
   getRideShareById(id: number): Observable<RideSharePassengerDetails> {
     return this.http.get<RideSharePassengerDetails>(`${this.apiURL}rideshares/${id}`, {
-      headers: this.secureApiService.getHeaders(),
     });
   }
 
