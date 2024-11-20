@@ -6,12 +6,13 @@ import { EmployeeConnected } from './models/employee/employee-connected.model';
 import { AuthService } from './service/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, CommonModule, ToastModule],
+  imports: [RouterOutlet, NavbarComponent, CommonModule, ToastModule,ToolbarModule, ToolbarModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
