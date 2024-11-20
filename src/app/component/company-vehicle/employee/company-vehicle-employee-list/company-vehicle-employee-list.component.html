@@ -20,13 +20,50 @@
     </div>
   </form>
 
+  <!-- Carousel -->
+  <h2 class="text-2xl font-bold mt-10 mb-6">Véhicules en vedette</h2>
+  <p-carousel 
+    [value]="vehicles" 
+    [numVisible]="1" 
+    [numScroll]="1" 
+    [circular]="true" 
+    [responsiveOptions]="responsiveOptions">
+    <ng-template let-vehicle pTemplate="item">
+      <div class="border-1 surface-border border-round m-2 p-3">
+        <div class="mb-3">
+          <div class="relative mx-auto">
+            <img 
+              [src]="vehicle.picUrl || 'https://via.placeholder.com/150'" 
+              [alt]="vehicle.brand + ' ' + vehicle.model" 
+              class="w-full border-round object-cover" />
+          </div>
+        </div>
+        <div class="mb-3 font-medium">
+          {{ vehicle.brand }} {{ vehicle.model }}
+        </div>
+        <div class="flex justify-content-between align-items-center">
+          <div class="mt-0 font-semibold text-xl">
+            Numéro: {{ vehicle.number }}
+          </div>
+          <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{
+              startTime: filterForm.value.startTime,
+              endTime: filterForm.value.endTime
+            }"
+            class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Réserver
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+
+  <!-- Liste des véhicules -->
   <div *ngIf="vehicles.length > 0; else noVehicles">
     <ul class="space-y-4">
       <li *ngFor="let vehicle of vehicles" class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
-        <!-- Vehicle Image -->
         <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
           class="w-32 h-24 object-cover rounded-lg shadow-md mr-4">
-        <div class="">
+        <div>
           <h5 class="text-lg font-semibold">{{ vehicle.brand }}</h5>
           <h6 class="text-md font-medium text-gray-600">{{ vehicle.model }}</h6>
           <p class="text-md font-medium text-gray-700">{{ vehicle.number }}</p>
@@ -46,7 +83,4 @@
   <ng-template #noVehicles>
     <p class="text-gray-500">No vehicles available.</p>
   </ng-template>
-
-  <!-- carousel -->
-
 </div>

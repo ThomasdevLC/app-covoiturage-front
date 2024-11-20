@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, CarouselModule],
   templateUrl: './company-vehicle-employee-list.component.html',
   styleUrls: ['./company-vehicle-employee-list.component.css'],
 })
@@ -20,9 +17,28 @@ export class CompanyVehicleEmployeeListComponent {
   vehicles: CompanyVehicle[] = [];
   filterForm: FormGroup;
 
+  // Ajout de l'option responsive
+  responsiveOptions = [
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 3,
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 2,
+      numScroll: 2,
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
+
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.filterForm = this.fb.group({
       startTime: [''],
