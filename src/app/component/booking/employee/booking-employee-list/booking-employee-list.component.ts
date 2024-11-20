@@ -28,9 +28,14 @@ export class BookingEmployeeListComponent implements OnInit {
     this.bookings$ = this.bookingEmployeeService.getBookings(this.past);
   }
 
-  // Fonction pour activer l'historique
-  togglePastBookings(): void {
-    this.past = !this.past; // Inverser la valeur de `past`
-    this.loadBookings(); // Recharger les réservations avec la nouvelle valeur de `past`
+  toggleToCurrentBookings(): void {
+    this.past = false;
+    this.loadBookings();
   }
+  
+  toggleToPastBookings(): void {
+    this.past = true;
+    this.loadBookings();
+  }
+  
 }

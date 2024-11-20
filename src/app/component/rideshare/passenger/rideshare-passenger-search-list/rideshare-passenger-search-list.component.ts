@@ -23,9 +23,9 @@ export class RidesharePassengerSearchListComponent {
 
   constructor(
     private rideShareService: RidesharePassengerService,
+    private errorHandlerService: ErrorHandlerService,
     private route: ActivatedRoute,
     private router: Router,
-    private errorHandlerService: ErrorHandlerService,
     
 
   ) {
