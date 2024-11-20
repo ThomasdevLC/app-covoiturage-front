@@ -36,10 +36,9 @@ export class CompanyVehicleEmployeeService {
     if (endTime) {
       params = params.set('endTime', endTime);
     }
-    const headers = this.secureApiService.getHeaders();
     return this.http.get<CompanyVehicle[]>(
       `${this.apiURL}company-vehicles/status-and-booking-dates`,
-      { params, headers }
+      { params }
     );
   }
  
@@ -53,21 +52,16 @@ getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking
   if(past){
     params = params.set('past', past);//si ==true -> historique, sinon en cours
   }
-  const headers = this.secureApiService.getHeaders();
   return this.http.get<VehicleBooking[]>(
     `${this.apiURL}company-vehicles/bookings-search`,
-    { params, headers }
+    { params }
   );
 }
  
 
 getVehicleById(id: number): Observable<CompanyVehicle> {
   return this.http.get<CompanyVehicle>(
-    `${this.apiURL}company-vehicles/${id}`,
-    {
-      headers: this.secureApiService.getHeaders(),
-    }
-  );
-}
-
+    `${this.apiURL}company-vehicles/${id}`
+    );
+  } 
 }

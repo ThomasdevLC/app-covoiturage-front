@@ -28,10 +28,7 @@ export class RideshareOrganizerService {
   createRideShare(rideShare: RideShareOrganizerCreate): Observable<RideShareOrganizerCreate> {
     return this.http.post<RideShareOrganizerCreate>(
       `${this.apiURL}rideshares`,
-      rideShare,
-      {
-        headers: this.secureApiService.getHeaders(),
-      }
+      rideShare
     );
   }
 
@@ -40,10 +37,7 @@ export class RideshareOrganizerService {
       switchMap((currentUser) => {
         const userId = currentUser.id;
         return this.http.get<RideShareOrganizerList[]>(
-          `${this.apiURL}rideshares/organizer/${userId}?past=${past}`,
-          {
-            headers: this.secureApiService.getHeaders(),
-          }
+          `${this.apiURL}rideshares/organizer/${userId}?past=${past}`,      
         );
       })
     );
@@ -60,10 +54,7 @@ export class RideshareOrganizerService {
         };
         return this.http.put<RideShareOrganizerUpdate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,
-          updatedRideShare,
-          {
-            headers: this.secureApiService.getHeaders(),
-          }
+          updatedRideShare,      
         );
       })
     );
@@ -71,15 +62,12 @@ export class RideshareOrganizerService {
   
 
   getRideShareById(id: number): Observable<RideShareOrganizerDetails> {
-    return this.http.get<RideShareOrganizerDetails>(`${this.apiURL}rideshares/${id}`, {
-      headers: this.secureApiService.getHeaders(),
-    });
+    return this.http.get<RideShareOrganizerDetails>(`${this.apiURL}rideshares/${id}`
+    );
   }
 
   getRideShareByIdForUpdate(id: number): Observable<RideShareOrganizerUpdate> {
-    return this.http.get<RideShareOrganizerUpdate>(`${this.apiURL}rideshares/${id}`, {
-      headers: this.secureApiService.getHeaders(),
-    })
+    return this.http.get<RideShareOrganizerUpdate>(`${this.apiURL}rideshares/${id}`)
     .pipe(
       tap((rideShare) => {
         console.log('Fetched update RideShare:', rideShare);
@@ -94,10 +82,7 @@ export class RideshareOrganizerService {
       switchMap((currentUser) => {
         const organizerId = currentUser.id;
         return this.http.delete<RideShareOrganizerList>(
-          `${this.apiURL}rideshares/${id}/delete/${organizerId}`,
-          {
-            headers: this.secureApiService.getHeaders(),
-          }
+          `${this.apiURL}rideshares/${id}/delete/${organizerId}`
         );
       }),
       tap(() => {

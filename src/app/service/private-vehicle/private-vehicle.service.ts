@@ -28,10 +28,7 @@ export class PrivateVehicleService {
           };
           return this.http.post<PrivateVehicle>(
             `${this.apiURL}private-vehicles`,
-            vehicleToPost,
-            {
-              headers: this.secureApiService.getHeaders(),
-            }
+            vehicleToPost, 
           );
         } else {
           return throwError('Utilisateur non authentifié');
@@ -44,9 +41,7 @@ export class PrivateVehicleService {
   getVehicleById(vehicleId: number): Observable<PrivateVehicle> {
     return this.http.get<PrivateVehicle>(
       `${this.apiURL}private-vehicles/${vehicleId}`,
-      {
-        headers: this.secureApiService.getHeaders(),
-      }
+    
     );
   }
 
@@ -56,10 +51,7 @@ export class PrivateVehicleService {
       switchMap((currentUser) => {
         const employeeId = currentUser ? currentUser.id : userId;
         return this.http.get<PrivateVehicle[]>(
-          `${this.apiURL}private-vehicles/employees/${employeeId}`,
-          {
-            headers: this.secureApiService.getHeaders(),
-          }
+          `${this.apiURL}private-vehicles/employees/${employeeId}`,        
         );
       })
     );
@@ -71,10 +63,7 @@ export class PrivateVehicleService {
       switchMap((currentUser) => {
         const currentUserId =  currentUser.id;
         return this.http.delete<void>(
-          `${this.apiURL}private-vehicles/${vehicleId}?employeeId=${currentUserId}`,
-          {
-            headers: this.secureApiService.getHeaders(),
-          }
+          `${this.apiURL}private-vehicles/${vehicleId}?employeeId=${currentUserId}`,     
         );
       })
     );
@@ -94,10 +83,7 @@ export class PrivateVehicleService {
   
         return this.http.put<PrivateVehicle>(
           `${this.apiURL}private-vehicles/${vehicleId}`,
-          vehicleToUpdate,
-          {
-            headers: this.secureApiService.getHeaders(),
-          }
+          vehicleToUpdate        
         );
       })
     );

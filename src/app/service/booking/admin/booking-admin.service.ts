@@ -21,9 +21,8 @@ export class BookingAdminServiceService {
         switchMap((currentUser) => {
             const url = `${this.apiURL}vehicle-bookings/admin/search?type=${type}&employeeId=${currentUser.id}`;
             
-            return this.http.get<VehicleBookingList[]>(url, {
-              headers: this.secureApiService.getHeaders(),
-            }).pipe(
+            return this.http.get<VehicleBookingList[]>(url 
+            ).pipe(
               catchError((error) => {
                 return throwError(() => new Error('Erreur lors de la récupération des réservations'));
               })

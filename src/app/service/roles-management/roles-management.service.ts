@@ -16,31 +16,26 @@ export class RolesManagementService {
 
   // Récupérer tous les employés
   getAllEmployees(): Observable<EmployeeRole[]> {
-    const headers = this.secureApiService.getHeaders();
     return this.http.get<EmployeeRole[]>(
-      `${this.apiURL}roles-management/employees`,
-      { headers }
+      `${this.apiURL}roles-management/employees`
     );
   }
 
   // Rechercher les employés par mot clé (nom ou email)
   searchEmployees(keyword: string): Observable<EmployeeRole[]> {
-    const headers = this.secureApiService.getHeaders();
     let params = new HttpParams().set('keyword', keyword);
     return this.http.get<EmployeeRole[]>(
       `${this.apiURL}roles-management/employees/search`,
-      { params, headers }
+      { params }
     );
   }
 
   // Activer ou désactiver le rôle ADMIN d'un employé
   toggleAdminRole(employeeId: number, isAdmin: boolean): Observable<EmployeeRole> {
-    const headers = this.secureApiService.getHeaders();
     return this.http.put<EmployeeRole>(
       `${this.apiURL}roles-management/employees/${employeeId}/toggle-admin-role`,
       null,
-      {
-        headers,
+      { 
         params: new HttpParams().set('isAdmin', isAdmin.toString())
       }
     );

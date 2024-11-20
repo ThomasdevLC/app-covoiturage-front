@@ -29,9 +29,7 @@ export class CompanyVehicleAdminService {
     }
 
     return this.http.get<CompanyVehicle[]>(`${this.apiURL}company-vehicles/admin/`, {
-      params,
-      headers: this.secureApiService.getHeaders(),
-    });
+      params});
   }
 
   createVehicle(vehicle: CompanyVehicle): Observable<CompanyVehicle> {
@@ -45,22 +43,14 @@ export class CompanyVehicleAdminService {
 
           return this.http.post<CompanyVehicle>(
             `${this.apiURL}company-vehicles/admin`,
-            vehicleToPost,
-            {
-              headers: this.secureApiService.getHeaders(),
-            }
-          );
+            vehicleToPost);
         }   
       ));
   }
 
   getVehicleById(id: number): Observable<CompanyVehicle> {
     return this.http.get<CompanyVehicle>(
-      `${this.apiURL}company-vehicles/admin/${id}`,
-      {
-        headers: this.secureApiService.getHeaders(),
-      }
-    );
+      `${this.apiURL}company-vehicles/admin/${id}`);
   }
   
 
@@ -71,10 +61,7 @@ export class CompanyVehicleAdminService {
     if (confirm('Êtes-vous sûr de vouloir modifier ce véhicule ?')) {
       return this.http.put<CompanyVehicle>(
         `${this.apiURL}company-vehicles/admin/${id}`,
-        vehicle,
-        {
-          headers: this.secureApiService.getHeaders(),
-        }
+        vehicle
       ).pipe(
         catchError(() => {
           return throwError(() => new Error('Erreur lors de la mise à jour du véhicule'));
@@ -85,13 +72,11 @@ export class CompanyVehicleAdminService {
     }
   }
   
+  
   deleteCompanyVehicle(number: number): Observable<void> {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
       return this.http.delete<void>(
-        `${this.apiURL}company-vehicles/admin/${number}`,
-        {
-          headers: this.secureApiService.getHeaders(),
-        }
+        `${this.apiURL}company-vehicles/admin/${number}`   
       ).pipe(
         catchError(() => {
           return throwError(() => new Error('Erreur lors de la suppression du véhicule'));
@@ -116,12 +101,8 @@ export class CompanyVehicleAdminService {
             .set('employeeId', employeeId.toString());
   
           return this.http.put<CompanyVehicle>(
-            `${this.apiURL}company-vehicles/admin/${vehicleId}/status`,
-            {}, 
-            {
-              params,
-              headers: this.secureApiService.getHeaders(),
-            }
+            `${this.apiURL}company-vehicles/admin/${vehicleId}/status`,{}, 
+            {params}
           );
       })
     );

@@ -28,10 +28,7 @@ export class BookingEmployeeService {
 
           return this.http.post<VehicleBooking>(
             `${this.apiURL}vehicle-bookings`,
-            bookingToPost,
-            {
-              headers: this.secureApiService.getHeaders(),
-            }
+            bookingToPost
           );
       })
     );
@@ -44,18 +41,15 @@ export class BookingEmployeeService {
 
           const url = `${this.apiURL}vehicle-bookings/search/${employeeId}?past=${past}`;
 
-          return this.http.get<VehicleBooking[]>(url, {
-            headers: this.secureApiService.getHeaders(),
-          });
+          return this.http.get<VehicleBooking[]>(url);
       })
     );
   }
 
   getBookingById(bookingId: number): Observable<VehicleBooking> {
-    const headers = this.secureApiService.getHeaders();
     const url = `${this.apiURL}vehicle-bookings/${bookingId}`;
 
-    return this.http.get<VehicleBooking>(url, { headers }).pipe(
+    return this.http.get<VehicleBooking>(url).pipe(
       catchError((error) => {
         return throwError(() => new Error('Erreur lors de la récupération de la réservation'));
       })
@@ -65,11 +59,9 @@ export class BookingEmployeeService {
   
   updateBooking(booking: VehicleBooking): Observable<VehicleBooking> {
     return this.secureApiService.getCurrentUser().pipe(
-      switchMap((currentUser) => {
+      switchMap(() => {
           const url = `${this.apiURL}vehicle-bookings/${booking.id}`;
-          return this.http.put<VehicleBooking>(url, booking, {
-            headers: this.secureApiService.getHeaders(),
-          })    
+          return this.http.put<VehicleBooking>(url, booking)    
       })
     );
   }
@@ -78,10 +70,7 @@ export class BookingEmployeeService {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
           const url = `${this.apiURL}vehicle-bookings/${bookingId}?employeeId=${currentUser.id}`;
-  
-          return this.http.delete<void>(url, {
-            headers: this.secureApiService.getHeaders(),
-          });      
+          return this.http.delete<void>(url);      
       }),
       catchError((error) => {
         return throwError(() => new Error('Erreur lors de la suppression de la réservation'));
