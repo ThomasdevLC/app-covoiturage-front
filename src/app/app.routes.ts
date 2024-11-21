@@ -21,6 +21,7 @@ import { RideshareOrganizerDetailsComponent } from './component/rideshare/organi
 import { BookingEmployeeUpdateComponent } from './component/booking/employee/booking-employee-update/booking-employee-update.component';
 import { BookingAdminListComponent } from './component/booking/booking-admin-list/booking-admin-list.component';
 import { RolesManagementListComponent } from './component/roles-management/roles-management-list/roles-management-list.component';
+import { CompanyVehicleAdminManagementComponent } from './component/company-vehicle/admin/company-vehicle-admin-management/company-vehicle-admin-management.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -38,7 +39,7 @@ export const routes: Routes = [
   { path: 'rideshares/passenger/:id', component:RidesharePassengerReservationDetailsComponent },
 
   // COMPANY-VEHICLES
-  { path: 'company-vehicles', component: CompanyVehicleAdminListComponent},
+  { path: 'company-vehicles', component: CompanyVehicleAdminManagementComponent},
   { path: 'company-vehicles/create', component:CompanyVehicleCreateComponent},
   { path: 'company-vehicles/status-and-booking-dates',component: CompanyVehicleEmployeeListComponent },
   { path: 'company-vehicles/update/:id',component: CompanyVehicleUpdateComponent},

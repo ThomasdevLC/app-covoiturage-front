@@ -1,0 +1,35 @@
+<div class="vehicle-management p-6 max-w-4xl mx-auto">
+    <!-- Conteneur des onglets -->
+    <div class="flex justify-center space-x-4 border-b border-gray-300 mb-8">
+        <!-- Onglet "Rechercher" -->
+        <div (click)="setActiveTab('search')"
+            [class]="activeTab === 'search' ? 'text-indigo-600 border-indigo-600' : 'text-gray-500 border-transparent'"
+            class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+            Rechercher
+        </div>
+        <!-- Onglet "Créer véhicule" -->
+        <div (click)="setActiveTab('create')"
+            [class]="activeTab === 'create' ? 'text-indigo-600 border-indigo-600' : 'text-gray-500 border-transparent'"
+            class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+            Créer véhicule
+        </div>
+        <!-- Onglet "Réservations" -->
+        <div (click)="setActiveTab('reservations')"
+            [class]="activeTab === 'reservations' ? 'text-indigo-600 border-indigo-600' : 'text-gray-500 border-transparent'"
+            class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+            Réservations
+        </div>
+    </div>
+
+    <!-- Contenu des onglets -->
+    <div>
+        <!-- Rechercher -->
+        <app-company-vehicle-admin-list *ngIf="activeTab === 'search'"></app-company-vehicle-admin-list>
+
+        <!-- Créer véhicule -->
+        <app-company-vehicle-create *ngIf="activeTab === 'create'"></app-company-vehicle-create>
+
+        <!-- Réservations -->
+        <app-booking-admin-list *ngIf="activeTab === 'reservations'"></app-booking-admin-list>
+    </div>
+</div>

@@ -10,6 +10,7 @@ import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum'
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
+import { BookingAdminListComponent } from '../../../booking/booking-admin-list/booking-admin-list.component';
 
 @Component({
   selector: 'app-company-vehicle-admin-list',
@@ -20,11 +21,15 @@ import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehic
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+    BookingAdminListComponent
   ],
   templateUrl: './company-vehicle-admin-list.component.html',
   styleUrls: ['./company-vehicle-admin-list.component.css'],
 })
 export class CompanyVehicleAdminListComponent implements OnInit {
+
+  showBookings: boolean = false;
+
   vehicles: CompanyVehicle[] = [];
   brandFilter: string = '';
   numberFilter: string = '';
