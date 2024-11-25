@@ -16,6 +16,7 @@ import { LicensePlateDirective } from '../../../../service/shared/directives/lic
 import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
 import { VehicleCategoryPipe } from '../../../../pipe/vehicle-category/vehicle-category.pipe';
 import { MotorPipe } from '../../../../pipe/motor/motor.pipe';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-company-vehicle-create',
@@ -36,7 +37,8 @@ export class CompanyVehicleCreateComponent {
   constructor(
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
-    private router: Router
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService,
     
 
   ) {
@@ -63,18 +65,15 @@ export class CompanyVehicleCreateComponent {
       const newVehicle: CompanyVehicle = this.vehicleForm.value;
       this.vehicleService.createVehicle(newVehicle).subscribe({
         next: (vehicle) => {
-          console.log('Véhicule créé avec succès', vehicle);
           this.router.navigate(['/company-vehicles']);
         },
-        error: (err) => {
-          console.error('Erreur lors de la création du véhicule:', err);
-          this.errorMessage =
-            "Une erreur s'est produite lors de la création du véhicule.";
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
+         
         },
       });
     } else {
-      console.log('error-> champs');
-      this.errorMessage = 'Veuillez remplir tous les champs correctement.';
-    }
+      this.errorMessage =
+      "Veuillez remplire tous les champs du formulaire.";    }
   }  
 }

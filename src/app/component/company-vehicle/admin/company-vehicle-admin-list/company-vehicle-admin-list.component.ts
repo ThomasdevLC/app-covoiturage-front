@@ -11,6 +11,7 @@ import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { BookingAdminListComponent } from '../../../booking/booking-admin-list/booking-admin-list.component';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-company-vehicle-admin-list',
@@ -42,7 +43,9 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   http: any;
 
   constructor(
-    private vehicleService: CompanyVehicleAdminService
+    private vehicleService: CompanyVehicleAdminService,
+    private errorHandlerService: ErrorHandlerService,
+
   ) {
     
   }
@@ -55,7 +58,6 @@ export class CompanyVehicleAdminListComponent implements OnInit {
     this.vehicleService
       .getAllVehicles(this.brandFilter.trim(), this.numberFilter.trim())
       .subscribe((vehicles) => (this.vehicles = vehicles));
-    console.log('adminlist getall: ' + this.vehicles);
   }
 
   filterVehicles(): void {
@@ -63,10 +65,8 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   }
   
   clearFilters(): void {
-    // Reset filters
     this.brandFilter = '';
     this.numberFilter = '';
-    // Reload the full list of vehicles
     this.getAllVehicles();
   }
 
@@ -80,8 +80,8 @@ export class CompanyVehicleAdminListComponent implements OnInit {
             (vehicle) => vehicle.id !== vehicleId
           );
         },
-        error: (err) => {
-          console.error('Erreur lors de la suppression du véhicule:', err);
+        error: (error) => {
+          this.errorHandlerService.handleError(error); 
         },
       });
     }
