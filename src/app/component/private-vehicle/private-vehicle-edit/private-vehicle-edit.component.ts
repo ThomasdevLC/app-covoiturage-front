@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
-import { PrivateVehicle } from '../../../models/private-vehicle.model';
 import { CommonModule } from '@angular/common';
 import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 
 @Component({
   selector: 'app-private-vehicle-edit',

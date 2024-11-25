@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { PrivateVehicle } from '../../models/private-vehicle.model';
 import { Observable, switchMap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { SecureApiService } from '../api/api-security/secure-api.service';
+import { PrivateVehicle } from '../../models/private-vehicle/private-vehicle.model';
 
 @Injectable({
   providedIn: 'root',

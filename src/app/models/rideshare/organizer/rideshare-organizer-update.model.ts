@@ -1,5 +1,4 @@
-import { AddressCreateRideShare } from '../Address/address-create-rideshare';
-import { PrivateVehicle } from '../private-vehicle.model';
+import { AddressCreateRideShare } from '../../Address/address-create-rideshare';
 
 
 export interface RideShareOrganizerUpdate {

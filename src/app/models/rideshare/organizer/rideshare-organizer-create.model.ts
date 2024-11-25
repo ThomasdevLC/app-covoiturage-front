@@ -1,4 +1,4 @@
-import { AddressCreateRideShare } from '../Address/address-create-rideshare';
+import { AddressCreateRideShare } from '../../Address/address-create-rideshare';
 
 
 export interface RideShareOrganizerCreate {

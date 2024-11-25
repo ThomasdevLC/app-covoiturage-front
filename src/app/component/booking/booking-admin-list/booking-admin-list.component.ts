@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { BookingAdminServiceService } from '../../../service/booking/admin/booking-admin.service';
-import { VehicleBookingList } from '../../../models/vehicle-booking-list.model';
+import { VehicleBookingList } from '../../../models/vehicle-booking/vehicle-booking-list.model';
 import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 
 @Component({

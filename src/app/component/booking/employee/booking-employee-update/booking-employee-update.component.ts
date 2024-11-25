@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
-import { VehicleBooking } from '../../../../models/vehicle-booking.model';
+import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
 import { DateFormatterPipe } from "../../../../pipe/date-formatter/date-formatter.pipe";
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 

@@ -1,5 +1,5 @@
-import { CompanyVehicle } from "./company-vehicle/company-vehicle.model";
-import { Employee } from "./employee.model";
+import { CompanyVehicle } from "../company-vehicle/company-vehicle.model";
+import { Employee } from "../employee/employee.model";
 
 export interface VehicleBookingList {
   id: number,

@@ -3,7 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { SecureApiService } from '../../api/api-security/secure-api.service';
-import { VehicleBookingList } from '../../../models/vehicle-booking-list.model';
+import { VehicleBookingList } from '../../../models/vehicle-booking/vehicle-booking-list.model';
 
 @Injectable({
   providedIn: 'root'

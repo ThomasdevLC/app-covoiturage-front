@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { VehicleBooking } from '../../../models/vehicle-booking.model';
+import { VehicleBooking } from '../../../models/vehicle-booking/vehicle-booking.model';
 import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
 import { SecureApiService } from '../../api/api-security/secure-api.service';
 

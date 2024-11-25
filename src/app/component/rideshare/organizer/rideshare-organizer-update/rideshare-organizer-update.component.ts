@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RideShareOrganizerUpdate } from '../../../../models/rideshare/rideshare-organizer-update.model';
+import { RideShareOrganizerUpdate } from '../../../../models/rideshare/organizer/rideshare-organizer-update.model';
 import { SecureApiService } from '../../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { switchMap } from 'rxjs';
-import { PrivateVehicle } from '../../../../models/private-vehicle.model';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
 
 @Component({
   selector: 'app-rideshare-organizer-update',

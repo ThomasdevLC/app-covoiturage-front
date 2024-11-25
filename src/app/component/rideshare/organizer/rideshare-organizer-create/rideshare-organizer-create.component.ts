@@ -7,9 +7,9 @@ import { switchMap } from 'rxjs/operators';
 import { SecureApiService } from '../../../../service/api/api-security/secure-api.service';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
-import { PrivateVehicle } from '../../../../models/private-vehicle.model';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 import { CalendarModule } from 'primeng/calendar';
+import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
 
 @Component({
   selector: 'app-rideshare-organizer-create',

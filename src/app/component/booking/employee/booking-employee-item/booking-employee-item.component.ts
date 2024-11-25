@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { VehicleBooking } from '../../../../models/vehicle-booking.model';
+import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';

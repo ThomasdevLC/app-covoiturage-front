@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleBooking } from '../../../../models/vehicle-booking.model';
+import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';

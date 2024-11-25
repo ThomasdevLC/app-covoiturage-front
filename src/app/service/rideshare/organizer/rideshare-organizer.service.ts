@@ -4,8 +4,8 @@ import { environment } from '../../../../environments/environment';
 import { BehaviorSubject, map, Observable, switchMap, tap, } from 'rxjs';
 import { RideShareOrganizerList } from '../../../models/rideshare/organizer/rideshare-organizer-list.model';
 import { RideShareOrganizerDetails } from '../../../models/rideshare/organizer/rideshare-organizer-details.model';
-import { RideShareOrganizerCreate } from '../../../models/rideshare/rideshare-organizer-create.model';
-import { RideShareOrganizerUpdate } from '../../../models/rideshare/rideshare-organizer-update.model';
+import { RideShareOrganizerCreate } from '../../../models/rideshare/organizer/rideshare-organizer-create.model';
+import { RideShareOrganizerUpdate } from '../../../models/rideshare/organizer/rideshare-organizer-update.model';
 import { SecureApiService } from '../../api/api-security/secure-api.service';
 
 

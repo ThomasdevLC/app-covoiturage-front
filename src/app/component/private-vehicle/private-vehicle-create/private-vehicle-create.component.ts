@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PrivateVehicle } from '../../../models/private-vehicle.model';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +12,7 @@ import { LicensePlateDirective } from '../../../service/shared/directives/licens
 import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
 import { ToastService } from '../../../service/shared/toast/toast.service';
 import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 
 @Component({
   selector: 'app-private-vehicle-create',

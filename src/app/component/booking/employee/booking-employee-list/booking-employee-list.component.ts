@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { VehicleBooking } from '../../../../models/vehicle-booking.model';
+import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';

@@ -1,5 +1,5 @@
-import { EmployeeConnected } from './employee/employee-connected.model';
-import { VehicleType } from './enums/vehicle-type.enum';
+import { EmployeeConnected } from "../employee/employee-connected.model";
+import { VehicleType } from "../enums/vehicle-type.enum";
 
 export interface PrivateVehicle {
   id: number;

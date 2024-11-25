@@ -6,8 +6,8 @@ import { EmployeeProfile } from '../../../models/employee/employee-profile.model
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
-import { PrivateVehicle } from '../../../models/private-vehicle.model';
 import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 
 @Component({
   selector: 'app-employee-detail',
