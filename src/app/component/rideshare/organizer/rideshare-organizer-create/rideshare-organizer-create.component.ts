@@ -10,11 +10,13 @@ import { PrivateVehicleService } from '../../../../service/private-vehicle/priva
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 import { CalendarModule } from 'primeng/calendar';
 import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
+import { PostalCodeDirective } from '../../../../service/shared/directives/postal-code/postal-code.directive';
+import { AddressCapitalizeDirective } from '../../../../service/shared/directives/address/address-capitalize.directive.spec';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, CalendarModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CalendarModule, PostalCodeDirective, AddressCapitalizeDirective],
   templateUrl: './rideshare-organizer-create.component.html',
   styleUrl: './rideshare-organizer-create.component.css',
 })
@@ -29,7 +31,6 @@ export class RideshareOrganizerCreateComponent {
     private rideShareService: RideshareOrganizerService,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
-
     private router: Router
   ) {
     // Initialisation du formulaire avec FormBuilder, ajout du champ vehicleId
@@ -50,8 +51,11 @@ export class RideshareOrganizerCreateComponent {
       }),
       availableSeats: [1, [Validators.required, Validators.min(1)]],
       vehicleId: [null, Validators.required],  // Ajout du champ vehicleId avec validation
+
+      
     });
   }
+  
 
   createNewRideShare() {
     if (this.rideShareForm.invalid) {

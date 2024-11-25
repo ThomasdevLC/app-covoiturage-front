@@ -7,11 +7,12 @@ import { RidesharePassengerService } from '../../../../service/rideshare/passeng
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 import { CalendarModule } from 'primeng/calendar';
+import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent, CalendarModule  ],  templateUrl: './rideshare-passenger-search-list.component.html',
+  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent, CalendarModule, CapitalizeDirective  ],  templateUrl: './rideshare-passenger-search-list.component.html',
   styleUrl: './rideshare-passenger-search-list.component.css'
 })
 export class RidesharePassengerSearchListComponent {
