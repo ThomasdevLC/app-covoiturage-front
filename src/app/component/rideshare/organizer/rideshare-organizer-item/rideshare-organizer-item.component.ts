@@ -3,7 +3,6 @@ import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { Router, RouterModule } from '@angular/router';
-import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { RideShareOrganizerList } from '../../../../models/rideshare/organizer/rideshare-organizer-list.model';
 
 @Component({
