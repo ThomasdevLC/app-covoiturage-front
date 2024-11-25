@@ -18,6 +18,7 @@ import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum'
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-company-vehicle-update',
@@ -45,7 +46,9 @@ export class CompanyVehicleUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
     private route: ActivatedRoute, // Injection de ActivatedRoute
-    private router: Router
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService,
+
   ) {
     this.vehicleForm = this.fb.group({
       number: ['', Validators.required],
@@ -95,24 +98,20 @@ export class CompanyVehicleUpdateComponent implements OnInit {
       const updatedVehicle = { ...this.vehicle, ...this.vehicleForm.value };
   
       this.vehicleService.updateVehicle(updatedVehicle.id, updatedVehicle).subscribe({
-        next: (response) => {
-          console.log('Véhicule mis à jour avec succès', updatedVehicle);
-  
+        next: () => {  
           const newStatus = this.vehicleForm.value.status;
           this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
             next: () => {
-              console.log('Statut du véhicule mis à jour avec succès');
               this.router.navigate(['/company-vehicles']);
             },
-            error: (err) => {
-              console.error('Erreur lors de la mise à jour du statut du véhicule', err);
-              this.errorMessage = 'Erreur lors de la mise à jour du statut du véhicule';
+            error: (error) => {
+              this.errorHandlerService.handleError(error);
             },
           });
         },
-        error: (err) => {
-          console.error('Erreur lors de la mise à jour du véhicule', err);
-          this.errorMessage = 'Erreur lors de la mise à jour du véhicule';
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
+
         },
       });
     } else {

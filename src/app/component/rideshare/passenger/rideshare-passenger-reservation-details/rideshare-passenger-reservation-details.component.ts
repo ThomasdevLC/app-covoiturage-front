@@ -39,7 +39,6 @@ export class RidesharePassengerReservationDetailsComponent {
     this.rideshareService.getRideShareById(id).subscribe({
       next: (rideShare: RideSharePassengerDetails) => {
         this.rideshare = rideShare; 
-        console.log(' RideShare:', rideShare);
       },
       error: (error) => {
         this.errorHandlerService.handleError(error); 
