@@ -5,6 +5,7 @@ import { RolesManagementService } from '../../../service/roles-management/roles-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RolesManagementItemComponent } from '../roles-management-item/roles-management-item.component';
+import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-roles-management-list',
@@ -18,7 +19,9 @@ export class RolesManagementListComponent {
   searchKeyword: string = '';
 
   constructor(
-    private rolesManagementService: RolesManagementService, private secureApiService: SecureApiService
+    private rolesManagementService: RolesManagementService,
+    private errorHandlerService: ErrorHandlerService,
+
   ) {}
 
   ngOnInit(): void {
@@ -30,10 +33,9 @@ getAllEmployees(): void {
   this.rolesManagementService.getAllEmployees().subscribe({
     next: (data) => {
       this.employees = data;
-      console.log('Employés récupérés', this.employees);
     },
     error: (error) => {
-      console.error('Erreur lors de la récupération des employés', error);
+      this.errorHandlerService.handleError(error);
     }
   });
 }
@@ -48,7 +50,7 @@ searchEmployees(): void {
         this.employees = data;
       },
       error: (error) => {
-        console.error('Erreur lors de la recherche des employés', error);
+        this.errorHandlerService.handleError(error);
       }
     });
   }
