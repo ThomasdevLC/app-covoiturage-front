@@ -24,7 +24,7 @@ export class RideshareOrganizerCreateComponent {
   rideShareForm: FormGroup;
   vehicles: PrivateVehicle[] = [];
   errorMessage: string = '';
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private secureApiService: SecureApiService,
@@ -38,24 +38,19 @@ export class RideshareOrganizerCreateComponent {
       departureTime: [new Date(), Validators.required],
       arrivalTime: [new Date(), Validators.required],
       departureAddress: this.formBuilder.group({
-        number: [null, Validators.required],
-        street: ['', Validators.required],
-        code: ['', Validators.required],
-        city: ['', Validators.required],
-      }),
-      arrivalAddress: this.formBuilder.group({
-        number: [null, Validators.required],
-        street: ['', Validators.required],
-        code: ['', Validators.required],
-        city: ['', Validators.required],
-      }),
+        number: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
+        street: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],
+        code: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        city: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],}),
+      arrivalAddress: this.formBuilder.group({number: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
+        street: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],
+        code: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        city: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],}),
       availableSeats: [1, [Validators.required, Validators.min(1)]],
-      vehicleId: [null, Validators.required],  // Ajout du champ vehicleId avec validation
-
-      
+      vehicleId: [null, Validators.required],
     });
   }
-  
+
 
   createNewRideShare() {
     if (this.rideShareForm.invalid) {
@@ -66,14 +61,14 @@ export class RideshareOrganizerCreateComponent {
     this.secureApiService
       .getCurrentUser()
       .pipe(
-        switchMap((currentUser) => { 
+        switchMap((currentUser) => {
             const organizer = { id: currentUser.id };
             const newRideShare = {
-              ...this.rideShareForm.value, 
+              ...this.rideShareForm.value,
               organizer,
-              vehicle: { id: this.rideShareForm.value.vehicleId } 
+              vehicle: { id: this.rideShareForm.value.vehicleId }
             };
-            return this.rideShareService.createRideShare(newRideShare);        
+            return this.rideShareService.createRideShare(newRideShare);
         })
       )
       .subscribe({
@@ -90,12 +85,12 @@ export class RideshareOrganizerCreateComponent {
   ngOnInit(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);  
-        
+          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);
+
       })
     ).subscribe({
       next: (vehicles) => {
-        this.vehicles = vehicles;  
+        this.vehicles = vehicles;
         console.log('Véhicules récupérés avec succès :', vehicles);
       },
       error: (error) => {

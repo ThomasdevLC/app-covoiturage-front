@@ -20,5 +20,6 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes), // Fourniture des routes
     MessageService, // Fourniture de services tiers
     importProvidersFrom(BrowserAnimationsModule), // Animation Module
+
   ],
 }).catch((err) => console.error(err));
