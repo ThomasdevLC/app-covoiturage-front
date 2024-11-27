@@ -1,31 +1,12 @@
 <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
-
   <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
-
-    <!-- Champ pour le numéro d'immatriculation -->
-    <div class="mb-4">
-      <label for="number" class="block text-gray-700">Immatriculation :</label>
-      <input id="number" type="text" formControlName="number" appLicensePlate
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        placeholder="Entrez le numéro d'immatriculation" />
-      <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
-        class="text-red-500 text-sm mt-1">
-        <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
-          Le numéro d'immatriculation est requis.
-        </div>
-        <div *ngIf="vehicleForm.get('number')?.errors?.['pattern']">
-          Le numéro d'immatriculation doit respecter le format suivant : FF-855-BJ.
-        </div>
-      </div>
-    </div>
-
     <!-- Champ pour la marque -->
     <div class="mb-4">
       <label for="brand" class="block text-gray-700">Marque :</label>
       <input id="brand" type="text" formControlName="brand" appCapitalize
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        placeholder="Entrez la marque" />
-      <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Exemple : Toyota" />
+      <div *ngIf="isSubmitted && vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')"
         class="text-red-500 text-sm mt-1">
         La marque est requise.
       </div>
@@ -35,11 +16,27 @@
     <div class="mb-4">
       <label for="model" class="block text-gray-700">Modèle :</label>
       <input id="model" type="text" formControlName="model" appCapitalize
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        placeholder="Entrez le modèle" />
-      <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Exemple : Corolla" />
+      <div *ngIf="isSubmitted && vehicleForm.get('model')?.invalid && vehicleForm.get('model')"
         class="text-red-500 text-sm mt-1">
         Le modèle est requis.
+      </div>
+    </div>
+
+    <!-- Champ pour le numéro d'immatriculation -->
+    <div class="mb-4">
+      <label for="number" class="block text-gray-700">Immatriculation :</label>
+      <input id="number" type="text" formControlName="number" appLicensePlate
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Exemple : AA-123-BB" />
+      <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-red-500 text-sm mt-1">
+        <div *ngIf="isSubmitted && vehicleForm.get('number')?.errors?.['required']">
+          Le numéro d'immatriculation est requis.
+        </div>
+        <div *ngIf="isSubmitted && vehicleForm.get('number')?.errors?.['pattern']">
+          Le numéro d'immatriculation doit respecter le format suivant : AA-123-BB.
+        </div>
       </div>
     </div>
 
@@ -47,25 +44,13 @@
     <div class="mb-4">
       <label for="category" class="block text-gray-700">Catégorie :</label>
       <select id="category" formControlName="category"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         <option *ngFor="let category of categories" [value]="category">
           {{ category | translateVehicleCategory }}</option>
       </select>
-      <div *ngIf="vehicleForm.get('category')?.invalid && vehicleForm.get('category')?.touched"
+      <div *ngIf="isSubmitted && vehicleForm.get('category')?.invalid && vehicleForm.get('category')"
         class="text-red-500 text-sm mt-1">
         La catégorie est requise.
-      </div>
-    </div>
-
-    <!-- Champ pour l'URL de la photo -->
-    <div class="mb-4">
-      <label for="picUrl" class="block text-gray-700">URL de la photo :</label>
-      <input id="picUrl" type="text" formControlName="picUrl"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        placeholder="Entrez l'URL de la photo" />
-      <div *ngIf="vehicleForm.get('picUrl')?.invalid && vehicleForm.get('picUrl')?.touched"
-        class="text-red-500 text-sm mt-1">
-        L'URL de la photo est requise.
       </div>
     </div>
 
@@ -73,24 +58,12 @@
     <div class="mb-4">
       <label for="motor" class="block text-gray-700">Motorisation :</label>
       <select id="motor" formControlName="motor"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         <option *ngFor="let motor of motors" [value]="motor">{{ motor | translateMotor }}</option>
       </select>
-      <div *ngIf="vehicleForm.get('motor')?.invalid && vehicleForm.get('motor')?.touched"
+      <div *ngIf="isSubmitted && vehicleForm.get('motor')?.invalid && vehicleForm.get('motor')"
         class="text-red-500 text-sm mt-1">
         La motorisation est requise.
-      </div>
-    </div>
-
-    <!-- Champ pour les sièges -->
-    <div class="mb-4">
-      <label for="seats" class="block text-gray-700">Nombre de sièges :</label>
-      <input id="seats" type="number" formControlName="seats"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        placeholder="Entrez le nombre de sièges" />
-      <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched"
-        class="text-red-500 text-sm mt-1">
-        Le nombre de sièges doit être supérieur à 0.
       </div>
     </div>
 
@@ -98,18 +71,26 @@
     <div class="mb-4">
       <label for="co2PerKm" class="block text-gray-700">CO2 au Km :</label>
       <input id="co2PerKm" type="number" formControlName="co2PerKm"
-        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-        placeholder="Entrez le CO2 émis par Km" />
-      <div *ngIf="vehicleForm.get('co2PerKm')?.invalid && vehicleForm.get('co2PerKm')?.touched"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Exemple : 120" />
+      <div *ngIf="isSubmitted && vehicleForm.get('co2PerKm')?.invalid && vehicleForm.get('co2PerKm')"
         class="text-red-500 text-sm mt-1">
         Le CO2 émis par Km doit être un nombre valide.
       </div>
     </div>
 
-    <!-- Message d'erreur global -->
-    <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
-      {{ errorMessage }}
+    <!-- Champ pour le nombre de places -->
+    <div class="mb-4">
+      <label for="seats" class="block text-gray-700">Nombre de places :</label>
+      <input id="seats" type="number" formControlName="seats"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Exemple : 5" />
+      <div *ngIf="isSubmitted && vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')"
+        class="text-red-500 text-sm mt-1">
+        Le nombre de places doit être supérieur à 0.
+      </div>
     </div>
+
 
     <!-- Bouton de soumission -->
     <div>

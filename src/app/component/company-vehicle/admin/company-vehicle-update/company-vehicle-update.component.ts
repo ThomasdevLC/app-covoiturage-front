@@ -19,6 +19,10 @@ import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
+import { LicensePlateDirective } from '../../../../service/shared/directives/license-plate/license-plate.directive';
+import { VehicleCategoryPipe } from '../../../../pipe/vehicle-category/vehicle-category.pipe';
+import { MotorPipe } from '../../../../pipe/motor/motor.pipe';
 
 @Component({
   selector: 'app-company-vehicle-update',
@@ -29,6 +33,10 @@ import { ErrorHandlerService } from '../../../../service/shared/errors/error-han
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+     CapitalizeDirective,
+    LicensePlateDirective,
+    VehicleCategoryPipe,
+     MotorPipe
   ],
   templateUrl: './company-vehicle-update.component.html',
   styleUrls: ['./company-vehicle-update.component.css'],
@@ -37,6 +45,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
   vehicle: CompanyVehicle | undefined;
+  isSubmitted = false;
 
   categories = Object.values(VehicleCategory);
   motors = Object.values(VehicleMotor);
@@ -51,14 +60,20 @@ export class CompanyVehicleUpdateComponent implements OnInit {
 
   ) {
     this.vehicleForm = this.fb.group({
-      number: ['', Validators.required],
+      number: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Z]{2}-\d{3}-[A-Z]{2}$/), // Format pour numéro d'immatriculation
+        ],
+      ],
       brand: ['', Validators.required],
       model: ['', Validators.required],
       category: ['', Validators.required],
       picUrl: ['', Validators.required],
       motor: ['', Validators.required],
-      seats: [null, Validators.required],
-      co2PerKm: [null, Validators.required],
+      seats: [1, [Validators.required, Validators.min(1)]],
+      co2PerKm: [1, [Validators.required, Validators.min(0)]],
       status: ['', Validators.required],
     });
   }
@@ -94,9 +109,9 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   }
 
   upDateCompanyVehicles(): void {
+    this.isSubmitted = true;
     if (this.vehicleForm.valid) {
       const updatedVehicle = { ...this.vehicle, ...this.vehicleForm.value };
-  
       this.vehicleService.updateVehicle(updatedVehicle.id, updatedVehicle).subscribe({
         next: () => {  
           const newStatus = this.vehicleForm.value.status;
@@ -114,8 +129,6 @@ export class CompanyVehicleUpdateComponent implements OnInit {
 
         },
       });
-    } else {
-      console.error('Le formulaire de véhicule n\'est pas valide');
     }
   }
 }

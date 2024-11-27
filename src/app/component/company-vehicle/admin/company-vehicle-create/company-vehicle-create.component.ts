@@ -28,7 +28,7 @@ import { ErrorHandlerService } from '../../../../service/shared/errors/error-han
 })
 export class CompanyVehicleCreateComponent {
   vehicleForm!: FormGroup;
-  errorMessage: string | null = null;
+  isSubmitted = false;
 
   categories = Object.values(VehicleCategory);
   motors = Object.values(VehicleMotor);
@@ -60,7 +60,10 @@ export class CompanyVehicleCreateComponent {
   });
 }
 
+
+
   onSubmit(): void {
+    this.isSubmitted = true;
     if (this.vehicleForm.valid) {
       const newVehicle: CompanyVehicle = this.vehicleForm.value;
       this.vehicleService.createVehicle(newVehicle).subscribe({
@@ -72,8 +75,5 @@ export class CompanyVehicleCreateComponent {
          
         },
       });
-    } else {
-      this.errorMessage =
-      "Veuillez remplire tous les champs du formulaire.";    }
-  }  
-}
+    } 
+  }}
