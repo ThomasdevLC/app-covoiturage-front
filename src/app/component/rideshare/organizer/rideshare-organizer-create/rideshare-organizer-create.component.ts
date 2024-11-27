@@ -23,7 +23,8 @@ import { AddressCapitalizeDirective } from '../../../../service/shared/directive
 export class RideshareOrganizerCreateComponent {
   rideShareForm: FormGroup;
   vehicles: PrivateVehicle[] = [];
-  errorMessage: string = '';
+  today: Date;
+  isSubmitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,20 +40,22 @@ export class RideshareOrganizerCreateComponent {
       arrivalTime: [new Date(), Validators.required],
       departureAddress: this.formBuilder.group({
         number: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
-        street: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],
+        street: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],
         code: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        city: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],}),
+        city: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],}),
       arrivalAddress: this.formBuilder.group({number: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
-        street: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],
+        street: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],
         code: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        city: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/)]],}),
+        city: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],}),
       availableSeats: [1, [Validators.required, Validators.min(1)]],
       vehicleId: [null, Validators.required],
     });
+    this.today = new Date();
   }
 
 
   createNewRideShare() {
+    this.isSubmitted = true;
     if (this.rideShareForm.invalid) {
       console.error('Le formulaire est invalide');
       return;
@@ -73,7 +76,6 @@ export class RideshareOrganizerCreateComponent {
       )
       .subscribe({
         next: (response) => {
-          console.log('Ride share created successfully:', response);
           this.router.navigate(['/rideshares/organizer']);
         },
         error: (error) => {
@@ -91,10 +93,8 @@ export class RideshareOrganizerCreateComponent {
     ).subscribe({
       next: (vehicles) => {
         this.vehicles = vehicles;
-        console.log('Véhicules récupérés avec succès :', vehicles);
       },
       error: (error) => {
-        console.error('Erreur lors de la récupération des véhicules :', error);
         this.errorHandlerService.handleError(error);
       }
     });

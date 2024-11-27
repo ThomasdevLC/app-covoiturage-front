@@ -4,35 +4,17 @@
     <!-- Heure de départ -->
     <div>
       <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
-      <p-calendar
-        inputId="departureTime"
-        formControlName="departureTime"
-        [showTime]="true"
-        hourFormat="24"
-        placeholder="Sélectionnez la date et l'heure de départ"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        required>
-      </p-calendar>
-
-      <div *ngIf="rideShareForm.get('departureTime')?.invalid && rideShareForm.get('departureTime')?.touched"
-           class="text-red-500 text-sm mt-1">
-        <div *ngIf="rideShareForm.get('departureTime')?.errors?.['required']">
-          L'heure de départ est requise.
-        </div>
-      </div>
-    </div>
-
-    <!-- Heure d'arrivée -->
-    <div>
-      <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
-      <p-calendar inputId="arrivalTime" formControlName="arrivalTime" [showTime]="true" hourFormat="24"
-                  placeholder="Sélectionnez la date et l'heure d'arrivée"
-                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required></p-calendar>
-      <div *ngIf="rideShareForm.get('arrivalTime')?.invalid && rideShareForm.get('arrivalTime')?.touched"
-           class="text-red-500 text-sm mt-1">
-        <div *ngIf="rideShareForm.get('arrivalTime')?.errors?.['required']">
-          L'heure d'arrivée est requise.
+      <div>
+        <p-calendar inputId="departureTime" formControlName="departureTime" [showTime]="true" hourFormat="24"
+          [minDate]="today" placeholder=""
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          required>
+        </p-calendar>
+        <div *ngIf="rideShareForm.get('departureTime')?.invalid && rideShareForm.get('departureTime')"
+          class="text-red-500 text-sm mt-1">
+          <div *ngIf="isSubmitted && rideShareForm.get('departureTime')?.errors?.['required']">
+            L'heure de départ est requise.
+          </div>
         </div>
       </div>
     </div>
@@ -40,52 +22,80 @@
     <!-- Adresse de départ -->
     <div formGroupName="departureAddress">
       <label class="block text-sm font-medium text-gray-700">Adresse de départ</label>
-      <div class="mt-1 grid grid-cols-4 gap-2">
-        <input type="number" placeholder="Numéro" formControlName="number"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('departureAddress.number')?.invalid && rideShareForm.get('departureAddress.number')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('departureAddress.number')?.errors?.['required']">
-            Le numéro est requis.
-          </div>
-          <div *ngIf="rideShareForm.get('departureAddress.number')?.errors?.['pattern']">
-            Le numéro doit contenir uniquement des chiffres.
-          </div>
-        </div>
-
-        <input type="text" placeholder="Rue" formControlName="street"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('departureAddress.street')?.invalid && rideShareForm.get('departureAddress.street')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('departureAddress.street')?.errors?.['required']">
-            La rue est requise.
-          </div>
-          <div *ngIf="rideShareForm.get('departureAddress.street')?.errors?.['pattern']">
-            La rue doit contenir uniquement des lettres.
+      <div class="mt-1 flex gap-2">
+        <div class="w-1/4">
+          <input type="number" placeholder="Numéro" formControlName="number" appAddressCapitalize
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('departureAddress.number')?.invalid && rideShareForm.get('departureAddress.number')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.number')?.errors?.['required']">
+              Le numéro est requis.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.number')?.errors?.['pattern']">
+              Le numéro doit contenir uniquement des chiffres.
+            </div>
           </div>
         </div>
-
-        <input type="text" placeholder="Code Postal" formControlName="code"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('departureAddress.code')?.invalid && rideShareForm.get('departureAddress.code')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('departureAddress.code')?.errors?.['required']">
-            Le code postal est requis.
-          </div>
-          <div *ngIf="rideShareForm.get('departureAddress.code')?.errors?.['pattern']">
-            Le code postal doit contenir uniquement des chiffres.
+        <div class="w-3/4">
+          <input type="text" placeholder="Rue" formControlName="street" appAddressCapitalize
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('departureAddress.street')?.invalid && rideShareForm.get('departureAddress.street')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.street')?.errors?.['required']">
+              La rue est requise.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.street')?.errors?.['pattern']">
+              La rue doit contenir uniquement des lettres.
+            </div>
           </div>
         </div>
-
-        <input type="text" placeholder="Ville" formControlName="city"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('departureAddress.city')?.invalid && rideShareForm.get('departureAddress.city')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('departureAddress.city')?.errors?.['required']">
-            La ville est requise.
+      </div>
+      <div class="mt-2 flex gap-2">
+        <div class="w-1/4">
+          <input type="text" placeholder="Code" formControlName="code" appPostalCode
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('departureAddress.code')?.invalid && rideShareForm.get('departureAddress.code')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.code')?.errors?.['required']">
+              Le code postal est requis.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.code')?.errors?.['pattern']">
+              Le code postal doit contenir uniquement des chiffres.
+            </div>
           </div>
-          <div *ngIf="rideShareForm.get('departureAddress.city')?.errors?.['pattern']">
-            La ville doit contenir uniquement des lettres.
+        </div>
+        <div class="w-3/4">
+          <input type="text" placeholder="Ville" formControlName="city" appAddressCapitalize
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('departureAddress.city')?.invalid && rideShareForm.get('departureAddress.city')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.city')?.errors?.['required']">
+              La ville est requise.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.city')?.errors?.['pattern']">
+              La ville doit contenir uniquement des lettres.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heure d'arrivée -->
+    <div>
+      <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
+      <div>
+        <p-calendar inputId="arrivalTime" formControlName="arrivalTime" [showTime]="true" hourFormat="24"
+          [minDate]="today" placeholder="Sélectionnez l'heure d'arrivée"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          required></p-calendar>
+        <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.invalid && rideShareForm.get('arrivalTime')"
+          class="text-red-500 text-sm mt-1">
+          <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.errors?.['required']">
+            L'heure d'arrivée est requise.
           </div>
         </div>
       </div>
@@ -94,52 +104,63 @@
     <!-- Adresse d'arrivée -->
     <div formGroupName="arrivalAddress">
       <label class="block text-sm font-medium text-gray-700">Adresse d'arrivée</label>
-      <div class="mt-1 grid grid-cols-4 gap-2">
-        <input type="number" placeholder="Numéro" formControlName="number"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('arrivalAddress.number')?.invalid && rideShareForm.get('arrivalAddress.number')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('arrivalAddress.number')?.errors?.['required']">
-            Le numéro est requis.
-          </div>
-          <div *ngIf="rideShareForm.get('arrivalAddress.number')?.errors?.['pattern']">
-            Le numéro doit contenir uniquement des chiffres.
-          </div>
-        </div>
-
-        <input type="text" placeholder="Rue" formControlName="street"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('arrivalAddress.street')?.invalid && rideShareForm.get('arrivalAddress.street')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('arrivalAddress.street')?.errors?.['required']">
-            La rue est requise.
-          </div>
-          <div *ngIf="rideShareForm.get('arrivalAddress.street')?.errors?.['pattern']">
-            La rue doit contenir uniquement des lettres.
+      <div class="mt-1 flex gap-2">
+        <div class="w-1/4">
+          <input type="number" placeholder="Numéro" formControlName="number" appAddressCapitalize
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.number')?.invalid && rideShareForm.get('arrivalAddress.number')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.number')?.errors?.['required']">
+              Le numéro est requis.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.number')?.errors?.['pattern']">
+              Le numéro doit contenir uniquement des chiffres.
+            </div>
           </div>
         </div>
-
-        <input type="text" placeholder="Code Postal" formControlName="code"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('arrivalAddress.code')?.invalid && rideShareForm.get('arrivalAddress.code')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('arrivalAddress.code')?.errors?.['required']">
-            Le code postal est requis.
-          </div>
-          <div *ngIf="rideShareForm.get('arrivalAddress.code')?.errors?.['pattern']">
-            Le code postal doit contenir uniquement des chiffres.
+        <div class="w-3/4">
+          <input type="text" placeholder="Rue" formControlName="street" appAddressCapitalize
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.street')?.invalid && rideShareForm.get('arrivalAddress.street')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.street')?.errors?.['required']">
+              La rue est requise.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.street')?.errors?.['pattern']">
+              La rue doit contenir uniquement des lettres.
+            </div>
           </div>
         </div>
-
-        <input type="text" placeholder="Ville" formControlName="city"
-               class="col-span-1 px-3 py-2 border border-gray-300 rounded-md" required />
-        <div *ngIf="rideShareForm.get('arrivalAddress.city')?.invalid && rideShareForm.get('arrivalAddress.city')?.touched"
-             class="text-red-500 text-sm mt-1">
-          <div *ngIf="rideShareForm.get('arrivalAddress.city')?.errors?.['required']">
-            La ville est requise.
+      </div>
+      <div class="mt-2 flex gap-2">
+        <div class="w-1/4">
+          <input type="text" placeholder="Code" formControlName="code" appPostalCode
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.code')?.invalid && rideShareForm.get('arrivalAddress.code')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.code')?.errors?.['required']">
+              Le code postal est requis.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.code')?.errors?.['pattern']">
+              Le code postal doit contenir uniquement des chiffres.
+            </div>
           </div>
-          <div *ngIf="rideShareForm.get('arrivalAddress.city')?.errors?.['pattern']">
-            La ville doit contenir uniquement des lettres.
+        </div>
+        <div class="w-3/4">
+          <input type="text" placeholder="Ville" formControlName="city" appAddressCapitalize
+            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+          <div
+            *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.city')?.invalid && rideShareForm.get('arrivalAddress.city')"
+            class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.city')?.errors?.['required']">
+              La ville est requise.
+            </div>
+            <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.city')?.errors?.['pattern']">
+              La ville doit contenir uniquement des lettres.
+            </div>
           </div>
         </div>
       </div>
@@ -148,28 +169,35 @@
     <!-- Nombre de places disponibles -->
     <div>
       <label for="availableSeats" class="block text-sm font-medium text-gray-700">Nombre de places disponibles</label>
-      <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
-             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-             required />
-      <div *ngIf="rideShareForm.get('availableSeats')?.invalid && rideShareForm.get('availableSeats')?.touched"
-           class="text-red-500 text-sm mt-1">
+      <div>
+        <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          required />
+        <div *ngIf="isSubmitted && rideShareForm.get('availableSeats')?.invalid && rideShareForm.get('availableSeats')"
+          class="text-red-500 text-sm mt-1">
+          <div *ngIf="isSubmitted && rideShareForm.get('availableSeats')?.errors?.['required']">
+            Le nombre de places est requis.
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Véhicule -->
     <div>
       <label for="vehicleId" class="block text-sm font-medium text-gray-700">Véhicule</label>
-      <select id="vehicleId" formControlName="vehicleId"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              required>
-        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
-          {{ vehicle.brand }} - {{ vehicle.model }} - {{ vehicle.number }}
-        </option>
-      </select>
-      <div *ngIf="rideShareForm.get('vehicleId')?.invalid && rideShareForm.get('vehicleId')?.touched"
-           class="text-red-500 text-sm mt-1">
-        <div *ngIf="rideShareForm.get('vehicleId')?.errors?.['required']">
-          Vous devez sélectionner un véhicule.
+      <div>
+        <select id="vehicleId" formControlName="vehicleId"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          required>
+          <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+            {{ vehicle.brand }} - {{ vehicle.model }} - {{ vehicle.number }}
+          </option>
+        </select>
+        <div *ngIf="isSubmitted && rideShareForm.get('vehicleId')?.invalid && rideShareForm.get('vehicleId')"
+          class="text-red-500 text-sm mt-1">
+          <div *ngIf="isSubmitted && rideShareForm.get('vehicleId')?.errors?.['required']">
+            Vous devez sélectionner un véhicule.
+          </div>
         </div>
       </div>
     </div>
@@ -177,12 +205,9 @@
     <!-- Bouton de soumission -->
     <div class="flex justify-center">
       <button type="submit"
-              class="w-fit bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        class="w-fit bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
         Publier trajet
       </button>
-    </div>
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
     </div>
   </form>
 </div>
