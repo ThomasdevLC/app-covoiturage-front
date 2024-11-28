@@ -1,14 +1,13 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
     <!-- Genre -->
     <div class="mb-4">
-        <label for="gender" class="block text-gray-700 text-sm font-semibold mb-2">Civilité :</label>
+        <label for="gender" class="block text-gray-700 text-sm font-semibold mb-2">Civilité</label>
         <select id="gender" formControlName="gender"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-            <option value="" disabled selected>Sélectionnez votre civilité</option>
             <option value="male">Monsieur</option>
             <option value="female">Madame</option>
         </select>
-        <div *ngIf="signupForm.get('gender')?.invalid && signupForm.get('gender')?.touched"
+        <div *ngIf="isSubmitted && signupForm.get('gender')?.invalid && signupForm.get('gender')"
             class="text-red-500 text-sm">
             Civilité est requis.
         </div>
@@ -16,11 +15,11 @@
 
     <!-- Prénom -->
     <div class="mb-4">
-        <label for="firstName" class="block text-gray-700 text-sm font-semibold mb-2">Prénom :</label>
+        <label for="firstName" class="block text-gray-700 text-sm font-semibold mb-2">Prénom</label>
         <input id="firstName" formControlName="firstName" type="text" appCapitalize
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-transform: capitalize"
-            placeholder="Entrez votre prénom" />
-        <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched"
+            placeholder="" />
+        <div *ngIf="isSubmitted && signupForm.get('firstName')?.invalid && signupForm.get('firstName')"
             class="text-red-500 text-sm">
             Le prénom est requis.
         </div>
@@ -28,11 +27,11 @@
 
     <!-- Nom -->
     <div class="mb-4">
-        <label for="lastName" class="block text-gray-700 text-sm font-semibold mb-2">Nom :</label>
+        <label for="lastName" class="block text-gray-700 text-sm font-semibold mb-2">Nom</label>
         <input id="lastName" formControlName="lastName" type="text" appCapitalize
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-transform: capitalize"
-            placeholder="Entrez votre nom" />
-        <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched"
+            placeholder="" />
+        <div *ngIf="isSubmitted && signupForm.get('lastName')?.invalid && signupForm.get('lastName')"
             class="text-red-500 text-sm">
             Le nom est requis.
         </div>
@@ -40,12 +39,13 @@
 
     <!-- Téléphone -->
     <div class="mb-4">
-        <label for="phone" class="block text-gray-700 text-sm font-semibold mb-2">Téléphone :</label>
+        <label for="phone" class="block text-gray-700 text-sm font-semibold mb-2">Téléphone</label>
         <input id="phone" formControlName="phone" type="text" maxlength="10"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 "
-            placeholder="Entrez votre numéro de téléphone" />
-        <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched" class="text-red-500 text-sm">
-            <div *ngIf="signupForm.get('phone')?.errors?.['required']">Le numéro de téléphone est requis.</div>
+            placeholder="" />
+        <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')" class="text-red-500 text-sm">
+            <div *ngIf="isSubmitted && signupForm.get('phone')?.errors?.['required']">Le numéro de téléphone est requis.
+            </div>
             <div *ngIf="signupForm.get('phone')?.errors?.['pattern']">
                 Le numéro doit commencer par 0 et comporter exactement 10 chiffres.
             </div>
@@ -54,29 +54,30 @@
 
     <!-- Email -->
     <div class="mb-4">
-        <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email :</label>
+        <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email</label>
         <input id="email" formControlName="email" type="email"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Entrez votre email" />
-        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-red-500 text-sm">
-            <div *ngIf="signupForm.get('email')?.errors?.['required']">L'email est requis.</div>
-            <div *ngIf="signupForm.get('email')?.errors?.['email']">Veuillez entrer un email valide.</div>
+            placeholder="" />
+        <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')" class="text-red-500 text-sm">
+            <div *ngIf="isSubmitted && signupForm.get('email')?.errors?.['required']">L'email est requis.</div>
+            <div *ngIf="isSubmitted && signupForm.get('email')?.errors?.['email']">Veuillez entrer un email valide.
+            </div>
         </div>
     </div>
 
     <!-- Mot de passe -->
     <div class="mb-6">
-        <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Mot de passe :</label>
+        <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Mot de passe</label>
         <input id="password" formControlName="password" type="password"
             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Entrez votre mot de passe" />
-        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
-            class="text-red-500 text-sm">
-            <div *ngIf="signupForm.get('password')?.errors?.['required']">Le mot de passe est requis.</div>
+            placeholder="" />
+        <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')" class="text-red-500 text-sm">
+            <div *ngIf="isSubmitted && signupForm.get('password')?.errors?.['required']">Le mot de passe est requis.
+            </div>
             <div *ngIf="signupForm.get('password')?.errors?.['minlength']">
                 Le mot de passe doit contenir au moins 8 caractères.
             </div>
-            <div *ngIf="signupForm.get('password')?.errors?.['pattern']">
+            <div *ngIf="isSubmitted && signupForm.get('password')?.errors?.['pattern']">
                 Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial.
             </div>
         </div>

@@ -9,10 +9,12 @@
                 <input id="username" type="text" formControlName="username"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Entrez votre adresse email" />
-                <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+                <div *ngIf="isSubmitted &&loginForm.get('username')?.invalid && loginForm.get('username')"
                     class="text-red-500 text-sm">
-                    <div *ngIf="loginForm.get('username')?.errors?.['required']">L'adresse email est requise.</div>
-                    <div *ngIf="loginForm.get('username')?.errors?.['email']">Veuillez entrer une adresse email valide.
+                    <div *ngIf="isSubmitted &&loginForm.get('username')?.errors?.['required']">L'adresse email est
+                        requise.</div>
+                    <div *ngIf="isSubmitted &&loginForm.get('username')?.errors?.['email']">Veuillez entrer une adresse
+                        email valide.
                     </div>
                 </div>
             </div>
@@ -23,9 +25,10 @@
                 <input id="password" type="password" formControlName="password"
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Entrez votre mot de passe" />
-                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                <div *ngIf="isSubmitted && loginForm.get('password')?.invalid && loginForm.get('password')"
                     class="text-red-500 text-sm">
-                    <div *ngIf="loginForm.get('password')?.errors?.['required']">Le mot de passe est requis.</div>
+                    <div *ngIf="isSubmitted &&loginForm.get('password')?.errors?.['required']">Le mot de passe est
+                        requis.</div>
                     <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
                         Le mot de passe doit contenir au moins 8 caractères.
                     </div>
