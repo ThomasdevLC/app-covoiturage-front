@@ -89,7 +89,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
         this.populateForm(vehicle); // Remplir le formulaire
       },
       (error) => {
-        this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
+        this.errorHandlerService.handleError(error);
       }
     );
   }
