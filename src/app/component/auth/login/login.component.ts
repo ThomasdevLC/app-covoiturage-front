@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class LoginComponent {
   loginForm: FormGroup;
-
+  isSubmitted = false;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -21,11 +21,16 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       username: ['@test.com', [Validators.required, Validators.email]], 
-      password: ['Test123', [Validators.required, Validators.minLength(7)]], 
+      password: ['Test123@', [
+        Validators.required,
+        Validators.minLength(8), 
+        Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/), 
+        ]], 
     });
   }
 
   login(): void {
+    this.isSubmitted = true;
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.authService

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
 import { Router } from '@angular/router';
 import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
+import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,31 +18,24 @@ import { CapitalizeDirective } from '../../../service/shared/directives/capitali
   imports: [CommonModule, ReactiveFormsModule, CapitalizeDirective],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
+
 })
 export class SignupComponent {
+  isSubmitted = false;
   signupForm: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder,
+  private authService: AuthService,
+  private router: Router,
+  private errorHandlerService: ErrorHandlerService,
+) {
            {
       this.signupForm = this.fb.group({
         gender: ['', Validators.required],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        phone: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern(/^0\d{9}$/),  
-          ],
-        ],
-        email: [
-          '',
-          [
-            Validators.required,
-            Validators.email, 
-          ],
-        ],
-        password: [
-          '',
+        phone: ['', [Validators.required, Validators.pattern(/^0\d{9}$/), ],],
+        email: ['',[Validators.required, Validators.email,   ],],
+        password: ['',
           [
             Validators.required,
             Validators.minLength(8), // Minimum 8 caractères
@@ -51,17 +45,19 @@ export class SignupComponent {
       });
     }
   }
+
+
   onSubmit(): void {
+    this.isSubmitted = true;
     if (this.signupForm.valid) {
       const employeeSignup: EmployeeSignup = this.signupForm.value;
 
       this.authService.signup(employeeSignup).subscribe(
-        (response) => {
-          console.log('Signup successful', response);
+        () => {
           this.router.navigate(['/']);
         },
         (error) => {
-          console.error('Signup error', error);
+          this.errorHandlerService.handleError(error);
         }
       );
     }
