@@ -13,6 +13,7 @@ import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehic
 import { BookingAdminListComponent } from '../../../booking/admin/booking-admin-list/booking-admin-list.component';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 import { CompanyVehicleAdminItemComponent } from '../company-vehicle-admin-item/company-vehicle-admin-item.component';
+import { CompanyVehicleUpdateComponent } from '../company-vehicle-update/company-vehicle-update.component';
 
 @Component({
   selector: 'app-company-vehicle-admin-list',
@@ -25,6 +26,7 @@ import { CompanyVehicleAdminItemComponent } from '../company-vehicle-admin-item/
     RouterLink,
     BookingAdminListComponent,
     CompanyVehicleAdminItemComponent,
+    CompanyVehicleUpdateComponent 
   ],
   templateUrl: './company-vehicle-admin-list.component.html',
   styleUrls: ['./company-vehicle-admin-list.component.css'],
@@ -36,6 +38,8 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   vehicles: CompanyVehicle[] = [];
   brandFilter: string = '';
   numberFilter: string = '';
+  selectedVehicle: CompanyVehicle | null = null;
+  isModalOpen = false;
   errorMessage: string | null = null;
 
   categories = Object.values(VehicleCategory);
@@ -72,7 +76,18 @@ export class CompanyVehicleAdminListComponent implements OnInit {
     this.getAllVehicles();
   }
 
-  deleteCompanyVehicles(vehicleId: number): void {
+  openModal(vehicle: CompanyVehicle) {
+    this.selectedVehicle = vehicle;
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedVehicle = null;
+    this.getAllVehicles(); // Recharger la liste des véhicules après la mise à jour
+  }
+
+  onDeleteVehicle(vehicleId: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)) {
       this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({
         next: () => {

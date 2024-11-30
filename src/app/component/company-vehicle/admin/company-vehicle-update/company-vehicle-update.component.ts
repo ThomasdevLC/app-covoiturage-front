@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
@@ -44,8 +44,9 @@ import { MotorPipe } from '../../../../pipe/motor/motor.pipe';
 export class CompanyVehicleUpdateComponent implements OnInit {
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
-  vehicle: CompanyVehicle | undefined;
   isSubmitted = false;
+  @Input() vehicle!: CompanyVehicle;
+  @Output() closeModal = new EventEmitter<void>();
 
   categories = Object.values(VehicleCategory);
   motors = Object.values(VehicleMotor);
@@ -79,19 +80,15 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Récupérer l'ID du véhicule à partir de l'URL
-    const vehicleId = +this.route.snapshot.paramMap.get('id')!;
+    if (this.vehicle) {
+      this.populateForm(this.vehicle);
+    }
+  }
 
-    // Charger les détails du véhicule
-    this.vehicleService.getVehicleById(vehicleId).subscribe(
-      (vehicle) => {
-        this.vehicle = vehicle;
-        this.populateForm(vehicle); // Remplir le formulaire
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['vehicle'] && this.vehicle) {
+      this.populateForm(this.vehicle);
+    }
   }
 
   populateForm(vehicle: CompanyVehicle): void {
@@ -117,7 +114,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
           const newStatus = this.vehicleForm.value.status;
           this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
             next: () => {
-              this.router.navigate(['/company-vehicles']);
+              this.closeModal.emit(); // Fermer la modale après mise à jour
             },
             error: (error) => {
               this.errorHandlerService.handleError(error);

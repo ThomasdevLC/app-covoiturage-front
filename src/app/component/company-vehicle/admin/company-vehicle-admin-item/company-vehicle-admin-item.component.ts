@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -12,7 +12,15 @@ import { RouterLink } from '@angular/router';
 })
 export class CompanyVehicleAdminItemComponent {
   @Input() vehicle!: CompanyVehicle; // Propriété d'entrée pour recevoir les détails du véhicule
-  @Input() onDelete!: (vehicleId: number) => void; // Propriété d'entrée pour la suppression
-  
+  @Output() onModify = new EventEmitter<CompanyVehicle>(); // Événement pour le clic sur "Modifier"
+  @Output() onDelete = new EventEmitter<number>(); // Événement pour la suppression
 
+
+  modifyVehicle() {
+    this.onModify.emit(this.vehicle);
+  }
+
+  deleteVehicle() {
+    this.onDelete.emit(this.vehicle.id);
+  }
 }

@@ -1,45 +1,66 @@
-<div class="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen relative">
+<div [ngClass]="{isModalOpen}"
+  class="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen relative transition-filter duration-300">
   <div class="flex justify-between items-center mb-6">
     <!-- Filtres -->
     <div class="flex space-x-4">
       <div>
         <label for="brandFilter" class="block text-sm font-medium text-gray-700">Marque :</label>
-        <input type="text" id="brandFilter" [(ngModel)]="brandFilter"
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+        <input type="text" id="brandFilter" [(ngModel)]="brandFilter" (ngModelChange)="filterVehicles()"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Exemple : Toyota" />
       </div>
       <div>
         <label for="numberFilter" class="block text-sm font-medium text-gray-700">Numéro d'immatriculation :</label>
-        <input type="text" id="numberFilter" [(ngModel)]="numberFilter"
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+        <input type="text" id="numberFilter" [(ngModel)]="numberFilter" (ngModelChange)="filterVehicles()"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Exemple : AA-123-BB" />
       </div>
-      <button (click)="filterVehicles()" class="self-end bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-        Filtrer
+      <div class="flex items-end">
+        <button (click)="filterVehicles()"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+          Filtrer
+        </button>
+      </div>
+    </div>
+    <div class="flex items-end">
+      <button (click)="clearFilters()"
+        class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+        Effacer
       </button>
     </div>
-    <button (click)="clearFilters()" class="self-end bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
-      Effacer
-    </button>
   </div>
 
-  <!-- Error Message -->
+  <!-- Message d'erreur -->
   <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="showBookings">
-    <app-booking-admin-list></app-booking-admin-list>
+  <!-- Liste des véhicules -->
+  <div *ngIf="vehicles.length > 0" class="space-y-4">
+    <app-company-vehicle-admin-item *ngFor="let vehicle of vehicles" [vehicle]="vehicle" (onModify)="openModal(vehicle)"
+      (onDelete)="onDeleteVehicle($event)"></app-company-vehicle-admin-item>
   </div>
-  <!-- Vehicle Cards -->
-  <div *ngIf="vehicles.length > 0" class="flex flex-col gap-2">
-    <app-company-vehicle-admin-item *ngFor="let vehicle of vehicles" [vehicle]="vehicle"
-      [onDelete]="deleteCompanyVehicles.bind(this)">
-    </app-company-vehicle-admin-item>
+
+  <!-- Message si aucun véhicule -->
+  <div *ngIf="vehicles.length === 0" class="text-gray-500 text-center mt-10">
+    Aucun véhicule disponible.
   </div>
-</div>
 
+  <!-- Modale de mise à jour du véhicule -->
+  <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center z-50">
+    <!-- Overlay semi-transparent -->
+    <div class="absolute inset-0 bg-black opacity-50"></div>
 
+    <!-- Conteneur de la modale -->
+    <div class="bg-white rounded-lg shadow-lg z-10 max-w-lg w-full p-6 relative">
+      <!-- Bouton de fermeture -->
+      <button (click)="closeModal()"
+        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none">
+        &times;
+      </button>
 
-<!-- No Vehicles Message -->
-<div *ngIf="vehicles.length === 0" class="text-gray-500 text-center mt-10">
-  Aucun véhicule disponible.
+      <!-- Composant de mise à jour -->
+      <app-company-vehicle-update [vehicle]="selectedVehicle!" (closeModal)="closeModal()"></app-company-vehicle-update>
+    </div>
+  </div>
 </div>
