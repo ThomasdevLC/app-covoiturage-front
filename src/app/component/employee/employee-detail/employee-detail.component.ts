@@ -33,7 +33,6 @@ export class EmployeeDetailComponent implements OnInit {
     this.employeeProfile$ = this.employeeProfileService.getEmployeeProfileById();
   }
 
-  onClick(): void {
-    this.router.navigate(['/private-vehicles/create']);
-  }
+ 
+  
 }

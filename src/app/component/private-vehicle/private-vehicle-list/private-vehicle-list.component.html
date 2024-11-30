@@ -1,8 +1,28 @@
-<!-- Vehicle Info -->
+<!-- private-vehicle-list.component.html -->
 <div>
+    <!-- Add Vehicle Button -->
+    <div class="text-center">
+        <button (click)="openCreateModal()"
+            class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
+            Ajouter un véhicule
+        </button>
+    </div>
     <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
     <ul class="space-y-4">
         <app-private-vehicle-item *ngFor="let vehicle of vehicles" [vehicle]="vehicle" (edit)="editVehicle($event)"
-            (delete)="deleteVehicle($event)"></app-private-vehicle-item>
+            (delete)="deleteVehicle($event)">
+        </app-private-vehicle-item>
     </ul>
+
+    <!-- Modale d'édition du véhicule -->
+    <app-private-vehicle-edit *ngIf="isEditModalOpen" [vehicleId]="selectedVehicleId"
+        (onClose)="closeEditModal($event)">
+    </app-private-vehicle-edit>
+
+    <p-dialog header="Ajouter un véhicule" [(visible)]="isCreateModalOpen" [modal]="true" [closable]="true"
+        [responsive]="true" [style]="{width: '500px'}" (onHide)="closeCreateModal(false)">
+
+        <app-private-vehicle-create (formSubmitted)="closeCreateModal(true)">
+        </app-private-vehicle-create>
+    </p-dialog>
 </div>

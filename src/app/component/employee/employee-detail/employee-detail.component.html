@@ -14,16 +14,9 @@
         <!-- Vehicle Info -->
         <app-private-vehicle-list></app-private-vehicle-list>
 
-        <!-- Add Vehicle Button -->
-        <div class="text-center">
-            <button (click)="onClick()"
-                class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
-                Ajouter un véhicule
-            </button>
-        </div>
+
         <div *ngIf="errorMessage"
             class="p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg shadow-sm mb-6">
             <p class="font-medium text-red-600">{{ errorMessage }}</p>
         </div>
     </div>
-</div>

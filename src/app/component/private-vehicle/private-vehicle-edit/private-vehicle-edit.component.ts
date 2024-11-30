@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
@@ -11,10 +11,11 @@ import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './private-vehicle-edit.component.html',
-  styleUrls: ['./private-vehicle-edit.component.css']
+  styleUrl: './private-vehicle-edit.component.css'
 })
 export class PrivateVehicleEditComponent implements OnInit {
-  vehicleId!: number;
+  @Input() vehicleId!: number; 
+  @Output() onClose  = new EventEmitter<boolean>(); 
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
   vehicle: PrivateVehicle | undefined;
@@ -26,8 +27,9 @@ export class PrivateVehicleEditComponent implements OnInit {
     private router: Router
   ) {}
 
+
+
   ngOnInit(): void {
-    this.vehicleId = Number(this.route.snapshot.paramMap.get('id'));
     this.initializeForm();
     this.loadVehicle();
   }
@@ -70,11 +72,16 @@ export class PrivateVehicleEditComponent implements OnInit {
     this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
       next: () => {
         this.errorMessage = null; 
-        this.router.navigate(['/employees']);
-      },
+        this.onClose .emit(true);   
+          },
       error: (error) => {
         this.errorHandlerService.handleError(error);
       },
     });
   }
+
+  cancel(): void {
+    this.onClose .emit(false); // Indiquer que l'édition a été annulée
+  }
+
 }

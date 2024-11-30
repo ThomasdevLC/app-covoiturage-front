@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,8 +23,8 @@ import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.
 })
 export class PrivateVehicleCreateComponent {
   vehicleForm: FormGroup;
+  @Output() formSubmitted = new EventEmitter<void>()
   errorMessage: string | null = null;
-
 
 
   constructor(
@@ -54,8 +54,7 @@ export class PrivateVehicleCreateComponent {
       this.vehicleService.createVehicle(newVehicle).subscribe({
         next: () => {
           this.toastService.showSuccess('Votre véhicule a bien été enregistré.');
-          this.router.navigate(['/employees']);
-        },
+          this.formSubmitted.emit();         },
         error: (error) => {
           this.errorHandlerService.handleError(error); 
         },
