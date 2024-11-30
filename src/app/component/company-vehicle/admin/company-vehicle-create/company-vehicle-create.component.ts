@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -27,12 +27,15 @@ import { ErrorHandlerService } from '../../../../service/shared/errors/error-han
   styleUrl: './company-vehicle-create.component.css',
 })
 export class CompanyVehicleCreateComponent {
+  @Output() vehicleCreated = new EventEmitter<void>();
   vehicleForm!: FormGroup;
   isSubmitted = false;
 
   categories = Object.values(VehicleCategory);
   motors = Object.values(VehicleMotor);
   statuses = Object.values(VehicleStatus);
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -67,9 +70,9 @@ export class CompanyVehicleCreateComponent {
     if (this.vehicleForm.valid) {
       const newVehicle: CompanyVehicle = this.vehicleForm.value;
       this.vehicleService.createVehicle(newVehicle).subscribe({
-        next: (vehicle) => {
-          this.router.navigate(['/company-vehicles']);
-          console.log('hello', vehicle);
+        next: () => {
+          this.vehicleCreated.emit();
+
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);

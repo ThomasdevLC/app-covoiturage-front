@@ -27,7 +27,8 @@
         <app-company-vehicle-admin-list *ngIf="activeTab === 'search'"></app-company-vehicle-admin-list>
 
         <!-- Créer véhicule -->
-        <app-company-vehicle-create *ngIf="activeTab === 'create'"></app-company-vehicle-create>
+        <app-company-vehicle-create *ngIf="activeTab === 'create'"
+            (vehicleCreated)="onVehicleCreated()"></app-company-vehicle-create>
 
         <!-- Réservations -->
         <app-booking-admin-list *ngIf="activeTab === 'reservations'"></app-booking-admin-list>

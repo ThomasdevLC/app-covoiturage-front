@@ -18,4 +18,9 @@ export class CompanyVehicleAdminManagementComponent {
   setActiveTab(tab: string) {
     this.activeTab = tab; // Changer l'onglet actif
   }
+
+  onVehicleCreated() {
+    // Changer l'onglet actif vers 'search' lorsque le véhicule est créé
+    this.setActiveTab('search');
+  }
 }
