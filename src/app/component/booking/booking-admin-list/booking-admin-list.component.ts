@@ -8,6 +8,7 @@ import {
 import { BookingAdminServiceService } from '../../../service/booking/admin/booking-admin.service';
 import { VehicleBookingList } from '../../../models/vehicle-booking/vehicle-booking-list.model';
 import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { DateFormatterPipe } from '../../../pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-booking-admin-list',
@@ -17,6 +18,7 @@ import { ErrorHandlerService } from '../../../service/shared/errors/error-handle
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+    DateFormatterPipe
   ],
   templateUrl: './booking-admin-list.component.html',
   styleUrl: './booking-admin-list.component.css'
