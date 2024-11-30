@@ -69,6 +69,7 @@ export class CompanyVehicleCreateComponent {
       this.vehicleService.createVehicle(newVehicle).subscribe({
         next: (vehicle) => {
           this.router.navigate(['/company-vehicles']);
+          console.log('hello', vehicle);
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);

@@ -12,6 +12,7 @@ import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { BookingAdminListComponent } from '../../../booking/admin/booking-admin-list/booking-admin-list.component';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { CompanyVehicleAdminItemComponent } from '../company-vehicle-admin-item/company-vehicle-admin-item.component';
 
 @Component({
   selector: 'app-company-vehicle-admin-list',
@@ -22,7 +23,8 @@ import { ErrorHandlerService } from '../../../../service/shared/errors/error-han
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-    BookingAdminListComponent
+    BookingAdminListComponent,
+    CompanyVehicleAdminItemComponent,
   ],
   templateUrl: './company-vehicle-admin-list.component.html',
   styleUrls: ['./company-vehicle-admin-list.component.css'],
@@ -70,8 +72,6 @@ export class CompanyVehicleAdminListComponent implements OnInit {
     this.getAllVehicles();
   }
 
-
-  // Fonction de suppression
   deleteCompanyVehicles(vehicleId: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)) {
       this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({

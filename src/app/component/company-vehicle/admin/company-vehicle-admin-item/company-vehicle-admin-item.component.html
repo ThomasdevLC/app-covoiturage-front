@@ -1,0 +1,37 @@
+<!-- company-vehicle-admin-item.component.html -->
+<div class="bg-white shadow-lg rounded-lg p-6 flex space-x-4">
+    <!-- Vehicle Image -->
+    <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
+        class="w-32 h-24 object-cover rounded-lg shadow-md" />
+
+    <!-- Vehicle Details -->
+    <div class="flex-grow">
+        <h3 class="text-lg font-bold text-gray-800">{{ vehicle.brand }} {{ vehicle.model }}</h3>
+        <div class="mb-4">
+            <p class="text-sm text-gray-600">{{ vehicle.number }}</p>
+            <p class="text-sm text-gray-600">{{ vehicle.category }}</p>
+            <p class="text-sm text-gray-600">{{ vehicle.motor }}</p>
+            <div class="flex gap-1 text-sm text-gray-600">
+                <p>{{ vehicle.co2PerKm }}</p> <span>CO2/km</span>
+            </div>
+            <div class="flex gap-2 text-sm text-gray-600">
+                <span>Places</span>
+                <p class="text-sm text-gray-600">{{ vehicle.seats }}</p>
+            </div>
+            <p class="text-sm text-gray-600">{{ vehicle.status }}</p>
+
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex space-x-4">
+        <button [routerLink]="['/company-vehicles/update', vehicle.id]"
+            class="h-12 w-28 text-center bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
+            Modifier
+        </button>
+        <button (click)="onDelete(vehicle.id)"
+            class="h-12 w-28 selection:text-center bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+            Supprimer
+        </button>
+    </div>
+</div>

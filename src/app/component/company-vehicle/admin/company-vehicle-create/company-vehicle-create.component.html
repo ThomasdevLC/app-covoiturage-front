@@ -54,6 +54,17 @@
       </div>
     </div>
 
+    <div class="mb-4">
+      <label for="picUrl" class="block text-gray-700">URL de l'image :</label>
+      <input id="picUrl" type="text" formControlName="picUrl"
+        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        placeholder="Exemple : https://example.com/image.jpg" />
+      <div *ngIf="isSubmitted && vehicleForm.get('picUrl')?.invalid && vehicleForm.get('picUrl')"
+        class="text-red-500 text-sm mt-1">
+        L'URL de l'image est requise.
+      </div>
+    </div>
+
     <!-- Champ pour la motorisation -->
     <div class="mb-4">
       <label for="motor" class="block text-gray-700">Motorisation :</label>
