@@ -54,7 +54,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
-    private route: ActivatedRoute, // Injection de ActivatedRoute
+    private route: ActivatedRoute, 
     private router: Router,
     private errorHandlerService: ErrorHandlerService,
 

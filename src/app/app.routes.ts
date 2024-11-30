@@ -19,7 +19,7 @@ import { RidesharePassengerReservationAddComponent } from './component/rideshare
 import { RideshareOrganizerCreateComponent } from './component/rideshare/organizer/rideshare-organizer-create/rideshare-organizer-create.component';
 import { RideshareOrganizerDetailsComponent } from './component/rideshare/organizer/rideshare-organizer-details/rideshare-organizer-details.component';
 import { BookingEmployeeUpdateComponent } from './component/booking/employee/booking-employee-update/booking-employee-update.component';
-import { BookingAdminListComponent } from './component/booking/booking-admin-list/booking-admin-list.component';
+import { BookingAdminListComponent } from './component/booking/admin/booking-admin-list/booking-admin-list.component';
 import { RolesManagementListComponent } from './component/roles-management/roles-management-list/roles-management-list.component';
 import { CompanyVehicleAdminManagementComponent } from './component/company-vehicle/admin/company-vehicle-admin-management/company-vehicle-admin-management.component';
 

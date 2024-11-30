@@ -10,7 +10,7 @@ import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum'
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
-import { BookingAdminListComponent } from '../../../booking/booking-admin-list/booking-admin-list.component';
+import { BookingAdminListComponent } from '../../../booking/admin/booking-admin-list/booking-admin-list.component';
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CompanyVehicleAdminListComponent } from '../company-vehicle-admin-list/company-vehicle-admin-list.component';
 
-import { BookingAdminListComponent } from '../../../booking/booking-admin-list/booking-admin-list.component';
+import { BookingAdminListComponent } from '../../../booking/admin/booking-admin-list/booking-admin-list.component';
 import { CommonModule } from '@angular/common';
 import { CompanyVehicleCreateComponent } from '../company-vehicle-create/company-vehicle-create.component';
 

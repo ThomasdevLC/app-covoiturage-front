@@ -5,10 +5,11 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BookingAdminServiceService } from '../../../service/booking/admin/booking-admin.service';
-import { VehicleBookingList } from '../../../models/vehicle-booking/vehicle-booking-list.model';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
-import { DateFormatterPipe } from '../../../pipe/date-formatter/date-formatter.pipe';
+import { BookingAdminServiceService } from '../../../../service/booking/admin/booking-admin.service';
+import { VehicleBookingList } from '../../../../models/vehicle-booking/vehicle-booking-list.model';
+import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { BookingAdminItemComponent } from '../booking-admin-item/booking-admin-item.component';
 
 @Component({
   selector: 'app-booking-admin-list',
@@ -18,7 +19,8 @@ import { DateFormatterPipe } from '../../../pipe/date-formatter/date-formatter.p
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-    DateFormatterPipe
+    DateFormatterPipe,
+    BookingAdminItemComponent
   ],
   templateUrl: './booking-admin-list.component.html',
   styleUrl: './booking-admin-list.component.css'

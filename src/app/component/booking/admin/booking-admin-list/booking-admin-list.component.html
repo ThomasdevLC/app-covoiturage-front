@@ -23,16 +23,8 @@
     {{ errorMessage }}
   </div>
 
-  <div *ngFor="let booking of bookings" class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <h3 class="text-lg font-semibold">Réservation #{{ booking.id }}</h3>
-    <p class="text-gray-700"><strong>Véhicule :</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}</p>
-    <p class="text-gray-700"><strong>Début :</strong> {{ booking.startTime | dateFormatter }}</p>
-    <p class="text-gray-700"><strong>Fin :</strong> {{ booking.endTime | dateFormatter}}</p>
-    <p class="text-gray-700">
-      <strong>Réservé par :</strong> {{ booking.employee.firstName }} {{ booking.employee.lastName }}
-    </p>
+  <app-booking-admin-item *ngFor="let booking of bookings" [booking]="booking"></app-booking-admin-item>
 
-  </div>
 
   <div *ngIf="!bookings.length && !errorMessage" class="text-gray-500">
     Aucune réservation à cette période.
