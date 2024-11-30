@@ -12,28 +12,7 @@
         </div>
 
         <!-- Vehicle Info -->
-        <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
-            <ul class="space-y-4">
-                <li *ngFor="let vehicle of vehicles"
-                    class="p-4 bg-gray-50 border border-gray-200 rounded-lg flex justify-between items-center shadow-sm">
-                    <div>
-                        <p class="text-gray-800 font-semibold">{{ vehicle.brand }} {{ vehicle.model }} ({{
-                            vehicle.number }})</p>
-                    </div>
-                    <div class="flex space-x-3">
-                        <button (click)="editVehicle(vehicle)"
-                            class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
-                            Modifier
-                        </button>
-                        <button (click)="deleteVehicle(vehicle)"
-                            class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
-                            Supprimer
-                        </button>
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <app-private-vehicle-list></app-private-vehicle-list>
 
         <!-- Add Vehicle Button -->
         <div class="text-center">

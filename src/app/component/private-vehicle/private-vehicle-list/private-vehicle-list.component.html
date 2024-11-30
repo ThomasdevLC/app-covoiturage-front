@@ -1,0 +1,8 @@
+<!-- Vehicle Info -->
+<div>
+    <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
+    <ul class="space-y-4">
+        <app-private-vehicle-item *ngFor="let vehicle of vehicles" [vehicle]="vehicle" (edit)="editVehicle($event)"
+            (delete)="deleteVehicle($event)"></app-private-vehicle-item>
+    </ul>
+</div>
