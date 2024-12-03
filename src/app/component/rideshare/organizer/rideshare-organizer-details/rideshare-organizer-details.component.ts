@@ -17,7 +17,7 @@ export class RideshareOrganizerDetailsComponent {
 
   @Input() rideshare!: RideShareOrganizerDetails;
   past: boolean = false;
-  
+
   constructor(
     private rideshareService: RideshareOrganizerService,
     private errorHandlerService: ErrorHandlerService,
@@ -27,45 +27,26 @@ export class RideshareOrganizerDetailsComponent {
 
   ngOnInit(): void {
     this.rideshareService.past$.subscribe((value) => {
-    this.past = value; // Mise à jour de `past` avec la valeur du service
+      this.past = value;
     });
 
-console.log('RideShare:', this.rideshare);
- const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadRideShare(id); 
-  }
-
-  
-  loadRideShare(id: number): void {
-    this.rideshareService.getRideShareById(id).subscribe({
-      next: (rideShare) => {
-        this.rideshare = rideShare; 
-        console.log('Fetched RideShare:', rideShare);
-      },
-      error: (error) => {
-        this.errorHandlerService.handleError(error); 
-      },
-    });
   }
 
   onEdit() {
-    this.router.navigate(['/rideshares/organizer/update', this.rideshare.id]);
-  
+    // this.router.navigate(['/rideshares/organizer/update', this.rideshare.id]);
   }
-  
+
   onCancel() {
     if (this.rideshare.id !== undefined) {
       this.rideshareService.deleteRideShare(this.rideshare.id).subscribe({
-      next: () => {
-        this.router.navigate(['/rideshares/organizer']);
-      },
-      error: (error) => {
-        this.errorHandlerService.handleError(error); 
-      },
-      
-    });
-
-}
-}
-
+        next: () => {
+          // Fermer le dialogue et mettre à jour la liste des trajets
+          // Vous pouvez émettre un événement vers le parent
+        },
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
+        },
+      });
+    }
+  }
 }

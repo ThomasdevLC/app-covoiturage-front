@@ -24,4 +24,21 @@
             Voir détails
         </button>
     </div>
+  <p-dialog
+    [(visible)]="displayDialog"
+    modal="true"
+    [style]="{ width: '50vw' }"
+    [closable]="true"
+    [resizable]="false"
+
+  >
+    <ng-template pTemplate="header">
+      Détails du trajet
+    </ng-template>
+    <ng-template pTemplate="content">
+      <app-rideshare-organizer-details
+        [rideshare]="detailedRideshare"
+      ></app-rideshare-organizer-details>
+    </ng-template>
+  </p-dialog>
 </div>
