@@ -9,8 +9,7 @@
         <input id="number" type="text" formControlName="number" appLicensePlate
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Entrez le numéro du véhicule" />
-        <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
-            class="text-red-500 text-sm mt-1">
+        <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-red-500 text-sm mt-1">
             <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
                 Le numéro d'immatriculation du véhicule est requis.
             </div>
@@ -28,8 +27,7 @@
         <input id="brand" type="text" formControlName="brand" appCapitalize
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 top-5 text-transform: capitalize"
             placeholder="Entrez la marque" />
-        <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
-            class="text-red-500 text-sm mt-1">
+        <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')" class="text-red-500 text-sm mt-1">
             La marque du véhicule est requise.
         </div>
     </div>
@@ -42,8 +40,7 @@
         <input id="model" type="text" formControlName="model" appCapitalize
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-transform: capitalize"
             placeholder="Entrez le modèle" />
-        <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
-            class="text-red-500 text-sm mt-1">
+        <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')" class="text-red-500 text-sm mt-1">
             Le modèle du véhicule est requis.
         </div>
     </div>
@@ -55,9 +52,8 @@
         </label>
         <input id="seats" type="number" formControlName="seats"
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            min="1" />
-        <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched"
-            class="text-red-500 text-sm mt-1">
+            min="5" />
+        <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')" class="text-red-500 text-sm mt-1">
             Veuillez entrer un nombre de sièges valide (minimum 1).
         </div>
     </div>
