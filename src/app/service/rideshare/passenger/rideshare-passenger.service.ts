@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+import {BehaviorSubject, Observable, Subject, switchMap, tap} from 'rxjs';
 import { SecureApiService } from '../../api/api-security/secure-api.service';
 import { RideSharePassengerDetails } from '../../../models/rideshare/passenger/rideshare-passenger-details.model';
 import { RideSharePassengerList } from '../../../models/rideshare/passenger/ridehare-passenger-list.model';
@@ -11,7 +11,8 @@ import { RideSharePassengerList } from '../../../models/rideshare/passenger/ride
 })
 export class RidesharePassengerService {
   private apiURL = environment.apiURL;
-
+  private rideshareCancelledSubject = new Subject<void>();
+  rideshareCancelled$ = this.rideshareCancelledSubject.asObservable();
   past$ = new BehaviorSubject<boolean>(false); //  BehaviorSubject pour rendre `past` réactif
 
   constructor(
@@ -38,8 +39,8 @@ export class RidesharePassengerService {
   joinAsPassenger(rideShareId: number): Observable<any> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-        const userId = currentUser.id; 
-        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/add-passenger/${userId}`, {}, 
+        const userId = currentUser.id;
+        return this.http.post<any>(`${this.apiURL}rideshares/${rideShareId}/add-passenger/${userId}`, {},
         );
       })
     );
@@ -59,8 +60,12 @@ export class RidesharePassengerService {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
         const userId = currentUser.id;
-        return this.http.delete<any>(`${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`, {
-        });
+        return this.http.delete<any>(
+          `${this.apiURL}rideshares/${rideShareId}/cancel-passenger/${userId}`
+        );
+      }),
+      tap(() => {
+        this.rideshareCancelledSubject.next();
       })
     );
   }

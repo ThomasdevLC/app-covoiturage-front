@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
@@ -16,8 +16,9 @@ import { ErrorHandlerService } from '../../../../service/shared/errors/error-han
   styleUrl: './rideshare-passenger-reservation-details.component.css'
 })
 export class RidesharePassengerReservationDetailsComponent {
-
+  @Input() id!: number;
   @Input() rideshare!: RideSharePassengerDetails;
+  @Output() closeDialog: EventEmitter<void> = new EventEmitter();
   past = false;
 
   constructor(
@@ -29,19 +30,18 @@ export class RidesharePassengerReservationDetailsComponent {
 
   ngOnInit(): void {
     this.rideshareService.past$.subscribe((value) => {
-      this.past = value; // Mise à jour de `past` avec la valeur du service
+      this.past = value;
     });
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadRideShare(id); 
+    this.loadRideShare(this.id); // Use the injected ID
   }
 
   loadRideShare(id: number): void {
     this.rideshareService.getRideShareById(id).subscribe({
       next: (rideShare: RideSharePassengerDetails) => {
-        this.rideshare = rideShare; 
+        this.rideshare = rideShare;
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
 
       },
     });
@@ -49,14 +49,13 @@ export class RidesharePassengerReservationDetailsComponent {
 
   onCancel(): void {
     if (!this.rideshare || !this.rideshare.id) return;
-    
+
     this.rideshareService.cancelAsPassenger(this.rideshare.id).subscribe({
       next: () => {
-        console.log('RideShare cancelled ');
-        this.router.navigate(['/rideshares/passenger']); 
+        this.closeDialog.emit();
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       },
     });
   }
