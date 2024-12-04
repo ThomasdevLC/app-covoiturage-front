@@ -36,16 +36,16 @@ export class RideshareOrganizerCreateComponent {
   ) {
     // Initialisation du formulaire avec FormBuilder, ajout du champ vehicleId
     this.rideShareForm = this.formBuilder.group({
-      departureTime: [new Date(), Validators.required],
-      arrivalTime: [new Date(), Validators.required],
+      departureTime: ['', Validators.required],
+      arrivalTime: ['', Validators.required],
       departureAddress: this.formBuilder.group({
         number: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
         street: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],
-        code: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        code: ['', [Validators.required,Validators.pattern(/^[0-9]{5}$/)]],
         city: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],}),
       arrivalAddress: this.formBuilder.group({number: [null, [Validators.required, Validators.pattern(/^\d+$/)]],
         street: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],
-        code: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+        code: ['', [Validators.required,Validators.pattern(/^[0-9]{5}$/)]],
         city: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/)]],}),
       availableSeats: [1, [Validators.required, Validators.min(1)]],
       vehicleId: [null, Validators.required],
