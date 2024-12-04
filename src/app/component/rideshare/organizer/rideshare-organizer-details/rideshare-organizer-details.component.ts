@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ import { ErrorHandlerService } from '../../../../service/shared/errors/error-han
 export class RideshareOrganizerDetailsComponent {
 
   @Input() rideshare!: RideShareOrganizerDetails;
+  @Output() edit = new EventEmitter<void>();
   past: boolean = false;
 
   constructor(
@@ -33,7 +34,7 @@ export class RideshareOrganizerDetailsComponent {
   }
 
   onEdit() {
-    // this.router.navigate(['/rideshares/organizer/update', this.rideshare.id]);
+    this.edit.emit();
   }
 
   onCancel() {

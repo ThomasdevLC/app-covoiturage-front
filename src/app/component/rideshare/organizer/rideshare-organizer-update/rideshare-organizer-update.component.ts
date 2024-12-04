@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,7 +22,7 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
   rideShareForm: FormGroup; // Ajoutez le FormGroup pour le formulaire
   vehicles: PrivateVehicle[] = [];
   @Input() rideshare!: RideShareOrganizerDetails; // Ajoutez cette ligne
-  @Output() updateCompleted = new EventEmitter<RideShareOrganizerDetails>();
+  @Output() updateCompleted = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +30,6 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
     private secureApiService: SecureApiService,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
-    private route: ActivatedRoute,
     private router: Router
   ) {
     // Initialisez le formulaire avec les mêmes champs que dans le composant create
@@ -53,13 +52,28 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
       vehicleId: [null, Validators.required],  // Ajout du champ vehicleId
     });
   }
-
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadRideShare(id); // Charger les données du covoiturage pour mise à jour
+    this.initializeForm();
+    this.loadVehicles();
+  }
+
+  initializeForm(): void {
+    if (this.rideshare) {
+      this.rideShareForm.patchValue({
+        departureTime: this.rideshare.departureTime,
+        arrivalTime: this.rideshare.arrivalTime,
+        departureAddress: this.rideshare.departureAddress,
+        arrivalAddress: this.rideshare.arrivalAddress,
+        availableSeats: this.rideshare.availableSeats,
+        vehicleId: this.rideshare.vehicle.id,
+      });
+    }
+  }
+
+  loadVehicles(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);
+        return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);
       })
     ).subscribe({
       next: (vehicles) => {
@@ -72,42 +86,23 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
     });
   }
 
-
-  loadRideShare(id: number): void {
-    this.rideshareService.getRideShareByIdForUpdate(id).subscribe({
-      next: (rideShare) => {
-        this.rideShareForm.patchValue({
-          ...rideShare,
-          vehicleId: rideShare.vehicle.id,  // Set the initial value of vehicleId
-        });
-        console.log('Fetched RideShare:', rideShare);
-      },
-      error: (error) => {
-        this.errorHandlerService.handleError(error);
-      },
-    });
-  }
-
-
-
   updateRideShare(): void {
-    // Préparer l'objet pour la mise à jour en incluant le vehicleId
     const updatedRideShare: RideShareOrganizerUpdate = {
       ...this.rideShareForm.value,
       vehicle: { id: this.rideShareForm.value.vehicleId },
     };
 
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = this.rideshare.id;
 
     this.rideshareService.updateRideShare(id, updatedRideShare).subscribe({
       next: (updatedRideShare) => {
-        console.log('RideShare updated successfully:', updatedRideShare);
-        this.router.navigate(['/rideshares/organizer']);
+        console.log('RideShare mis à jour avec succès :', updatedRideShare);
+        // Émettre un événement pour notifier le composant parent
+        this.updateCompleted.emit();
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);
       },
     });
   }
-
 }

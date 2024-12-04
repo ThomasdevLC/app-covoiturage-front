@@ -10,12 +10,13 @@ import {ButtonModule} from "primeng/button";
 import {RideshareOrganizerDetailsComponent} from "../rideshare-organizer-details/rideshare-organizer-details.component";
 import {RideshareOrganizerService} from "../../../../service/rideshare/organizer/rideshare-organizer.service";
 import {ErrorHandlerService} from "../../../../service/shared/errors/error-handler.service";
+import {RideshareOrganizerUpdateComponent} from "../rideshare-organizer-update/rideshare-organizer-update.component";
 
 @Component({
   selector: 'app-rideshare-organizer-item',
   standalone: true,
   imports: [CommonModule, DateFormatterPipe, RouterModule, DialogModule,
-    ButtonModule, RideshareOrganizerDetailsComponent],
+    ButtonModule, RideshareOrganizerDetailsComponent, RideshareOrganizerUpdateComponent],
   templateUrl: './rideshare-organizer-item.component.html',
   styleUrl: './rideshare-organizer-item.component.css'
 })
@@ -24,6 +25,7 @@ export class RideshareOrganizerItemComponent {
   @Output() rideShareDeleted = new EventEmitter<number>();
   displayDialog: boolean = false;
   detailedRideshare!: RideShareOrganizerDetails;
+  dialogContentType: 'details' | 'update' = 'details';
 
   constructor(
     private router: Router,
@@ -31,6 +33,16 @@ export class RideshareOrganizerItemComponent {
   private errorHandlerService: ErrorHandlerService,
 
 ) {}
+
+  onEditRideShare() {
+    this.dialogContentType = 'update';
+  }
+
+  onCloseUpdate() {
+    this.dialogContentType = 'details';
+    // Vous pouvez également rafraîchir les données si nécessaire
+    this.onCheckDetails();
+  }
 
   onCheckDetails() {
     this.rideshareService.getRideShareById(this.rideshare.id).subscribe({
