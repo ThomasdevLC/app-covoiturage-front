@@ -17,6 +17,7 @@ export class RideshareOrganizerDetailsComponent {
 
   @Input() rideshare!: RideShareOrganizerDetails;
   @Output() edit = new EventEmitter<void>();
+  @Output() cancelled = new EventEmitter<void>();
   past: boolean = false;
 
   constructor(
@@ -41,8 +42,7 @@ export class RideshareOrganizerDetailsComponent {
     if (this.rideshare.id !== undefined) {
       this.rideshareService.deleteRideShare(this.rideshare.id).subscribe({
         next: () => {
-          // Fermer le dialogue et mettre à jour la liste des trajets
-          // Vous pouvez émettre un événement vers le parent
+          this.cancelled.emit();
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);

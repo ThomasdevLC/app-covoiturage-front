@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { BehaviorSubject, map, Observable, switchMap, tap, } from 'rxjs';
+import {BehaviorSubject, map, Observable, Subject, switchMap, tap,} from 'rxjs';
 import { RideShareOrganizerList } from '../../../models/rideshare/organizer/rideshare-organizer-list.model';
 import { RideShareOrganizerDetails } from '../../../models/rideshare/organizer/rideshare-organizer-details.model';
 import { RideShareOrganizerCreate } from '../../../models/rideshare/organizer/rideshare-organizer-create.model';
@@ -15,8 +15,8 @@ import { SecureApiService } from '../../api/api-security/secure-api.service';
 export class RideshareOrganizerService {
   private apiURL = environment.apiURL;
 
-  private ridesharesSubject = new BehaviorSubject<RideShareOrganizerList[]>([]);
-  rideshares$ = this.ridesharesSubject.asObservable();
+  private rideshareOrganizerCancelledSubject = new Subject<void>();
+  rideshareCancelled$ = this.rideshareOrganizerCancelledSubject.asObservable();
   past$ = new BehaviorSubject<boolean>(false); // BehaviorSubject pour rendre `past` réactif
 
   constructor(
@@ -37,12 +37,12 @@ export class RideshareOrganizerService {
       switchMap((currentUser) => {
         const userId = currentUser.id;
         return this.http.get<RideShareOrganizerList[]>(
-          `${this.apiURL}rideshares/organizer/${userId}?past=${past}`,      
+          `${this.apiURL}rideshares/organizer/${userId}?past=${past}`,
         );
       })
     );
   }
-  
+
 
   updateRideShare(id: number, updatedData: RideShareOrganizerUpdate): Observable<RideShareOrganizerUpdate> {
     return this.secureApiService.getCurrentUser().pipe(
@@ -54,12 +54,12 @@ export class RideshareOrganizerService {
         };
         return this.http.put<RideShareOrganizerUpdate>(
           `${this.apiURL}rideshares/update/${id}?organizerId=${userId}`,
-          updatedRideShare,      
+          updatedRideShare,
         );
       })
     );
   }
-  
+
 
   getRideShareById(id: number): Observable<RideShareOrganizerDetails> {
     return this.http.get<RideShareOrganizerDetails>(`${this.apiURL}rideshares/${id}`
@@ -73,7 +73,7 @@ export class RideshareOrganizerService {
         console.log('Fetched update RideShare:', rideShare);
       })
     );
- 
+
   }
 
 
@@ -86,9 +86,7 @@ export class RideshareOrganizerService {
         );
       }),
       tap(() => {
-        this.ridesharesSubject.next(
-          this.ridesharesSubject.getValue().filter(ride => ride.id !== id)
-        );
+        this.rideshareOrganizerCancelledSubject.next();
       })
     );
   }
@@ -96,5 +94,5 @@ export class RideshareOrganizerService {
   setPast(value: boolean) {
     this.past$.next(value); // Méthode pour changer la valeur de `past`
   }
-  
+
 }

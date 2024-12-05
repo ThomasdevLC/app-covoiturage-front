@@ -34,15 +34,6 @@ export class RideshareOrganizerItemComponent {
 
 ) {}
 
-  onEditRideShare() {
-    this.dialogContentType = 'update';
-  }
-
-  onCloseUpdate() {
-    this.dialogContentType = 'details';
-    // Vous pouvez également rafraîchir les données si nécessaire
-    this.onCheckDetails();
-  }
 
   onCheckDetails() {
     this.rideshareService.getRideShareById(this.rideshare.id).subscribe({
@@ -54,5 +45,18 @@ export class RideshareOrganizerItemComponent {
         this.errorHandlerService.handleError(error);
       },
     });
+  }
+
+  onEditRideShare() {
+    this.dialogContentType = 'update';
+  }
+
+  onCloseUpdate() {
+    this.dialogContentType = 'details';
+    this.onCheckDetails();
+  }
+
+  onCloseDialog() {
+    this.displayDialog = false;
   }
 }
