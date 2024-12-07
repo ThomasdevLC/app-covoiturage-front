@@ -4,16 +4,16 @@
     <!-- Champ pour le numéro du véhicule -->
     <div class="mb-4">
         <label for="number" class="block text-sm font-medium text-gray-700">
-            Numéro du véhicule
+            Immatriculation du véhicule
         </label>
         <input id="number" type="text" formControlName="number" appLicensePlate
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             placeholder="Entrez le numéro du véhicule" />
-        <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-red-500 text-sm mt-1">
-            <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
+        <div *ngIf="isSubmitted && vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-red-500 text-sm mt-1">
+            <div *ngIf="isSubmitted && vehicleForm.get('number')?.errors?.['required']">
                 Le numéro d'immatriculation du véhicule est requis.
             </div>
-            <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
+            <div *ngIf="isSubmitted && vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
                 Le numéro d'immatriculation doit respecter le format suivant : FF-855-BJ.
             </div>
         </div>
@@ -27,7 +27,7 @@
         <input id="brand" type="text" formControlName="brand" appCapitalize
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 top-5 text-transform: capitalize"
             placeholder="Entrez la marque" />
-        <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')" class="text-red-500 text-sm mt-1">
+        <div *ngIf="isSubmitted && vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')" class="text-red-500 text-sm mt-1">
             La marque du véhicule est requise.
         </div>
     </div>
@@ -40,7 +40,7 @@
         <input id="model" type="text" formControlName="model" appCapitalize
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-transform: capitalize"
             placeholder="Entrez le modèle" />
-        <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')" class="text-red-500 text-sm mt-1">
+        <div *ngIf="isSubmitted && vehicleForm.get('model')?.invalid && vehicleForm.get('model')" class="text-red-500 text-sm mt-1">
             Le modèle du véhicule est requis.
         </div>
     </div>
@@ -53,7 +53,7 @@
         <input id="seats" type="number" formControlName="seats"
             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             min="5" />
-        <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')" class="text-red-500 text-sm mt-1">
+        <div *ngIf="isSubmitted && vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')" class="text-red-500 text-sm mt-1">
             Veuillez entrer un nombre de sièges valide (minimum 1).
         </div>
     </div>
@@ -64,10 +64,14 @@
     </div>
 
     <!-- Bouton de soumission -->
-    <div>
-        <button type="submit"
-            class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-            Créer le véhicule
-        </button>
-    </div>
+  <div class="flex justify-end space-x-2">
+    <button type="button" (click)="onCancel()"
+            class="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out">
+      Annuler
+    </button>
+    <button type="submit"
+            class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
+      Créer le véhicule
+    </button>
+  </div>
 </form>
