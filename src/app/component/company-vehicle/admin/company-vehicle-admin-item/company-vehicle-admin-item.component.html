@@ -1,36 +1,55 @@
 <!-- company-vehicle-admin-item.component.html -->
-<div class="bg-white shadow-lg rounded-lg p-6 flex space-x-4">
-    <!-- Vehicle Image -->
-    <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
-        class="w-32 h-24 object-cover rounded-lg shadow-md" />
+<div class="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+  <!-- Vehicle Image -->
+  <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
+       class="w-40 h-28 object-cover rounded-lg shadow-sm" />
 
-    <!-- Vehicle Details -->
-    <div class="flex-grow">
-        <h3 class="text-lg font-bold text-gray-800">{{ vehicle.brand }} {{ vehicle.model }}</h3>
-        <div class="mb-4">
-            <p class="text-sm text-gray-600">{{ vehicle.number }}</p>
-            <p class="text-sm text-gray-600">{{ vehicle.category }}</p>
-            <p class="text-sm text-gray-600">{{ vehicle.motor }}</p>
-            <div class="flex gap-1 text-sm text-gray-600">
-                <p>{{ vehicle.co2PerKm }}</p> <span>CO2/km</span>
-            </div>
-            <div class="flex gap-2 text-sm text-gray-600">
-                <span>Places</span>
-                <p class="text-sm text-gray-600">{{ vehicle.seats }}</p>
-            </div>
-            <p class="text-sm text-gray-600">{{ vehicle.status }}</p>
+  <!-- Vehicle Details -->
+  <div class="flex-grow">
+    <h3 class="text-xl font-semibold text-gray-800">{{ vehicle.brand }} {{ vehicle.model }}</h3>
+    <div class="mt-2">
+      <p class="text-sm text-gray-600"><strong>Numéro :</strong> {{ vehicle.number }}</p>
+      <p class="text-sm text-gray-600"><strong>Catégorie :</strong> {{ vehicle.category }}</p>
+      <p class="text-sm text-gray-600"><strong>Moteur :</strong> {{ vehicle.motor }}</p>
+      <div class="flex items-center text-sm text-gray-600">
+        <p class="mr-1"><strong>CO₂/km :</strong> {{ vehicle.co2PerKm }}</p>
+        <span>CO₂/km</span>
+      </div>
+      <div class="flex items-center text-sm text-gray-600">
+        <span class="font-semibold mr-1">Places :</span>
+        <p>{{ vehicle.seats }}</p>
+      </div>
+      <p class="text-sm text-gray-600"><strong>Statut :</strong> {{ vehicle.status }}</p>
+    </div>
+  </div>
 
-        </div>
-    </div>
-    <!-- Action Buttons -->
-    <div class="flex flex-col space-y-2">
-        <button (click)="modifyVehicle()"
-            class="w-28 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors">
-            Modifier
-        </button>
-        <button (click)="deleteVehicle()"
-            class="w-28 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
-            Supprimer
-        </button>
-    </div>
+  <!-- Action Buttons -->
+  <div class="flex flex-col space-y-3">
+    <button (click)="modifyVehicle()"
+            class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg focus:outline-none">
+      Modifier
+    </button>
+    <button (click)="deleteVehicle()"
+            class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none">
+      Supprimer
+    </button>
+  </div>
 </div>
+
+<p-dialog
+  [(visible)]="displayDialog"
+  modal="true"
+  [style]="{ width: '50vw' }"
+  [resizable]="false"
+  [closable]="true"
+
+>
+  <ng-template pTemplate="content">
+    <ng-container >
+      <app-company-vehicle-update
+        [vehicle]="vehicle"
+        (updateComplete)="handleUpdateComplete($event)"
+      ></app-company-vehicle-update>
+    </ng-container>
+  </ng-template>
+</p-dialog>

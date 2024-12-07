@@ -1,5 +1,4 @@
-<div [ngClass]="{isModalOpen}"
-  class="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen relative transition-filter duration-300">
+<div>
   <div class="flex justify-between items-center mb-6">
     <!-- Filtres -->
     <div class="flex space-x-4">
@@ -37,8 +36,11 @@
 
   <!-- Liste des véhicules -->
   <div *ngIf="vehicles.length > 0" class="space-y-4">
-    <app-company-vehicle-admin-item *ngFor="let vehicle of vehicles" [vehicle]="vehicle" (onModify)="openModal(vehicle)"
-      (onDelete)="onDeleteVehicle($event)"></app-company-vehicle-admin-item>
+    <app-company-vehicle-admin-item
+      *ngFor="let vehicle of vehicles" [vehicle]="vehicle"
+      (onUpdateComplete)="getAllVehicles()"
+      (onDelete)="onDeleteVehicle($event)">
+    </app-company-vehicle-admin-item>
   </div>
 
   <!-- Message si aucun véhicule -->
@@ -46,21 +48,4 @@
     Aucun véhicule disponible.
   </div>
 
-  <!-- Modale de mise à jour du véhicule -->
-  <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center z-50">
-    <!-- Overlay semi-transparent -->
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-
-    <!-- Conteneur de la modale -->
-    <div class="bg-white rounded-lg shadow-lg z-10 max-w-lg w-full p-6 relative">
-      <!-- Bouton de fermeture -->
-      <button (click)="closeModal()"
-        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none">
-        &times;
-      </button>
-
-      <!-- Composant de mise à jour -->
-      <app-company-vehicle-update [vehicle]="selectedVehicle!" (closeModal)="closeModal()"></app-company-vehicle-update>
-    </div>
-  </div>
 </div>

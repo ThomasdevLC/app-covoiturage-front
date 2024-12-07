@@ -26,7 +26,7 @@ import { CompanyVehicleUpdateComponent } from '../company-vehicle-update/company
     RouterLink,
     BookingAdminListComponent,
     CompanyVehicleAdminItemComponent,
-    CompanyVehicleUpdateComponent 
+    CompanyVehicleUpdateComponent
   ],
   templateUrl: './company-vehicle-admin-list.component.html',
   styleUrls: ['./company-vehicle-admin-list.component.css'],
@@ -39,7 +39,6 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   brandFilter: string = '';
   numberFilter: string = '';
   selectedVehicle: CompanyVehicle | null = null;
-  isModalOpen = false;
   errorMessage: string | null = null;
 
   categories = Object.values(VehicleCategory);
@@ -53,7 +52,7 @@ export class CompanyVehicleAdminListComponent implements OnInit {
     private errorHandlerService: ErrorHandlerService,
 
   ) {
-    
+
   }
 
   ngOnInit(): void {
@@ -69,23 +68,13 @@ export class CompanyVehicleAdminListComponent implements OnInit {
   filterVehicles(): void {
     this.getAllVehicles();
   }
-  
+
   clearFilters(): void {
     this.brandFilter = '';
     this.numberFilter = '';
     this.getAllVehicles();
   }
 
-  openModal(vehicle: CompanyVehicle) {
-    this.selectedVehicle = vehicle;
-    this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-    this.selectedVehicle = null;
-    this.getAllVehicles(); // Recharger la liste des véhicules après la mise à jour
-  }
 
   onDeleteVehicle(vehicleId: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)) {
@@ -96,7 +85,7 @@ export class CompanyVehicleAdminListComponent implements OnInit {
           );
         },
         error: (error) => {
-          this.errorHandlerService.handleError(error); 
+          this.errorHandlerService.handleError(error);
         },
       });
     }

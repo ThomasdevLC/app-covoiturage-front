@@ -47,6 +47,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   isSubmitted = false;
   @Input() vehicle!: CompanyVehicle;
   @Output() closeModal = new EventEmitter<void>();
+  @Output() updateComplete = new EventEmitter<CompanyVehicle>();
 
   categories = Object.values(VehicleCategory);
   motors = Object.values(VehicleMotor);
@@ -55,10 +56,9 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     private errorHandlerService: ErrorHandlerService,
-
   ) {
     this.vehicleForm = this.fb.group({
       number: [
@@ -108,24 +108,19 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   upDateCompanyVehicles(): void {
     this.isSubmitted = true;
     if (this.vehicleForm.valid) {
-      const updatedVehicle = { ...this.vehicle, ...this.vehicleForm.value };
+      const updatedVehicle = {...this.vehicle, ...this.vehicleForm.value}; // Fusionner les données
       this.vehicleService.updateVehicle(updatedVehicle.id, updatedVehicle).subscribe({
-        next: () => {  
-          const newStatus = this.vehicleForm.value.status;
-          this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
-            next: () => {
-              this.closeModal.emit(); // Fermer la modale après mise à jour
-            },
-            error: (error) => {
-              this.errorHandlerService.handleError(error);
-            },
-          });
+        next: () => {
+          this.updateComplete.emit(updatedVehicle);
+          this.closeModal.emit(); // Fermer la boîte de dialogue après la mise à jour
         },
         error: (error) => {
+          this.errorMessage = 'Erreur lors de la mise à jour du véhicule';
           this.errorHandlerService.handleError(error);
-
         },
       });
+    } else {
+      this.errorMessage = 'Formulaire invalide';
     }
   }
 }
