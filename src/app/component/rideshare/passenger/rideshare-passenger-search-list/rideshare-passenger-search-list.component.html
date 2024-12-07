@@ -31,6 +31,25 @@
 
 <!-- Liste des covoiturages -->
 <div class="mt-10 max-w-lg mx-auto">
-    <app-rideshare-passenger-search-item *ngFor="let rideshare of rideshares" [rideshare]="rideshare" class="mb-4">
+    <app-rideshare-passenger-search-item
+      *ngFor="let rideshare of rideshares" [rideshare]="rideshare"
+      (reserve)="openReservationDialog($event)">
+    class="mb-4">
     </app-rideshare-passenger-search-item>
 </div>
+
+<p-dialog header="Réserver un Covoiturage"
+          [(visible)]="displayDialog"
+          [modal]="true"
+          [closable]="true"
+          [style]="{ width: '50vw' }"
+          >
+  <ng-template pTemplate="content">
+    <app-rideshare-passenger-reservation-add
+      [rideShareId]="selectedRideShareId"
+      (confirmReservation)="onReservationSuccess()"
+      (backToSearch)="displayDialog = false"
+      >
+    </app-rideshare-passenger-reservation-add>
+  </ng-template>
+</p-dialog>
