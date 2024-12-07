@@ -12,7 +12,7 @@ import {CompanyVehicleUpdateComponent} from "../company-vehicle-update/company-v
 @Component({
   selector: 'app-company-vehicle-admin-item',
   standalone: true,
-  imports: [CommonModule, RouterLink, DialogModule, PrimeTemplate, CompanyVehicleUpdateComponent],
+  imports: [CommonModule, DialogModule, PrimeTemplate, CompanyVehicleUpdateComponent],
   templateUrl: './company-vehicle-admin-item.component.html',
   styleUrl: './company-vehicle-admin-item.component.css'
 })
@@ -24,13 +24,11 @@ export class CompanyVehicleAdminItemComponent {
   displayDialog: boolean = false;
 
   modifyVehicle() {
-
     this.onModify.emit(this.vehicle);
     this.displayDialog = true;
   }
 
   handleUpdateComplete(updatedVehicle: CompanyVehicle) {
-    // Fermer le dialogue après la mise à jour
     this.displayDialog = false;
     this.onUpdateComplete.emit(updatedVehicle);
   }
