@@ -14,7 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-private-vehicle-list',
   standalone: true,
-  imports: [ CommonModule, PrivateVehicleItemComponent, PrivateVehicleEditComponent, PrivateVehicleCreateComponent,  DialogModule, 
+  imports: [ CommonModule, PrivateVehicleItemComponent, PrivateVehicleEditComponent, PrivateVehicleCreateComponent,  DialogModule,
     ButtonModule  ],
   templateUrl: './private-vehicle-list.component.html',
   styleUrls: ['./private-vehicle-list.component.css']
@@ -23,12 +23,12 @@ export class PrivateVehicleListComponent implements OnInit {
   vehicles: PrivateVehicle[] = [];
   errorMessage: string | null = null;
   isEditModalOpen: boolean = false;
-  isCreateModalOpen: boolean = false; 
+  isCreateModalOpen: boolean = false;
   selectedVehicleId!: number;
 
 
   constructor(
-    private secureApiService: SecureApiService, 
+    private secureApiService: SecureApiService,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
   ) {}
@@ -36,30 +36,35 @@ export class PrivateVehicleListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadEmployeePrivateVehicles(); 
+    this.loadEmployeePrivateVehicles();
   }
 
   loadEmployeePrivateVehicles(): void {
     this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
-          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);  
+          return this.privateVehicleService.getVehiclesByEmployeeId(currentUser.id);
       })
     ).subscribe({
       next: (vehicles) => {
-        this.vehicles = vehicles;  
+        this.vehicles = vehicles;
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       },
     });
   }
 
- 
+
 
   editVehicle(vehicle: PrivateVehicle): void {
     this.selectedVehicleId = vehicle.id;
     this.isEditModalOpen = true;
   }
+
+  openCreateModal(): void {
+    this.isCreateModalOpen = true;
+  }
+
 
   closeEditModal(updated: boolean): void {
     this.isEditModalOpen = false;
@@ -68,12 +73,6 @@ export class PrivateVehicleListComponent implements OnInit {
     }
   }
 
-    // Method to open the create modal
-    openCreateModal(): void {
-      this.isCreateModalOpen = true;
-    }
-  
-    // Method to close the create modal
     closeCreateModal(updated: boolean): void {
       this.isCreateModalOpen = false;
       if (updated) {

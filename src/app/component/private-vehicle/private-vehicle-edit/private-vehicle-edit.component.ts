@@ -5,6 +5,7 @@ import { PrivateVehicleService } from '../../../service/private-vehicle/private-
 import { CommonModule } from '@angular/common';
 import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
+import {CompanyVehicle} from "../../../models/company-vehicle/company-vehicle.model";
 
 @Component({
   selector: 'app-private-vehicle-edit',
@@ -14,8 +15,9 @@ import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.
   styleUrl: './private-vehicle-edit.component.css'
 })
 export class PrivateVehicleEditComponent implements OnInit {
-  @Input() vehicleId!: number; 
-  @Output() onClose  = new EventEmitter<boolean>(); 
+  @Input() vehicleId!: number;
+  @Output() closeModal = new EventEmitter<boolean>();
+  @Output() updateComplete = new EventEmitter<PrivateVehicle>();
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
   vehicle: PrivateVehicle | undefined;
@@ -39,7 +41,7 @@ export class PrivateVehicleEditComponent implements OnInit {
       brand: ['', Validators.required],
       model: ['', Validators.required],
       number: ['', Validators.required],
-      seats: [ Validators.required], 
+      seats: [ Validators.required],
     });
   }
 
@@ -54,26 +56,28 @@ export class PrivateVehicleEditComponent implements OnInit {
         });
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       },
     });
   }
 
- saveChanges(): void {
+  saveChanges(): void {
     if (!this.vehicleForm.valid) {
       this.errorMessage = 'Veuillez remplir tous les champs';
-      return; 
+      return;
     }
 
     const updatedVehicle: PrivateVehicle = {
+      id: this.vehicleId,
       ...this.vehicleForm.value,
     };
 
     this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
       next: () => {
-        this.errorMessage = null; 
-        this.onClose .emit(true);   
-          },
+        this.errorMessage = null;
+        this.updateComplete.emit(updatedVehicle);
+        this.closeModal.emit(true);
+      },
       error: (error) => {
         this.errorHandlerService.handleError(error);
       },
@@ -81,7 +85,6 @@ export class PrivateVehicleEditComponent implements OnInit {
   }
 
   cancel(): void {
-    this.onClose .emit(false); // Indiquer que l'édition a été annulée
+    this.closeModal.emit(false);
   }
-
 }

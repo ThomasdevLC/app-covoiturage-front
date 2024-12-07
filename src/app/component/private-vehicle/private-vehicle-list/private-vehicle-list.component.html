@@ -1,28 +1,54 @@
-<!-- private-vehicle-list.component.html -->
 <div>
-    <!-- Add Vehicle Button -->
-    <div class="text-center">
-        <button (click)="openCreateModal()"
-            class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
-            Ajouter un véhicule
-        </button>
-    </div>
-    <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
-    <ul class="space-y-4">
-        <app-private-vehicle-item *ngFor="let vehicle of vehicles" [vehicle]="vehicle" (edit)="editVehicle($event)"
-            (delete)="deleteVehicle($event)">
-        </app-private-vehicle-item>
-    </ul>
+  <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
+  <ul class="space-y-4">
+    <app-private-vehicle-item
+      *ngFor="let vehicle of vehicles"
+      [vehicle]="vehicle"
+      (edit)="editVehicle($event)"
+      (delete)="deleteVehicle($event)">
+    </app-private-vehicle-item>
+  </ul>
 
-    <!-- Modale d'édition du véhicule -->
-    <app-private-vehicle-edit *ngIf="isEditModalOpen" [vehicleId]="selectedVehicleId"
-        (onClose)="closeEditModal($event)">
-    </app-private-vehicle-edit>
+  <!-- Dialog pour l'Édition -->
+  <p-dialog
+    [(visible)]="isEditModalOpen"
+    modal="true"
+    [style]="{ width: '50vw' }"
+    [resizable]="false"
+    [closable]="true"
+    (onHide)="closeEditModal(false)"
+  >
+    <ng-template pTemplate="content">
+      <app-private-vehicle-edit
+        [vehicleId]="selectedVehicleId"
+        (updateComplete)="closeEditModal(true)"
+        (closeModal)="closeEditModal(false)">
+      </app-private-vehicle-edit>
+    </ng-template>
+  </p-dialog>
 
-    <p-dialog header="Ajouter un véhicule" [(visible)]="isCreateModalOpen" [modal]="true" [closable]="true"
-        [responsive]="true" [style]="{width: '500px'}" (onHide)="closeCreateModal(false)">
+  <!-- Dialog pour la Création -->
+  <p-dialog
+    [(visible)]="isCreateModalOpen"
+    modal="true"
+    [style]="{ width: '50vw' }"
+    [resizable]="false"
+    [closable]="true"
+    (onHide)="closeCreateModal(false)"
+  >
+    <ng-template pTemplate="content">
+      <app-private-vehicle-create
+        (createComplete)="closeCreateModal(true)"
+        (closeModal)="closeCreateModal(false)">
+      </app-private-vehicle-create>
+    </ng-template>
+  </p-dialog>
 
-        <app-private-vehicle-create (formSubmitted)="closeCreateModal(true)">
-        </app-private-vehicle-create>
-    </p-dialog>
+  <!-- Add Vehicle Button -->
+  <div class="text-center">
+    <button (click)="openCreateModal()"
+            class="mt-6 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
+      Ajouter un véhicule
+    </button>
+  </div>
 </div>
