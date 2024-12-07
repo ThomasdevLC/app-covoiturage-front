@@ -1,5 +1,3 @@
-<div class="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50" (click)="cancel()">
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative" (click)="$event.stopPropagation()">
     <h2 class="text-2xl font-bold mb-4 text-center">Modifier le Véhicule</h2>
     <form [formGroup]="vehicleForm" (ngSubmit)="saveChanges()">
       <!-- Champ pour le numéro du véhicule -->
@@ -68,13 +66,14 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Bouton de soumission -->
-      <div>
-        <button type="submit"
-          class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          Sauvegarder les modifications
-        </button>
-      </div>
+      <<div class="flex justify-end space-x-2">
+      <button type="button" (click)="cancel()"
+              class="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out">
+        Annuler
+      </button>
+      <button type="submit"
+              class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
+        Sauvegarder les modifications
+      </button>
+    </div>
     </form>
-  </div>
-</div>
