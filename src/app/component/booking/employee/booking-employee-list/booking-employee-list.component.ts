@@ -5,25 +5,28 @@ import { BookingEmployeeService } from '../../../../service/booking/employee/boo
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { BookingEmployeeItemComponent } from "../booking-employee-item/booking-employee-item.component";
+import {DialogModule} from "primeng/dialog";
+import {BookingEmployeeUpdateComponent} from "../booking-employee-update/booking-employee-update.component";
 
 @Component({
   selector: 'app-booking-employee-list',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe, BookingEmployeeItemComponent],
+  imports: [CommonModule, DialogModule,  BookingEmployeeItemComponent, BookingEmployeeUpdateComponent],
   templateUrl: './booking-employee-list.component.html',
   styleUrl: './booking-employee-list.component.css',
 })
 export class BookingEmployeeListComponent implements OnInit {
-  bookings$!: Observable<VehicleBooking[]>; // Observable pour les réservations
-  past: boolean = false; // Paramètre `past` pour déterminer si on affiche les anciennes réservations
+  bookings$!: Observable<VehicleBooking[]>;
+  past: boolean = false;
+  displayUpdateDialog: boolean = false;
+  selectedBooking!: VehicleBooking;
 
   constructor(private bookingEmployeeService: BookingEmployeeService) {}
 
   ngOnInit(): void {
-    this.loadBookings(); // Charger les réservations à l'initialisation
+    this.loadBookings();
   }
 
-  // Fonction pour charger les réservations en fonction de `past`
   loadBookings(): void {
     this.bookings$ = this.bookingEmployeeService.getBookings(this.past);
   }
@@ -32,10 +35,25 @@ export class BookingEmployeeListComponent implements OnInit {
     this.past = false;
     this.loadBookings();
   }
-  
+
   toggleToPastBookings(): void {
     this.past = true;
     this.loadBookings();
   }
-  
+
+
+  openUpdateDialog(booking: VehicleBooking): void {
+    this.selectedBooking = booking;
+    this.displayUpdateDialog = true;
+  }
+
+  closeUpdateDialog(): void {
+    this.displayUpdateDialog = false;
+    this.selectedBooking = {} as VehicleBooking; // Réinitialiser la réservation sélectionnée
+  }
+
+  onBookingUpdated(): void {
+    this.closeUpdateDialog();
+    this.loadBookings();
+  }
 }

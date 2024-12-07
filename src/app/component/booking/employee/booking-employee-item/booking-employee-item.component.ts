@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
@@ -17,17 +16,17 @@ export class BookingEmployeeItemComponent {
   @Input() booking!: VehicleBooking;
   @Input() isPast: boolean = false;
   @Output() bookingDeleted = new EventEmitter<void>();
+  @Output() modifyBooking = new EventEmitter<VehicleBooking>();
   errorMessage: string | undefined;
 
 constructor(
-  private router: Router,
   private bookingEmployeeService: BookingEmployeeService,
   private errorHandlerService: ErrorHandlerService,
 ){
 
 }
 onUpdateBooking() {
-  this.router.navigate(['/bookings-update/', this.booking.id]);
+  this.modifyBooking.emit(this.booking);
 
 }
 
@@ -35,16 +34,12 @@ deleteBooking(): void {
   if (this.booking && this.booking.id) {
     this.bookingEmployeeService.deleteBooking(this.booking.id).subscribe({
       next: () => {
-        this.bookingDeleted.emit(); 
+        this.bookingDeleted.emit();
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       },
     });
   }
 }
-
-onCancelBooking(){
-  this.router.navigate(['/bookings-list', this.booking.id]);
-  }
 }

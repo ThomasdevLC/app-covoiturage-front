@@ -1,59 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
-import { DateFormatterPipe } from "../../../../pipe/date-formatter/date-formatter.pipe";
 import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-booking-employee-update',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, RouterLink, DateFormatterPipe],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './booking-employee-update.component.html',
   styleUrl: './booking-employee-update.component.css'
 })
 export class BookingEmployeeUpdateComponent {
-
   @Input() booking!: VehicleBooking;
+  @Output() updateComplete = new EventEmitter<void>();
+  @Output() cancelUpdate = new EventEmitter<void>();
   errorMessage: string | undefined;
 
   constructor(
-  private router: Router,
-  private route: ActivatedRoute,
-  private bookingEmployeeService: BookingEmployeeService,
-  private errorHandlerService: ErrorHandlerService,
-  ){
-  }
-  ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id) {
-      this.getById(id);
-    }
-  }
-
-  getById(id: number): void {
-    this.bookingEmployeeService.getBookingById(id).subscribe({
-      next: (booking) => {
-        this.booking = booking;
-      },
-      error: (error) => {
-        this.errorHandlerService.handleError(error); 
-      },
-    });
+    private router: Router,
+    private bookingEmployeeService: BookingEmployeeService,
+    private errorHandlerService: ErrorHandlerService,
+  ) {
   }
 
   updateBooking(): void {
     this.bookingEmployeeService.updateBooking(this.booking).subscribe({
       next: () => {
-        this.router.navigate(['/bookings-list']);
+        this.updateComplete.emit();
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       },
     });
   }
 
-  
+  cancel(): void {
+    this.cancelUpdate.emit();
+  }
 }

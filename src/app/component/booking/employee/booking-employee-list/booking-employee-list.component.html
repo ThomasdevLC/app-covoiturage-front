@@ -21,8 +21,12 @@
         <ul *ngIf="bookings.length > 0" class="space-y-4">
             <li *ngFor="let booking of bookings" class="bg-white shadow rounded-lg p-6">
                 <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <app-booking-employee-item [booking]="booking" [isPast]="past"
-                        (bookingDeleted)="loadBookings()"></app-booking-employee-item>
+                    <app-booking-employee-item
+                      [booking]="booking"
+                      [isPast]="past"
+                      (bookingDeleted)="loadBookings()"
+                      (modifyBooking)="openUpdateDialog($event)">
+                    ></app-booking-employee-item>
                 </div>
             </li>
         </ul>
@@ -39,3 +43,20 @@
         Chargement des réservations...
     </p>
 </div>
+
+<!-- Dialogue de mise à jour -->
+<p-dialog header="Modifier la Réservation"
+          [(visible)]="displayUpdateDialog"
+          [modal]="true"
+          [style]="{ width: '50vw' }"
+          [closable]="true"
+          (onHide)="closeUpdateDialog()"
+>
+  <ng-template pTemplate="content">
+  <app-booking-employee-update
+    [booking]="selectedBooking"
+    (updateComplete)="onBookingUpdated()"
+    (cancelUpdate)="closeUpdateDialog()">
+  </app-booking-employee-update>
+  </ng-template>
+</p-dialog>
