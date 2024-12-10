@@ -16,8 +16,8 @@ import { CarouselModule } from 'primeng/carousel';
 export class CompanyVehicleEmployeeListComponent {
   vehicles: CompanyVehicle[] = [];
   filterForm: FormGroup;
+  currentView: string = 'carousel'; // Vue par défaut : carousel
 
-  // Ajout de l'option responsive
   responsiveOptions = [
     {
       breakpoint: '1024px',
@@ -62,5 +62,9 @@ export class CompanyVehicleEmployeeListComponent {
 
   onFilter(): void {
     this.loadVehicles();
+  }
+
+  setView(view: string): void {
+    this.currentView = view;
   }
 }
