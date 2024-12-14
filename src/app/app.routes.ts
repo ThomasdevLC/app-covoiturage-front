@@ -1,11 +1,8 @@
 import { Routes } from '@angular/router';
 import { EmployeeDetailComponent } from './component/employee/employee-detail/employee-detail.component';
 import { CompanyVehicleEmployeeListComponent } from './component/company-vehicle/employee/company-vehicle-employee-list/company-vehicle-employee-list.component';
-import { CompanyVehicleAdminListComponent } from './component/company-vehicle/admin/company-vehicle-admin-list/company-vehicle-admin-list.component';
 import { LoginComponent } from './component/auth/login/login.component';
 import { SignupComponent } from './component/auth/signup/signup.component';
-import { PrivateVehicleCreateComponent } from './component/private-vehicle/private-vehicle-create/private-vehicle-create.component';
-import { PrivateVehicleEditComponent } from './component/private-vehicle/private-vehicle-edit/private-vehicle-edit.component'; 
 import { CompanyVehicleCreateComponent } from './component/company-vehicle/admin/company-vehicle-create/company-vehicle-create.component';
 import { CompanyVehicleUpdateComponent } from './component/company-vehicle/admin/company-vehicle-update/company-vehicle-update.component';
 import { BookingEmployeeCreateComponent } from './component/booking/employee/booking-employee-create/booking-employee-create.component';
@@ -22,11 +19,16 @@ import { BookingEmployeeUpdateComponent } from './component/booking/employee/boo
 import { BookingAdminListComponent } from './component/booking/admin/booking-admin-list/booking-admin-list.component';
 import { RolesManagementListComponent } from './component/roles-management/roles-management-list/roles-management-list.component';
 import { CompanyVehicleAdminManagementComponent } from './component/company-vehicle/admin/company-vehicle-admin-management/company-vehicle-admin-management.component';
+import {MessageListComponent} from "./component/message/message-list/message-list.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'employees',component: EmployeeDetailComponent},
+
+  // PRIVATE-VEHICLES
+  { path: 'messages',component: MessageListComponent},
+
 
   // RIDESHARES
   { path: 'rideshares/create',component: RideshareOrganizerCreateComponent},
@@ -50,10 +52,7 @@ export const routes: Routes = [
   { path: 'bookings-update/:id', component: BookingEmployeeUpdateComponent },
   { path: 'admin/bookings-list' , component: BookingAdminListComponent},
 
-  // PRIVATE-VEHICLES
-  { path: 'private-vehicles/create',component: PrivateVehicleCreateComponent},
-  { path: 'private-vehicles/edit/:id', component: PrivateVehicleEditComponent },
-  
+
   // ROLES-MANAGEMENT
   { path: 'roles-management',component: RolesManagementListComponent},
 ];
