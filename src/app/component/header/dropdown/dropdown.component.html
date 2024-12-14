@@ -1,8 +1,15 @@
 <div class="relative flex items-center space-x-4">
 
     <span class="text-gray-800 cursor-pointer" (click)="toggleDropdown()">
-        Bonjour, {{ user?.firstName }}!
+        Bienvenue {{ user?.firstName }}!
     </span>
+
+  <span class="text-gray-800 cursor-pointer" >
+ <a routerLink="/messages"
+    class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
+messages
+ </a>
+  </span>
 
     <div class="relative">
         <button class="text-gray-600 hover:text-gray-800 focus:outline-none" (click)="toggleDropdown()">
@@ -11,7 +18,7 @@
 
         <div *ngIf="menuOpen" class="absolute right-0 bg-white border border-gray-200 shadow-lg mt-2 w-60 z-10">
             <a routerLink="/employees" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Mon Profil
+                Votre compte
             </a>
 
             <a *ngIf="user?.roles?.includes('SUPER_ADMIN')" routerLink="/roles-management"
