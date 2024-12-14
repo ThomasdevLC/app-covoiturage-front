@@ -24,10 +24,9 @@ export class RidesharePassengerReservationListComponent {
     this.loadRideShares();
     this.ridesharePassengerService.setPast(this.past);
 
-    // Subscribe to the cancellation event
     this.subscription.add(
       this.ridesharePassengerService.rideshareCancelled$.subscribe(() => {
-        this.loadRideShares(); // Reload the rideshares when a cancellation occurs
+        this.loadRideShares();
       })
     );
   }

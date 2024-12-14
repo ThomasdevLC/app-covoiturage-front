@@ -111,16 +111,22 @@ export class CompanyVehicleUpdateComponent implements OnInit {
       const updatedVehicle = {...this.vehicle, ...this.vehicleForm.value}; // Fusionner les données
       this.vehicleService.updateVehicle(updatedVehicle.id, updatedVehicle).subscribe({
         next: () => {
-          this.updateComplete.emit(updatedVehicle);
-          this.closeModal.emit(); // Fermer la boîte de dialogue après la mise à jour
+          const newStatus = this.vehicleForm.value.status;
+          this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
+            next: () => {
+              this.updateComplete.emit(updatedVehicle);
+              this.closeModal.emit();
+            },
+            error: (error) => {
+              this.errorHandlerService.handleError(error);
+            }
+          });
         },
         error: (error) => {
-          this.errorMessage = 'Erreur lors de la mise à jour du véhicule';
           this.errorHandlerService.handleError(error);
-        },
+        }
       });
-    } else {
-      this.errorMessage = 'Formulaire invalide';
     }
-  }
-}
+  }}
+
+
