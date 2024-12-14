@@ -2,9 +2,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { RideShareOrganizerDetails } from '../../../../models/rideshare/organizer/rideshare-organizer-details.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-rideshare-organizer-details',

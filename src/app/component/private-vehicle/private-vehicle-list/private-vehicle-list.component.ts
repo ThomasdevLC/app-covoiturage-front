@@ -3,7 +3,7 @@ import { switchMap } from 'rxjs';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 import { PrivateVehicleItemComponent } from '../private-vehicle-item/private-vehicle-item.component';
 import { CommonModule } from '@angular/common';
 import { PrivateVehicleEditComponent } from '../private-vehicle-edit/private-vehicle-edit.component';

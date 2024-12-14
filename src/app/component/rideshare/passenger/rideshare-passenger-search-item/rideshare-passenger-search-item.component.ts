@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 
 @Component({

@@ -7,10 +7,10 @@ import {
 } from '@angular/forms';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { CommonModule } from '@angular/common';
-import { LicensePlateDirective } from '../../../service/shared/directives/license-plate/license-plate.directive';
-import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
-import { ToastService } from '../../../service/shared/toast/toast.service';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { LicensePlateDirective } from '../../../shared/directives/license-plate/license-plate.directive';
+import { CapitalizeDirective } from '../../../shared/directives/capitalize/capitalize.directive';
+import { ToastService } from '../../../shared/toast/toast.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 
 @Component({

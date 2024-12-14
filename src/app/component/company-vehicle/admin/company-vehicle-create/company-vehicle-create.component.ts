@@ -12,11 +12,11 @@ import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import { Router } from '@angular/router';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
-import { LicensePlateDirective } from '../../../../service/shared/directives/license-plate/license-plate.directive';
-import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
-import { VehicleCategoryPipe } from '../../../../pipe/vehicle-category/vehicle-category.pipe';
-import { MotorPipe } from '../../../../pipe/motor/motor.pipe';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { LicensePlateDirective } from '../../../../shared/directives/license-plate/license-plate.directive';
+import { CapitalizeDirective } from '../../../../shared/directives/capitalize/capitalize.directive';
+import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
+import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-company-vehicle-create',
@@ -42,7 +42,7 @@ export class CompanyVehicleCreateComponent {
     private vehicleService: CompanyVehicleAdminService,
     private router: Router,
     private errorHandlerService: ErrorHandlerService,
-    
+
 
   ) {
   this.vehicleForm = this.fb.group({
@@ -76,8 +76,8 @@ export class CompanyVehicleCreateComponent {
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);
-         
+
         },
       });
-    } 
+    }
   }}

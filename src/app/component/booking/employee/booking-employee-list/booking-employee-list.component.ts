@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { BookingEmployeeItemComponent } from "../booking-employee-item/booking-employee-item.component";
 import {DialogModule} from "primeng/dialog";
 import {BookingEmployeeUpdateComponent} from "../booking-employee-update/booking-employee-update.component";

@@ -7,11 +7,11 @@ import { switchMap } from 'rxjs/operators';
 import { SecureApiService } from '../../../../service/api/api-security/secure-api.service';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { CalendarModule } from 'primeng/calendar';
 import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
-import { PostalCodeDirective } from '../../../../service/shared/directives/postal-code/postal-code.directive';
-import { AddressCapitalizeDirective } from '../../../../service/shared/directives/address/address-capitalize.directive.spec';
+import { PostalCodeDirective } from '../../../../shared/directives/postal-code/postal-code.directive';
+import { AddressCapitalizeDirective } from '../../../../shared/directives/address/address-capitalize.directive.spec';
 
 @Component({
   selector: 'app-rideshare-organizer-create',

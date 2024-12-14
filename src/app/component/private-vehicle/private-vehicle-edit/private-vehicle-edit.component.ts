@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { CommonModule } from '@angular/common';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 import {CompanyVehicle} from "../../../models/company-vehicle/company-vehicle.model";
 

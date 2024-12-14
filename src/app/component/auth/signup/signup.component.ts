@@ -9,8 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
 import { Router } from '@angular/router';
-import { CapitalizeDirective } from '../../../service/shared/directives/capitalize/capitalize.directive';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { CapitalizeDirective } from '../../../shared/directives/capitalize/capitalize.directive';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-signup',

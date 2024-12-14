@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { BookingAdminServiceService } from '../../../../service/booking/admin/booking-admin.service';
 import { VehicleBookingList } from '../../../../models/vehicle-booking/vehicle-booking-list.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { BookingAdminItemComponent } from '../booking-admin-item/booking-admin-item.component';
 
 @Component({
@@ -46,11 +46,11 @@ export class BookingAdminListComponent implements OnInit {
         this.bookings = bookings; // Stocker les réservations dans la variable
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       },
     });
   }
-  
+
 
   onTypeChange(type: 'past' | 'now' | 'future'): void {
     this.bookingType = type; // Met à jour le type de réservation

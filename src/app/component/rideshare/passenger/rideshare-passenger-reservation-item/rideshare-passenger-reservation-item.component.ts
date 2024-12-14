@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import {Router, RouterModule} from '@angular/router';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 import {DialogModule} from "primeng/dialog";

@@ -7,7 +7,7 @@ import { RideShareOrganizerUpdate } from '../../../../models/rideshare/organizer
 import { SecureApiService } from '../../../../service/api/api-security/secure-api.service';
 import { PrivateVehicleService } from '../../../../service/private-vehicle/private-vehicle.service';
 import { switchMap } from 'rxjs';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
 import {RideShareOrganizerDetails} from "../../../../models/rideshare/organizer/rideshare-organizer-details.model";
 

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booking.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-booking-employee-update',

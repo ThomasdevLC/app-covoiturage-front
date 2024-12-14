@@ -2,10 +2,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,

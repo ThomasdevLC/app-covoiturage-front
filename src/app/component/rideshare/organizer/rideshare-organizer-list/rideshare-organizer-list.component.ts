@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { RideshareOrganizerItemComponent } from '../rideshare-organizer-item/rideshare-organizer-item.component';
 import { RideShareOrganizerList } from '../../../../models/rideshare/organizer/rideshare-organizer-list.model';
 

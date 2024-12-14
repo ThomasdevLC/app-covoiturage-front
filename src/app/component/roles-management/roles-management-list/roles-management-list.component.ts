@@ -5,7 +5,7 @@ import { RolesManagementService } from '../../../service/roles-management/roles-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RolesManagementItemComponent } from '../roles-management-item/roles-management-item.component';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-roles-management-list',

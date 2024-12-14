@@ -5,9 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-search-item/rideshare-passenger-search-item.component';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { CalendarModule } from 'primeng/calendar';
-import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
+import { CapitalizeDirective } from '../../../../shared/directives/capitalize/capitalize.directive';
 import {DialogModule} from "primeng/dialog";
 import {
   RidesharePassengerReservationAddComponent

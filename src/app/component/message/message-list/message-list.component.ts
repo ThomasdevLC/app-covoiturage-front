@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MessageService} from "../../../service/message/message.service";
-import {ErrorHandlerService} from "../../../service/shared/errors/error-handler.service";
+import {ErrorHandlerService} from "../../../shared/errors/error-handler.service";
 import {CommonModule} from "@angular/common";
 import {Message} from "../../../models/message/message.model";
 import {MessageItemComponent} from "../message-item/message-item/message-item.component";

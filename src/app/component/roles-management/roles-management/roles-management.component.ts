@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RoleName } from '../../../models/enums/role-name.enum';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-roles-management',
@@ -76,7 +76,7 @@ toggleAdminRole(employeeId: number, addAdmin: boolean): void {
       }
     },
     error: (error) => {
-      this.errorHandlerService.handleError(error); 
+      this.errorHandlerService.handleError(error);
     }
   });
 }

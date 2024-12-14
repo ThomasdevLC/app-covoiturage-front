@@ -18,11 +18,11 @@ import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum'
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
-import { CapitalizeDirective } from '../../../../service/shared/directives/capitalize/capitalize.directive';
-import { LicensePlateDirective } from '../../../../service/shared/directives/license-plate/license-plate.directive';
-import { VehicleCategoryPipe } from '../../../../pipe/vehicle-category/vehicle-category.pipe';
-import { MotorPipe } from '../../../../pipe/motor/motor.pipe';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { CapitalizeDirective } from '../../../../shared/directives/capitalize/capitalize.directive';
+import { LicensePlateDirective } from '../../../../shared/directives/license-plate/license-plate.directive';
+import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
+import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
 
 @Component({
   selector: 'app-company-vehicle-update',

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { Router, RouterModule } from '@angular/router';
 import { RideShareOrganizerList } from '../../../../models/rideshare/organizer/rideshare-organizer-list.model';
 import {RideShareOrganizerDetails} from "../../../../models/rideshare/organizer/rideshare-organizer-details.model";
@@ -9,7 +9,7 @@ import {DialogModule} from "primeng/dialog";
 import {ButtonModule} from "primeng/button";
 import {RideshareOrganizerDetailsComponent} from "../rideshare-organizer-details/rideshare-organizer-details.component";
 import {RideshareOrganizerService} from "../../../../service/rideshare/organizer/rideshare-organizer.service";
-import {ErrorHandlerService} from "../../../../service/shared/errors/error-handler.service";
+import {ErrorHandlerService} from "../../../../shared/errors/error-handler.service";
 import {RideshareOrganizerUpdateComponent} from "../rideshare-organizer-update/rideshare-organizer-update.component";
 
 @Component({

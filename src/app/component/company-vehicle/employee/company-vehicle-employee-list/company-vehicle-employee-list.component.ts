@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
-import { ErrorHandlerService } from '../../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',

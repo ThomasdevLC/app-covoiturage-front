@@ -4,7 +4,7 @@ import { SecureApiService } from '../../../service/api/api-security/secure-api.s
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RolesManagementService } from '../../../service/roles-management/roles-management.service';
-import { ErrorHandlerService } from '../../../service/shared/errors/error-handler.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-roles-management-item',
@@ -34,11 +34,11 @@ export class RolesManagementItemComponent {
   toggleAdminRole(addAdmin: boolean): void {
     this.rolesManagementService.toggleAdminRole(this.employee.id, addAdmin).subscribe({
       next: (updatedEmployee) => {
-        // Mettre à jour les rôles de l'employé 
+        // Mettre à jour les rôles de l'employé
         this.employee = updatedEmployee;
       },
       error: (error) => {
-        this.errorHandlerService.handleError(error); 
+        this.errorHandlerService.handleError(error);
       }
     });
   }
