@@ -1,6 +1,9 @@
 
-export interface message{
-    id: number;
-    date: Date
-    message: string;
+export interface Message {
+  id: number;
+  content: string;
+  date: string;
+  read: boolean;
+  isDeleted: boolean;
+  employeeIds: number[];
 }
