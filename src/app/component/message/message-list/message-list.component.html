@@ -1,0 +1,29 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-6">Messages</h1>
+
+  <!-- Liste des messages -->
+  <div *ngIf="messages.length > 0; else noMessages" class="grid grid-cols-1 gap-4">
+    <app-message-item
+      *ngFor="let message of messages"
+      [message]="message"
+      (deleteMessage)="deleteMessage($event)"
+      (click)="viewMessageDetails(message.id)">
+    </app-message-item>
+  </div>
+
+  <!-- Si aucun message -->
+  <ng-template #noMessages>
+    <p class="text-gray-500 text-center">Aucun message disponible.</p>
+  </ng-template>
+
+  <!-- Dialog pour les détails -->
+  <p-dialog [(visible)]="displayDialog" [modal]="true" [closable]="true" >
+    <ng-template pTemplate="content">
+      <app-message-details
+        *ngIf="selectedMessage"
+        [message]="selectedMessage"
+        (closeDialog)="onCloseDialog()">
+      </app-message-details>
+    </ng-template>
+  </p-dialog>
+</div>
