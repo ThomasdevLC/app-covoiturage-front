@@ -22,8 +22,8 @@ export class RidesharePassengerReservationDetailsComponent {
 
   isConfirmVisible: boolean = false;
   confirmationMessage: string = 'Êtes-vous sûr de vouloir annuler votre participation ?';
-  confirmationConfirmText: string = 'Oui, annuler';
-  confirmationCancelText: string = 'Non, garder ma participation';
+  confirmationConfirmText: string = 'Valider';
+  confirmationCancelText: string = 'Annuler';
 
   constructor(
     private rideshareService: RidesharePassengerService,
@@ -48,24 +48,19 @@ export class RidesharePassengerReservationDetailsComponent {
       },
     });
   }
-  // Méthode pour afficher le dialogue de confirmation
   showConfirmation(): void {
     this.isConfirmVisible = true;
 
   }
-
-  // Méthode appelée lorsque l'utilisateur confirme l'annulation
   onConfirmCancel(): void {
-    this.closeDialog.emit();
     this.onCancel();
+    this.closeDialog.emit();
   }
   onCancelCancel(): void {
     this.isConfirmVisible = false;
     this.closeDialog.emit();
-
   }
 
-  // Méthode pour annuler la participation
   onCancel(): void {
     if (!this.rideshare || !this.rideshare.id) return;
 
