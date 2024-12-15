@@ -28,17 +28,12 @@ export const routes: Routes = [
 
   // PRIVATE-VEHICLES
   { path: 'messages',component: MessageListComponent},
-
-
+  
   // RIDESHARES
   { path: 'rideshares/create',component: RideshareOrganizerCreateComponent},
   { path: 'rideshares/organizer', component: RideshareOrganizerListComponent },
-  { path: 'rideshares/organizer/:id', component:RideshareOrganizerDetailsComponent },
-  { path: 'rideshares/organizer/update/:id', component: RideshareOrganizerUpdateComponent },
   { path: 'rideshares/search',component: RidesharePassengerSearchListComponent},
-  { path: 'rideshares/:id/add-passenger', component: RidesharePassengerReservationAddComponent },
   { path: 'rideshares/passenger', component: RidesharePassengerReservationListComponent },
-  { path: 'rideshares/passenger/:id', component:RidesharePassengerReservationDetailsComponent },
 
   // COMPANY-VEHICLES
   { path: 'company-vehicles', component: CompanyVehicleAdminManagementComponent},
