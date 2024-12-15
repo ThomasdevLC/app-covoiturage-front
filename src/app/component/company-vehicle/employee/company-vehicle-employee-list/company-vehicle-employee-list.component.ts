@@ -5,6 +5,7 @@ import { CompanyVehicleEmployeeService } from '../../../../service/company-vehic
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { CarouselModule } from 'primeng/carousel';
+import {ErrorHandlerService} from "../../../../shared/errors/error-handler.service";
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
@@ -38,7 +39,8 @@ export class CompanyVehicleEmployeeListComponent {
 
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private errorHandlerService: ErrorHandlerService
   ) {
     this.filterForm = this.fb.group({
       startTime: [''],
