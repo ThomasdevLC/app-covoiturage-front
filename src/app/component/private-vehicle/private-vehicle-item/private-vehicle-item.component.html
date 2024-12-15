@@ -9,10 +9,24 @@
             class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
             Modifier
         </button>
-        <button (click)="onDelete()"
+        <button (click)="showConfirmation()"
             class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
             Supprimer
         </button>
     </div>
 </li>
+
+<div class="fixed inset-0 z-40 bg-gray-500 bg-opacity-30 bg-blur " *ngIf="isConfirmVisible"></div>
+<div
+  class="  fixed inset-0 flex items-center justify-center z-50 shadow-md "
+  *ngIf="isConfirmVisible">
+  <app-confirm-dialog
+    [visible]="isConfirmVisible"
+    [message]="confirmationMessage"
+    [confirmButtonText]="confirmationConfirmText"
+    [cancelButtonText]="confirmationCancelText"
+    (confirm)="onConfirmCancel()"
+    (cancel)="onCancelCancel()">
+  </app-confirm-dialog>
+</div>
 
