@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EmployeeProfile } from '../../../models/employee/employee-profile.models';
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
@@ -10,7 +9,7 @@ import { PrivateVehicleListComponent } from '../../private-vehicle/private-vehic
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule , RouterModule, PrivateVehicleListComponent], 
+  imports: [CommonModule, PrivateVehicleListComponent],
   templateUrl: './employee-detail.component.html',
   styleUrls: ['./employee-detail.component.css'],
 })
@@ -21,7 +20,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   constructor(
     private employeeProfileService: EmployeeProfileService,
-    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -29,10 +27,6 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   loadEmployeeProfile(): void {
-    // Directly assign the Observable from the service
     this.employeeProfile$ = this.employeeProfileService.getEmployeeProfileById();
   }
-
- 
-  
 }
