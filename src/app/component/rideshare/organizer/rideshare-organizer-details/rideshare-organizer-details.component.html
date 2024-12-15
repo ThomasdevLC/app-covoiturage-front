@@ -1,4 +1,6 @@
-    <div class="bg-blue-600 text-white p-4 mt-4">
+<div *ngIf="!isConfirmVisible ">
+
+<div class="bg-blue-600 text-white p-4 mt-4">
         <h2 class="text-2xl font-semibold">Covoiturage</h2>
         <p class="mt-1">{{ rideshare.departureTime | dateFormatter }} - {{ rideshare.arrivalTime | dateFormatter }}</p>
         <p class="mt-1 font-medium text-lg">
@@ -40,10 +42,7 @@
             <p class="text-gray-700">
                 <span class="font-medium">Numéro d'immatriculation :</span> {{ rideshare.vehicle.number }}
             </p>
-
         </div>
-
-
 
         <div class="flex justify-between items-center mt-4">
             <p class="text-gray-800 font-medium">Places disponibles : {{ rideshare.availableSeats }}</p>
@@ -54,8 +53,20 @@
                 class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded">
                 Modifier le trajet
             </button>
-            <button (click)="onCancel()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
+            <button (click)="showConfirmation()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
                 Annuler le trajet
             </button>
         </div>
+    </div>
+</div>
+
+<div *ngIf="isConfirmVisible">
+      <app-confirm-dialog
+        [visible]="isConfirmVisible"
+        [message]="confirmationMessage"
+        [confirmButtonText]="confirmationConfirmText"
+        [cancelButtonText]="confirmationCancelText"
+        (confirm)="onConfirmCancel()"
+        (cancel)="onCancelCancel()">
+      </app-confirm-dialog>
     </div>

@@ -23,6 +23,7 @@ import {RideshareOrganizerUpdateComponent} from "../rideshare-organizer-update/r
 export class RideshareOrganizerItemComponent {
   @Input() rideshare!: RideShareOrganizerList;
   @Output() rideShareDeleted = new EventEmitter<number>();
+
   displayDialog: boolean = false;
   detailedRideshare!: RideShareOrganizerDetails;
   dialogContentType: 'details' | 'update' = 'details';
