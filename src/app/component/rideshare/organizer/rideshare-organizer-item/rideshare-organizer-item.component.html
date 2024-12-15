@@ -24,4 +24,29 @@
             Voir détails
         </button>
     </div>
+  <p-dialog
+    [(visible)]="displayDialog"
+    modal="true"
+    [style]="{ width: '50vw' }"
+    [resizable]="false"
+    [closable]="true"
+
+  >
+    <ng-template pTemplate="content">
+      <ng-container *ngIf="dialogContentType === 'details'">
+        <app-rideshare-organizer-details
+          [rideshare]="detailedRideshare"
+          (edit)="onEditRideShare()"
+          (cancelled)="onCloseDialog()"
+        ></app-rideshare-organizer-details>
+      </ng-container>
+
+      <ng-container *ngIf="dialogContentType === 'update'">
+        <app-rideshare-organizer-update
+          [rideshare]="detailedRideshare"
+          (updateCompleted)="onCloseUpdate()"
+        ></app-rideshare-organizer-update>
+      </ng-container>
+    </ng-template>
+  </p-dialog>
 </div>

@@ -1,5 +1,6 @@
 import { Address } from "../../Address/address.model";
-import { Employee } from "../../employee.model";
+import { Employee } from "../../employee/employee.model";
+import { PrivateVehicle } from "../../private-vehicle/private-vehicle.model";
 
 export interface RideShareOrganizerList {
     id: number;
@@ -8,4 +9,5 @@ export interface RideShareOrganizerList {
     departureAddress: Address;
     arrivalAddress: Address;
     passengers: Employee[];
+    vehicle: PrivateVehicle;
   }

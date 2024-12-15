@@ -20,8 +20,8 @@ export class EmployeeProfileService {
       switchMap((currentUser) => {
         if (currentUser) {
           const employeeId = currentUser.id;
-          return this.http.get<EmployeeProfile>(`${this.apiURL}employees/${employeeId}`, {  headers: this.secureApiService.getHeaders(),
-          }).pipe(
+          return this.http.get<EmployeeProfile>(`${this.apiURL}employees/${employeeId}`
+          ).pipe(
             tap((response) => {
               console.log("Profil de l'employé récupéré :", response);
             }),

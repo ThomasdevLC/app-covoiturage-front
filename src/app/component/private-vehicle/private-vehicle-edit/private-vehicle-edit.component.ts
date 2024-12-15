@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
-import { PrivateVehicle } from '../../../models/private-vehicle.model';
 import { CommonModule } from '@angular/common';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
+import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
+import {CompanyVehicle} from "../../../models/company-vehicle/company-vehicle.model";
 
 @Component({
   selector: 'app-private-vehicle-edit',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './private-vehicle-edit.component.html',
-  styleUrls: ['./private-vehicle-edit.component.css']
+  styleUrl: './private-vehicle-edit.component.css'
 })
 export class PrivateVehicleEditComponent implements OnInit {
-  vehicleId!: number;
+  @Input() vehicleId!: number;
+  @Output() closeModal = new EventEmitter<boolean>();
+  @Output() updateComplete = new EventEmitter<PrivateVehicle>();
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
   vehicle: PrivateVehicle | undefined;
@@ -21,11 +25,13 @@ export class PrivateVehicleEditComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private privateVehicleService: PrivateVehicleService,
+    private errorHandlerService: ErrorHandlerService,
     private router: Router
   ) {}
 
+
+
   ngOnInit(): void {
-    this.vehicleId = Number(this.route.snapshot.paramMap.get('id'));
     this.initializeForm();
     this.loadVehicle();
   }
@@ -35,7 +41,7 @@ export class PrivateVehicleEditComponent implements OnInit {
       brand: ['', Validators.required],
       model: ['', Validators.required],
       number: ['', Validators.required],
-      seats: [ Validators.required], 
+      seats: [ Validators.required],
     });
   }
 
@@ -49,30 +55,36 @@ export class PrivateVehicleEditComponent implements OnInit {
           seats: vehicle.seats,
         });
       },
-      error: (err: any) => {
-        console.error('Erreur lors du chargement du véhicule :', err);
-        this.errorMessage = 'Impossible de charger les détails du véhicule.';
-      }
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
+      },
     });
   }
 
   saveChanges(): void {
-    if (this.vehicleForm.valid) {
-      const updatedVehicle: PrivateVehicle = {
-        ...this.vehicleForm.value 
-      };
-
-      // Appeler le service pour mettre à jour le véhicule
-      this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
-        next: () => {
-          console.log('Véhicule mis à jour avec succès');
-          this.router.navigate(['/employees']); // Redirection après la mise à jour
-        },
-        error: (err) => {
-          console.error('Erreur lors de la mise à jour du véhicule :', err);
-          this.errorMessage = 'Impossible de mettre à jour le véhicule.';
-        }
-      });
+    if (!this.vehicleForm.valid) {
+      this.errorMessage = 'Veuillez remplir tous les champs';
+      return;
     }
+
+    const updatedVehicle: PrivateVehicle = {
+      id: this.vehicleId,
+      ...this.vehicleForm.value,
+    };
+
+    this.privateVehicleService.updateVehicle(this.vehicleId, updatedVehicle).subscribe({
+      next: () => {
+        this.errorMessage = null;
+        this.updateComplete.emit(updatedVehicle);
+        this.closeModal.emit(true);
+      },
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
+      },
+    });
+  }
+
+  cancel(): void {
+    this.closeModal.emit(false);
   }
 }

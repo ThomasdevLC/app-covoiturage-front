@@ -1,5 +1,5 @@
+import { PrivateVehicle } from "../private-vehicle/private-vehicle.model";
 
-import { PrivateVehicle } from "../private-vehicle.model";
 
 export interface EmployeeProfile {
   id: number;                        

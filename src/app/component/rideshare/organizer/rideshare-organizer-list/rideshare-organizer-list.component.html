@@ -1,19 +1,20 @@
-<div *ngIf="(rideshares$ | async) as rideshares">
-
-    <div class="flex justify-around gap-4 my-4">
-        <div class="text-center mb-2">
-            <button (click)="togglePastRideshares(false)"
-                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none transition">
-                Vos trajets
-            </button>
-            <button (click)="togglePastRideshares(true)"
-                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none transition">
-                Historique
-            </button>
-        </div>
+<div class="flex justify-center space-x-4 border-b border-gray-300">
+    <!-- Onglet "Vos trajets" -->
+    <div (click)="togglePastRideshares(false)"
+        [class]="past ? 'text-gray-500 border-transparent' : 'text-indigo-600 border-indigo-600'"
+        class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+        Vos trajets
     </div>
+    <!-- Onglet "Historique" -->
+    <div (click)="togglePastRideshares(true)"
+        [class]="past ? 'text-indigo-600 border-indigo-600' : 'text-gray-500 border-transparent'"
+        class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+        Historique
+    </div>
+</div>
 
-    <div class="flex flex-col mx-auto gap-6 mt-10 w-64 ">
+<div *ngIf="(rideshares$ | async) as rideshares">
+    <div class="flex flex-col mx-auto gap-6 mt-10 w-64">
         <div *ngFor="let rideshare of rideshares">
             <app-rideshare-organizer-item [rideshare]="rideshare"></app-rideshare-organizer-item>
         </div>
@@ -22,10 +23,7 @@
     <p *ngIf="rideshares.length === 0 && !past" class="text-center text-gray-500 mt-6">
         Vous n'avez pas encore proposé de trajets.
     </p>
-    <p *ngIf="rideshares.length === 0 && past " class="text-center text-gray-500 mt-6">
+    <p *ngIf="rideshares.length === 0 && past" class="text-center text-gray-500 mt-6">
         Vous n'avez pas encore de trajets passés.
     </p>
-
-
-
 </div>

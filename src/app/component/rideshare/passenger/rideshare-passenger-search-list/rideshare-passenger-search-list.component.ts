@@ -1,18 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { RidesharePassengerSearchItemComponent } from '../rideshare-passenger-search-item/rideshare-passenger-search-item.component';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
-import { ErrorHandlerService } from '../../../../service/errors/error-handler.service';
-import { Message } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { CalendarModule } from 'primeng/calendar';
+import { CapitalizeDirective } from '../../../../shared/directives/capitalize/capitalize.directive';
+import {DialogModule} from "primeng/dialog";
+import {
+  RidesharePassengerReservationAddComponent
+} from "../rideshare-passenger-reservation-add/rideshare-passenger-reservation-add.component";
 
 @Component({
   selector: 'app-rideshare-passenger-search-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RidesharePassengerSearchItemComponent, MessagesModule ],  templateUrl: './rideshare-passenger-search-list.component.html',
+  imports: [CommonModule, FormsModule,DialogModule,RidesharePassengerSearchItemComponent,RidesharePassengerReservationAddComponent, CalendarModule, CapitalizeDirective],
+  templateUrl: './rideshare-passenger-search-list.component.html',
   styleUrl: './rideshare-passenger-search-list.component.css'
 })
 export class RidesharePassengerSearchListComponent {
@@ -20,13 +25,16 @@ export class RidesharePassengerSearchListComponent {
   departureCity = '';
   arrivalCity = '';
   departureDateTime = '';
-  messages: Message[] = []; // Tableau pour stocker les messages
+  displayDialog: boolean = false;
+  selectedRideShareId!: number;
+
 
   constructor(
     private rideShareService: RidesharePassengerService,
-    private route: ActivatedRoute,
-    private router: Router,
     private errorHandlerService: ErrorHandlerService,
+    private route: ActivatedRoute,
+    private router: Router
+
   ) {
     // Souscription aux paramètres de requête dans le constructeur
     this.route.queryParams.subscribe((params) => {
@@ -37,28 +45,27 @@ export class RidesharePassengerSearchListComponent {
   }
 
   searchRideShares(): void {
-    // Si tous les champs sont vides, réinitialiser les covoiturages
     if (!this.departureCity && !this.arrivalCity && !this.departureDateTime) {
       this.rideshares = [];
       return;
     }
 
+    let formattedDateTime = '';
+    if (this.departureDateTime) {
+      // Formatez la date selon les besoins de votre backend, par exemple en ISO string
+      formattedDateTime = new Date(this.departureDateTime).toISOString();
+    }
     // Demande pour obtenir les covoiturages
     this.rideShareService
-      .getRideShares(this.departureCity, this.arrivalCity, this.departureDateTime)
+      .getRideShares(this.departureCity, this.arrivalCity,formattedDateTime)
       .subscribe({
         next: (rideshares: RideSharePassengerList[]) => {
           this.rideshares = rideshares;
           console.log('Covoiturages récupérés:', this.rideshares);
         },
         error: (error) => {
-          this.errorHandlerService.handleError(error).subscribe({
-            next: (errorObject) => {
-              this.messages = []; // Effacer les messages précédents
-              this.messages.push({ severity: 'error', detail: errorObject.message }); // Ajouter le nouveau message d'erreur
-            }
-          });
-        }
+          this.errorHandlerService.handleError(error);
+        },
       });
   }
 
@@ -66,7 +73,16 @@ export class RidesharePassengerSearchListComponent {
     this.departureCity = '';
     this.arrivalCity = '';
     this.departureDateTime = '';
-    this.rideshares = []; 
-    this.messages = []; 
+    this.rideshares = [];
+  }
+  openReservationDialog(rideshare: RideSharePassengerList): void {
+    this.selectedRideShareId = rideshare.id;
+    this.displayDialog = true;
+  }
+
+  onReservationSuccess(): void {
+    this.displayDialog = false;
+    this.searchRideShares();
+    this.router.navigate(['/rideshares/passenger']);
   }
 }

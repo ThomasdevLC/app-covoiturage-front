@@ -1,79 +1,79 @@
-<div class="max-w-md mx-auto bg-white shadow-md rounded-md p-6 mt-10">
-  <h2 class="text-2xl font-bold mb-4 text-center">Modifier le Véhicule</h2>
-
-  <form [formGroup]="vehicleForm" (ngSubmit)="saveChanges()">
-    <!-- Champ pour le numéro du véhicule -->
-    <div class="mb-4">
-      <label for="number" class="block text-sm font-medium text-gray-700">
-        Numéro du véhicule
-      </label>
-      <input id="number" type="text" formControlName="number"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        placeholder="Entrez le numéro du véhicule" />
-      <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
-        class="text-red-500 text-sm mt-1">
-        <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
-          Le numéro du véhicule est requis.
+    <h2 class="text-2xl font-bold mb-4 text-center">Modifier le Véhicule</h2>
+    <form [formGroup]="vehicleForm" (ngSubmit)="saveChanges()">
+      <!-- Champ pour le numéro du véhicule -->
+      <div class="mb-4">
+        <label for="number" class="block text-sm font-medium text-gray-700">
+          Numéro du véhicule
+        </label>
+        <input id="number" type="text" formControlName="number"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Entrez le numéro du véhicule" />
+        <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
+          class="text-red-500 text-sm mt-1">
+          <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
+            Le numéro du véhicule est requis.
+          </div>
+          <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
+            Le numéro doit respecter le format suivant : FF-855-BJ.
+          </div>
         </div>
-        <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
-          Le numéro doit respecter le format suivant : FF-855-BJ.
+      </div>
+
+      <!-- Champ pour la marque du véhicule -->
+      <div class="mb-4">
+        <label for="brand" class="block text-sm font-medium text-gray-700">
+          Marque du véhicule
+        </label>
+        <input id="brand" type="text" formControlName="brand"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 top-5 text-transform: capitalize"
+          placeholder="Entrez la marque" />
+        <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
+          class="text-red-500 text-sm mt-1">
+          La marque du véhicule est requise.
         </div>
       </div>
-    </div>
 
-    <!-- Champ pour la marque du véhicule -->
-    <div class="mb-4">
-      <label for="brand" class="block text-sm font-medium text-gray-700">
-        Marque du véhicule
-      </label>
-      <input id="brand" type="text" formControlName="brand"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 top-5 text-transform: capitalize"
-        placeholder="Entrez la marque" />
-      <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
-        class="text-red-500 text-sm mt-1">
-        La marque du véhicule est requise.
+      <!-- Champ pour le modèle du véhicule -->
+      <div class="mb-4">
+        <label for="model" class="block text-sm font-medium text-gray-700">
+          Modèle du véhicule
+        </label>
+        <input id="model" type="text" formControlName="model"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-transform: capitalize"
+          placeholder="Entrez le modèle" />
+        <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Le modèle du véhicule est requis.
+        </div>
       </div>
-    </div>
 
-    <!-- Champ pour le modèle du véhicule -->
-    <div class="mb-4">
-      <label for="model" class="block text-sm font-medium text-gray-700">
-        Modèle du véhicule
-      </label>
-      <input id="model" type="text" formControlName="model"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-transform: capitalize"
-        placeholder="Entrez le modèle" />
-      <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
-        class="text-red-500 text-sm mt-1">
-        Le modèle du véhicule est requis.
+      <!-- Champ pour le nombre de sièges -->
+      <div class="mb-4">
+        <label for="seats" class="block text-sm font-medium text-gray-700">
+          Nombre de sièges
+        </label>
+        <input id="seats" type="number" formControlName="seats"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500  text-gray-700"
+          min="1" />
+        <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched"
+          class="text-red-500 text-sm mt-1">
+          Veuillez entrer un nombre de sièges valide (minimum 1).
+        </div>
       </div>
-    </div>
 
-    <!-- Champ pour le nombre de sièges -->
-    <div class="mb-4">
-      <label for="seats" class="block text-sm font-medium text-gray-700">
-        Nombre de sièges
-      </label>
-      <input id="seats" type="number" formControlName="seats"
-        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        min="1" />
-      <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched"
-        class="text-red-500 text-sm mt-1">
-        Veuillez entrer un nombre de sièges valide (minimum 1).
+      <!-- Message d'erreur global -->
+      <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+        {{ errorMessage }}
       </div>
-    </div>
 
-    <!-- Message d'erreur global -->
-    <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
-      {{ errorMessage }}
-    </div>
-
-    <!-- Bouton de soumission -->
-    <div>
+      <<div class="flex justify-end space-x-2">
+      <button type="button" (click)="cancel()"
+              class="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out">
+        Annuler
+      </button>
       <button type="submit"
-        class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
         Sauvegarder les modifications
       </button>
     </div>
-  </form>
-</div>
+    </form>

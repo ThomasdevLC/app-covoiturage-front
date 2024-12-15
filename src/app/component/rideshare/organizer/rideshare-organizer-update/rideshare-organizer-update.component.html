@@ -1,5 +1,4 @@
-<div class="container mx-auto py-20 px-96">
-    <h2 class="text-2xl font-bold mb-4">Modifier votre trajet</h2>
+
 
     <form [formGroup]="rideShareForm" (ngSubmit)="updateRideShare()" class="space-y-6">
         <!-- Heure de départ -->
@@ -69,11 +68,12 @@
         </div>
 
         <!-- Bouton de soumission -->
-        <div class="flex justify-center">
+        <div class="flex justify-center gap-4">
+          <button type="button" (click)="updateCompleted.emit()">Retour</button>
             <button type="submit"
                 class="w-fit bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 Mettre à jour
             </button>
+
         </div>
     </form>
-</div>

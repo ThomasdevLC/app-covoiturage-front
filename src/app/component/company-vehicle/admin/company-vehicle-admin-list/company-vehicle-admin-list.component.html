@@ -1,73 +1,51 @@
-<div class="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen">
-  <h2 class="text-3xl font-bold text-gray-800 mb-6">Liste des véhicules de service</h2>
+<div>
   <div class="flex justify-between items-center mb-6">
-    <button routerLink="/company-vehicles/create" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-      Nouveau véhicule
-    </button>
-    <button routerLink="/admin/bookings-list" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-      Voir les reservations
-    </button>
     <!-- Filtres -->
     <div class="flex space-x-4">
       <div>
         <label for="brandFilter" class="block text-sm font-medium text-gray-700">Marque :</label>
-        <input type="text" id="brandFilter" [(ngModel)]="brandFilter"
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+        <input type="text" id="brandFilter" [(ngModel)]="brandFilter" (ngModelChange)="filterVehicles()"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Exemple : Toyota" />
       </div>
       <div>
         <label for="numberFilter" class="block text-sm font-medium text-gray-700">Numéro d'immatriculation :</label>
-        <input type="text" id="numberFilter" [(ngModel)]="numberFilter"
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+        <input type="text" id="numberFilter" [(ngModel)]="numberFilter" (ngModelChange)="filterVehicles()"
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+          placeholder="Exemple : AA-123-BB" />
       </div>
-      <button (click)="filterVehicles()"
-        class="self-end bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Filtrer</button>
+      <div class="flex items-end">
+        <button (click)="filterVehicles()"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+          Filtrer
+        </button>
+      </div>
     </div>
-    <button (click)="clearFilters()" class="self-end bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
-      Effacer
-    </button>
-
+    <div class="flex items-end">
+      <button (click)="clearFilters()"
+        class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+        Effacer
+      </button>
+    </div>
   </div>
 
-  <!-- Error Message -->
+  <!-- Message d'erreur -->
   <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
     {{ errorMessage }}
   </div>
 
-  <!-- Vehicle Cards -->
-  <div *ngIf="vehicles.length > 0" class="flex flex-col gap-2">
-    <div *ngFor="let vehicle of vehicles" class="bg-white shadow-lg rounded-lg p-6 flex space-x-4">
-
-      <!-- Vehicle Image -->
-      <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
-        class="w-32 h-24 object-cover rounded-lg shadow-md">
-
-      <!-- Vehicle Details -->
-      <div class="flex-grow">
-        <h3 class="text-lg font-bold text-gray-800">{{ vehicle.brand }} {{ vehicle.model }}</h3>
-        <div class="mb-4">
-          <p class="text-sm text-gray-600"><strong>Immatriculation: </strong>{{ vehicle.number }}</p>
-          <p class="text-sm text-gray-600"><strong>Catégorie: </strong>{{ vehicle.category }}</p>
-          <p class="text-sm text-gray-600"><strong>Nombre de places: </strong>{{ vehicle.seats }}</p>
-          <p class="text-sm text-gray-600"><strong>Motorisation: </strong>{{ vehicle.motor }}</p>
-          <p class="text-sm text-gray-600"><strong>CO2 par km: </strong>{{ vehicle.co2PerKm }}</p>
-          <p class="text-sm text-gray-600"><strong>Statut: </strong>{{ vehicle.status }}</p>
-        </div>
-      </div>
-      <div class="flex space-x-4">
-        <button [routerLink]="['/company-vehicles/update', vehicle.id]"
-          class="h-12 w-28 text-center bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
-          Modifier
-        </button>
-        <button (click)="deleteCompanyVehicles(vehicle.id)"
-          class=" h-12 w-28 selection:text-center bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-          Supprimer
-        </button>
-      </div>
-    </div>
+  <!-- Liste des véhicules -->
+  <div *ngIf="vehicles.length > 0" class="space-y-4">
+    <app-company-vehicle-admin-item
+      *ngFor="let vehicle of vehicles" [vehicle]="vehicle"
+      (onUpdateComplete)="getAllVehicles()"
+      (onDelete)="onDeleteVehicle($event)">
+    </app-company-vehicle-admin-item>
   </div>
 
-  <!-- No Vehicles Message -->
+  <!-- Message si aucun véhicule -->
   <div *ngIf="vehicles.length === 0" class="text-gray-500 text-center mt-10">
     Aucun véhicule disponible.
   </div>
+
 </div>

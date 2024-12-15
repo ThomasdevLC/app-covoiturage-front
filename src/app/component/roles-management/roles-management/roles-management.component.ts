@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RoleName } from '../../../models/enums/role-name.enum';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
+import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-roles-management',
@@ -20,7 +21,10 @@ export class RolesManagementComponent {
   searchKeyword: string = '';
 
   constructor(
-    private rolesManagementService: RolesManagementService, private secureApiService: SecureApiService
+    private rolesManagementService: RolesManagementService,
+    private secureApiService: SecureApiService,
+    private errorHandlerService: ErrorHandlerService,
+
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +39,7 @@ getAllEmployees(): void {
       console.log('Employés récupérés', this.employees);
     },
     error: (error) => {
-      console.error('Erreur lors de la récupération des employés', error);
+      this.errorHandlerService.handleError(error);
     }
   });
 }
@@ -50,7 +54,7 @@ searchEmployees(): void {
         this.employees = data;
       },
       error: (error) => {
-        console.error('Erreur lors de la recherche des employés', error);
+        this.errorHandlerService.handleError(error);
       }
     });
   }
@@ -72,7 +76,7 @@ toggleAdminRole(employeeId: number, addAdmin: boolean): void {
       }
     },
     error: (error) => {
-      console.error('Erreur lors de la modification du rôle ADMIN', error);
+      this.errorHandlerService.handleError(error);
     }
   });
 }

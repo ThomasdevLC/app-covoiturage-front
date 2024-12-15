@@ -30,4 +30,19 @@
             Détails
         </button>
     </div>
+
+  <p-dialog
+    [(visible)]="isDialogVisible"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [closable]="true"
+    (onHide)="isDialogVisible = false"
+  >
+    <app-rideshare-passenger-reservation-details
+      [id]="rideshare.id"
+      (closeDialog)="onCloseDialog()"
+    >
+    </app-rideshare-passenger-reservation-details>
+  </p-dialog>
+
 </div>

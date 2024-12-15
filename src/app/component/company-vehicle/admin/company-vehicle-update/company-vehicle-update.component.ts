@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
@@ -18,6 +18,11 @@ import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum'
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { CapitalizeDirective } from '../../../../shared/directives/capitalize/capitalize.directive';
+import { LicensePlateDirective } from '../../../../shared/directives/license-plate/license-plate.directive';
+import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
+import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
 
 @Component({
   selector: 'app-company-vehicle-update',
@@ -28,6 +33,10 @@ import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehic
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+     CapitalizeDirective,
+    LicensePlateDirective,
+    VehicleCategoryPipe,
+     MotorPipe
   ],
   templateUrl: './company-vehicle-update.component.html',
   styleUrls: ['./company-vehicle-update.component.css'],
@@ -35,7 +44,10 @@ import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehic
 export class CompanyVehicleUpdateComponent implements OnInit {
   vehicleForm!: FormGroup;
   errorMessage: string | null = null;
-  vehicle: CompanyVehicle | undefined;
+  isSubmitted = false;
+  @Input() vehicle!: CompanyVehicle;
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() updateComplete = new EventEmitter<CompanyVehicle>();
 
   categories = Object.values(VehicleCategory);
   motors = Object.values(VehicleMotor);
@@ -44,36 +56,39 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
-    private route: ActivatedRoute, // Injection de ActivatedRoute
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
+    private errorHandlerService: ErrorHandlerService,
   ) {
     this.vehicleForm = this.fb.group({
-      number: ['', Validators.required],
+      number: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Z]{2}-\d{3}-[A-Z]{2}$/), // Format pour numéro d'immatriculation
+        ],
+      ],
       brand: ['', Validators.required],
       model: ['', Validators.required],
       category: ['', Validators.required],
       picUrl: ['', Validators.required],
       motor: ['', Validators.required],
-      seats: [null, Validators.required],
-      co2PerKm: [null, Validators.required],
+      seats: [1, [Validators.required, Validators.min(1)]],
+      co2PerKm: [1, [Validators.required, Validators.min(0)]],
       status: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    // Récupérer l'ID du véhicule à partir de l'URL
-    const vehicleId = +this.route.snapshot.paramMap.get('id')!;
+    if (this.vehicle) {
+      this.populateForm(this.vehicle);
+    }
+  }
 
-    // Charger les détails du véhicule
-    this.vehicleService.getVehicleById(vehicleId).subscribe(
-      (vehicle) => {
-        this.vehicle = vehicle;
-        this.populateForm(vehicle); // Remplir le formulaire
-      },
-      (error) => {
-        this.errorMessage = 'Erreur lors du chargement des détails du véhicule';
-      }
-    );
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['vehicle'] && this.vehicle) {
+      this.populateForm(this.vehicle);
+    }
   }
 
   populateForm(vehicle: CompanyVehicle): void {
@@ -91,32 +106,27 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   }
 
   upDateCompanyVehicles(): void {
+    this.isSubmitted = true;
     if (this.vehicleForm.valid) {
-      const updatedVehicle = { ...this.vehicle, ...this.vehicleForm.value };
-  
+      const updatedVehicle = {...this.vehicle, ...this.vehicleForm.value}; // Fusionner les données
       this.vehicleService.updateVehicle(updatedVehicle.id, updatedVehicle).subscribe({
-        next: (response) => {
-          console.log('Véhicule mis à jour avec succès', updatedVehicle);
-  
+        next: () => {
           const newStatus = this.vehicleForm.value.status;
           this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
             next: () => {
-              console.log('Statut du véhicule mis à jour avec succès');
-              this.router.navigate(['/company-vehicles']);
+              this.updateComplete.emit(updatedVehicle);
+              this.closeModal.emit();
             },
-            error: (err) => {
-              console.error('Erreur lors de la mise à jour du statut du véhicule', err);
-              this.errorMessage = 'Erreur lors de la mise à jour du statut du véhicule';
-            },
+            error: (error) => {
+              this.errorHandlerService.handleError(error);
+            }
           });
         },
-        error: (err) => {
-          console.error('Erreur lors de la mise à jour du véhicule', err);
-          this.errorMessage = 'Erreur lors de la mise à jour du véhicule';
-        },
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
+        }
       });
-    } else {
-      console.error('Le formulaire de véhicule n\'est pas valide');
     }
-  }
-}
+  }}
+
+

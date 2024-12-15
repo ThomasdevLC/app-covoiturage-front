@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { RideShare } from '../../../../models/rideshare/rideshare.model';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 
 @Component({
@@ -13,6 +12,11 @@ import { RideSharePassengerList } from '../../../../models/rideshare/passenger/r
   styleUrl: './rideshare-passenger-search-item.component.css'
 })
 export class RidesharePassengerSearchItemComponent {
-  @Input() rideshare!: RideSharePassengerList ; 
+  @Input() rideshare!: RideSharePassengerList ;
+  @Output() reserve = new EventEmitter<RideSharePassengerList>();
+
+  onReserve(): void {
+    this.reserve.emit(this.rideshare);
+  }
 
 }

@@ -54,8 +54,8 @@ export class CompanyVehicleEmployeeListComponent {
         next: (data: CompanyVehicle[]) => {
           this.vehicles = data;
         },
-        error: (error: any) => {
-          console.error('Error fetching vehicles', error);
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
         },
       });
   }

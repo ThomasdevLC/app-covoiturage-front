@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {  Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../auth/auth.service';
-import { Employee } from '../../../models/employee.model';
-import { VehicleBooking } from '../../../models/vehicle-booking.model';
+import { AuthService } from '../../auth/auth/auth.service';
+import { Employee } from '../../../models/employee/employee.model';
+import { VehicleBooking } from '../../../models/vehicle-booking/vehicle-booking.model';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyVehicle } from '../../../models/company-vehicle/company-vehicle.model';
 import { SecureApiService } from '../../api/api-security/secure-api.service';
@@ -36,13 +36,12 @@ export class CompanyVehicleEmployeeService {
     if (endTime) {
       params = params.set('endTime', endTime);
     }
-    const headers = this.secureApiService.getHeaders();
     return this.http.get<CompanyVehicle[]>(
       `${this.apiURL}company-vehicles/status-and-booking-dates`,
-      { params, headers }
+      { params }
     );
   }
- 
+
 
 getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking[]>{
   let params = new HttpParams();
@@ -53,21 +52,16 @@ getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking
   if(past){
     params = params.set('past', past);//si ==true -> historique, sinon en cours
   }
-  const headers = this.secureApiService.getHeaders();
   return this.http.get<VehicleBooking[]>(
     `${this.apiURL}company-vehicles/bookings-search`,
-    { params, headers }
+    { params }
   );
 }
- 
+
 
 getVehicleById(id: number): Observable<CompanyVehicle> {
   return this.http.get<CompanyVehicle>(
-    `${this.apiURL}company-vehicles/${id}`,
-    {
-      headers: this.secureApiService.getHeaders(),
-    }
-  );
-}
-
+    `${this.apiURL}company-vehicles/${id}`
+    );
+  }
 }

@@ -1,63 +1,77 @@
-import { Component, Input } from '@angular/core';
-import { RideShare } from '../../../../models/rideshare/rideshare.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../pipe/date-formatter/date-formatter.pipe';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import {ConfirmDialogComponent} from "../../../../shared/lib/confirm-dialog/confirm-dialog.component";
 
 
 @Component({
   selector: 'app-rideshare-passenger-reservation-details',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe],
+  imports: [CommonModule, DateFormatterPipe, ConfirmDialogComponent],
   templateUrl: './rideshare-passenger-reservation-details.component.html',
   styleUrl: './rideshare-passenger-reservation-details.component.css'
 })
 export class RidesharePassengerReservationDetailsComponent {
-
+  @Input() id!: number;
   @Input() rideshare!: RideSharePassengerDetails;
+  @Output() closeDialog: EventEmitter<void> = new EventEmitter();
   past = false;
+
+  isConfirmVisible: boolean = false;
+  confirmationMessage: string = 'Êtes-vous sûr de vouloir annuler votre participation ?';
+  confirmationConfirmText: string = 'Valider';
+  confirmationCancelText: string = 'Annuler';
 
   constructor(
     private rideshareService: RidesharePassengerService,
-    private route: ActivatedRoute,
-    private router: Router
+    private errorHandlerService: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
     this.rideshareService.past$.subscribe((value) => {
-      this.past = value; // Mise à jour de `past` avec la valeur du service
+      this.past = value;
     });
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadRideShare(id); 
+    this.loadRideShare(this.id); // Use the injected ID
   }
 
   loadRideShare(id: number): void {
     this.rideshareService.getRideShareById(id).subscribe({
       next: (rideShare: RideSharePassengerDetails) => {
-        this.rideshare = rideShare; 
-        console.log(' RideShare:', rideShare);
+        this.rideshare = rideShare;
       },
-      error: (err) => {
-        console.error('Erreur lors de la récupération du covoiturage:', err);
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
+
       },
     });
+  }
+  showConfirmation(): void {
+    this.isConfirmVisible = true;
+
+  }
+  onConfirmCancel(): void {
+    this.onCancel();
+    this.closeDialog.emit();
+  }
+  onCancelCancel(): void {
+    this.isConfirmVisible = false;
+    this.closeDialog.emit();
   }
 
   onCancel(): void {
     if (!this.rideshare || !this.rideshare.id) return;
-    
+
     this.rideshareService.cancelAsPassenger(this.rideshare.id).subscribe({
       next: () => {
-        console.log('RideShare cancelled ');
-        this.router.navigate(['/rideshares/passenger']); 
+        this.closeDialog.emit();
       },
-      error: (err) => {
-        console.error('Erreur lors de l\'annulation du covoiturage:', err);
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
       },
     });
   }
 }
-
 

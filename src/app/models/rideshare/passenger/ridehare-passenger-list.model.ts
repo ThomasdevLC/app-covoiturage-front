@@ -1,5 +1,5 @@
 import { Address } from "../../Address/address.model";
-import { PrivateVehicle } from "../../private-vehicle.model";
+import { PrivateVehicle } from "../../private-vehicle/private-vehicle.model";
 
 export interface RideSharePassengerList {
     id: number;

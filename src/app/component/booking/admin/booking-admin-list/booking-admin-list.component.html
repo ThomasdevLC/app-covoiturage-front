@@ -1,0 +1,32 @@
+<div class="max-w-4xl mx-auto p-6">
+  <h2 class="text-2xl font-semibold mb-4">Liste des réservations</h2>
+
+  <div class="flex space-x-4 mb-6">
+    <button (click)="onTypeChange('past')" [class.bg-blue-500]="bookingType === 'past'"
+      [class.text-white]="bookingType === 'past'" [class.bg-gray-200]="bookingType !== 'past'"
+      class="py-2 px-4 rounded-lg transition">
+      Passées
+    </button>
+    <button (click)="onTypeChange('now')" [class.bg-blue-500]="bookingType === 'now'"
+      [class.text-white]="bookingType === 'now'" [class.bg-gray-200]="bookingType !== 'now'"
+      class="py-2 px-4 rounded-lg transition">
+      Actuelles
+    </button>
+    <button (click)="onTypeChange('future')" [class.bg-blue-500]="bookingType === 'future'"
+      [class.text-white]="bookingType === 'future'" [class.bg-gray-200]="bookingType !== 'future'"
+      class="py-2 px-4 rounded-lg transition">
+      Futures
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+    {{ errorMessage }}
+  </div>
+
+  <app-booking-admin-item *ngFor="let booking of bookings" [booking]="booking"></app-booking-admin-item>
+
+
+  <div *ngIf="!bookings.length && !errorMessage" class="text-gray-500">
+    Aucune réservation à cette période.
+  </div>
+</div>
