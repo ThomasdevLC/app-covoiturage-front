@@ -6,13 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--primary-color)', // La classe Tailwind `bg-primary` utilisera `--primary-color`
-        'primary-light': 'var(--primary-light-color)', // Pour `bg-primary-light`
-        secondary: 'var(--secondary-color)', // Pour `bg-secondary`
-        'secondary-light': 'var(--secondary-light-color)',
-        border: 'var(--border-color)',
-        background: 'var(--background-color)',
-        text: 'var(--text-color)',
+        primary: 'var(--primary)',
+        'primary-light': 'var(--primary-light)',
+        secondary: 'var(--secondary)',
+        'secondary-light': 'var(--secondary-light)',
+        border: 'var(--border)',
+        background: 'var(--background)',
+        text: 'var(--text)',
       },
       fontFamily: {
         sans: ['var(--font-family-base)', 'sans-serif'], // Pour `font-sans`
