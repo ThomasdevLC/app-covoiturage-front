@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'dateFormatter',
-  standalone: true, 
+  standalone: true,
 })
 export class DateFormatterPipe implements PipeTransform {
   transform(value: string | Date | undefined): string {
@@ -12,10 +12,8 @@ export class DateFormatterPipe implements PipeTransform {
 
     if (typeof value === 'string') {
       date = new Date(value);
-    } else if (value instanceof Date) {
-      date = value;
     } else {
-      return ''; 
+      date = value;
     }
 
     return date.toLocaleString('fr-FR', {
