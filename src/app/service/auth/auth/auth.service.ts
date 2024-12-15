@@ -5,9 +5,9 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, ObservableInput, tap, throwError } from 'rxjs';
-import { EmployeeSignup } from '../../models/auth/employee-signup.model';
-import { environment } from '../../../environments/environment';
-import { EmployeeConnected } from '../../models/employee/employee-connected.model';
+import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
+import { environment } from '../../../../environments/environment';
+import { EmployeeConnected } from '../../../models/employee/employee-connected.model';
 
 @Injectable({
   providedIn: 'root',
