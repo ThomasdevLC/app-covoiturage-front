@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {  Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/auth/auth.service';
 import { Employee } from '../../../models/employee/employee.model';
 import { VehicleBooking } from '../../../models/vehicle-booking/vehicle-booking.model';
 import { ActivatedRoute } from '@angular/router';
@@ -41,7 +41,7 @@ export class CompanyVehicleEmployeeService {
       { params }
     );
   }
- 
+
 
 getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking[]>{
   let params = new HttpParams();
@@ -57,11 +57,11 @@ getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking
     { params }
   );
 }
- 
+
 
 getVehicleById(id: number): Observable<CompanyVehicle> {
   return this.http.get<CompanyVehicle>(
     `${this.apiURL}company-vehicles/${id}`
     );
-  } 
+  }
 }
