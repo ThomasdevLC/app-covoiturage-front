@@ -1,0 +1,24 @@
+<!-- confirm-dialog.component.html -->
+<div
+  class="flex items-center justify-center"
+  *ngIf="visible"
+>
+  <div>
+    <p class="text-text mb-6">{{ message }}</p>
+    <div class="flex justify-end space-x-4">
+      <button
+        (click)="onCancel()"
+        class="px-4 py-2 border border-border text-text rounded hover:bg-secondary-light transition"
+      >
+        {{ cancelButtonText }}
+      </button>
+
+      <button
+        (click)="onConfirm()"
+        class="px-4 py-2 bg-primary text-white rounded hover:bg-primary transition"
+      >
+        {{ confirmButtonText }}
+      </button>
+    </div>
+  </div>
+</div>
