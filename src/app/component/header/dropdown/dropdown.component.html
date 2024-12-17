@@ -1,49 +1,48 @@
 <div class="relative flex items-center space-x-4">
+  <!-- Welcome Message -->
+  <span class="text-gray-800">
+    Bienvenue {{ user?.firstName }}!
+  </span>
 
-    <span class="text-gray-800 cursor-pointer" (click)="toggleDropdown()">
-        Bienvenue {{ user?.firstName }}!
-    </span>
+  <!-- Messages Icon -->
+  <span class="text-gray-800">
+    <a routerLink="/messages"
+       class="flex items-center justify-center w-10 h-10 text-gray-800 hover:bg-blue-100 rounded-full transition-colors duration-200">
+      <lucide-icon name="message-square" strokeWidth="1" class="w-5 h-5" aria-label="Messages"></lucide-icon>
+    </a>
+  </span>
 
-  <span class="text-gray-800 cursor-pointer">
-  <a routerLink="/messages"
-     class="flex items-center justify-center w-10 h-10 text-gray-800 hover:bg-gray-100 rounded-full transition-colors duration-200">
-    <lucide-icon name="message-square" [strokeWidth]="1" class="w-5 h-5" aria-label="Messages"></lucide-icon>
-  </a>
-</span>
+  <!-- Dropdown Menu -->
+  <div class="relative">
+    <!-- Toggle Button -->
+    <button type="button" class="text-gray-600 hover:text-blue-600 focus:outline-none" (click)="menu.toggle($event)">
+      ▼
+    </button>
 
-    <div class="relative">
-        <button class="text-gray-600 hover:text-gray-800 focus:outline-none" (click)="toggleDropdown()">
-            ▼
-        </button>
+    <!-- PrimeNG Menu -->
+    <p-menu #menu [model]="items" popup="true" appendTo="body">
 
-        <div *ngIf="menuOpen" class="absolute right-0 bg-white border border-gray-200 shadow-lg mt-2 w-60 z-10">
-            <a routerLink="/employees" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Votre compte
-            </a>
-
-            <a *ngIf="user?.roles?.includes('SUPER_ADMIN')" routerLink="/roles-management"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Gestion utilisateurs
-            </a>
-            <a *ngIf="user?.roles?.includes('ADMIN')" routerLink="/company-vehicles"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Gestion parc véhicules
-            </a>
-
-            <a routerLink="/rideshares/organizer"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Trajets organisés
-            </a>
-            <a routerLink="/rideshares/passenger"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Covoiturages
-            </a>
-            <a routerLink="/bookings-list" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Réservations véhicules
-            </a>
-            <a (click)="logout.emit()" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Déconnexion
-            </a>
-        </div>
-    </div>
+      <!-- Custom Template for Menu Items -->
+      <ng-template let-item pTemplate="item">
+        <ng-container *ngIf="item.routerLink; else commandLink">
+          <a [routerLink]="item.routerLink"
+             class="p-menu-item-link flex items-center px-4 py-2 space-x-2 hover:bg-primary-light hover:text-blue-800 rounded transition">
+            <!-- Lucide Icon -->
+            <lucide-icon [name]="item.icon" strokeWidth="1" class="w-5 h-5 mr-2" [attr.aria-label]="item.label + ' icon'"></lucide-icon>
+            <!-- Menu Label -->
+            <span>{{ item.label }}</span>
+          </a>
+        </ng-container>
+        <!-- Command Link -->
+        <ng-template #commandLink>
+          <a href="#"
+             class="p-menu-item-link flex items-center px-4 py-2 space-x-2 hover:bg-primary-light hover:text-blue-800 rounded transition"
+             (click)="item.command && item.command()">
+            <lucide-icon [name]="item.icon" strokeWidth="1" class="w-5 h-5 mr-2" [attr.aria-label]="item.label + ' icon'"></lucide-icon>
+            <span>{{ item.label }}</span>
+          </a>
+        </ng-template>
+      </ng-template>
+    </p-menu>
+  </div>
 </div>

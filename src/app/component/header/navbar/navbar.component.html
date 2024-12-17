@@ -3,12 +3,15 @@
         <a class="text-lg font-semibold text-gray-800" href="#">MonApp</a>
 
         <div class="hidden md:flex space-x-4 items-center" id="navbarNav">
+          <lucide-icon name="Search" [strokeWidth]="1" class="w-5 h-5" aria-label="Recherche"></lucide-icon>
             <a class="text-gray-600 hover:text-gray-800" routerLink="/rideshares/search"
-                routerLinkActive="text-blue-500">Rechercher</a>
-            <a class="text-gray-600 hover:text-gray-800" routerLink="/rideshares/create"
+          routerLinkActive="text-blue-500">Rechercher</a>
+          <lucide-icon name="Route" [strokeWidth]="1" class="w-5 h-5" aria-label="Trajet"></lucide-icon>
+          <a class="text-gray-600 hover:text-gray-800" routerLink="/rideshares/create"
                 routerLinkActive="text-blue-500">Publier
                 trajet</a>
-            <a class="text-gray-600 hover:text-gray-800" routerLink="/company-vehicles/status-and-booking-dates"
+          <lucide-icon name="CarFront" [strokeWidth]="1" class="w-5 h-5" aria-label="Véhicules de service"></lucide-icon>
+          <a class="text-gray-600 hover:text-gray-800" routerLink="/company-vehicles/status-and-booking-dates"
                 routerLinkActive="text-blue-500">Véhicules de service</a>
 
             <app-dropdown *ngIf="currentUser$ | async as user" [user]="user" (logout)="logout()"></app-dropdown>
