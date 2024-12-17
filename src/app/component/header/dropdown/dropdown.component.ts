@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EmployeeConnected } from '../../../models/employee/employee-connected.model';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import { EmployeeRole } from '../../../models/employee/employee-role.model';
 import { SecureApiService } from '../../../service/api/api-security/secure-api.service';
 import { LucideSharedModule } from "../../../shared/icons/lucide-shared/lucide-shared.module";
@@ -17,7 +17,7 @@ interface CustomMenuItem {
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideSharedModule],
+  imports: [CommonModule, RouterLink, LucideSharedModule, RouterLinkActive],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.css']
 })
