@@ -49,17 +49,17 @@
 
       <p-calendar inputId="departureDateTime" [(ngModel)]="departureDateTime" name="departureDateTime" [showTime]="true"
                   hourFormat="24" placeholder="Horaire de départ"
-                  class="w-full p-2  "></p-calendar>
+                  class="w-full p-2 rideshare-calendar-input "></p-calendar>
     </div>
     </div>
 
     <div class="flex space-x-4 justify-center mt-10 text-sm font-normal">
         <button type="button" (click)="clearSearch()"
-            class="w-fit px-4 py-2 border border-border   rounded-lg   ">
+            class="w-fit py-2 px-4 border border-border rounded-lg   ">
             Effacer la recherche
         </button>
       <button type="button" (click)="searchRideShares()"
-              class="p-4 bg-primary text-white  rounded-lg flex items-center gap-2 hover:bg-primary-light transition-all duration-300">
+              class=" bg-primary py-2 px-4 text-white rounded-lg flex items-center gap-2 hover:bg-primary-light transition-all duration-300">
         <lucide-icon
           name="Search"
           [strokeWidth]="1"
