@@ -48,7 +48,7 @@
     -moz-appearance: textfield;
   }
 
-  input, .p-calendar input {
+ .rideshare-calendar-input {
     background-color: transparent !important;
   }
 
