@@ -47,5 +47,17 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  input, .p-calendar input {
+    background-color: transparent !important;
+  }
+
+  .p-inputtext:focus,
+  .p-inputwrapper-focus {
+    box-shadow: none !important;
+    border-color: transparent !important;
+  }
+
+
 }
 
