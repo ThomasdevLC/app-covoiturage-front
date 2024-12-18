@@ -1,32 +1,31 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 class="text-2xl font-bold mb-6 text-gray-900">Se connecter</h2>
+    <div class="w-full max-w-md p-8 rounded-lg ">
 
         <form [formGroup]="loginForm" (ngSubmit)="login()">
             <!-- Champ pour l'email -->
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Adresse email</label>
                 <input id="username" type="text" formControlName="username"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    class="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary "
                     placeholder="Entrez votre adresse email" />
                 <div *ngIf="isSubmitted &&loginForm.get('username')?.invalid && loginForm.get('username')"
-                    class="text-red-500 text-sm">
+                    class="text-red-500 text-sm pt-2">
                     <div *ngIf="isSubmitted &&loginForm.get('username')?.errors?.['required']">L'adresse email est
                         requise.</div>
                     <div *ngIf="isSubmitted &&loginForm.get('username')?.errors?.['email']">Veuillez entrer une adresse
-                        email valide.
+                        e-mail.
                     </div>
                 </div>
             </div>
 
             <!-- Champ pour le mot de passe -->
             <div class="mb-6">
-                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+                <label for="password" class="block text-sm font-medium ">Mot de passe</label>
                 <input id="password" type="password" formControlName="password"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    class="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary "
                     placeholder="Entrez votre mot de passe" />
                 <div *ngIf="isSubmitted && loginForm.get('password')?.invalid && loginForm.get('password')"
-                    class="text-red-500 text-sm">
+                    class="text-red-500 text-sm pt-2">
                     <div *ngIf="isSubmitted &&loginForm.get('password')?.errors?.['required']">Le mot de passe est
                         requis.</div>
                     <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
@@ -36,12 +35,15 @@
             </div>
 
             <!-- Bouton de connexion -->
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col items-center ">
                 <button type="submit"
-                    class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class="bg-primary text-white px-4 py-2 rounded-md shadow-sm ">
                     Se connecter
                 </button>
-                <a [routerLink]="['signup']" class="text-indigo-600 hover:text-indigo-700">Créer un compte</a>
+          <div class="flex gap-6 justify-center mt-4">
+                <p class="text-primary">Connection</p>
+                <a [routerLink]="['signup']" class=" hover:text-primary-light">Création compte</a>
+          </div>
             </div>
         </form>
     </div>
