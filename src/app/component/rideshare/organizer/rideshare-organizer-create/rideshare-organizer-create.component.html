@@ -8,7 +8,7 @@
         <p-calendar   id="departureTime"
                       formControlName="departureTime" [showTime]="true" hourFormat="24"
           [minDate]="today" placeholder=""
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class=" bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           required>
         </p-calendar>
         <div *ngIf="rideShareForm.get('departureTime')?.invalid && rideShareForm.get('departureTime')"
@@ -87,11 +87,11 @@
 
     <!-- Heure d'arrivée -->
     <div>
-      <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
+      <label for="arrivalTime" class="block  font-medium ">Heure d'arrivée</label>
       <div>
         <p-calendar id="arrivalTime" formControlName="arrivalTime" [showTime]="true" hourFormat="24"
-          [minDate]="today" placeholder="Sélectionnez l'heure d'arrivée"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          [minDate]="today" placeholder=""
+          class="bg-white mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           required></p-calendar>
         <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.invalid && rideShareForm.get('arrivalTime')"
           class="text-red-500 text-sm mt-1">
