@@ -1,27 +1,67 @@
 <nav class="bg-white border-b border-border">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center relative">
-        <a class="text-lg font-semibold text-gray-800" href="#">MonApp</a>
+    <div class="container mx-auto px-4 py-2 flex justify-between items-center relative">
+        <a class="text-lg font-semibold text-gray-800" href="#">
+      <img
+        src="assets/images/logo.png"
+        alt="Avatar"
+        class="w-16"
+      />
+        </a>
 
         <div class="hidden md:flex space-x-8 items-center" id="navbarNav">
-          <div class="flex gap-2 group hover:text-secondary">
-          <lucide-icon name="Search" [strokeWidth]="1" class="w-5 h-5" aria-label="Recherche"></lucide-icon>
-            <a class="text-gray-600 group-hover:text-secondary" routerLink="/rideshares/search"
-          routerLinkActive="text-blue-500">Rechercher</a>
-          </div>
-          <div class="flex gap-2 group hover:text-secondary">
-          <lucide-icon name="Route" [strokeWidth]="1" class="w-5 h-5" aria-label="Trajet"></lucide-icon>
-          <a class="text-gray-600 group-hover:text-secondary" routerLink="/rideshares/create"
-                routerLinkActive="text-blue-500">Publier
-                trajet</a>
-          </div>
-          <div class="flex gap-2 group hover:text-secondary">
-            <lucide-icon name="CarFront" [strokeWidth]="1" class="w-5 h-5 group-hover:text-secondary" aria-label="Véhicules de service"></lucide-icon>
-            <a class="text-gray-600  group-hover:text-secondary" routerLink="/company-vehicles/status-and-booking-dates"
-               routerLinkActive="text-blue-500">Véhicules de service</a>
-          </div>
+
+          <a
+            class="flex gap-2 group hover:text-secondary-light cursor-pointer "
+            routerLink="/rideshares/search"
+            routerLinkActive="text-secondary font-medium"
+          >
+            <lucide-icon
+              name="Search"
+              [strokeWidth]="1"
+              class="w-5 h-5"
+              aria-label="Véhicules de service"
+            ></lucide-icon>
+            <span>Rechercher</span>
+          </a>
 
 
-          <div class="absolute top-12 right-0">
+          <a
+            class="flex gap-2 group hover:text-secondary-light cursor-pointer "
+            routerLink="/rideshares/create"
+            routerLinkActive="text-secondary font-medium"
+          >
+            <lucide-icon
+              name="Route"
+              [strokeWidth]="1"
+              class="w-5 h-5"
+              aria-label="Véhicules de service"
+            ></lucide-icon>
+            <span>Publier trajet</span>
+          </a>
+
+
+          <a
+            class="flex gap-2 group hover:text-secondary-light cursor-pointer "
+            routerLink="/company-vehicles/status-and-booking-dates"
+            routerLinkActive="text-secondary font-medium"
+          >
+            <lucide-icon
+              name="CarFront"
+              [strokeWidth]="1"
+              class="w-5 h-5"
+              aria-label="Véhicules de service"
+            ></lucide-icon>
+            <span>Véhicules de service</span>
+          </a>
+
+          <img
+            *ngIf="avatarUrl"
+            [src]="avatarUrl"
+            alt="Avatar"
+            class="w-12 h-12 rounded-md  "
+          />
+
+          <div class="absolute top-16 right-0">
             <app-dropdown *ngIf="currentUser$ | async as user" [user]="user" (logout)="logout()"></app-dropdown>
           </div>
         </div>
