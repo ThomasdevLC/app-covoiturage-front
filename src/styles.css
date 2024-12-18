@@ -26,6 +26,8 @@
   --border: #D9D9D9;
   --background: #F5F5F5;
   --text: #474545;
+  --error: #EF4444;
+  --neutral: #F9FAFB;
 
   --font-family-base: 'Overpass', Arial, sans-serif;
 }

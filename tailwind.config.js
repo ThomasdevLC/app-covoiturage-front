@@ -13,6 +13,9 @@ module.exports = {
         border: 'var(--border)',
         background: 'var(--background)',
         text: 'var(--text)',
+        error: 'var(--error)',
+        neutral: 'var(--neutral)',
+
       },
       fontFamily: {
         sans: ['var(--font-family-base)', 'sans-serif'], // Pour `font-sans`
