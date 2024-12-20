@@ -61,7 +61,7 @@
             class="w-12 h-12 rounded-md  "
           />
 
-          <div class="absolute top-16 right-0">
+          <div class="absolute top-[4.2rem] right-0">
             <app-dropdown *ngIf="currentUser$ | async as user" [user]="user" (logout)="logout()"></app-dropdown>
           </div>
         </div>
