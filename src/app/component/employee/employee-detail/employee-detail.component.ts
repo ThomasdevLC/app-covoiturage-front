@@ -5,11 +5,13 @@ import { EmployeeProfile } from '../../../models/employee/employee-profile.model
 import { EmployeeProfileService } from '../../../service/employee/profile/employee-profile.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
 import { PrivateVehicleListComponent } from '../../private-vehicle/private-vehicle-list/private-vehicle-list.component';
+import { LucideAngularModule } from 'lucide-angular';
+import { LucideSharedModule } from '../../../shared/icons/lucide-shared/lucide-shared.module';
 
 @Component({
   selector: 'app-employee-detail',
   standalone: true,
-  imports: [CommonModule, PrivateVehicleListComponent],
+  imports: [CommonModule, PrivateVehicleListComponent, LucideAngularModule, LucideSharedModule],
   templateUrl: './employee-detail.component.html',
   styleUrls: ['./employee-detail.component.css'],
 })
