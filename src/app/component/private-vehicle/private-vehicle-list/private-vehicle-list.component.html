@@ -1,5 +1,16 @@
 <div>
-  <h3 class="text-xl font-semibold text-gray-800 mb-2">Véhicules</h3>
+  <div class="text-center">
+    <button (click)="openCreateModal()"
+            class="my-6 mx-auto btn-validate">
+      <lucide-icon
+        name="CirclePlus"
+        [strokeWidth]="1"
+        class="w-5 h-5"
+        aria-label="Circle Plus"
+      ></lucide-icon>
+      Ajouter un véhicule
+    </button>
+  </div>
   <ul class="space-y-4">
     <app-private-vehicle-item
       *ngFor="let vehicle of vehicles"
@@ -45,11 +56,5 @@
     </ng-template>
   </p-dialog>
 
-  <!-- Add Vehicle Button -->
-  <div class="text-center">
-    <button (click)="openCreateModal()"
-            class="mt-6 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 ease-in-out">
-      Ajouter un véhicule
-    </button>
-  </div>
+
 </div>
