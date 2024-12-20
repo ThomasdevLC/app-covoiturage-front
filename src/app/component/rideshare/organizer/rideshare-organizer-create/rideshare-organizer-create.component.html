@@ -4,7 +4,6 @@
   <h1 class="text-secondary font-medium text-[2rem] mx-4 ">Publier votre trajet</h1>
   </div>
   <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="space-y-6 px-4">
-    <!-- Heure de départ -->
     <div>
       <label for="departureTime" class="block text-md font-medium ">Heure de départ</label>
       <div>
@@ -23,7 +22,6 @@
       </div>
     </div>
 
-    <!-- Adresse de départ -->
     <div formGroupName="departureAddress">
       <label class="block text-md font-medium ">Adresse de départ</label>
       <div class="mt-1 flex gap-2">
@@ -88,7 +86,6 @@
       </div>
     </div>
 
-    <!-- Heure d'arrivée -->
     <div>
       <label for="arrivalTime" class="block  font-medium ">Heure d'arrivée</label>
       <div>
@@ -105,7 +102,6 @@
       </div>
     </div>
 
-    <!-- Adresse d'arrivée -->
     <div formGroupName="arrivalAddress">
       <label class="block text-md font-medium ">Adresse d'arrivée</label>
       <div class="mt-1 flex gap-2">
@@ -170,7 +166,6 @@
       </div>
     </div>
 
-    <!-- Nombre de places disponibles -->
     <div>
       <label for="availableSeats" class="block text-md font-medium text-gray-700">Paces disponibles</label>
       <div>
@@ -186,7 +181,6 @@
       </div>
     </div>
 
-    <!-- Véhicule -->
     <div>
       <label for="vehicleId" class="block text-md font-medium text-gray-700">Véhicule</label>
       <div>
@@ -206,7 +200,6 @@
       </div>
     </div>
 
-    <!-- Bouton de soumission -->
     <div class="flex justify-center">
       <button type="submit"
         class="w-fit bg-primary text-neutral py-2 px-4 rounded-md hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
