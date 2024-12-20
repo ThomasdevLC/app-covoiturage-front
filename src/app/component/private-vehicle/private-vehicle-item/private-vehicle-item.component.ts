@@ -3,6 +3,7 @@ import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.
 import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogComponent} from "../../../shared/lib/confirm-dialog/confirm-dialog.component";
 import {NgIf} from "@angular/common";
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-private-vehicle-item',
@@ -11,6 +12,7 @@ import {NgIf} from "@angular/common";
     DialogModule,
     ConfirmDialogComponent,
     NgIf,
+    LucideAngularModule,
   ],
   templateUrl: './private-vehicle-item.component.html',
   styleUrls: ['./private-vehicle-item.component.css']

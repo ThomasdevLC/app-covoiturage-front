@@ -1,18 +1,39 @@
-<li class="p-4 bg-gray-50 border border-gray-200 rounded-lg flex justify-between items-center shadow-sm">
+<li class="p-4 bg-neutral border border-border rounded-md flex justify-between items-center shadow-sm">
     <div>
-        <p class="text-gray-800 font-semibold">
-            {{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.number }})
-        </p>
+        <div class="flex items-center space-x-2">
+           <span class="font-medium text-lg">{{ vehicle.brand }} - </span><span class="font-medium text-lg">{{ vehicle.model }} - </span><span class="text-base">{{ vehicle.number }}</span>
+        </div>
+      <div class="text-secondary-light flex gap-2 items-center pt-2">
+  <span>
+    <lucide-icon name="ContactRound" [strokeWidth]="1"  class="w-6 h-6 " aria-label="ContactRound">
+    </lucide-icon>
+  </span>
+   <p>places</p>
+        <span>{{ vehicle.seats }}</span>
+      </div>
     </div>
-    <div class="flex space-x-3">
-        <button (click)="onEdit()"
-            class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
-            Modifier
-        </button>
-        <button (click)="showConfirmation()"
-            class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
-            Supprimer
-        </button>
+    <div class="flex space-x-5">
+        <lucide-icon
+          name="Pen"
+          [strokeWidth]="1"
+          class="w-6 h-6 cursor-pointer hover:text-text"
+          aria-label="Edit"
+          (click)="onEdit()"
+          tabindex="1"
+          (keydown.enter)="onEdit()"
+        >
+      </lucide-icon>
+        <lucide-icon
+          name="trash-2"
+          [strokeWidth]="1"
+          class="w-6 h-6 cursor-pointer hover:text-text"
+          aria-label="Trash"
+          (click)="showConfirmation()"
+          tabindex="1"
+          (keydown.enter)="onEdit()"
+        >
+        </lucide-icon>
+
     </div>
 </li>
 
