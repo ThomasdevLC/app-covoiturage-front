@@ -9,7 +9,6 @@
     </app-private-vehicle-item>
   </ul>
 
-  <!-- Dialog pour l'Édition -->
   <p-dialog
     [(visible)]="isEditModalOpen"
     modal="true"
@@ -17,6 +16,8 @@
     [resizable]="false"
     [closable]="true"
     (onHide)="closeEditModal(false)"
+    header="Mise à jour du véhicule"
+
   >
     <ng-template pTemplate="content">
       <app-private-vehicle-edit
@@ -27,7 +28,6 @@
     </ng-template>
   </p-dialog>
 
-  <!-- Dialog pour la Création -->
   <p-dialog
     [(visible)]="isCreateModalOpen"
     modal="true"
@@ -35,6 +35,7 @@
     [resizable]="false"
     [closable]="true"
     (onHide)="closeCreateModal(false)"
+    header="Votre véhicule"
   >
     <ng-template pTemplate="content">
       <app-private-vehicle-create
