@@ -1,31 +1,62 @@
-<div class="bg-white p-4 mb-4 rounded-lg shadow-md flex gap-4 items-center">
-
-    <div class="flex flex-col">
-        <p class="text-gray-800 text-base">
-            <span class="font-semibold">{{ rideshare.departureAddress.city }}</span> →
-            <span class="font-semibold">{{ rideshare.arrivalAddress.city }}</span>
-
-
-        </p>
-        <p>
-            <span class="font-semibold">{{ rideshare.departureTime | dateFormatter }}</span> -
-            <span class="font-semibold">{{ rideshare.arrivalTime | dateFormatter }}</span>
-        </p>
-        <p>{{rideshare.formattedTripDuration}}</p>
-
+<button
+  class="bg-white shadow-lg rounded-md p-4 w-full text-left cursor-pointer box-border hover:shadow-xl transition-shadow hover:border border-primary focus:outline-none transition:transition-all duration-300"
+  (click)="onReserve()"
+  aria-label="Voir les détails du covoiturage"
+>
+  <div class="flex justify-end mb-2">
+    <div class="flex items-center gap-2 bg-secondary-muted rounded-xl w-fit h-8 px-2 ">
+      <div class="text-secondary">
+        <lucide-icon
+          name="Timer"
+          [strokeWidth]="1"
+          class="w-5 h-5 "
+          aria-label="timer"
+        ></lucide-icon>
+      </div>
+      <p class="text-secondary font-light pt-1">{{ rideshare.formattedTripDuration }}</p>
     </div>
+  </div>
 
 
-    <!-- Bouton actif si des sièges sont disponibles -->
-    <button *ngIf="rideshare.availableSeats >= 1" (click)="onReserve()"
-        class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white bg-indigo-600 hover:bg-indigo-700">
-        Réserver
-    </button>
+  <div class="flex items-center justify-around">
+    <div class="flex items-center gap-2">
+      <div class="pb-1">
+        <lucide-icon
+          name="MapPin"
+          [strokeWidth]="1"
+          class="w-4 h-4 text-primary"
+          aria-label="map pin"
+        ></lucide-icon>
+      </div>
+      <p class="text-lg ">{{ rideshare.departureAddress.city }}</p>
+      <p class="text-sm font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
+    </div>
+    <div class="h-[1px] w-10 bg-border"></div>
+    <div class="flex items-center gap-2">
+      <div class="pb-1">
+        <lucide-icon
+          name="MapPin"
+          [strokeWidth]="1"
+          class="w-4 h-4 text-primary"
+          aria-label="map pin"
+        ></lucide-icon>
+      </div>
+      <p class="text-lg ">{{ rideshare.arrivalAddress.city }}</p>
+      <p class="text-sm font-light text-primary">{{ rideshare.arrivalTime | dateFormatter }}</p>
+    </div>
+  </div>
 
-    <!-- Bouton désactivé si aucun siège n'est disponible -->
-    <button *ngIf="rideshare.availableSeats < 1"
-        class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out cursor-not-allowed text-gray-400 bg-gray-300">
-        Réserver
-    </button>
+</button>
 
-</div>
+<!--    &lt;!&ndash; Bouton actif si des sièges sont disponibles &ndash;&gt;-->
+<!--    <button *ngIf="rideshare.availableSeats >= 1" (click)="onReserve()"-->
+<!--        class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-white bg-indigo-600 hover:bg-indigo-700">-->
+<!--        Réserver-->
+<!--    </button>-->
+
+<!--    &lt;!&ndash; Bouton désactivé si aucun siège n'est disponible &ndash;&gt;-->
+<!--    <button *ngIf="rideshare.availableSeats < 1"-->
+<!--        class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg transition duration-300 ease-in-out cursor-not-allowed text-gray-400 bg-gray-300">-->
+<!--        Réserver-->
+<!--    </button>-->
+
