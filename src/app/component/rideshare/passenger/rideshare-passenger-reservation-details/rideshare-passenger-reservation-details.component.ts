@@ -5,12 +5,13 @@ import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-f
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import {ConfirmDialogComponent} from "../../../../shared/lib/confirm-dialog/confirm-dialog.component";
+import { LucideAngularModule } from 'lucide-angular';
 
 
 @Component({
   selector: 'app-rideshare-passenger-reservation-details',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe, ConfirmDialogComponent],
+  imports: [CommonModule, DateFormatterPipe, ConfirmDialogComponent, LucideAngularModule],
   templateUrl: './rideshare-passenger-reservation-details.component.html',
   styleUrl: './rideshare-passenger-reservation-details.component.css'
 })
