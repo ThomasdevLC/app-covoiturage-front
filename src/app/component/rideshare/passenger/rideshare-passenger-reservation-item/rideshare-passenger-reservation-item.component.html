@@ -1,35 +1,68 @@
-<div class="bg-white shadow-lg rounded-lg p-6">
-    <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-semibold text-gray-900">{{ rideshare.departureAddress.city }}</h2>
-        <span class="text-gray-500">→</span>
-        <h2 class="text-lg font-semibold text-gray-900">{{ rideshare.arrivalAddress.city }}</h2>
+<button
+  class="bg-white shadow-lg rounded-md p-4 w-full text-left cursor-pointer box-border hover:shadow-xl transition-shadow hover:border border-primary focus:outline-none transition:transition-all duration-300"
+  (click)="onCheckDetails()"
+  aria-label="Voir les détails du covoiturage"
+>
+  <div class="flex justify-between">
+    <div class="flex flex-col gap-5">
+      <div class="flex items-center gap-2">
+        <div class="pb-1">
+          <lucide-icon
+            name="MapPin"
+            [strokeWidth]="1"
+            class="w-4 h-4 text-primary"
+            aria-label="map pin"
+          ></lucide-icon>
+        </div>
+        <p class="text-lg ">{{ rideshare.departureAddress.city }}</p>
+        <p class="text-sm font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="pb-1">
+          <lucide-icon
+            name="MapPin"
+            [strokeWidth]="1"
+            class="w-4 h-4 text-primary"
+            aria-label="map pin"
+          ></lucide-icon>
+        </div>
+        <p class="text-lg ">{{ rideshare.arrivalAddress.city }}</p>
+        <p class="text-sm font-light text-primary">{{ rideshare.arrivalTime | dateFormatter }}</p>
+      </div>
     </div>
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center justify-center gap-2 bg-secondary-muted rounded-xl w-20 ">
+        <div class="text-secondary">
+          <lucide-icon
+            name="Timer"
+            [strokeWidth]="1"
+            class="w-5 h-5 "
+            aria-label="timer"
+          ></lucide-icon>
+        </div>
+        <p class="text-secondary font-light pt-1">01h25</p>
+      </div>
 
-    <div class="text-sm text-gray-700 mb-4">
-        <p>Départ:
-            <span class="font-medium text-gray-900">{{ rideshare.departureTime | dateFormatter }}</span>
-        </p>
-        <p>Arrivée:
-            <span class="font-medium text-gray-900">{{ rideshare.arrivalTime | dateFormatter }}</span>
-        </p>
-        <p>Véhicule:
-            <span class="font-medium text-gray-900">{{ rideshare.vehicle.brand }}</span> - <span
-                class="font-medium text-gray-900">{{ rideshare.vehicle.model }}</span>- <span
-                class="font-medium text-gray-900">{{ rideshare.vehicle.number }}</span>
-        </p>
+      <div class="flex justify-center">
+        <div class="relative inline-block h-12 ">
+          <lucide-icon
+            name="UsersRound"
+            [strokeWidth]="1"
+            class="w-7 h-7 text-secondary-light mt-4 mr-4"
+            aria-label="Users"
+          ></lucide-icon>
+          <p-badge
+            value="0"
+            class="absolute top-0 right-0 text-xs font-extralight text-neutral "
+            severity="warning"
+          ></p-badge>
+        </div>
 
-        <p>Places disponibles:
-            <span class="font-medium text-gray-900">{{ rideshare.availableSeats }}</span>
-        </p>
+      </div>
     </div>
-
-    <div class="flex justify-center gap-2 mt-4">
-
-        <button (click)="onCheckDetails()"
-            class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
-            Détails
-        </button>
-    </div>
+  </div>
+</button>
 
   <p-dialog
     [(visible)]="isDialogVisible"
@@ -37,6 +70,7 @@
     [style]="{ width: '50vw' }"
     [closable]="true"
     (onHide)="isDialogVisible = false"
+    [header]="'Détails du covoiturage'"
   >
     <app-rideshare-passenger-reservation-details
       [id]="rideshare.id"
@@ -45,4 +79,3 @@
     </app-rideshare-passenger-reservation-details>
   </p-dialog>
 
-</div>
