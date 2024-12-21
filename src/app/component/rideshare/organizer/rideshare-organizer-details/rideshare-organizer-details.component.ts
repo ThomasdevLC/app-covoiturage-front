@@ -5,11 +5,12 @@ import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-f
 import { RideShareOrganizerDetails } from '../../../../models/rideshare/organizer/rideshare-organizer-details.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import {ConfirmDialogComponent} from "../../../../shared/lib/confirm-dialog/confirm-dialog.component";
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-rideshare-organizer-details',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe, ConfirmDialogComponent],
+  imports: [CommonModule, DateFormatterPipe, ConfirmDialogComponent, LucideAngularModule],
   templateUrl: './rideshare-organizer-details.component.html',
   styleUrl: './rideshare-organizer-details.component.css'
 })
@@ -22,9 +23,9 @@ export class RideshareOrganizerDetailsComponent {
 
   isConfirmVisible: boolean = false;
   confirmationMessage: string = 'Êtes-vous sûr de vouloir annuler votre trajet ?' +
-    'Si oui,  Les passagers seront notifiés de l\'annulation par email.';
+    '  Si oui,  Les passagers seront notifiés de l\'annulation par email.';
   confirmationConfirmText: string = 'Valider';
-  confirmationCancelText: string = 'Annuler';
+  confirmationCancelText: string = 'Retour';
 
   constructor(
     private rideshareService: RideshareOrganizerService,
