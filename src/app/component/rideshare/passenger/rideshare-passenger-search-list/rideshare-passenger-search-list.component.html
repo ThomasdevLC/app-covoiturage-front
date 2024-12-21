@@ -73,7 +73,7 @@
 </div>
 
 <!-- Liste des covoiturages -->
-<div class="mt-10 max-w-lg mx-auto">
+<div class="mt-10 max-w-lg mx-auto flex flex-col gap-4">
     <app-rideshare-passenger-search-item
       *ngFor="let rideshare of rideshares" [rideshare]="rideshare"
       (reserve)="openReservationDialog($event)">
