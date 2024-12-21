@@ -1,10 +1,10 @@
 <div *ngIf="!isConfirmVisible ">
 
-    <div class="p-6 space-y-5">
+  <div class="p-6 space-y-5">
 
-      <div class="flex items-start gap-14">
+    <div class="flex items-start gap-14">
 
-<div class="flex gap-2">
+      <div class="flex gap-2">
         <div class="flex flex-col items-center justify-center">
           <lucide-icon
             name="MapPin"
@@ -13,12 +13,12 @@
             aria-label="map pin"
           ></lucide-icon>
         </div>
-      <div class="flex flex-col items-start">
-        <p class=" font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
-        <p class="">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}</p>
-        <p> {{ rideshare.departureAddress.code }} - {{rideshare.departureAddress.city }}</p>
+        <div class="flex flex-col items-start">
+          <p class=" font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
+          <p class="">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}</p>
+          <p> {{ rideshare.departureAddress.code }} - {{ rideshare.departureAddress.city }}</p>
+        </div>
       </div>
-</div>
 
       <div class="flex gap-2">
         <div class="flex flex-col items-center justify-center">
@@ -32,13 +32,13 @@
         <div class="flex flex-col items-start">
           <p class=" font-light text-primary">{{ rideshare.arrivalTime | dateFormatter }}</p>
           <p class="">{{ rideshare.arrivalAddress.number }} {{ rideshare.arrivalAddress.street }}</p>
-          <p> {{ rideshare.arrivalAddress.code }} - {{rideshare.arrivalAddress.city }}</p>
+          <p> {{ rideshare.arrivalAddress.code }} - {{ rideshare.arrivalAddress.city }}</p>
         </div>
       </div>
-      </div>
+    </div>
 
-      <div>
-        <div class="flex items-center gap-2 text-secondary-light">
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light">
         <lucide-icon
           name="Car"
           [strokeWidth]="1"
@@ -46,68 +46,68 @@
           aria-label="Car"
         ></lucide-icon>
         <h3 class="text-lg  ">Véhicule</h3>
-        </div>
-        <div class="flex gap-2">
-        <p >{{ rideshare.vehicle.brand }} -</p>
-        <p >{{ rideshare.vehicle.model }} -</p>
-        <p >{{ rideshare.vehicle.number }}</p>
-        </div>
       </div>
-
-        <div>
-          <div class="flex items-center gap-2 text-secondary-light mb-2">
-            <lucide-icon
-              name="UsersRound"
-              [strokeWidth]="1"
-              class="w-5 h-5 "
-              aria-label="UsersRound"
-            ></lucide-icon>
-            <h3 class="text-lg  ">Passagers</h3>
-          </div>
-          <ul class="flex space-x-4">
-            <li *ngFor="let passenger of rideshare.passengers" class="flex items-center gap-1">
-              <img
-                [src]="passenger.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
-                alt="Avatar"
-                class="w-8 h-8 rounded-full"
-              />
-              <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
-            </li>
-          </ul>
-        </div>
-
-
-
-      <div class="flex items-center gap-2  mb-2">
-        <lucide-icon
-          name="ContactRound"
-          [strokeWidth]="1"
-          class="w-5 h-5 text-secondary-light "
-          aria-label="ContactRound"
-        ></lucide-icon>
-        <h3 class="text-lg text-secondary-light ">Places disponibles</h3>
-      <p class="font-medium"> {{ rideshare.availableSeats }}</p>
+      <div class="flex gap-2">
+        <p>{{ rideshare.vehicle.brand }} -</p>
+        <p>{{ rideshare.vehicle.model }} -</p>
+        <p>{{ rideshare.vehicle.number }}</p>
       </div>
-
-        <div class="flex justify-center gap-2" *ngIf="!past">
-            <button (click)="onEdit()"
-                class="bg-secondary-muted text-secondary hover:text-secondary-dark py-2 px-4 rounded transition duration-300 ease-in-out">
-                Modifier le trajet
-            </button>
-            <button (click)="showConfirmation()" class="bg-secondary hover:bg-secondary-dark text-neutral  py-2 px-4 rounded transition duration-300 ease-in-out">
-                Annuler le trajet
-            </button>
-        </div>
     </div>
+
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light mb-2">
+        <lucide-icon
+          name="UsersRound"
+          [strokeWidth]="1"
+          class="w-5 h-5 "
+          aria-label="UsersRound"
+        ></lucide-icon>
+        <h3 class="text-lg  ">Passagers</h3>
+      </div>
+      <ul class="flex space-x-4">
+        <li *ngFor="let passenger of rideshare.passengers" class="flex items-center gap-1">
+          <img
+            [src]="passenger.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
+            alt="Avatar"
+            class="w-8 h-8 rounded-full"
+          />
+          <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="flex items-center gap-2  mb-2">
+      <lucide-icon
+        name="ContactRound"
+        [strokeWidth]="1"
+        class="w-5 h-5 text-secondary-light "
+        aria-label="ContactRound"
+      ></lucide-icon>
+      <h3 class="text-lg text-secondary-light ">Places disponibles</h3>
+      <p class="font-medium"> {{ rideshare.availableSeats }}</p>
+    </div>
+
+    <div class="flex justify-center gap-2" *ngIf="!past">
+      <button (click)="onEdit()"
+              class="bg-secondary-muted text-secondary hover:text-secondary-dark py-2 px-4 rounded transition duration-300 ease-in-out">
+        Modifier le trajet
+      </button>
+      <button (click)="showConfirmation()"
+              class="btn-warning">
+        Annuler le trajet
+      </button>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="isConfirmVisible">
-      <app-confirm-dialog
-        [visible]="isConfirmVisible"
-        [message]="confirmationMessage"
-        [confirmButtonText]="confirmationConfirmText"
-        [cancelButtonText]="confirmationCancelText"
-        (confirm)="onConfirmCancel()"
-        (cancel)="onCancelCancel()">
-      </app-confirm-dialog>
-    </div>
+  <app-confirm-dialog
+    [visible]="isConfirmVisible"
+    [message]="confirmationMessage"
+    [confirmButtonText]="confirmationConfirmText"
+    [cancelButtonText]="confirmationCancelText"
+    (confirm)="onConfirmCancel()"
+    (cancel)="onCancelCancel()">
+  </app-confirm-dialog>
+</div>
