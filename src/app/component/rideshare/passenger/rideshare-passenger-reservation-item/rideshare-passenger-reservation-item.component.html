@@ -1,10 +1,9 @@
-<button
-  class="bg-white shadow-lg rounded-md p-4 w-full text-left cursor-pointer box-border hover:shadow-xl transition-shadow hover:border border-primary focus:outline-none transition:transition-all duration-300"
-  (click)="onCheckDetails()"
+<div
+  class="bg-white shadow-lg rounded-md p-4 w-full text-left hover:shadow-xl transition-shadow  focus:outline-none transition:transition-all duration-300"
   aria-label="Voir les détails du covoiturage"
 >
   <div class="flex justify-between">
-    <div class="flex flex-col gap-5">
+    <div class="flex flex-col ">
       <div class="flex items-center gap-2">
         <div class="pb-1">
           <lucide-icon
@@ -17,7 +16,7 @@
         <p class="text-lg ">{{ rideshare.departureAddress.city }}</p>
         <p class="text-sm font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
       </div>
-
+      <div class="w-[1px] h-8 ml-2 bg-primary-light"></div>
       <div class="flex items-center gap-2">
         <div class="pb-1">
           <lucide-icon
@@ -32,28 +31,27 @@
       </div>
     </div>
     <div class="flex flex-col gap-2">
-      <div class="flex items-center justify-center gap-2 bg-secondary-muted rounded-xl w-20 ">
-        <div class="text-secondary">
+      <div class="flex justify-end">
+        <button (click)="onCheckDetails()" class="btn-details-rounded cursor-pointer">
           <lucide-icon
-            name="Timer"
+            name="Eye"
             [strokeWidth]="1"
-            class="w-5 h-5 "
-            aria-label="timer"
+            class="w-4 h-4"
+            aria-label="Eye"
           ></lucide-icon>
-        </div>
-        <p class="text-secondary font-light pt-1">01h25</p>
+        </button>
       </div>
 
-      <div class="flex justify-center">
+      <div class="flex justify-end">
         <div class="relative inline-block h-12 ">
           <lucide-icon
-            name="UsersRound"
+            name="ContactRound"
             [strokeWidth]="1"
             class="w-7 h-7 text-secondary-light mt-4 mr-4"
-            aria-label="Users"
+            aria-label="ContactRound"
           ></lucide-icon>
           <p-badge
-            value="0"
+            value="{{ rideshare.availableSeats }}"
             class="absolute top-0 right-0 text-xs font-extralight text-neutral "
             severity="warning"
           ></p-badge>
@@ -62,7 +60,7 @@
       </div>
     </div>
   </div>
-</button>
+</div>
 
   <p-dialog
     [(visible)]="isDialogVisible"

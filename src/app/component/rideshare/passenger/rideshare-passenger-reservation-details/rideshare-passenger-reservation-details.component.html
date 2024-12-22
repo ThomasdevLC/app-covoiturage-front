@@ -1,77 +1,86 @@
 <div *ngIf="!isConfirmVisible ">
   <div class="p-6 space-y-5">
-    <div class="flex items-start gap-14">
-
-      <div class="flex gap-2">
-        <div class="flex flex-col items-center justify-center">
-          <lucide-icon
-            name="MapPin"
-            [strokeWidth]="1"
-            class="w-5 h-5 text-primary-light"
-            aria-label="map pin"
-          ></lucide-icon>
-        </div>
-        <div class="flex flex-col items-start">
-          <p class=" font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
-          <p class="">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}</p>
-          <p> {{ rideshare.departureAddress.code }} - {{ rideshare.departureAddress.city }}</p>
-        </div>
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light mb-2">
+        <lucide-icon
+          name="Map"
+          [strokeWidth]="1"
+          class="w-6 h-6 "
+          aria-label="Map"
+        ></lucide-icon>
+        <h3 class="text-lg">Itinéraire</h3>
       </div>
-
-      <div class="flex gap-2">
-        <div class="flex flex-col items-center justify-center">
-          <lucide-icon
-            name="MapPin"
-            [strokeWidth]="1"
-            class="w-5 h-5 text-primary-light"
-            aria-label="map pin"
-          ></lucide-icon>
+      <div class="flex items-start gap-14">
+        <div class="flex gap-2">
+          <div class="flex flex-col items-center justify-center">
+            <lucide-icon
+              name="MapPin"
+              [strokeWidth]="1"
+              class="w-5 h-5 text-primary-light"
+              aria-label="map pin"
+            ></lucide-icon>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class=" font-light ">{{ rideshare.departureTime | dateFormatter }}</p>
+            <p class="">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}</p>
+            <p> {{ rideshare.departureAddress.code }} - {{ rideshare.departureAddress.city }}</p>
+          </div>
         </div>
-        <div class="flex flex-col items-start">
-          <p class=" font-light text-primary">{{ rideshare.arrivalTime | dateFormatter }}</p>
-          <p class="">{{ rideshare.arrivalAddress.number }} {{ rideshare.arrivalAddress.street }}</p>
-          <p> {{ rideshare.arrivalAddress.code }} - {{ rideshare.arrivalAddress.city }}</p>
+
+        <div class="flex gap-2">
+          <div class="flex flex-col items-center justify-center">
+            <lucide-icon
+              name="MapPin"
+              [strokeWidth]="1"
+              class="w-5 h-5 text-primary-light"
+              aria-label="map pin"
+            ></lucide-icon>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class=" font-light ">{{ rideshare.arrivalTime | dateFormatter }}</p>
+            <p class="">{{ rideshare.arrivalAddress.number }} {{ rideshare.arrivalAddress.street }}</p>
+            <p> {{ rideshare.arrivalAddress.code }} - {{ rideshare.arrivalAddress.city }}</p>
+          </div>
         </div>
       </div>
     </div>
 
     <div>
       <div class="flex items-center gap-2 text-secondary-light mb-2">
-
         <lucide-icon
           name="CircleUserRound"
           [strokeWidth]="1"
           class="w-6 h-6 "
-          aria-label="SquareUserRound"
+          aria-label="CircleUserRound"
         ></lucide-icon>
         <h3 class="text-lg">Organisateur</h3>
       </div>
       <div class="flex items-center gap-3">
         <div class="flex gap-1 items-center">
-        <img
-          [src]="rideshare.organizer.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
-          alt="Avatar"
-          class="w-8 h-8 rounded-full"
-        />
-        <p class="font-medium">{{ rideshare.organizer.firstName }} {{ rideshare.organizer.lastName }}</p>
+          <img
+            [src]="rideshare.organizer.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
+            alt="Avatar"
+            class="w-8 h-8 rounded-full"
+          />
+          <p class="font-medium">{{ rideshare.organizer.firstName }} {{ rideshare.organizer.lastName }}</p>
         </div>
         <div class="flex gap-1 items-center">
-        <lucide-icon
-          name="Smartphone"
-          [strokeWidth]="1"
-          class="w-6 h-6 "
-          aria-label="Smartphone"
-        ></lucide-icon>
-        <p>{{ rideshare.organizer.phone }} </p>
+          <lucide-icon
+            name="Smartphone"
+            [strokeWidth]="1"
+            class="w-6 h-6 "
+            aria-label="Smartphone"
+          ></lucide-icon>
+          <p>{{ rideshare.organizer.phone }} </p>
         </div>
         <div class="flex gap-1 items-center">
-        <lucide-icon
-          name="Mail"
-          [strokeWidth]="1"
-          class="w-6 h-6 "
-          aria-label="Mail"
-        ></lucide-icon>
-        <p>{{ rideshare.organizer.email }} </p>
+          <lucide-icon
+            name="Mail"
+            [strokeWidth]="1"
+            class="w-6 h-6 "
+            aria-label="Mail"
+          ></lucide-icon>
+          <p>{{ rideshare.organizer.email }} </p>
         </div>
       </div>
     </div>
