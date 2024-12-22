@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { LucideAngularModule,
   MessageSquare, UserRound,UserRoundCog, Home, Search,CalendarSearch, UserRoundSearch,UserRoundPlus,
   Route,Car,CarFront, IdCard,UsersRound, PowerOff , Mail, ContactRound,Timer, MapPin, Smartphone, CalendarClock, MapPinPlus,
-CirclePlus,Filter,PlusSquare,Clipboard, ClipboardCopy,ClipboardPaste,CircleParking, AlignJustify, X, MailOpen, Pen,Trash2, CircleUserRound } from 'lucide-angular';
+CirclePlus,ListFilter,PlusSquare,ClipboardList, Clipboard, ClipboardCopy,ClipboardPaste,CircleParking, AlignJustify, X, MailOpen, Pen,Trash2, CircleUserRound , RotateCcw, Eye, Map} from 'lucide-angular';
 
 @NgModule({
   imports: [
     LucideAngularModule.pick({
       MessageSquare, UserRound,UserRoundCog, Home,Search,CalendarSearch,UserRoundSearch,UserRoundPlus,
       Route,Car,CarFront, IdCard,UsersRound, PowerOff , Mail, ContactRound,Timer, MapPin, Smartphone, CalendarClock, MapPinPlus,
-    CirclePlus,Filter,PlusSquare,Clipboard,ClipboardCopy,ClipboardPaste,CircleParking, AlignJustify, X, MailOpen, Pen,Trash2, CircleUserRound })
+    CirclePlus,ListFilter,PlusSquare,ClipboardList, Clipboard,ClipboardCopy,ClipboardPaste,CircleParking, AlignJustify, X, MailOpen, Pen,Trash2, CircleUserRound , RotateCcw, Eye, Map})
   ],
   exports: [
     LucideAngularModule
