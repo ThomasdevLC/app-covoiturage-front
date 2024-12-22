@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<div *ngIf="vehicles.length > 0" class="space-y-4">
+<div *ngIf="vehicles.length > 0" class="flex flex-col space-y-4">
   <app-company-vehicle-admin-item
     *ngFor="let vehicle of vehicles" [vehicle]="vehicle"
     (onUpdateComplete)="getAllVehicles()"
@@ -49,7 +49,7 @@
   </app-company-vehicle-admin-item>
 </div>
 
-<div *ngIf="vehicles.length === 0" class="border text-center mt-10">
+<p *ngIf="vehicles.length === 0" class="border text-center mt-10">
   Aucun véhicule disponible.
-</div>
+</p>
 

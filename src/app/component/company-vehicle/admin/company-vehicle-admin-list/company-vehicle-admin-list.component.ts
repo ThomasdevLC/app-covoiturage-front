@@ -76,17 +76,16 @@ export class CompanyVehicleAdminListComponent implements OnInit {
 
 
   onDeleteVehicle(vehicleId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)) {
-      this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({
-        next: () => {
-          this.vehicles = this.vehicles.filter(
-            (vehicle) => vehicle.id !== vehicleId
-          );
-        },
-        error: (error) => {
-          this.errorHandlerService.handleError(error);
-        },
-      });
-    }
+    this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({
+      next: () => {
+        this.vehicles = this.vehicles.filter(
+          (vehicle) => vehicle.id !== vehicleId
+        );
+      },
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
+      },
+    });
   }
+
 }
