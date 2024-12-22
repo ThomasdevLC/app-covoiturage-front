@@ -3,31 +3,33 @@
     <div class="h-[1px] w-16 bg-primary-light"></div>
     <h1 class="text-primary font-medium text-[2rem] mx-4 ">Trajets organisés</h1>
   </div>
-<div class="flex justify-start space-x-4 border-b border-border mt-6 text-lg">
+  <div class="flex justify-start space-x-4 border-b border-border mt-6 text-lg">
     <div (click)="togglePastRideshares(false)"
-        [class]="past ? ' border-transparent' : 'text-primary border-primary'"
-        class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
-       En cours
+         [class]="past ? ' border-transparent' : 'text-primary border-primary'"
+         class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+      En cours
     </div>
     <div (click)="togglePastRideshares(true)"
-        [class]="past ? 'text-primary border-primary' : ' border-transparent'"
-        class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
-        Historique
+         [class]="past ? 'text-primary border-primary' : ' border-transparent'"
+         class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+      Historique
     </div>
-</div>
+  </div>
 
-<div *ngIf="(rideshares$ | async) as rideshares">
-    <div class="flex flex-col mx-auto gap-6 mt-10 w-3/4">
-        <div *ngFor="let rideshare of rideshares">
-            <app-rideshare-organizer-item [rideshare]="rideshare"></app-rideshare-organizer-item>
-        </div>
+  <div *ngIf="(rideshares$ | async) as rideshares">
+    <div class="flex flex-col mx-auto mt-6  space-y-4 w-3/4">
+      <div *ngFor="let rideshare of rideshares">
+        <app-rideshare-organizer-item [rideshare]="rideshare"></app-rideshare-organizer-item>
+      </div>
     </div>
 
-    <p *ngIf="rideshares.length === 0 && !past" class="text-center mt-6">
-        Vous n'avez pas encore proposé de trajets.
+    <div class="text-center mt-6 ">
+    <p *ngIf="rideshares.length === 0 && !past" >
+      Vous n'avez pas de trajets en cours.
     </p>
-    <p *ngIf="rideshares.length === 0 && past" class="text-center mt-6">
-        Vous n'avez pas encore de trajets passés.
+    <p *ngIf="rideshares.length === 0 && past" >
+      Vous n'avez pas encore de trajets passés.
     </p>
+  </div>
 </div>
 </div>
