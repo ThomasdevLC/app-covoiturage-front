@@ -1,50 +1,44 @@
-<div class="booking-list p-6 max-w-4xl mx-auto">
-    <!-- Conteneur des onglets -->
-    <div class="flex justify-center space-x-4 border-b border-gray-300 mb-8">
-        <!-- Onglet "Réservations en cours" -->
-        <div (click)="toggleToCurrentBookings()"
-            [class]="past ? 'text-gray-500 border-transparent' : 'text-indigo-600 border-indigo-600'"
-            class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
-            Réservations en cours
-        </div>
-        <!-- Onglet "Historique des réservations" -->
-        <div (click)="toggleToPastBookings()"
-            [class]="past ? 'text-indigo-600 border-indigo-600' : 'text-gray-500 border-transparent'"
-            class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
-            Historique des réservations
-        </div>
+<div class="max-w-lg mx-auto pt-16">
+  <div class="flex items-center ">
+    <div class="h-[1px] w-16 bg-primary-light"></div>
+    <h1 class="text-primary font-medium text-[2rem] mx-4 ">Réservations véhicules</h1>
+  </div>
+
+  <div class="flex justify-start space-x-4 border-b border-border mt-6 text-lg">
+    <div (click)="toggleToCurrentBookings()"
+         [class]="past ? ' border-transparent' : 'text-primary border-primary'"
+         class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+      En cours
     </div>
 
-    <!-- Contenu principal -->
-    <div *ngIf="bookings$ | async as bookings">
-        <!-- Si des réservations sont disponibles -->
-        <ul *ngIf="bookings.length > 0" class="space-y-4">
-            <li *ngFor="let booking of bookings" class="bg-white shadow rounded-lg p-6">
-                <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <app-booking-employee-item
-                      [booking]="booking"
-                      [isPast]="past"
-                      (bookingDeleted)="loadBookings()"
-                      (modifyBooking)="openUpdateDialog($event)">
-                    ></app-booking-employee-item>
-                </div>
-            </li>
-        </ul>
+    <div (click)="toggleToPastBookings()"
+         [class]="past ? 'text-primary border-primary' : ' border-transparent'"
+         class="cursor-pointer px-4 py-2 border-b-2 font-medium transition duration-300">
+      Historique
+    </div>
+  </div>
 
-        <!-- Si aucune réservation n'est disponible -->
-        <div *ngIf="bookings.length === 0" class="text-center text-gray-500 mt-6">
-            <p *ngIf="!past">Vous n'avez pas encore réservé de véhicule de service.</p>
-            <p *ngIf="past">Vous n'avez pas d'historique de réservations.</p>
-        </div>
+  <div *ngIf="bookings$ | async as bookings">
+
+    <div *ngIf="bookings.length > 0" class="flex flex-col mx-auto mt-6 space-y-4">
+      <app-booking-employee-item
+        *ngFor="let booking of bookings"
+        [booking]="booking"
+        [isPast]="past"
+        (bookingDeleted)="loadBookings()"
+        (modifyBooking)="openUpdateDialog($event)">
+        >
+      </app-booking-employee-item>
     </div>
 
-    <!-- Si l'observable `bookings$` n'a pas encore de données -->
-    <p *ngIf="!(bookings$ | async)" class="text-center text-gray-500 mt-6">
-        Chargement des réservations...
-    </p>
+    <div *ngIf="bookings.length === 0" class="text-center mt-6">
+      <p *ngIf="!past">Vous n'avez pas de réservation de véhicule en cours.</p>
+      <p *ngIf="past">Vous n'avez pas de réservation de véhicule passées.</p>
+    </div>
+  </div>
+
 </div>
 
-<!-- Dialogue de mise à jour -->
 <p-dialog header="Modifier la Réservation"
           [(visible)]="displayUpdateDialog"
           [modal]="true"
@@ -53,10 +47,10 @@
           (onHide)="closeUpdateDialog()"
 >
   <ng-template pTemplate="content">
-  <app-booking-employee-update
-    [booking]="selectedBooking"
-    (updateComplete)="onBookingUpdated()"
-    (cancelUpdate)="closeUpdateDialog()">
-  </app-booking-employee-update>
+    <app-booking-employee-update
+      [booking]="selectedBooking"
+      (updateComplete)="onBookingUpdated()"
+      (cancelUpdate)="closeUpdateDialog()">
+    </app-booking-employee-update>
   </ng-template>
 </p-dialog>
