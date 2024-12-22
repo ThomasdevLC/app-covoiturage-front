@@ -22,6 +22,7 @@
   --primary-dark: #2E2AB3;
   --primary: #453EEB;
   --primary-light: #6F66F2;
+  --primary-muted: hsl(243, 84%, 85%);
   --secondary-dark:  hsl(14, 96%, 45%);
   --secondary: #FB6D3A;
   --secondary-light: #FC8D63;
@@ -86,8 +87,25 @@
     @apply w-fit py-3 px-4 text-sm font-normal border border-border rounded-lg hover:border-text  transition-all duration-300;
   }
 
+  .btn-edit {
+    @apply bg-secondary-muted text-secondary hover:text-secondary-dark py-2 px-4 rounded transition duration-300 ease-in-out;
+  }
+
   .btn-warning {
     @apply bg-secondary hover:bg-secondary-dark text-neutral  py-2 px-4 rounded transition duration-300 ease-in-out;
+  }
+
+  .btn-edit-rounded {
+    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-secondary-muted text-secondary hover:text-secondary-dark  transition duration-300 ease-in-out;
+  }
+
+  .btn-warning-rounded {
+    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-secondary hover:bg-secondary-dark text-neutral transition duration-300 ease-in-out;
+  }
+
+  .btn-details-rounded{
+    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-primary-muted text-primary hover:text-primary-dark  transition duration-300 ease-in-out;
+
   }
 
 }

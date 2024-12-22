@@ -9,6 +9,7 @@ module.exports = {
         'primary-dark': 'var(--primary-dark)',
         primary: 'var(--primary)',
         'primary-light': 'var(--primary-light)',
+        'primary-muted': 'var(--primary-muted)',
         'secondary-dark': 'var(--secondary-dark)',
         secondary: 'var(--secondary)',
         'secondary-light': 'var(--secondary-light)',
