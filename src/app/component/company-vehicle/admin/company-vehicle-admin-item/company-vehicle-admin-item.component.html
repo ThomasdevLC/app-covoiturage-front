@@ -1,39 +1,55 @@
-<!-- company-vehicle-admin-item.component.html -->
-<div class="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
-  <!-- Vehicle Image -->
-  <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
-       class="w-40 h-28 object-cover rounded-lg shadow-sm" />
+<div class="bg-white shadow-md rounded-lg p-3 flex justify-between  space-x-4">
+  <div class="flex space-x-4">
 
-  <!-- Vehicle Details -->
-  <div class="flex-grow">
-    <h3 class="text-xl font-semibold text-gray-800">{{ vehicle.brand }} {{ vehicle.model }}</h3>
-    <div class="mt-2">
-      <p class="text-sm text-gray-600"><strong>Numéro :</strong> {{ vehicle.number }}</p>
-      <p class="text-sm text-gray-600"><strong>Catégorie :</strong> {{ vehicle.category }}</p>
-      <p class="text-sm text-gray-600"><strong>Moteur :</strong> {{ vehicle.motor }}</p>
-      <div class="flex items-center text-sm text-gray-600">
-        <p class="mr-1"><strong>CO₂/km :</strong> {{ vehicle.co2PerKm }}</p>
-        <span>CO₂/km</span>
+    <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
+         class="w-32 h-20 object-cover rounded-lg shadow-sm" />
+
+    <div class="flex flex-col space-y-1">
+      <div class="flex items-center space-x-2"><p class="text-lg font-semibold">{{ vehicle.brand }}
+        - {{ vehicle.model }}</p>
+        <p class="text-sm ">{{ vehicle.number }}</p>
       </div>
-      <div class="flex items-center text-sm text-gray-600">
-        <span class="font-semibold mr-1">Places :</span>
-        <p>{{ vehicle.seats }}</p>
+      <div class="text-xs flex items-center space-x-2">
+        <p> {{ vehicle.category | translateVehicleCategory }} - </p>
+        <p>{{ vehicle.motor | translateMotor }} - </p>
+        <div class="flex items-center ">
+          <p class="mr-1">{{ vehicle.co2PerKm }}</p>
+          <span>CO₂/km</span>
+        </div>
       </div>
-      <p class="text-sm text-gray-600"><strong>Statut :</strong> {{ vehicle.status }}</p>
+      <div class="flex space-x-2">
+        <div class="flex items-center text-sm ">
+          <span class="mr-1">Places :</span>
+          <p>{{ vehicle.seats }}</p>
+        </div>
+        <div class="flex items-center text-sm ">
+          <span class="mr-1">Statut :</span>
+          <p>{{ vehicle.status | translateVehicleStatus }}</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Action Buttons -->
-  <div class="flex flex-col space-y-3">
-    <button (click)="modifyVehicle()"
-            class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg focus:outline-none">
-      Modifier
+  <div class="flex flex-col  space-y-3" >
+    <button (click)="modifyVehicle()" class="btn-edit-rounded">
+      <lucide-icon
+        name="Pen"
+        [strokeWidth]="1"
+        class="w-4 h-4"
+        aria-label="Pen"
+      ></lucide-icon>
     </button>
-    <button (click)="deleteVehicle()"
-            class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none">
-      Supprimer
+
+    <button (click)="showConfirmation()" class="btn-warning-rounded">
+      <lucide-icon
+        name="Trash2"
+        [strokeWidth]="1"
+        class="w-4 h-4"
+        aria-label="Trash2"
+      ></lucide-icon>
     </button>
   </div>
+
 </div>
 
 <p-dialog
@@ -42,10 +58,11 @@
   [style]="{ width: '50vw' }"
   [resizable]="false"
   [closable]="true"
+  [header]="'Modifier véhicule de service'"
 
 >
   <ng-template pTemplate="content">
-    <ng-container >
+    <ng-container>
       <app-company-vehicle-update
         [vehicle]="vehicle"
         (updateComplete)="handleUpdateComplete($event)"
@@ -53,3 +70,17 @@
     </ng-container>
   </ng-template>
 </p-dialog>
+
+<div class="fixed inset-0 z-40 bg-gray-600 bg-opacity-30 bg-blur " *ngIf="isConfirmVisible"></div>
+<div
+  class="  fixed inset-0 flex items-center justify-center z-50 shadow-md "
+  *ngIf="isConfirmVisible">
+  <app-confirm-dialog
+    [visible]="isConfirmVisible"
+    [message]="confirmationMessage"
+    [confirmButtonText]="confirmationConfirmText"
+    [cancelButtonText]="confirmationCancelText"
+    (confirm)="onConfirmCancel()"
+    (cancel)="onCancelCancel()">
+  </app-confirm-dialog>
+</div>
