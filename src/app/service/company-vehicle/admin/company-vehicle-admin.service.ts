@@ -44,7 +44,7 @@ export class CompanyVehicleAdminService {
           return this.http.post<CompanyVehicle>(
             `${this.apiURL}company-vehicles/admin`,
             vehicleToPost);
-        }   
+        }
       ));
   }
 
@@ -52,41 +52,25 @@ export class CompanyVehicleAdminService {
     return this.http.get<CompanyVehicle>(
       `${this.apiURL}company-vehicles/admin/${id}`);
   }
-  
+
 
   updateVehicle(
     id: number,
     vehicle: CompanyVehicle
   ): Observable<CompanyVehicle> {
-    if (confirm('Êtes-vous sûr de vouloir modifier ce véhicule ?')) {
-      return this.http.put<CompanyVehicle>(
-        `${this.apiURL}company-vehicles/admin/${id}`,
-        vehicle
-      ).pipe(
-        catchError(() => {
-          return throwError(() => new Error('Erreur lors de la mise à jour du véhicule'));
-        })
-      );
-    } else {
-      return throwError(() => new Error('Modification annulée'));
-    }
+    return this.http.put<CompanyVehicle>(
+      `${this.apiURL}company-vehicles/admin/${id}`,
+      vehicle
+    );
   }
-  
-  
+
   deleteCompanyVehicle(number: number): Observable<void> {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
-      return this.http.delete<void>(
-        `${this.apiURL}company-vehicles/admin/${number}`   
-      ).pipe(
-        catchError(() => {
-          return throwError(() => new Error('Erreur lors de la suppression du véhicule'));
-        })
-      );
-    } else {
-      return throwError(() => new Error('Suppression annulée'));
-    }
+    return this.http.delete<void>(
+      `${this.apiURL}company-vehicles/admin/${number}`
+
+    );
   }
-  
+
 
 
   changeVehicleStatus(
@@ -94,14 +78,14 @@ export class CompanyVehicleAdminService {
     newStatus: string
   ): Observable<CompanyVehicle> {
     return this.secureApiService.getCurrentUser().pipe(
-      switchMap((currentUser) => {     
-          const employeeId = currentUser.id; 
+      switchMap((currentUser) => {
+          const employeeId = currentUser.id;
           const params = new HttpParams()
             .set('newStatus', newStatus)
             .set('employeeId', employeeId.toString());
-  
+
           return this.http.put<CompanyVehicle>(
-            `${this.apiURL}company-vehicles/admin/${vehicleId}/status`,{}, 
+            `${this.apiURL}company-vehicles/admin/${vehicleId}/status`,{},
             {params}
           );
       })
