@@ -2,8 +2,8 @@
   <div class="flex justify-center space-x-8 mb-6">
 
     <button (click)="onTypeChange('past')"
-            [class]="bookingType === 'past' ? 'bg-primary-light text-neutral shadow-lg' : ' bg-none'"
-            class=" p-2 rounded-full transition">
+            [class]="bookingType === 'past' ? 'bg-primary-light text-neutral shadow-lg  hover:text-white ' : ' bg-none'"
+            class=" p-2 rounded-full hover:text-primary-light transition">
       <lucide-icon
         name="ClipboardCopy"
         [strokeWidth]="1"
@@ -13,8 +13,8 @@
     </button>
 
     <button (click)="onTypeChange('now')"
-            [class]="bookingType === 'now' ? 'bg-primary-light text-neutral shadow-lg' : ' bg-none'"
-            class=" p-2 rounded-full transition">
+            [class]="bookingType === 'now' ? 'bg-primary-light text-neutral shadow-lg hover:text-white' : ' bg-none'"
+            class=" p-2 rounded-full hover:text-primary-light transition">
       <lucide-icon
         name="Clipboard"
         [strokeWidth]="1"
@@ -24,8 +24,8 @@
     </button>
 
     <button (click)="onTypeChange('future')"
-            [class]="bookingType === 'future' ? 'bg-primary-light text-neutral shadow-lg' : ' bg-none'"
-            class=" p-2 rounded-full transition">
+            [class]="bookingType === 'future' ? 'bg-primary-light text-neutral shadow-lg hover:text-white' : ' bg-none'"
+            class=" p-2 rounded-full hover:text-primary-light transition">
       <lucide-icon
         name="ClipboardPaste"
         [strokeWidth]="1"
@@ -33,10 +33,12 @@
         aria-label="ClipboardPaste"
       ></lucide-icon>
     </button>
-
   </div>
 
-  <app-booking-admin-item *ngFor="let booking of bookings" [booking]="booking"></app-booking-admin-item>
+  <div *ngIf="bookings.length > 0" class="flex flex-col space-y-4">
+  <app-booking-admin-item *ngFor="let booking of bookings" [booking]="booking">
+  </app-booking-admin-item>
+  </div>
 
 
   <div *ngIf="!bookings.length && !errorMessage" class="flex justify-center">
