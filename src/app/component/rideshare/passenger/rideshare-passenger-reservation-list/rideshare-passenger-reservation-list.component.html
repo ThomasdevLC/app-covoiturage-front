@@ -17,19 +17,20 @@
   </div>
 
   <div *ngIf="(rideshares$ | async) as rideshares">
-    <div class="flex flex-col mx-auto gap-6 mt-10 w-3/4">
+    <div class="flex flex-col mx-auto mt-6  space-y-4 w-3/4">
       <div *ngFor="let rideshare of rideshares">
-            <app-rideshare-passenger-reservation-item
-                [rideshare]="rideshare">
-            </app-rideshare-passenger-reservation-item>
-        </div>
+        <app-rideshare-passenger-reservation-item
+          [rideshare]="rideshare">
+        </app-rideshare-passenger-reservation-item>
+      </div>
     </div>
-
-    <!-- Messages en cas de liste vide -->
-    <p *ngIf="rideshares.length === 0 && !past" class="text-center text-gray-500 mt-6">
-        Vous n'avez pas encore réservé de covoiturage.
-    </p>
-    <p *ngIf="rideshares.length === 0 && past" class="text-center text-gray-500 mt-6">
+    <div class="text-center mt-6 ">
+      <p *ngIf="rideshares.length === 0 && !past">
+        Vous n'avez de covoiturage en cours.
+      </p>
+      <p *ngIf="rideshares.length === 0 && past">
         Vous n'avez pas encore de covoiturages passés.
-    </p>
+      </p>
+    </div>
+  </div>
 </div>
