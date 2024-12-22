@@ -4,6 +4,7 @@ import {DialogModule} from "primeng/dialog";
 import {ConfirmDialogComponent} from "../../../shared/lib/confirm-dialog/confirm-dialog.component";
 import {NgIf} from "@angular/common";
 import { LucideAngularModule } from 'lucide-angular';
+import { DateFormatterPipe } from '../../../shared/pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-private-vehicle-item',
@@ -13,6 +14,7 @@ import { LucideAngularModule } from 'lucide-angular';
     ConfirmDialogComponent,
     NgIf,
     LucideAngularModule,
+    DateFormatterPipe,
   ],
   templateUrl: './private-vehicle-item.component.html',
   styleUrls: ['./private-vehicle-item.component.css']
@@ -32,6 +34,8 @@ export class PrivateVehicleItemComponent {
   }
   onConfirmCancel(): void {
     this.onDelete();
+    this.isConfirmVisible = false;
+
   }
   onCancelCancel(): void {
     this.isConfirmVisible = false;

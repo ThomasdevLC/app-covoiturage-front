@@ -1,39 +1,33 @@
-<li class="p-4 bg-neutral border border-border rounded-md flex justify-between items-center shadow-sm">
-    <div>
-        <div class="flex items-center space-x-2">
-           <span class="font-medium text-lg">{{ vehicle.brand }} - </span><span class="font-medium text-lg">{{ vehicle.model }} - </span><span class="text-base">{{ vehicle.number }}</span>
+<li class="bg-white shadow-md rounded-lg p-3 flex justify-between space-x-4 mt-6 border border-border w-4/5 mx-auto ">
+    <div class="flex flex-col justify-start space-y-1">
+      <div class="flex items-center space-x-2"><p class="text-lg font-semibold">{{ vehicle.brand }}
+        - {{ vehicle.model }}</p>
+        <p class="text-sm">{{ vehicle.number }}</p></div>
+      <div class="flex items-center space-x-2">
+        <div class=" flex gap-2 items-center pt-2">
+          <p class="text-secondary-light">places</p>
+          <span>{{ vehicle.seats }}</span>
         </div>
-      <div class="text-secondary-light flex gap-2 items-center pt-2">
-  <span>
-    <lucide-icon name="ContactRound" [strokeWidth]="1"  class="w-6 h-6 " aria-label="ContactRound">
-    </lucide-icon>
-  </span>
-   <p>places</p>
-        <span>{{ vehicle.seats }}</span>
       </div>
     </div>
-    <div class="flex space-x-5">
+    <div class="flex flex-col space-y-3" >
+      <button (click)="onEdit()" class="btn-edit-rounded">
         <lucide-icon
           name="Pen"
           [strokeWidth]="1"
-          class="w-6 h-6 cursor-pointer hover:text-text"
-          aria-label="Edit"
-          (click)="onEdit()"
-          tabindex="1"
-          (keydown.enter)="onEdit()"
-        >
-      </lucide-icon>
-        <lucide-icon
-          name="trash-2"
-          [strokeWidth]="1"
-          class="w-6 h-6 cursor-pointer hover:text-text"
-          aria-label="Trash"
-          (click)="showConfirmation()"
-          tabindex="1"
-          (keydown.enter)="onEdit()"
-        >
-        </lucide-icon>
+          class="w-4 h-4"
+          aria-label="Pen"
+        ></lucide-icon>
+      </button>
 
+      <button (click)="showConfirmation()" class="btn-warning-rounded">
+        <lucide-icon
+          name="Trash2"
+          [strokeWidth]="1"
+          class="w-4 h-4"
+          aria-label="Trash2"
+        ></lucide-icon>
+      </button>
     </div>
 </li>
 
