@@ -29,7 +29,6 @@ export class PrivateVehicleItemComponent {
 
   showConfirmation(): void {
     this.isConfirmVisible = true;
-
   }
   onConfirmCancel(): void {
     this.onDelete();
