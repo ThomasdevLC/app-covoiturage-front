@@ -1,4 +1,13 @@
 <div>
+
+  <ul class="space-y-4">
+    <app-private-vehicle-item
+      *ngFor="let vehicle of vehicles"
+      [vehicle]="vehicle"
+      (edit)="editVehicle($event)"
+      (delete)="deleteVehicle($event)">
+    </app-private-vehicle-item>
+  </ul>
   <div class="text-center">
     <button (click)="openCreateModal()"
             class="my-6 mx-auto btn-validate">
@@ -11,15 +20,6 @@
       Ajouter un véhicule
     </button>
   </div>
-  <ul class="space-y-4">
-    <app-private-vehicle-item
-      *ngFor="let vehicle of vehicles"
-      [vehicle]="vehicle"
-      (edit)="editVehicle($event)"
-      (delete)="deleteVehicle($event)">
-    </app-private-vehicle-item>
-  </ul>
-
   <p-dialog
     [(visible)]="isEditModalOpen"
     modal="true"
