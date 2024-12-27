@@ -33,6 +33,13 @@ export class RideshareOrganizerDetailsComponent {
   ) {}
 
 
+  ngOnInit(): void {
+    this.rideshareService.past$.subscribe((value) => {
+      this.past = value;
+    });
+  }
+
+
   onEdit() {
     this.edit.emit();
   }
