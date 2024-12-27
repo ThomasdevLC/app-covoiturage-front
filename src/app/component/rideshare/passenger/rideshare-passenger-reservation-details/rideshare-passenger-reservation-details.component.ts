@@ -35,7 +35,7 @@ export class RidesharePassengerReservationDetailsComponent {
     this.rideshareService.past$.subscribe((value) => {
       this.past = value;
     });
-    this.loadRideShare(this.id); // Use the injected ID
+    this.loadRideShare(this.id);
   }
 
   loadRideShare(id: number): void {
