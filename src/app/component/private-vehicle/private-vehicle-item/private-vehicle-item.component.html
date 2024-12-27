@@ -1,22 +1,37 @@
-<li class="p-4 bg-gray-50 border border-gray-200 rounded-lg flex justify-between items-center shadow-sm">
-    <div>
-        <p class="text-gray-800 font-semibold">
-            {{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.number }})
-        </p>
+<li class="bg-white shadow-md rounded-lg p-3 flex justify-between space-x-4 mt-6 border border-border w-4/5 mx-auto ">
+    <div class="flex flex-col justify-start space-y-1">
+      <div class="flex items-center space-x-2"><p class="text-lg font-semibold">{{ vehicle.brand }}
+        - {{ vehicle.model }}</p>
+        <p class="text-sm">{{ vehicle.number }}</p></div>
+      <div class="flex items-center space-x-2">
+        <div class=" flex gap-2 items-center pt-2">
+          <p class="text-secondary-light">places</p>
+          <span>{{ vehicle.seats }}</span>
+        </div>
+      </div>
     </div>
-    <div class="flex space-x-3">
-        <button (click)="onEdit()"
-            class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
-            Modifier
-        </button>
-        <button (click)="showConfirmation()"
-            class="bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 transition duration-150 ease-in-out">
-            Supprimer
-        </button>
+    <div class="flex flex-col space-y-3" >
+      <button (click)="onEdit()" class="btn-edit-rounded">
+        <lucide-icon
+          name="Pen"
+          [strokeWidth]="1"
+          class="w-4 h-4"
+          aria-label="Pen"
+        ></lucide-icon>
+      </button>
+
+      <button (click)="showConfirmation()" class="btn-warning-rounded">
+        <lucide-icon
+          name="Trash2"
+          [strokeWidth]="1"
+          class="w-4 h-4"
+          aria-label="Trash2"
+        ></lucide-icon>
+      </button>
     </div>
 </li>
 
-<div class="fixed inset-0 z-40 bg-gray-500 bg-opacity-30 bg-blur " *ngIf="isConfirmVisible"></div>
+<div class="fixed inset-0 z-40 bg-gray-600 bg-opacity-30 bg-blur " *ngIf="isConfirmVisible"></div>
 <div
   class="  fixed inset-0 flex items-center justify-center z-50 shadow-md "
   *ngIf="isConfirmVisible">

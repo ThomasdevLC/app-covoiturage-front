@@ -8,14 +8,14 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EmployeeSignup } from '../../../models/auth/employee-signup.model';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { CapitalizeDirective } from '../../../shared/directives/capitalize/capitalize.directive';
 import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CapitalizeDirective],
+  imports: [CommonModule, ReactiveFormsModule, CapitalizeDirective, RouterLink],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 

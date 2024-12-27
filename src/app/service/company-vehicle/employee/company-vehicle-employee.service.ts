@@ -50,7 +50,7 @@ getVehicleBookings(idEmployee:number, past: boolean): Observable <VehicleBooking
     params = params.set('employeeId', idEmployee);
   }
   if(past){
-    params = params.set('past', past);//si ==true -> historique, sinon en cours
+    params = params.set('past', past);
   }
   return this.http.get<VehicleBooking[]>(
     `${this.apiURL}company-vehicles/bookings-search`,

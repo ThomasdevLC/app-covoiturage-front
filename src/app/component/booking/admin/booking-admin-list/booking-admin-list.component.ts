@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -8,8 +8,8 @@ import {
 import { BookingAdminServiceService } from '../../../../service/booking/admin/booking-admin.service';
 import { VehicleBookingList } from '../../../../models/vehicle-booking/vehicle-booking-list.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
-import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { BookingAdminItemComponent } from '../booking-admin-item/booking-admin-item.component';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-booking-admin-list',
@@ -18,9 +18,7 @@ import { BookingAdminItemComponent } from '../booking-admin-item/booking-admin-i
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
-    DateFormatterPipe,
-    BookingAdminItemComponent
+    BookingAdminItemComponent, LucideAngularModule,
   ],
   templateUrl: './booking-admin-list.component.html',
   styleUrl: './booking-admin-list.component.css'
@@ -28,11 +26,11 @@ import { BookingAdminItemComponent } from '../booking-admin-item/booking-admin-i
 
 export class BookingAdminListComponent implements OnInit {
   bookings: VehicleBookingList[] = [];
-  bookingType: 'past' | 'now' | 'future' = 'future'; // Type de réservation par défaut
+  bookingType: 'past' | 'now' | 'future' = 'past';
   errorMessage: string | null = null;
 
   constructor(
-    private bookingAdminService: BookingAdminServiceService,    // Injection du service
+    private bookingAdminService: BookingAdminServiceService,
     private errorHandlerService: ErrorHandlerService,
   ) {}
 
@@ -51,9 +49,9 @@ export class BookingAdminListComponent implements OnInit {
     });
   }
 
-
   onTypeChange(type: 'past' | 'now' | 'future'): void {
     this.bookingType = type; // Met à jour le type de réservation
     this.loadBookings(type); // Recharge les réservations en fonction du type sélectionné
   }
+
 }

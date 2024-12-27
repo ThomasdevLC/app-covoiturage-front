@@ -23,6 +23,7 @@ import { CapitalizeDirective } from '../../../../shared/directives/capitalize/ca
 import { LicensePlateDirective } from '../../../../shared/directives/license-plate/license-plate.directive';
 import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
 import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
+import { VehicleStatusPipe } from '../../../../shared/pipe/vehicle-status/vehicle-status.pipe';
 
 @Component({
   selector: 'app-company-vehicle-update',
@@ -32,11 +33,11 @@ import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
-     CapitalizeDirective,
+    CapitalizeDirective,
     LicensePlateDirective,
     VehicleCategoryPipe,
-     MotorPipe
+    MotorPipe,
+    VehicleStatusPipe,
   ],
   templateUrl: './company-vehicle-update.component.html',
   styleUrls: ['./company-vehicle-update.component.css'],

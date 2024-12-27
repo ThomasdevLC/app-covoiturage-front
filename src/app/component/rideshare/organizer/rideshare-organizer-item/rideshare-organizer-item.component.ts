@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RideShare } from '../../../../models/rideshare/rideshare.model';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { Router, RouterModule } from '@angular/router';
@@ -11,12 +10,15 @@ import {RideshareOrganizerDetailsComponent} from "../rideshare-organizer-details
 import {RideshareOrganizerService} from "../../../../service/rideshare/organizer/rideshare-organizer.service";
 import {ErrorHandlerService} from "../../../../shared/errors/error-handler.service";
 import {RideshareOrganizerUpdateComponent} from "../rideshare-organizer-update/rideshare-organizer-update.component";
+import { LucideAngularModule } from 'lucide-angular';
+import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-rideshare-organizer-item',
   standalone: true,
   imports: [CommonModule, DateFormatterPipe, RouterModule, DialogModule,
-    ButtonModule, RideshareOrganizerDetailsComponent, RideshareOrganizerUpdateComponent],
+    ButtonModule, RideshareOrganizerDetailsComponent, RideshareOrganizerUpdateComponent, LucideAngularModule, LucideSharedModule, BadgeModule],
   templateUrl: './rideshare-organizer-item.component.html',
   styleUrl: './rideshare-organizer-item.component.css'
 })
@@ -40,6 +42,7 @@ export class RideshareOrganizerItemComponent {
     this.rideshareService.getRideShareById(this.rideshare.id).subscribe({
       next: (details) => {
         this.detailedRideshare = details;
+        this.dialogContentType = 'details';
         this.displayDialog = true;
       },
       error: (error) => {

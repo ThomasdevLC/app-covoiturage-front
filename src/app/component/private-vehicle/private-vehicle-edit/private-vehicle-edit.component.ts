@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { PrivateVehicleService } from '../../../service/private-vehicle/private-vehicle.service';
 import { CommonModule } from '@angular/common';
 import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
-import {CompanyVehicle} from "../../../models/company-vehicle/company-vehicle.model";
 
 @Component({
   selector: 'app-private-vehicle-edit',
@@ -22,11 +20,9 @@ export class PrivateVehicleEditComponent implements OnInit {
   errorMessage: string | null = null;
   vehicle: PrivateVehicle | undefined;
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
-    private router: Router
   ) {}
 
 
@@ -41,7 +37,7 @@ export class PrivateVehicleEditComponent implements OnInit {
       brand: ['', Validators.required],
       model: ['', Validators.required],
       number: ['', Validators.required],
-      seats: [ Validators.required],
+       seats: [ Validators.required],
     });
   }
 

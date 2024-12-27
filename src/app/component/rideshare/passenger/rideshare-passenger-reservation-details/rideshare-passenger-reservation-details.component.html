@@ -1,73 +1,158 @@
-   <div *ngIf="!isConfirmVisible ">
-     <div class="bg-blue-600 text-white p-4" >
-        <h2 class="text-2xl font-semibold">Covoiturage</h2>
-        <p class="mt-1">{{ rideshare.departureTime | dateFormatter }} - {{ rideshare.arrivalTime | dateFormatter }}</p>
-        <p class="mt-1 font-medium text-lg">
-            {{ rideshare.departureAddress.city }} ➔ {{ rideshare.arrivalAddress.city }}
-        </p>
+<div *ngIf="!isConfirmVisible ">
+  <div class="p-6 space-y-5">
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light mb-2">
+        <lucide-icon
+          name="Map"
+          [strokeWidth]="1"
+          class="w-6 h-6 "
+          aria-label="Map"
+        ></lucide-icon>
+        <h3 class="text-lg">Itinéraire</h3>
+      </div>
+      <div class="flex items-start gap-14">
+        <div class="flex gap-2">
+          <div class="flex flex-col items-center justify-center">
+            <lucide-icon
+              name="MapPin"
+              [strokeWidth]="1"
+              class="w-5 h-5 text-primary-light"
+              aria-label="map pin"
+            ></lucide-icon>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class=" font-light ">{{ rideshare.departureTime | dateFormatter }}</p>
+            <p class="">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}</p>
+            <p> {{ rideshare.departureAddress.code }} - {{ rideshare.departureAddress.city }}</p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <div class="flex flex-col items-center justify-center">
+            <lucide-icon
+              name="MapPin"
+              [strokeWidth]="1"
+              class="w-5 h-5 text-primary-light"
+              aria-label="map pin"
+            ></lucide-icon>
+          </div>
+          <div class="flex flex-col items-start">
+            <p class=" font-light ">{{ rideshare.arrivalTime | dateFormatter }}</p>
+            <p class="">{{ rideshare.arrivalAddress.number }} {{ rideshare.arrivalAddress.street }}</p>
+            <p> {{ rideshare.arrivalAddress.code }} - {{ rideshare.arrivalAddress.city }}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="p-6 space-y-4">
-        <div>
-            <h3 class="text-lg font-semibold text-gray-800">Départ</h3>
-            <p class="text-gray-700">{{ rideshare.departureAddress.number }} {{ rideshare.departureAddress.street }}, {{
-                rideshare.departureAddress.city }}, {{ rideshare.departureAddress.code }}</p>
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light mb-2">
+        <lucide-icon
+          name="CircleUserRound"
+          [strokeWidth]="1"
+          class="w-6 h-6 "
+          aria-label="CircleUserRound"
+        ></lucide-icon>
+        <h3 class="text-lg">Organisateur</h3>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex gap-1 items-center">
+          <img
+            [src]="rideshare.organizer.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
+            alt="Avatar"
+            class="w-8 h-8 rounded-full"
+          />
+          <p class="font-medium">{{ rideshare.organizer.firstName }} {{ rideshare.organizer.lastName }}</p>
         </div>
-
-        <div>
-            <h3 class="text-lg font-semibold text-gray-800">Arrivée</h3>
-            <p class="text-gray-700">{{ rideshare.arrivalAddress.number }} {{ rideshare.arrivalAddress.street }}, {{
-                rideshare.arrivalAddress.city }}, {{ rideshare.arrivalAddress.code }}</p>
+        <div class="flex gap-1 items-center">
+          <lucide-icon
+            name="Smartphone"
+            [strokeWidth]="1"
+            class="w-6 h-6 "
+            aria-label="Smartphone"
+          ></lucide-icon>
+          <p>{{ rideshare.organizer.phone }} </p>
         </div>
-
-        <div>
-            <h3 class="text-lg font-semibold text-gray-800">Organisateur</h3>
-            <div class="flex items-center">
-                <p class="text-gray-700 font-medium">{{ rideshare.organizer.firstName }} {{ rideshare.organizer.lastName
-                    }}</p>
-                <p class="ml-4 text-sm text-gray-500">📞 {{ rideshare.organizer.phone }} | 📧 {{
-                    rideshare.organizer.email }}</p>
-            </div>
+        <div class="flex gap-1 items-center">
+          <lucide-icon
+            name="Mail"
+            [strokeWidth]="1"
+            class="w-6 h-6 "
+            aria-label="Mail"
+          ></lucide-icon>
+          <p>{{ rideshare.organizer.email }} </p>
         </div>
-
-        <div>
-            <h3 class="text-lg font-semibold text-gray-800">Véhicule</h3>
-            <p class="text-gray-700">{{ rideshare.vehicle.brand }} {{ rideshare.vehicle.model }} </p>
-            <p class="text-gray-500">Immatriculation : {{ rideshare.vehicle.number }} | Places : {{
-                rideshare.vehicle.seats }}</p>
-        </div>
-
-        <div>
-            <h3 class="text-lg font-semibold text-gray-800">Passagers</h3>
-            <ul class="space-y-2">
-                <li *ngFor="let passenger of rideshare.passengers" class="flex items-center text-gray-700">
-                    <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
-                    <p class="ml-4 text-sm text-gray-500">📞 {{ passenger.phone }} | 📧 {{ passenger.email }}</p>
-                </li>
-            </ul>
-        </div>
-
-        <div class="flex justify-between items-center mt-4">
-            <p class="text-gray-800 font-medium">Places disponibles : {{ rideshare.availableSeats }}</p>
-        </div>
-
-        <div class="flex justify-center" *ngIf="!past">
-            <button (click)="showConfirmation()"
-                        class="bg-primary  hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
-                Annuler votre participation
-            </button>
-        </div>
+      </div>
     </div>
-   </div>
 
-   <div *ngIf="isConfirmVisible">
 
-    <app-confirm-dialog
-      [visible]="isConfirmVisible"
-      [message]="confirmationMessage"
-      [confirmButtonText]="confirmationConfirmText"
-      [cancelButtonText]="confirmationCancelText"
-      (confirm)="onConfirmCancel()"
-      (cancel)="onCancelCancel()">
-    </app-confirm-dialog>
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light">
+        <lucide-icon
+          name="Car"
+          [strokeWidth]="1"
+          class="w-6 h-6 "
+          aria-label="Car"
+        ></lucide-icon>
+        <h3 class="text-lg  ">Véhicule</h3>
+      </div>
+      <div class="flex gap-2">
+        <p>{{ rideshare.vehicle.brand }} -</p>
+        <p>{{ rideshare.vehicle.model }}</p>
+        <p>{{ rideshare.vehicle.number }}</p>
+      </div>
     </div>
+
+    <div>
+      <div class="flex items-center gap-2 text-secondary-light mb-2">
+        <lucide-icon
+          name="UsersRound"
+          [strokeWidth]="1"
+          class="w-6 h-6 "
+          aria-label="UsersRound"
+        ></lucide-icon>
+        <h3 class="text-lg ">Passagers</h3>
+      </div>
+      <ul class="flex space-x-4">
+        <li *ngFor="let passenger of rideshare.passengers" class="flex items-center gap-1">
+          <img
+            [src]="passenger.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
+            alt="Avatar"
+            class="w-8 h-8 rounded-full"
+          />
+          <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="flex items-center gap-2  mb-2">
+      <lucide-icon
+        name="ContactRound"
+        [strokeWidth]="1"
+        class="w-6 h-6 text-secondary-light "
+        aria-label="ContactRound"
+      ></lucide-icon>
+      <h3 class="text-lg text-secondary-light ">Places disponibles</h3>
+      <p class="font-medium"> {{ rideshare.availableSeats }}</p>
+    </div>
+    <div class="flex justify-center" *ngIf="!past">
+      <button (click)="showConfirmation()"
+              class="btn-warning">
+        Annuler votre participation
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isConfirmVisible">
+
+  <app-confirm-dialog
+    [visible]="isConfirmVisible"
+    [message]="confirmationMessage"
+    [confirmButtonText]="confirmationConfirmText"
+    [cancelButtonText]="confirmationCancelText"
+    (confirm)="onConfirmCancel()"
+    (cancel)="onCancelCancel()">
+  </app-confirm-dialog>
+</div>

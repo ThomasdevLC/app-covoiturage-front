@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { CommonModule, formatDate } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+
 } from '@angular/forms';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, CalendarModule,  ],
   templateUrl: './company-vehicle-employee-list.component.html',
   styleUrls: ['./company-vehicle-employee-list.component.css'],
 })
@@ -34,9 +36,18 @@ export class CompanyVehicleEmployeeListComponent {
   }
 
   loadVehicles(): void {
-    const { startTime, endTime } = this.filterForm.value;
+    let { startTime, endTime } = this.filterForm.value;
+
+    const startTimeStr = startTime
+      ? formatDate(startTime, "yyyy-MM-dd'T'HH:mm", 'en-US')
+      : '';
+
+    const endTimeStr = endTime
+      ? formatDate(endTime, "yyyy-MM-dd'T'HH:mm", 'en-US')
+      : '';
+
     this.vehicleService
-      .getVehiclesByStatusAndBookingDates(startTime, endTime)
+      .getVehiclesByStatusAndBookingDates(startTimeStr, endTimeStr)
       .subscribe({
         next: (data: CompanyVehicle[]) => {
           this.vehicles = data;
@@ -46,6 +57,7 @@ export class CompanyVehicleEmployeeListComponent {
         },
       });
   }
+
 
   onFilter(): void {
     this.loadVehicles();

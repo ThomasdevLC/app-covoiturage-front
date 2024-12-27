@@ -1,34 +1,56 @@
-<div class="flex">
-    <div class="booking-item grid grid-cols-1 sm:grid-cols-2 gap-6 ">
-        <div>
-            <p class="text-lg font-semibold text-gray-700">
-                <strong>Véhicule:</strong> {{ booking.vehicle.brand }} {{ booking.vehicle.model }}
-            </p>
-            <p class="text-gray-500">
-                <strong>Numéro:</strong> {{ booking.vehicle.number }}
-            </p>
-        </div>
-        <div>
-            <p class="text-gray-600">
-                <strong>Date de début:</strong> {{ booking.startTime | dateFormatter }}
-            </p>
-            <p class="text-gray-600">
-                <strong>Date de fin:</strong> {{ booking.endTime | dateFormatter }}
-            </p>
-        </div>
-        <ng-container *ngIf="!isPast">
-            <button (click)="onUpdateBooking()"
-                class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
-                Modifier
-            </button>
-            <button (click)="deleteBooking()"
-                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors w-fit">
-                Supprimer
-            </button>
-        </ng-container>
-    </div>
-</div>
+<div class="bg-white shadow-md rounded-lg p-3 flex justify-between space-x-4 mt-6 ">
+  <div class="flex space-x-4">
+    <img *ngIf="booking.vehicle.picUrl" [src]="booking.vehicle.picUrl"
+         alt="{{ booking.vehicle.brand }} {{ booking.vehicle.model }}"
+         class="w-32 h-20 object-cover rounded-lg shadow-sm" />
 
-<ng-template #noBookings>
-    <p class="text-center text-gray-500">Aucune réservation trouvée.</p>
-</ng-template>
+    <div class="flex flex-col justify-start space-y-1">
+      <div class="flex items-center space-x-2"><p class="text-lg font-semibold">{{ booking.vehicle.brand }}
+        - {{ booking.vehicle.model }}</p>
+        <p class="text-sm">{{ booking.vehicle.number }}</p></div>
+      <div class="text-sm flex items-center space-x-2">
+        <p> {{ booking.startTime | dateFormatter }}   au </p>
+        <p>{{ booking.endTime | dateFormatter }} </p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="flex flex-col space-y-3" *ngIf="!isPast" >
+    <button (click)="onUpdateBooking()" class="btn-edit-rounded">
+      <lucide-icon
+        name="Pen"
+        [strokeWidth]="1"
+        class="w-4 h-4"
+        aria-label="Pen"
+      ></lucide-icon>
+    </button>
+
+    <button (click)="showConfirmation()" class="btn-warning-rounded">
+      <lucide-icon
+        name="Trash2"
+        [strokeWidth]="1"
+        class="w-4 h-4"
+        aria-label="Trash2"
+      ></lucide-icon>
+    </button>
+  </div>
+
+  <ng-template #noBookings>
+    <p class="text-center ">Aucune réservation trouvée.</p>
+  </ng-template>
+
+  <div class="fixed inset-0 z-40 bg-gray-600 bg-opacity-30 bg-blur " *ngIf="isConfirmVisible"></div>
+  <div
+    class="  fixed inset-0 flex items-center justify-center z-50 shadow-md "
+    *ngIf="isConfirmVisible">
+    <app-confirm-dialog
+      [visible]="isConfirmVisible"
+      [message]="confirmationMessage"
+      [confirmButtonText]="confirmationConfirmText"
+      [cancelButtonText]="confirmationCancelText"
+      (confirm)="onConfirmCancel()"
+      (cancel)="onCancelCancel()">
+    </app-confirm-dialog>
+  </div>

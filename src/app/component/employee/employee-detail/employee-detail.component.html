@@ -1,22 +1,32 @@
-<div class="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6">
-    <h2 class="text-3xl font-extrabold mb-4 text-gray-900">Votre profil</h2>
+<div class="max-w-lg mx-auto p-6 space-y-6">
+  <div class="flex items-center mb-4">
+    <div class="h-[1px] w-16 bg-primary-light"></div>
+    <h1 class="text-primary font-medium text-[2rem] mx-4 ">Votre compte</h1>
+  </div>
 
-    <div *ngIf="employeeProfile$ | async as employeeProfile" class="space-y-6">
-        <!-- Employee Info -->
-        <div class="space-y-2">
-            <p class="text-lg font-medium text-gray-700"><strong>Nom :</strong> {{ employeeProfile.firstName }} {{
-                employeeProfile.lastName }}</p>
-            <p class="text-lg font-medium text-gray-700"><strong>Téléphone :</strong> {{ employeeProfile.phone }}
+    <div *ngIf="employeeProfile$ | async as employeeProfile" class="bg-white p-6  shadow-lg rounded-lg space-y-2">
+            <p class="text-lg font-medium "> {{ employeeProfile.firstName }} {{
+                employeeProfile.lastName }}
             </p>
-            <p class="text-lg font-medium text-gray-700"><strong>Email :</strong> {{ employeeProfile.email }}</p>
+        <div class="flex gap-4">
+            <p class="flex gap-2">
+              <span>
+                <lucide-icon
+              name="Smartphone"
+              [strokeWidth]="1"
+              class="w-5 h-5"
+              aria-label="map pin"
+            ></lucide-icon></span> {{ employeeProfile.phone }}
+            </p>
+            <p class="flex gap-2 "><span>
+              <lucide-icon
+              name="Mail"
+              [strokeWidth]="1"
+              class="w-5 h-5"
+              aria-label="map pin"
+            ></lucide-icon></span>
+              {{ employeeProfile.email }}</p>
         </div>
-
-        <!-- Vehicle Info -->
         <app-private-vehicle-list></app-private-vehicle-list>
-
-
-        <div *ngIf="errorMessage"
-            class="p-4 bg-red-50 border-l-4 border-red-400 text-red-700 rounded-lg shadow-sm mb-6">
-            <p class="font-medium text-red-600">{{ errorMessage }}</p>
-        </div>
+    </div>
     </div>

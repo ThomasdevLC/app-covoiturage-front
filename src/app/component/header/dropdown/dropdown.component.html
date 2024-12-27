@@ -1,49 +1,61 @@
-<div class="relative flex items-center space-x-4">
-
-    <span class="text-gray-800 cursor-pointer" (click)="toggleDropdown()">
-        Bienvenue {{ user?.firstName }}!
-    </span>
-
-  <span class="text-gray-800 cursor-pointer">
-  <a routerLink="/messages"
-     class="flex items-center justify-center w-10 h-10 text-gray-800 hover:bg-gray-100 rounded-full transition-colors duration-200">
-    <lucide-icon name="message-square" [strokeWidth]="1" class="w-5 h-5" aria-label="Messages"></lucide-icon>
+<div class="relative w-64 bg-white rounded shadow-lg">
+  <!-- Partie du haut : Bienvenue, Messages et bouton toggle -->
+  <div class="flex justify-between items-center space-x-2 px-6 py-4  font-semibold">
+    <div class="flex items-center gap-2">
+    <p class="text-md">
+      Bienvenue {{ user?.firstName }}
+    </p>
+      <span
+        (mouseenter)="hover = true"
+        (mouseleave)="hover = false"
+        class="flex items-center justify-center text-secondary-light hover:text-secondary rounded transition-all duration-300"
+      >
+  <a routerLink="/messages">
+    <lucide-icon [name]="hover ? 'mail-open' : 'mail'" strokeWidth="1" class="w-6 h-6" aria-label="Messages"></lucide-icon>
   </a>
 </span>
 
-    <div class="relative">
-        <button class="text-gray-600 hover:text-gray-800 focus:outline-none" (click)="toggleDropdown()">
-            ▼
-        </button>
-
-        <div *ngIf="menuOpen" class="absolute right-0 bg-white border border-gray-200 shadow-lg mt-2 w-60 z-10">
-            <a routerLink="/employees" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Votre compte
-            </a>
-
-            <a *ngIf="user?.roles?.includes('SUPER_ADMIN')" routerLink="/roles-management"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Gestion utilisateurs
-            </a>
-            <a *ngIf="user?.roles?.includes('ADMIN')" routerLink="/company-vehicles"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Gestion parc véhicules
-            </a>
-
-            <a routerLink="/rideshares/organizer"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Trajets organisés
-            </a>
-            <a routerLink="/rideshares/passenger"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Covoiturages
-            </a>
-            <a routerLink="/bookings-list" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Réservations véhicules
-            </a>
-            <a (click)="logout.emit()" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                Déconnexion
-            </a>
-        </div>
     </div>
+
+    <button type="button"
+            class="hover:text-primary focus:outline-none"
+            (click)="toggleDropdown()">
+      <lucide-icon
+        [name]="menuOpen ? 'x' : 'align-justify'"
+        strokeWidth="1"
+        class="w-6 h-6"
+        aria-label="menu-icon">
+      </lucide-icon>
+    </button>
+
+  </div>
+
+  <!-- Partie déroulante qui apparaît au clic -->
+  <div *ngIf="menuOpen"
+       class=" whitespace-nowrap">
+
+    <ng-container *ngFor="let item of items">
+      <div class="p-1">
+        <a
+          *ngIf="item.routerLink; else logoutTemplate"
+          [routerLink]="item.routerLink"
+          routerLinkActive="bg-primary-light text-white"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center px-4 py-2 rounded-md space-x-2 hover:bg-primary-light hover:text-white transition">
+          <lucide-icon [name]="item.icon" strokeWidth="1" class="w-5 h-5 mr-2"></lucide-icon>
+          <span>{{ item.label }}</span>
+        </a>
+
+        <ng-template #logoutTemplate>
+          <a *ngIf="item.isLogout"
+             href="#"
+             (click)="logout.emit()"
+             class="flex items-center px-4 py-2 space-x-2 hover:bg-gray-100 text-gray-700 transition">
+            <lucide-icon [name]="item.icon" strokeWidth="1" class="w-5 h-5 mr-2"></lucide-icon>
+            <span>{{ item.label }}</span>
+          </a>
+        </ng-template>
+      </div>
+    </ng-container>
+  </div>
 </div>

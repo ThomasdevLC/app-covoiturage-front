@@ -7,11 +7,12 @@ import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-f
 import { BookingEmployeeItemComponent } from "../booking-employee-item/booking-employee-item.component";
 import {DialogModule} from "primeng/dialog";
 import {BookingEmployeeUpdateComponent} from "../booking-employee-update/booking-employee-update.component";
+import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
 
 @Component({
   selector: 'app-booking-employee-list',
   standalone: true,
-  imports: [CommonModule, DialogModule,  BookingEmployeeItemComponent, BookingEmployeeUpdateComponent],
+  imports: [CommonModule, DialogModule,  BookingEmployeeItemComponent, BookingEmployeeUpdateComponent, LucideSharedModule],
   templateUrl: './booking-employee-list.component.html',
   styleUrl: './booking-employee-list.component.css',
 })

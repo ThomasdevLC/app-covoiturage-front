@@ -1,36 +1,36 @@
-<div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+<div class="max-w-lg mx-auto p-6 bg-white ">
   <form [formGroup]="vehicleForm" (ngSubmit)="upDateCompanyVehicles()">
     <!-- Champ pour la marque -->
     <div class="mb-4">
-      <label for="brand" class="block text-gray-700">Marque</label>
+      <label for="brand" class="block ">Marque</label>
       <input id="brand" type="text" formControlName="brand" appCapitalize
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         placeholder="Exemple : Toyota" />
       <div *ngIf="isSubmitted && vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         La marque est requise.
       </div>
     </div>
 
     <!-- Champ pour le modèle -->
     <div class="mb-4">
-      <label for="model" class="block text-gray-700">Modèle</label>
+      <label for="model" class="block ">Modèle</label>
       <input id="model" type="text" formControlName="model" appCapitalize
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         placeholder="Exemple Corolla" />
       <div *ngIf="isSubmitted && vehicleForm.get('model')?.invalid && vehicleForm.get('model')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         Le modèle est requis.
       </div>
     </div>
 
     <!-- Champ pour le numéro d'immatriculation -->
     <div class="mb-4">
-      <label for="number" class="block text-gray-700">Immatriculation</label>
+      <label for="number" class="block ">Immatriculation</label>
       <input id="number" type="text" formControlName="number" appLicensePlate
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         placeholder="Exemple : AA-123-BB" />
-      <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-red-500 text-sm mt-1">
+      <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-error text-sm mt-1">
         <div *ngIf="isSubmitted && vehicleForm.get('number')?.errors?.['required']">
           Le numéro d'immatriculation est requis.
         </div>
@@ -42,26 +42,26 @@
 
     <!-- Champ pour la catégorie -->
     <div class="mb-4">
-      <label for="category" class="block text-gray-700">Catégorie</label>
+      <label for="category" class="block ">Catégorie</label>
       <select id="category" formControlName="category"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         <option *ngFor="let category of categories" [value]="category">
           {{ category | translateVehicleCategory }}</option>
       </select>
       <div *ngIf="isSubmitted && vehicleForm.get('category')?.invalid && vehicleForm.get('category')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         La catégorie est requise.
       </div>
     </div>
 
     <!-- Champ pour l'URL de l'image -->
     <div class="mb-4">
-      <label for="picUrl" class="block text-gray-700">URL de l'image :</label>
+      <label for="picUrl" class="block ">URL de l'image :</label>
       <input id="picUrl" type="text" formControlName="picUrl"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         placeholder="Exemple : https://example.com/image.jpg" />
       <div *ngIf="isSubmitted && vehicleForm.get('picUrl')?.invalid && vehicleForm.get('picUrl')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         L'URL de l'image est requise.
       </div>
     </div>
@@ -69,52 +69,52 @@
 
     <!-- Champ pour la motorisation -->
     <div class="mb-4">
-      <label for="motor" class="block text-gray-700">Motorisation</label>
+      <label for="motor" class="block ">Motorisation</label>
       <select id="motor" formControlName="motor"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         <option *ngFor="let motor of motors" [value]="motor">{{ motor | translateMotor }}</option>
       </select>
       <div *ngIf="isSubmitted && vehicleForm.get('motor')?.invalid && vehicleForm.get('motor')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         La motorisation est requise.
       </div>
     </div>
 
     <!-- Champ pour le CO2 au Km -->
     <div class="mb-4">
-      <label for="co2PerKm" class="block text-gray-700">CO2 au Km</label>
+      <label for="co2PerKm" class="block ">CO2 au Km</label>
       <input id="co2PerKm" type="number" formControlName="co2PerKm"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         placeholder="Exemple : 120" />
       <div *ngIf="isSubmitted && vehicleForm.get('co2PerKm')?.invalid && vehicleForm.get('co2PerKm')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         Le CO2 émis par Km doit être un nombre valide.
       </div>
     </div>
 
     <!-- Champ pour le nombre de places -->
     <div class="mb-4">
-      <label for="seats" class="block text-gray-700">Nombre de places</label>
+      <label for="seats" class="block ">Nombre de places</label>
       <input id="seats" type="number" formControlName="seats"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         placeholder="Exemple : 5" />
       <div *ngIf="isSubmitted && vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')"
-        class="text-red-500 text-sm mt-1">
+        class="text-error text-sm mt-1">
         Le nombre de places doit être supérieur à 0.
       </div>
     </div>
 
     <div>
-      <label for="status" class="block text-sm font-medium text-gray-700">Statut</label>
+      <label for="status" class="block text-sm font-medium ">Statut</label>
       <select id="status" formControlName="status"
-        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+        <option *ngFor="let status of statuses" [value]="status">{{ status | translateVehicleStatus }}</option>
       </select>
     </div>
 
-    <div class="mt-6">
+    <div class="flex justify-center mt-6">
       <button type="submit"
-        class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 ">Mettre
+        class="btn-validate">Mettre
         à jour le véhicule</button>
     </div>
 

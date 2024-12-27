@@ -10,12 +10,13 @@ import { PrivateVehicleEditComponent } from '../private-vehicle-edit/private-veh
 import { PrivateVehicleCreateComponent } from '../private-vehicle-create/private-vehicle-create.component';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-private-vehicle-list',
   standalone: true,
-  imports: [ CommonModule, PrivateVehicleItemComponent, PrivateVehicleEditComponent, PrivateVehicleCreateComponent,  DialogModule,
-    ButtonModule  ],
+  imports: [CommonModule, PrivateVehicleItemComponent, PrivateVehicleEditComponent, PrivateVehicleCreateComponent, DialogModule,
+    ButtonModule, LucideAngularModule],
   templateUrl: './private-vehicle-list.component.html',
   styleUrls: ['./private-vehicle-list.component.css']
 })

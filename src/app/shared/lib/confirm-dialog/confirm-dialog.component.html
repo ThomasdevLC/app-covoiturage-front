@@ -1,5 +1,5 @@
 <div
-  class="flex items-center justify-center bg-background p-8 rounded-sm"
+  class="flex items-center justify-center bg-white rounded-sm p-8 "
   *ngIf="visible"
 >
   <div>
@@ -7,14 +7,14 @@
     <div class="flex justify-end space-x-4">
       <button
         (click)="onCancel()"
-        class="px-4 py-2 border border-border text-text rounded hover:bg-secondary-light transition"
+        class="btn-cancel"
       >
         {{ cancelButtonText }}
       </button>
 
       <button
         (click)="onConfirm()"
-        class="px-4 py-2 bg-primary text-white rounded hover:bg-primary transition"
+        class="btn-validate"
       >
         {{ confirmButtonText }}
       </button>

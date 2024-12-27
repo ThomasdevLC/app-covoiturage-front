@@ -1,51 +1,55 @@
-<div>
-  <div class="flex justify-between items-center mb-6">
-    <!-- Filtres -->
-    <div class="flex space-x-4">
-      <div>
-        <label for="brandFilter" class="block text-sm font-medium text-gray-700">Marque :</label>
-        <input type="text" id="brandFilter" [(ngModel)]="brandFilter" (ngModelChange)="filterVehicles()"
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          placeholder="Exemple : Toyota" />
-      </div>
-      <div>
-        <label for="numberFilter" class="block text-sm font-medium text-gray-700">Numéro d'immatriculation :</label>
-        <input type="text" id="numberFilter" [(ngModel)]="numberFilter" (ngModelChange)="filterVehicles()"
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          placeholder="Exemple : AA-123-BB" />
-      </div>
-      <div class="flex items-end">
-        <button (click)="filterVehicles()"
-          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-          Filtrer
-        </button>
-      </div>
+<div class="flex justify-start items-center space-x-4 mb-6">
+  <div>
+    <div class="flex gap-2">
+      <lucide-icon
+        name="ListFilter"
+        [strokeWidth]="1"
+        class="w-5 h-5"
+        aria-label="filter"
+      ></lucide-icon>
+      <label for="brandFilter" class="block text-sm font-medium ">Marque</label>
     </div>
-    <div class="flex items-end">
-      <button (click)="clearFilters()"
-        class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
-        Effacer
-      </button>
+    <input type="text" id="brandFilter" [(ngModel)]="brandFilter" (ngModelChange)="filterVehicles()"
+           class="mt-1 block w-full p-2 border border-border rounded-lg shadow-sm focus:outline-none focus:primary focus:border-primary sm:text-sm"
+           placeholder="Exemple : Toyota" />
+  </div>
+
+  <div>
+    <div class="flex gap-2">
+      <lucide-icon
+        name="ListFilter"
+        [strokeWidth]="1"
+        class="w-5 h-5"
+        aria-label="Filter"
+      ></lucide-icon>
+      <label for="numberFilter" class="block text-sm font-medium ">Immatriculation</label>
     </div>
+    <input type="text" id="numberFilter" [(ngModel)]="numberFilter" (ngModelChange)="filterVehicles()"
+           class="mt-1 block w-full p-2 border border-border rounded-lg shadow-sm focus:outline-none focus:primary focus:border-primary sm:text-sm"
+           placeholder="Exemple : AA-123-BB" />
   </div>
-
-  <!-- Message d'erreur -->
-  <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
-    {{ errorMessage }}
+  <div class="pt-6">
+    <button (click)="clearFilters()"
+            class="bg-neutral border border-border text-primary-light px-4 py-2 rounded-lg hover:text-primary-dark transition-colors">
+      <lucide-icon
+        name="RotateCcw"
+        [strokeWidth]="1"
+        class="w-5 h-5"
+        aria-label="reload"
+      ></lucide-icon>
+    </button>
   </div>
-
-  <!-- Liste des véhicules -->
-  <div *ngIf="vehicles.length > 0" class="space-y-4">
-    <app-company-vehicle-admin-item
-      *ngFor="let vehicle of vehicles" [vehicle]="vehicle"
-      (onUpdateComplete)="getAllVehicles()"
-      (onDelete)="onDeleteVehicle($event)">
-    </app-company-vehicle-admin-item>
-  </div>
-
-  <!-- Message si aucun véhicule -->
-  <div *ngIf="vehicles.length === 0" class="text-gray-500 text-center mt-10">
-    Aucun véhicule disponible.
-  </div>
-
 </div>
+
+<div *ngIf="vehicles.length > 0" class="flex flex-col space-y-4">
+  <app-company-vehicle-admin-item
+    *ngFor="let vehicle of vehicles" [vehicle]="vehicle"
+    (onUpdateComplete)="getAllVehicles()"
+    (onDelete)="onDeleteVehicle($event)">
+  </app-company-vehicle-admin-item>
+</div>
+
+<p *ngIf="vehicles.length === 0" class="border text-center mt-10">
+  Aucun véhicule disponible.
+</p>
+

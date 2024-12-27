@@ -4,23 +4,23 @@ import { CompanyVehicleAdminListComponent } from '../company-vehicle-admin-list/
 import { BookingAdminListComponent } from '../../../booking/admin/booking-admin-list/booking-admin-list.component';
 import { CommonModule } from '@angular/common';
 import { CompanyVehicleCreateComponent } from '../company-vehicle-create/company-vehicle-create.component';
+import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
 
 @Component({
   selector: 'app-company-vehicle-admin-management',
   standalone: true,
-  imports: [CompanyVehicleAdminListComponent,CompanyVehicleCreateComponent, BookingAdminListComponent, CommonModule ],
+  imports: [CompanyVehicleAdminListComponent,CompanyVehicleCreateComponent, BookingAdminListComponent, CommonModule,LucideSharedModule ],
   templateUrl: './company-vehicle-admin-management.component.html',
   styleUrl: './company-vehicle-admin-management.component.css'
 })
 export class CompanyVehicleAdminManagementComponent {
-  activeTab: string = 'search'; // Onglet actif par défaut
+  activeTab: string = 'search';
 
   setActiveTab(tab: string) {
-    this.activeTab = tab; // Changer l'onglet actif
+    this.activeTab = tab;
   }
 
   onVehicleCreated() {
-    // Changer l'onglet actif vers 'search' lorsque le véhicule est créé
     this.setActiveTab('search');
   }
 }

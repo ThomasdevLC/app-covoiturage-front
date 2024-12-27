@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
 import {
   FormsModule,
@@ -10,10 +10,10 @@ import { VehicleCategory } from '../../../../models/enums/vehicle-category.enum'
 import { VehicleMotor } from '../../../../models/enums/vehicle-motor.enum';
 import { VehicleStatus } from '../../../../models/enums/vehicle-status.enum';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
-import { BookingAdminListComponent } from '../../../booking/admin/booking-admin-list/booking-admin-list.component';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { CompanyVehicleAdminItemComponent } from '../company-vehicle-admin-item/company-vehicle-admin-item.component';
-import { CompanyVehicleUpdateComponent } from '../company-vehicle-update/company-vehicle-update.component';
+import { LucideAngularModule } from 'lucide-angular';
+import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
 
 @Component({
   selector: 'app-company-vehicle-admin-list',
@@ -23,10 +23,9 @@ import { CompanyVehicleUpdateComponent } from '../company-vehicle-update/company
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
-    BookingAdminListComponent,
     CompanyVehicleAdminItemComponent,
-    CompanyVehicleUpdateComponent
+    LucideAngularModule,
+    LucideSharedModule
   ],
   templateUrl: './company-vehicle-admin-list.component.html',
   styleUrls: ['./company-vehicle-admin-list.component.css'],
@@ -77,17 +76,16 @@ export class CompanyVehicleAdminListComponent implements OnInit {
 
 
   onDeleteVehicle(vehicleId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer le véhicule ?' + vehicleId)) {
-      this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({
-        next: () => {
-          this.vehicles = this.vehicles.filter(
-            (vehicle) => vehicle.id !== vehicleId
-          );
-        },
-        error: (error) => {
-          this.errorHandlerService.handleError(error);
-        },
-      });
-    }
+    this.vehicleService.deleteCompanyVehicle(vehicleId).subscribe({
+      next: () => {
+        this.vehicles = this.vehicles.filter(
+          (vehicle) => vehicle.id !== vehicleId
+        );
+      },
+      error: (error) => {
+        this.errorHandlerService.handleError(error);
+      },
+    });
   }
+
 }

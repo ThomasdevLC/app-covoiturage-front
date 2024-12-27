@@ -1,18 +1,20 @@
-<div class="container mx-auto py-20 px-96">
-  <h2 class="text-2xl font-bold mb-4">Publier votre trajet</h2>
-  <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="space-y-6">
-    <!-- Heure de départ -->
+<div class="max-w-lg mx-auto h-full mt-14 ">
+<div class="flex items-center mb-4">
+  <div class="h-[1px] w-16 bg-secondary-light"></div>
+  <h1 class="text-secondary font-medium text-[2rem] mx-4 ">Publier votre trajet</h1>
+  </div>
+  <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="bg-white p-6  shadow-lg rounded-lg space-y-6 px-4">
     <div>
-      <label for="departureTime" class="block text-sm font-medium text-gray-700">Heure de départ</label>
+      <label for="departureTime" class="block text-md font-medium ">Heure de départ</label>
       <div>
         <p-calendar   id="departureTime"
                       formControlName="departureTime" [showTime]="true" hourFormat="24"
           [minDate]="today" placeholder=""
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class=" bg-white mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
           required>
         </p-calendar>
         <div *ngIf="rideShareForm.get('departureTime')?.invalid && rideShareForm.get('departureTime')"
-          class="text-red-500 text-sm mt-1">
+          class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('departureTime')?.errors?.['required']">
             L'heure de départ est requise.
           </div>
@@ -20,16 +22,15 @@
       </div>
     </div>
 
-    <!-- Adresse de départ -->
     <div formGroupName="departureAddress">
-      <label class="block text-sm font-medium text-gray-700">Adresse de départ</label>
+      <label class="block text-md font-medium ">Adresse de départ</label>
       <div class="mt-1 flex gap-2">
         <div class="w-1/4">
           <input type="number" placeholder="Numéro" formControlName="number" appAddressCapitalize
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.number')?.invalid && rideShareForm.get('departureAddress.number')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.number')?.errors?.['required']">
               Le numéro est requis.
             </div>
@@ -40,10 +41,10 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Rue" formControlName="street" appAddressCapitalize
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.street')?.invalid && rideShareForm.get('departureAddress.street')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.street')?.errors?.['required']">
               La rue est requise.
             </div>
@@ -56,10 +57,10 @@
       <div class="mt-2 flex gap-2">
         <div class="w-1/4">
           <input type="text" placeholder="Code" formControlName="code" appPostalCode
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.code')?.invalid && rideShareForm.get('departureAddress.code')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.code')?.errors?.['required']">
               Le code postal est requis.
             </div>
@@ -70,10 +71,10 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Ville" formControlName="city" appAddressCapitalize
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.city')?.invalid && rideShareForm.get('departureAddress.city')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('departureAddress.city')?.errors?.['required']">
               La ville est requise.
             </div>
@@ -85,16 +86,15 @@
       </div>
     </div>
 
-    <!-- Heure d'arrivée -->
     <div>
-      <label for="arrivalTime" class="block text-sm font-medium text-gray-700">Heure d'arrivée</label>
+      <label for="arrivalTime" class="block  font-medium ">Heure d'arrivée</label>
       <div>
         <p-calendar id="arrivalTime" formControlName="arrivalTime" [showTime]="true" hourFormat="24"
-          [minDate]="today" placeholder="Sélectionnez l'heure d'arrivée"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          [minDate]="today" placeholder=""
+          class="bg-white mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
           required></p-calendar>
         <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.invalid && rideShareForm.get('arrivalTime')"
-          class="text-red-500 text-sm mt-1">
+          class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.errors?.['required']">
             L'heure d'arrivée est requise.
           </div>
@@ -102,16 +102,15 @@
       </div>
     </div>
 
-    <!-- Adresse d'arrivée -->
     <div formGroupName="arrivalAddress">
-      <label class="block text-sm font-medium text-gray-700">Adresse d'arrivée</label>
+      <label class="block text-md font-medium ">Adresse d'arrivée</label>
       <div class="mt-1 flex gap-2">
         <div class="w-1/4">
           <input type="number" placeholder="Numéro" formControlName="number" appAddressCapitalize
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.number')?.invalid && rideShareForm.get('arrivalAddress.number')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.number')?.errors?.['required']">
               Le numéro est requis.
             </div>
@@ -122,10 +121,10 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Rue" formControlName="street" appAddressCapitalize
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.street')?.invalid && rideShareForm.get('arrivalAddress.street')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.street')?.errors?.['required']">
               La rue est requise.
             </div>
@@ -138,10 +137,10 @@
       <div class="mt-2 flex gap-2">
         <div class="w-1/4">
           <input type="text" placeholder="Code" formControlName="code" appPostalCode
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.code')?.invalid && rideShareForm.get('arrivalAddress.code')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.code')?.errors?.['required']">
               Le code postal est requis.
             </div>
@@ -152,10 +151,10 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Ville" formControlName="city" appAddressCapitalize
-            class="w-full px-3 py-2 border border-gray-300 rounded-md" required />
+            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.city')?.invalid && rideShareForm.get('arrivalAddress.city')"
-            class="text-red-500 text-sm mt-1">
+            class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.city')?.errors?.['required']">
               La ville est requise.
             </div>
@@ -167,15 +166,14 @@
       </div>
     </div>
 
-    <!-- Nombre de places disponibles -->
     <div>
-      <label for="availableSeats" class="block text-sm font-medium text-gray-700">Nombre de places disponibles</label>
+      <label for="availableSeats" class="block text-md font-medium text-gray-700">Paces disponibles</label>
       <div>
         <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
           required />
         <div *ngIf="isSubmitted && rideShareForm.get('availableSeats')?.invalid && rideShareForm.get('availableSeats')"
-          class="text-red-500 text-sm mt-1">
+          class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('availableSeats')?.errors?.['required']">
             Le nombre de places est requis.
           </div>
@@ -183,19 +181,18 @@
       </div>
     </div>
 
-    <!-- Véhicule -->
     <div>
-      <label for="vehicleId" class="block text-sm font-medium text-gray-700">Véhicule</label>
+      <label for="vehicleId" class="block text-md font-medium text-gray-700">Véhicule</label>
       <div>
         <select id="vehicleId" formControlName="vehicleId"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
           required>
           <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
             {{ vehicle.brand }} - {{ vehicle.model }} - {{ vehicle.number }}
           </option>
         </select>
         <div *ngIf="isSubmitted && rideShareForm.get('vehicleId')?.invalid && rideShareForm.get('vehicleId')"
-          class="text-red-500 text-sm mt-1">
+          class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('vehicleId')?.errors?.['required']">
             Vous devez sélectionner un véhicule.
           </div>
@@ -203,10 +200,9 @@
       </div>
     </div>
 
-    <!-- Bouton de soumission -->
     <div class="flex justify-center">
       <button type="submit"
-        class="w-fit bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        class="btn-validate">
         Publier trajet
       </button>
     </div>

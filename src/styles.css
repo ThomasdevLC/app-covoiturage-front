@@ -19,13 +19,19 @@
 @layer base, primeng, app;
 
 :root {
+  --primary-dark: #2E2AB3;
   --primary: #453EEB;
   --primary-light: #6F66F2;
+  --primary-muted: hsl(243, 84%, 85%);
+  --secondary-dark:  hsl(14, 96%, 45%);
   --secondary: #FB6D3A;
   --secondary-light: #FC8D63;
+  --secondary-muted: #fee2d8;
   --border: #D9D9D9;
   --background: #F5F5F5;
   --text: #474545;
+  --error: #EF4444;
+  --neutral: #F9FAFB;
 
   --font-family-base: 'Overpass', Arial, sans-serif;
 }
@@ -35,6 +41,20 @@
   body {
     font-family: var(--font-family-base);
     color: var(--text-color);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  main {
+    padding: 1rem; /* équivalent à p-4 */
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1;
   }
 
 
@@ -47,4 +67,46 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+ .rideshare-calendar-input {
+    background-color: transparent !important;
+  }
+
+  .p-inputtext:focus,
+  .p-inputwrapper-focus {
+    box-shadow: none !important;
+    border-color: transparent !important;
+  }
+
+
+  .btn-validate {
+    @apply w-fit bg-primary py-3 px-4 text-neutral text-sm font-normal rounded-lg flex items-center gap-2 hover:bg-primary-dark transition-all duration-300;
+  }
+
+  .btn-cancel {
+    @apply w-fit py-3 px-4 text-sm font-normal border border-border rounded-lg hover:border-text  transition-all duration-300;
+  }
+
+  .btn-edit {
+    @apply bg-secondary-muted text-secondary hover:text-secondary-dark py-2 px-4 rounded transition duration-300 ease-in-out;
+  }
+
+  .btn-warning {
+    @apply bg-secondary hover:bg-secondary-dark text-neutral  py-2 px-4 rounded transition duration-300 ease-in-out;
+  }
+
+  .btn-edit-rounded {
+    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-secondary-muted text-secondary hover:text-secondary-dark  transition duration-300 ease-in-out;
+  }
+
+  .btn-warning-rounded {
+    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-secondary hover:bg-secondary-dark text-neutral transition duration-300 ease-in-out;
+  }
+
+  .btn-details-rounded{
+    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-primary-muted text-primary hover:text-primary-dark  transition duration-300 ease-in-out;
+
+  }
+
 }
+

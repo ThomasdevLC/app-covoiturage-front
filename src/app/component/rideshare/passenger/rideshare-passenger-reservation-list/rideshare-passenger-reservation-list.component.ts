@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { CommonModule } from '@angular/common';
 import { RidesharePassengerReservationItemComponent } from '../rideshare-passenger-reservation-item/rideshare-passenger-reservation-item.component';
-import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 import { RideSharePassengerList } from '../../../../models/rideshare/passenger/ridehare-passenger-list.model';
 
 @Component({
@@ -13,7 +12,7 @@ import { RideSharePassengerList } from '../../../../models/rideshare/passenger/r
   templateUrl: './rideshare-passenger-reservation-list.component.html',
   styleUrl: './rideshare-passenger-reservation-list.component.css'
 })
-export class RidesharePassengerReservationListComponent {
+export class RidesharePassengerReservationListComponent implements OnInit {
   rideshares$!: Observable<RideSharePassengerList[]>;
   past: boolean = false;
   private subscription: Subscription = new Subscription();

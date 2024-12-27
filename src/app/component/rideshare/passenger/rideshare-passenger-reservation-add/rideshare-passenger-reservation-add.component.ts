@@ -6,10 +6,11 @@ import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-f
 import { RidesharePassengerService } from '../../../../service/rideshare/passenger/rideshare-passenger.service';
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { LucideAngularModule } from 'lucide-angular';
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,
-  imports: [CommonModule, RouterModule,DateFormatterPipe,  ],
+  imports: [CommonModule, RouterModule, DateFormatterPipe, LucideAngularModule],
   templateUrl: './rideshare-passenger-reservation-add.component.html',
   styleUrl: './rideshare-passenger-reservation-add.component.css'
 })

@@ -1,15 +1,13 @@
-<!-- private-vehicle-create.component.html -->
 
-<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
-    <!-- Champ pour le numéro du véhicule -->
+<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="px-8">
     <div class="mb-4">
-        <label for="number" class="block text-sm font-medium text-gray-700">
+        <label for="number" class="block text-md font-medium ">
             Immatriculation du véhicule
         </label>
         <input id="number" type="text" formControlName="number" appLicensePlate
-            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Entrez le numéro du véhicule" />
-        <div *ngIf="isSubmitted && vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-red-500 text-sm mt-1">
+            class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary"
+            placeholder="" />
+        <div *ngIf="isSubmitted && vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && vehicleForm.get('number')?.errors?.['required']">
                 Le numéro d'immatriculation du véhicule est requis.
             </div>
@@ -19,58 +17,55 @@
         </div>
     </div>
 
-    <!-- Champ pour la marque du véhicule -->
     <div class="mb-4">
-        <label for="brand" class="block text-sm font-medium text-gray-700">
+        <label for="brand" class="block text-md font-medium ">
             Marque du véhicule
         </label>
         <input id="brand" type="text" formControlName="brand" appCapitalize
-            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 top-5 text-transform: capitalize"
-            placeholder="Entrez la marque" />
-        <div *ngIf="isSubmitted && vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')" class="text-red-500 text-sm mt-1">
+            class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary top-5 text-transform: capitalize"
+            placeholder="" />
+        <div *ngIf="isSubmitted && vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')" class="text-error text-sm mt-1">
             La marque du véhicule est requise.
         </div>
     </div>
 
-    <!-- Champ pour le modèle du véhicule -->
     <div class="mb-4">
-        <label for="model" class="block text-sm font-medium text-gray-700">
+        <label for="model" class="block text-md font-medium ">
             Modèle du véhicule
         </label>
         <input id="model" type="text" formControlName="model" appCapitalize
-            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-transform: capitalize"
-            placeholder="Entrez le modèle" />
-        <div *ngIf="isSubmitted && vehicleForm.get('model')?.invalid && vehicleForm.get('model')" class="text-red-500 text-sm mt-1">
+            class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary text-transform: capitalize"
+            placeholder="" />
+        <div *ngIf="isSubmitted && vehicleForm.get('model')?.invalid && vehicleForm.get('model')" class="text-error text-sm mt-1">
             Le modèle du véhicule est requis.
         </div>
     </div>
 
-    <!-- Champ pour le nombre de sièges -->
     <div class="mb-4">
-        <label for="seats" class="block text-sm font-medium text-gray-700">
+        <label for="seats" class="block text-sm font-medium ">
             Nombre de sièges
         </label>
         <input id="seats" type="number" formControlName="seats"
-            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary"
             min="5" />
-        <div *ngIf="isSubmitted && vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')" class="text-red-500 text-sm mt-1">
+        <div *ngIf="isSubmitted && vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')" class="text-error text-sm mt-1">
             Veuillez entrer un nombre de sièges valide (minimum 1).
         </div>
     </div>
 
     <!-- Message d'erreur global -->
-    <div *ngIf="errorMessage" class="mb-4 text-red-500 text-sm">
+    <div *ngIf="errorMessage" class="mb-4 text-error text-sm">
         {{ errorMessage }}
     </div>
 
     <!-- Bouton de soumission -->
   <div class="flex justify-end space-x-2">
     <button type="button" (click)="onCancel()"
-            class="bg-gray-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-600 transition duration-150 ease-in-out">
+            class="btn-cancel">
       Annuler
     </button>
     <button type="submit"
-            class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out">
+            class="btn-validate">
       Créer le véhicule
     </button>
   </div>

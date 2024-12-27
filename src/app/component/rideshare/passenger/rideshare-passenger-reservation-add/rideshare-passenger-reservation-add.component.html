@@ -1,37 +1,128 @@
     <div *ngIf="rideShare$ | async as rideShare" >
-        <div class="border-b border-gray-300 pb-4 mb-4">
-            <p class="text-lg mb-1"><strong>Heure de Départ :</strong> {{ rideShare.departureTime | dateFormatter }}</p>
-            <p class="text-lg mb-1"><strong>Heure d'Arrivée :</strong> {{ rideShare.arrivalTime | dateFormatter }}</p>
+      <div class="p-6 space-y-5">
+        <div class="flex items-start gap-14">
+
+          <div class="flex gap-2">
+            <div class="flex flex-col items-center justify-center">
+              <lucide-icon
+                name="MapPin"
+                [strokeWidth]="1"
+                class="w-5 h-5 text-primary-light"
+                aria-label="map pin"
+              ></lucide-icon>
+            </div>
+            <div class="flex flex-col items-start">
+              <p class=" font-light text-primary">{{ rideShare.departureTime | dateFormatter }}</p>
+              <p class="">{{ rideShare.departureAddress.number }} {{ rideShare.departureAddress.street }}</p>
+              <p> {{ rideShare.departureAddress.code }} - {{ rideShare.departureAddress.city }}</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <div class="flex flex-col items-center justify-center">
+              <lucide-icon
+                name="MapPin"
+                [strokeWidth]="1"
+                class="w-5 h-5 text-primary-light"
+                aria-label="map pin"
+              ></lucide-icon>
+            </div>
+            <div class="flex flex-col items-start">
+              <p class=" font-light text-primary">{{ rideShare.arrivalTime | dateFormatter }}</p>
+              <p class="">{{ rideShare.arrivalAddress.number }} {{ rideShare.arrivalAddress.street }}</p>
+              <p> {{ rideShare.arrivalAddress.code }} - {{ rideShare.arrivalAddress.city }}</p>
+            </div>
+          </div>
         </div>
-
-        <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Adresse de Départ :</h3>
-        <p class="text-gray-600">{{ rideShare.departureAddress.number }} {{ rideShare.departureAddress.street }}</p>
-        <p class="text-gray-600">{{ rideShare.departureAddress.code }} {{ rideShare.departureAddress.city }}</p>
-
-        <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Adresse d'Arrivée :</h3>
-        <p class="text-gray-600">{{ rideShare.arrivalAddress.number }} {{ rideShare.arrivalAddress.street }}</p>
-        <p class="text-gray-600">{{ rideShare.arrivalAddress.code }} {{ rideShare.arrivalAddress.city }}</p>
 
         <div>
-            <h3 class="text-lg font-semibold text-gray-800">Passagers</h3>
-            <ul class="space-y-2">
-                <li *ngFor="let passenger of rideShare.passengers" class="flex items-center text-gray-700">
-                    <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+          <div class="flex items-center gap-2 text-secondary-light mb-2">
 
-                </li>
-            </ul>
+            <lucide-icon
+              name="CircleUserRound"
+              [strokeWidth]="1"
+              class="w-6 h-6 "
+              aria-label="SquareUserRound"
+            ></lucide-icon>
+            <h3 class="text-lg">Organisateur</h3>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex gap-1 items-center">
+              <img
+                [src]="rideShare.organizer.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
+                alt="Avatar"
+                class="w-8 h-8 rounded-full"
+              />
+              <p class="font-medium">{{ rideShare.organizer.firstName }} {{ rideShare.organizer.lastName }}</p>
+            </div>
+            <div class="flex gap-1 items-center">
+              <lucide-icon
+                name="Smartphone"
+                [strokeWidth]="1"
+                class="w-6 h-6 "
+                aria-label="Smartphone"
+              ></lucide-icon>
+              <p>{{ rideShare.organizer.phone }} </p>
+            </div>
+            <div class="flex gap-1 items-center">
+              <lucide-icon
+                name="Mail"
+                [strokeWidth]="1"
+                class="w-6 h-6 "
+                aria-label="Mail"
+              ></lucide-icon>
+              <p>{{ rideShare.organizer.email }} </p>
+            </div>
+          </div>
         </div>
 
-        <h3 class="text-xl font-semibold mt-4 mb-2 text-gray-700">Détails du Véhicule :</h3>
-        <p class="text-gray-600"><strong>Marque :</strong> {{ rideShare.vehicle.brand }}</p>
-        <p class="text-gray-600"><strong>Modèle :</strong> {{ rideShare.vehicle.model }}</p>
-        <p class="text-gray-600"><strong>Numéro :</strong> {{ rideShare.vehicle.number }}</p>
+
+        <div>
+          <div class="flex items-center gap-2 text-secondary-light">
+            <lucide-icon
+              name="Car"
+              [strokeWidth]="1"
+              class="w-6 h-6 "
+              aria-label="Car"
+            ></lucide-icon>
+            <h3 class="text-lg  ">Véhicule</h3>
+          </div>
+          <div class="flex gap-2">
+            <p>{{ rideShare.vehicle.brand }} -</p>
+            <p>{{ rideShare.vehicle.model }}</p>
+            <p>{{ rideShare.vehicle.number }}</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2 text-secondary-light mb-2">
+            <lucide-icon
+              name="UsersRound"
+              [strokeWidth]="1"
+              class="w-6 h-6 "
+              aria-label="UsersRound"
+            ></lucide-icon>
+            <h3 class="text-lg ">Passagers</h3>
+          </div>
+          <ul class="flex space-x-4">
+            <li *ngFor="let passenger of rideShare.passengers" class="flex items-center gap-1">
+              <img
+                [src]="passenger.gender === 'male' ? 'assets/images/avatar-m.png' : 'assets/images/avatar-f.png'"
+                alt="Avatar"
+                class="w-8 h-8 rounded-full"
+              />
+              <p class="font-medium">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+            </li>
+          </ul>
+        </div>
+        <div class="flex justify-center gap-2">
         <button (click)="goBack()"
-            class="mt-4 w-full bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 transition">
+            class="btn-cancel">
             Retourner à la recherche
         </button>
         <button (click)="joinAsPassenger()"
-            class="mt-6 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+            class="btn-validate">
             Confirmer la Réservation
         </button>
+        </div>
     </div>
