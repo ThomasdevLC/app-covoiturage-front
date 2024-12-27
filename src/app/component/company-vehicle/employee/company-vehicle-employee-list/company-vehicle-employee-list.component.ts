@@ -22,12 +22,30 @@ import { CalendarModule } from 'primeng/calendar';
 export class CompanyVehicleEmployeeListComponent {
   vehicles: CompanyVehicle[] = [];
   filterForm: FormGroup;
+  currentView: string = 'carousel'; // Vue par défaut : carousel
+
+  responsiveOptions = [
+    {
+      breakpoint: '1024px',
+      numVisible: 3,
+      numScroll: 3,
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 2,
+      numScroll: 2,
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
 
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
     private fb: FormBuilder,
-    private errorHandlerService: ErrorHandlerService,
-
+    private errorHandlerService: ErrorHandlerService
   ) {
     this.filterForm = this.fb.group({
       startTime: [''],
@@ -61,5 +79,9 @@ export class CompanyVehicleEmployeeListComponent {
 
   onFilter(): void {
     this.loadVehicles();
+  }
+
+  setView(view: string): void {
+    this.currentView = view;
   }
 }
