@@ -14,7 +14,9 @@
     <lucide-icon [name]="hover ? 'mail-open' : 'mail'" strokeWidth="1" class="w-6 h-6" aria-label="Messages"></lucide-icon>
   </a>
 </span>
-
+      <span *ngIf="unreadMessagesCount > 0" class="badge">
+    {{ unreadMessagesCount }}
+  </span>
     </div>
 
     <button type="button"
