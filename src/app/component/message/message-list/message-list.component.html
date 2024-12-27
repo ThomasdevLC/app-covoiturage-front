@@ -1,13 +1,16 @@
-<div class="container mx-auto p-6">
-  <h1 class="text-2xl font-bold mb-6">Messages</h1>
-
+<div class="max-w-lg mx-auto pt-16">
+  <div class="flex items-center ">
+    <div class="h-[1px] w-16 bg-primary-light"></div>
+    <h1 class="text-primary font-medium text-[2rem] mx-4 ">Messages</h1>
+  </div>
   <!-- Liste des messages -->
   <div *ngIf="messages.length > 0; else noMessages" class="grid grid-cols-1 gap-4">
     <app-message-item
       *ngFor="let message of messages"
       [message]="message"
       (deleteMessage)="deleteMessage($event)"
-      (click)="viewMessageDetails(message.id)">
+      (viewDetails)="viewMessageDetails($event)"
+    >
     </app-message-item>
   </div>
 
