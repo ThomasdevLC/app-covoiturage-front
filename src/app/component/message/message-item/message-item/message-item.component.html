@@ -1,22 +1,36 @@
 <div class="p-4 bg-white rounded-lg shadow-md border border-gray-200">
+
+  <!-- Date -->
+  <div class="text-gray-500 text-xs mt-2">
+    Reçu le : {{ message.date | date: 'short' }}
+  </div>
   <div class="flex justify-between items-center">
     <!-- Contenu du message avec ellipsis -->
     <p class="text-gray-800 text-sm truncate max-w-lg" title="{{ message.content }}">
       {{ message.content }}
     </p>
 
-    <!-- Boutons d'action -->
-    <div class="flex space-x-2">
-      <button
-        (click)="onDelete()"
-        class="text-red-600 hover:text-red-800 text-sm font-medium">
-        Supprimer
-      </button>
-    </div>
+
+    <button (click)="onDelete()" class="btn-edit-rounded">
+      <lucide-icon
+        name="Trash2"
+        [strokeWidth]="1"
+        class="w-4 h-4"
+        aria-label="Eye"
+      ></lucide-icon>
+    </button>
+
+    <button (click)="onViewDetails()" class="btn-view-details-rounded">
+      <lucide-icon
+        name="Eye"
+        [strokeWidth]="1"
+        class="w-4 h-4"
+        aria-label="View Details"
+      ></lucide-icon>
+    </button>
   </div>
 
-  <!-- Date -->
-  <div class="text-gray-500 text-xs mt-2">
-    Reçu le : {{ message.date | date: 'short' }}
   </div>
-</div>
+
+
+
