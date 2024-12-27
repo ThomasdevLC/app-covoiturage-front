@@ -11,11 +11,12 @@ import {
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { CalendarModule } from 'primeng/calendar';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-company-vehicle-employee-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, CalendarModule,  ],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, CalendarModule, CarouselModule],
   templateUrl: './company-vehicle-employee-list.component.html',
   styleUrls: ['./company-vehicle-employee-list.component.css'],
 })

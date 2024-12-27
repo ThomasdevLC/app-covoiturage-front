@@ -1,5 +1,5 @@
 <div class="container mx-auto py-20 px-96">
-  <h1 class="text-3xl font-bold mb-6">Vehicules d'entreprise</h1>
+  <h1 class="text-3xl font-bold mb-6">Véhicules d'entreprise</h1>
 
   <!-- Formulaire de filtrage -->
   <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="bg-white p-4 rounded shadow-md mb-6">
@@ -11,9 +11,9 @@
         id="startTime"
         formControlName="startTime"
         [showTime]="true"
-        [hourFormat]="'24'"      dateFormat="dd/mm/yy"
-      inputStyleClass="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      >
+        [hourFormat]="'24'"
+        dateFormat="dd/mm/yy"
+        inputStyleClass="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
       </p-calendar>
     </div>
 
@@ -25,89 +25,96 @@
         id="endTime"
         formControlName="endTime"
         [showTime]="true"
-        [hourFormat]="'24'"        dateFormat="dd/mm/yy"
-        inputStyleClass="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      >
+        [hourFormat]="'24'"
+        dateFormat="dd/mm/yy"
+        inputStyleClass="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
       </p-calendar>
     </div>
 
     <div class="flex justify-center">
       <button type="submit"
-        class="inline-flex items-center  px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
-        Rechercher Véhicules disponibles</button>
+              class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Rechercher Véhicules disponibles
+      </button>
     </div>
   </form>
 
   <!-- Boutons de sélection d'affichage -->
   <div class="flex justify-end space-x-4 mb-6">
-      [ngClass]="{'bg-indigo-600': currentView === 'list', 'bg-gray-400': currentView !== 'list'}">
-      class="px-4 py-2 border rounded-md text-white"
-    <button (click)="setView('list')"
+    <button
+      (click)="setView('list')"
+      [ngClass]="{'bg-indigo-600 text-white': currentView === 'list', 'bg-gray-400 text-black': currentView !== 'list'}"
+      class="px-4 py-2 border rounded-md">
+      Affichage Liste
     </button>
-      [ngClass]="{'bg-indigo-600': currentView === 'carousel', 'bg-gray-400': currentView !== 'carousel'}">
-      class="px-4 py-2 border rounded-md text-white"
-    <button (click)="setView('carousel')"
+    <button
+      (click)="setView('carousel')"
+      [ngClass]="{'bg-indigo-600 text-white': currentView === 'carousel', 'bg-gray-400 text-black': currentView !== 'carousel'}"
+      class="px-4 py-2 border rounded-md">
       Affichage Carousel
     </button>
-      Affichage Liste
   </div>
 
   <!-- Affichage Carousel -->
-    <h2 class="text-2xl font-bold mt-10 mb-6">Véhicules en vedette</h2>
   <div *ngIf="currentView === 'carousel'">
-    <p-carousel [value]="vehicles" [numVisible]="1" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
+    <h2 class="text-2xl font-bold mt-10 mb-6">Véhicules en vedette</h2>
+    <p-carousel
+      [value]="vehicles"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="false"
+      [showNavigators]="vehicles.length > 1"
+      [responsiveOptions]="responsiveOptions">
+
       <ng-template let-vehicle pTemplate="item">
-          <div class="mb-3">
-        <div class="border-1 surface-border border-round m-2 p-3">
-            <img [src]="vehicle.picUrl || 'https://via.placeholder.com/150'" [alt]="vehicle.brand + ' ' + vehicle.model"
-              class="w-full border-round object-cover" />
+        <div class="mb-3">
+          <div class="border-1 surface-border border-round m-2 p-3">
+            <img [src]="vehicle.picUrl"
+                 [alt]="vehicle.brand + ' ' + vehicle.model"
+                 class="w-full border-round object-cover" />
           </div>
           <div class="mb-3 font-medium">
-          </div>
             {{ vehicle.brand }} {{ vehicle.model }}
+          </div>
           <div class="flex justify-between items-center">
-              Numéro: {{ vehicle.number }}
-            <div class="mt-0 font-semibold text-xl">
-            </div>
+            <span>Numéro: {{ vehicle.number }}</span>
             <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{
-                endTime: filterForm.value.endTime
-                startTime: filterForm.value.startTime,
-              }"
-              class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            </button>
+            endTime: filterForm.value.endTime,
+            startTime: filterForm.value.startTime
+          }"
+                    class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Réserver
+            </button>
           </div>
         </div>
       </ng-template>
     </p-carousel>
+
   </div>
-    <ul class="space-y-4">
-      <li *ngFor="let vehicle of vehicles" class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
-        <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
-          class="w-32 h-24 object-cover rounded-lg shadow-md mr-4">
-        <div>
-          <h5 class="text-lg font-semibold">{{ vehicle.brand }}</h5>
-          <h6 class="text-md font-medium text-gray-600">{{ vehicle.model }}</h6>
-          <p class="text-md font-medium text-gray-700">{{ vehicle.number }}</p>
-          <p class="text-sm text-gray-500">Status: {{ vehicle.status }}</p>
-        </div>
-        <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{
-            startTime: filterForm.value.startTime,
-            endTime: filterForm.value.endTime
-          }"
-          class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          Réserver
-        </button>
-      </li>
-    </ul>
-  </div>
+
+  <!-- Affichage Liste -->
+  <ul *ngIf="currentView === 'list'" class="space-y-4">
+    <li *ngFor="let vehicle of vehicles" class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+      <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
+           class="w-32 h-24 object-cover rounded-lg shadow-md mr-4">
+      <div>
+        <h5 class="text-lg font-semibold">{{ vehicle.brand }}</h5>
+        <h6 class="text-md font-medium text-gray-600">{{ vehicle.model }}</h6>
+        <p class="text-md font-medium text-gray-700">{{ vehicle.number }}</p>
+        <p class="text-sm text-gray-500">Status: {{ vehicle.status }}</p>
+      </div>
+      <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{
+          startTime: filterForm.value.startTime,
+          endTime: filterForm.value.endTime
+        }"
+              class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Réserver
+      </button>
+    </li>
+  </ul>
 
   <!-- Aucun véhicule disponible -->
   <ng-template #noVehicles>
     <p class="text-gray-500">Aucun véhicule disponible.</p>
   </ng-template>
-</div>
-
-  <!-- carousel -->
-
 </div>
