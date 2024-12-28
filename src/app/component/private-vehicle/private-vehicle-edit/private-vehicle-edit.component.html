@@ -4,7 +4,7 @@
           Immatriculation du véhicule
         </label>
         <input id="number" type="text" formControlName="number"
-          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-indigo-500"
+          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary"
           placeholder="Entrez le numéro du véhicule" />
         <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
           class="text-error text-sm mt-1">
@@ -23,7 +23,7 @@
           Marque du véhicule
         </label>
         <input id="brand" type="text" formControlName="brand"
-          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-indigo-500 top-5 text-transform: capitalize"
+          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary top-5 text-transform: capitalize"
           placeholder="Entrez la marque" />
         <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
           class="text-error text-sm mt-1">
@@ -37,7 +37,7 @@
           Modèle du véhicule
         </label>
         <input id="model" type="text" formControlName="model"
-          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-indigo-500 text-transform: capitalize"
+          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary text-transform: capitalize"
           placeholder="Entrez le modèle" />
         <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
           class="text-error text-sm mt-1">
@@ -51,7 +51,7 @@
           Nombre de sièges
         </label>
         <input id="seats" type="number" formControlName="seats"
-          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-indigo-500  "
+          class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary  "
           min="1" />
         <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched"
           class="text-error text-sm mt-1">
