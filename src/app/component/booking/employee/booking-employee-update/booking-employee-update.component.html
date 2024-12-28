@@ -1,8 +1,7 @@
 <div class="container mx-auto p-6 max-w-lg">
-  <div *ngIf="booking" class="bg-white p-8  rounded-lg">
-
-    <form (ngSubmit)="updateBooking()" #bookingForm="ngForm" class="space-y-6 mt-6">
-      <div class="flex gap-2 items-center border-b focus-within:border-primary transition-all ">
+  <div *ngIf="booking" class="bg-white p-8 rounded-lg">
+    <form [formGroup]="bookingForm" (ngSubmit)="updateBooking()" class="space-y-6 mt-6">
+      <div class="flex gap-2 items-center border-b focus-within:border-primary transition-all">
         <div class="flex flex-col">
           <label class="block mb-1">Début de réservation</label>
           <div class="flex gap-2">
@@ -11,12 +10,11 @@
                 name="CalendarSearch"
                 [strokeWidth]="1"
                 class="w-6 h-6"
-                aria-label="Calendar Search"
-              ></lucide-icon>
+                aria-label="Calendar Search">
+              </lucide-icon>
             </div>
             <p-calendar
-              [(ngModel)]="booking.startTime"
-              name="startTime"
+              formControlName="startTime"
               [showTime]="true"
               [hourFormat]="'24'"
               appendTo="body"
@@ -27,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="flex gap-2 items-center border-b focus-within:border-primary transition-all ">
+      <div class="flex gap-2 items-center border-b focus-within:border-primary transition-all">
         <div class="flex flex-col">
           <label class="block mb-1">Fin de réservation</label>
           <div class="flex gap-2">
@@ -36,12 +34,11 @@
                 name="CalendarSearch"
                 [strokeWidth]="1"
                 class="w-6 h-6"
-                aria-label="Calendar Search"
-              ></lucide-icon>
+                aria-label="Calendar Search">
+              </lucide-icon>
             </div>
             <p-calendar
-              [(ngModel)]="booking.endTime"
-              name="startTime"
+              formControlName="endTime"
               [showTime]="true"
               [hourFormat]="'24'"
               appendTo="body"
@@ -52,7 +49,6 @@
           </div>
         </div>
       </div>
-
       <div class="mt-4 flex gap-4 justify-center">
         <button type="button" (click)="cancel()" class="btn-cancel">
           Annuler
@@ -62,12 +58,6 @@
         </button>
       </div>
     </form>
-
   </div>
 
-  <ng-template #loading>
-    <p class="text-gray-500 text-center mt-6">Chargement des détails de la réservation...</p>
-  </ng-template>
-
-  <div *ngIf="errorMessage" class="text-error text-center mt-4">{{ errorMessage }}</div>
 </div>

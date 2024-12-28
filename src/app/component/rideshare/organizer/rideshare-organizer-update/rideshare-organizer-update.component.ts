@@ -10,11 +10,13 @@ import { switchMap } from 'rxjs';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
 import {RideShareOrganizerDetails} from "../../../../models/rideshare/organizer/rideshare-organizer-details.model";
+import { CalendarModule } from 'primeng/calendar';
+import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 
 @Component({
   selector: 'app-rideshare-organizer-update',
   standalone: true,
-  imports: [CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CalendarModule, DateFormatterPipe],
   templateUrl: './rideshare-organizer-update.component.html',
   styleUrl: './rideshare-organizer-update.component.css'
 })
@@ -23,6 +25,8 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
   vehicles: PrivateVehicle[] = [];
   @Input() rideshare!: RideShareOrganizerDetails; // Ajoutez cette ligne
   @Output() updateCompleted = new EventEmitter<void>();
+today: Date = new Date();
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -78,7 +82,6 @@ export class RideshareOrganizerUpdateComponent implements OnInit {
     ).subscribe({
       next: (vehicles) => {
         this.vehicles = vehicles;
-        console.log('Véhicules récupérés avec succès :', vehicles);
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);

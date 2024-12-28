@@ -3,15 +3,15 @@ import { VehicleBooking } from '../../../../models/vehicle-booking/vehicle-booki
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { CommonModule } from '@angular/common';
-import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { CustomDatePipe } from '../../../../shared/pipe/custom-date/custom-date.pipe';
 
 @Component({
   selector: 'app-booking-employee-create',
   standalone: true,
-  imports: [CommonModule, DateFormatterPipe, RouterLink],
+  imports: [CommonModule, RouterLink, CustomDatePipe],
   templateUrl: './booking-employee-create.component.html',
   styleUrl: './booking-employee-create.component.css',
 })

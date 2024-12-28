@@ -19,7 +19,11 @@
   <div *ngIf="(rideshares$ | async) as rideshares">
     <div class="flex flex-col mx-auto mt-6  space-y-4 w-3/4">
       <div *ngFor="let rideshare of rideshares">
-        <app-rideshare-organizer-item [rideshare]="rideshare"></app-rideshare-organizer-item>
+        <app-rideshare-organizer-item
+          [rideshare]="rideshare"
+          (rideShareUpdated)="loadRideShares()"
+
+        ></app-rideshare-organizer-item>
       </div>
     </div>
 

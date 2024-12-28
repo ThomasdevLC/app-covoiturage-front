@@ -25,6 +25,7 @@ import { BadgeModule } from 'primeng/badge';
 export class RideshareOrganizerItemComponent {
   @Input() rideshare!: RideShareOrganizerList;
   @Output() rideShareDeleted = new EventEmitter<number>();
+  @Output() rideShareUpdated = new EventEmitter<void>();
 
   displayDialog: boolean = false;
   detailedRideshare!: RideShareOrganizerDetails;
@@ -58,6 +59,8 @@ export class RideshareOrganizerItemComponent {
   onCloseUpdate() {
     this.dialogContentType = 'details';
     this.onCheckDetails();
+    this.rideShareUpdated.emit();
+
   }
 
   onCloseDialog() {
