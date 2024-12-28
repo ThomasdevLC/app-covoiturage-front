@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { VehicleBooking } from '../../../models/vehicle-booking/vehicle-booking.model';
-import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { SecureApiService } from '../../api/api-security/secure-api.service';
 
 @Injectable({
@@ -46,35 +46,21 @@ export class BookingEmployeeService {
     );
   }
 
-  getBookingById(bookingId: number): Observable<VehicleBooking> {
-    const url = `${this.apiURL}vehicle-bookings/${bookingId}`;
-
-    return this.http.get<VehicleBooking>(url).pipe(
-      catchError((error) => {
-        return throwError(() => new Error('Erreur lors de la récupération de la réservation'));
-      })
-    );
-  }
-
-  
   updateBooking(booking: VehicleBooking): Observable<VehicleBooking> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap(() => {
           const url = `${this.apiURL}vehicle-bookings/${booking.id}`;
-          return this.http.put<VehicleBooking>(url, booking)    
+          return this.http.put<VehicleBooking>(url, booking)
       })
     );
   }
-  
+
   deleteBooking(bookingId: number): Observable<void> {
     return this.secureApiService.getCurrentUser().pipe(
       switchMap((currentUser) => {
           const url = `${this.apiURL}vehicle-bookings/${bookingId}?employeeId=${currentUser.id}`;
-          return this.http.delete<void>(url);      
+          return this.http.delete<void>(url);
       }),
-      catchError((error) => {
-        return throwError(() => new Error('Erreur lors de la suppression de la réservation'));
-      })
     );
   }
-} 
+}
