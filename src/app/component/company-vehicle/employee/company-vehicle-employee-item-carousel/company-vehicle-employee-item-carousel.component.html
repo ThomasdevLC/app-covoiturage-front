@@ -1,0 +1,36 @@
+<div class="mb-3 bg-white rounded-md p-2">
+  <div class="border-1 surface-border border-round m-2 p-3">
+    <img [src]="vehicle.picUrl"
+         [alt]="vehicle.brand + ' ' + vehicle.model"
+         class="w-full rounded-t-md object-cover" />
+  </div>
+  <div class="flex justify-between p-6">
+    <div class="flex flex-col space-y-1">
+      <div class="flex items-center space-x-2">
+        <p class="text-lg font-semibold">{{ vehicle.brand }} - {{ vehicle.model }}</p>
+        <p class="text-sm">{{ vehicle.number }}</p>
+      </div>
+      <div class="text-xs flex items-center space-x-2">
+        <p>{{ vehicle.category | translateVehicleCategory }} - </p>
+        <p>{{ vehicle.motor | translateMotor }} - </p>
+        <div class="flex items-center">
+          <p class="mr-1">{{ vehicle.co2PerKm }}</p>
+          <span>CO₂/km</span>
+        </div>
+      </div>
+      <div class="flex space-x-2">
+        <div class="flex items-center text-sm">
+          <span class="mr-1">Places :</span>
+          <p>{{ vehicle.seats }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end">
+      <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{ startTime, endTime }"
+              class="btn-details-rounded">
+        <lucide-icon name="ArrowUpRight" [strokeWidth]="2" class="w-5 h-5" aria-label="ArrowUpRight"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
