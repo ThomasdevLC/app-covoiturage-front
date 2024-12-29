@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RolesManagementService } from '../../../service/roles-management/roles-management.service';
 import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
+import { LucideSharedModule } from '../../../shared/icons/lucide-shared/lucide-shared.module';
 
 @Component({
   selector: 'app-roles-management-item',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule, LucideSharedModule],
   templateUrl: './roles-management-item.component.html',
   styleUrl: './roles-management-item.component.css'
 })
@@ -25,21 +26,20 @@ export class RolesManagementItemComponent {
 
   ) {}
 
-  // Vérifier si l'utilisateur a le rôle ADMIN
   hasAdminRole(): boolean {
     return this.secureApiService.hasAdminRole(this.employee);
   }
 
-  // Ajouter ou retirer le rôle ADMIN
   toggleAdminRole(addAdmin: boolean): void {
-    this.rolesManagementService.toggleAdminRole(this.employee.id, addAdmin).subscribe({
-      next: (updatedEmployee) => {
-        // Mettre à jour les rôles de l'employé
-        this.employee = updatedEmployee;
-      },
-      error: (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    });
+    setTimeout(() => {
+      this.rolesManagementService.toggleAdminRole(this.employee.id, addAdmin).subscribe({
+        next: (updatedEmployee) => {
+          this.employee = updatedEmployee;
+        },
+        error: (error) => {
+          this.errorHandlerService.handleError(error);
+        }
+      });
+    }, 200);
   }
 }
