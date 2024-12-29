@@ -1,5 +1,5 @@
-<div class="max-w-lg mx-auto pt-16">
-  <div class="flex items-center ">
+<div class="max-w-lg mx-auto h-full my-14 ">
+<div class="flex items-center ">
     <div class="h-[1px] w-16 bg-primary-light"></div>
     <h1 class="text-primary font-medium text-[2rem] mx-4 ">Trajets organisés</h1>
   </div>
@@ -19,7 +19,11 @@
   <div *ngIf="(rideshares$ | async) as rideshares">
     <div class="flex flex-col mx-auto mt-6  space-y-4 w-3/4">
       <div *ngFor="let rideshare of rideshares">
-        <app-rideshare-organizer-item [rideshare]="rideshare"></app-rideshare-organizer-item>
+        <app-rideshare-organizer-item
+          [rideshare]="rideshare"
+          (rideShareUpdated)="loadRideShares()"
+
+        ></app-rideshare-organizer-item>
       </div>
     </div>
 

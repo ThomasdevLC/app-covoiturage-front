@@ -1,73 +1,130 @@
-<div class="container mx-auto py-20 px-96 h-full">
-  <h1 class="text-3xl font-bold mb-6">Vehicules d'entreprise</h1>
-
-  <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="bg-white p-4 rounded shadow-md mb-6">
-    <div class="mb-4">
-      <label for="startTime" class="block text-sm font-medium text-gray-700">
-        Horaire de départ
-      </label>
-      <p-calendar
-        id="startTime"
-        formControlName="startTime"
-        [showTime]="true"
-        [hourFormat]="'24'"      dateFormat="dd/mm/yy"
-      inputStyleClass="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      >
-      </p-calendar>
+<div class="max-w-lg mx-auto h-full my-14  ">
+<div class="flex items-center mb-4">
+    <div class="h-[1px] w-16 bg-secondary-light"></div>
+    <h1 class="text-secondary font-medium text-[2rem] mx-4 ">Véhicules de services</h1>
+  </div>
+  <!-- Formulaire de filtrage -->
+  <form [formGroup]="filterForm" (ngSubmit)="onFilter()"
+        class="bg-white p-4 rounded-lg shadow-md mb-6 flex flex-col gap-4">
+    <div class="flex gap-2 items-center border-b focus-within:border-primary transition-all ">
+      <div class="flex flex-col ">
+        <label class="block mb-1">Début de réservation</label>
+        <div class="flex gap-2">
+          <div class="flex items-center text-primary-light">
+            <lucide-icon
+              name="CalendarSearch"
+              [strokeWidth]="1"
+              class="w-6 h-6"
+              aria-label="Calendar Search"
+            ></lucide-icon>
+          </div>
+          <p-calendar
+            id="startTime"
+            formControlName="startTime"
+            [showTime]="true"
+            [hourFormat]="'24'"
+            dateFormat="dd/mm/yy"
+            [minDate]="today"
+            class="w-full p-2 rideshare-calendar-input">
+          </p-calendar>
+        </div>
+      </div>
     </div>
 
-    <div class="mb-4">
-      <label for="endTime" class="block text-sm font-medium text-gray-700">
-        Horaire d'arrivée
-      </label>
-      <p-calendar
-        id="endTime"
-        formControlName="endTime"
-        [showTime]="true"
-        [hourFormat]="'24'"        dateFormat="dd/mm/yy"
-        inputStyleClass="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      >
-      </p-calendar>
+    <div class="flex gap-2 items-center border-b focus-within:border-primary transition-all">
+      <div class="flex flex-col">
+        <label class="block mb-1">Fin de réservation</label>
+        <div class="flex gap-2">
+          <div class="flex items-center text-primary-light">
+            <lucide-icon
+              name="CalendarSearch"
+              [strokeWidth]="1"
+              class="w-6 h-6"
+              aria-label="Calendar Search"
+            ></lucide-icon>
+          </div>
+          <p-calendar
+            id="endTime"
+            formControlName="endTime"
+            [showTime]="true"
+            [hourFormat]="'24'"
+            dateFormat="dd/mm/yy"
+            [minDate]="today"
+            class="w-full p-2 rideshare-calendar-input">
+          </p-calendar>
+        </div>
+      </div>
     </div>
 
-    <div class="flex justify-center">
-      <button
-        type="submit"
-        class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Rechercher Véhicules disponibles
+    <div class="flex justify-center mt-4">
+      <button type="submit"
+              class="btn-validate">
+        <lucide-icon
+          name="Search"
+          [strokeWidth]="1"
+          class="w-5 h-5"
+          aria-label="Calendar Search"
+        ></lucide-icon>
+        Véhicules disponibles
       </button>
     </div>
   </form>
 
-
-  <div *ngIf="vehicles.length > 0; else noVehicles">
-    <ul class="space-y-4">
-      <li *ngFor="let vehicle of vehicles" class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
-        <!-- Vehicle Image -->
-        <img *ngIf="vehicle.picUrl" [src]="vehicle.picUrl" alt="{{ vehicle.brand }} {{ vehicle.model }}"
-          class="w-32 h-24 object-cover rounded-lg shadow-md mr-4">
-        <div class="">
-          <h5 class="text-lg font-semibold">{{ vehicle.brand }}</h5>
-          <h6 class="text-md font-medium text-gray-600">{{ vehicle.model }}</h6>
-          <p class="text-md font-medium text-gray-700">{{ vehicle.number }}</p>
-          <p class="text-sm text-gray-500">Status: {{ vehicle.status }}</p>
-        </div>
-        <button [routerLink]="['/bookings-create', vehicle.id]" [queryParams]="{
-            startTime: filterForm.value.startTime,
-            endTime: filterForm.value.endTime
-          }"
-          class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-          Réserver
-        </button>
-      </li>
-    </ul>
+  <div *ngIf="vehicles.length > 0 && isSearched" class="flex justify-center space-x-6 mb-6">
+    <button
+      (click)="setView('carousel')"
+      [ngClass]="{'text-primary-dark': currentView === 'carousel', '': currentView !== 'carousel'}"
+      class="hover:text-primary-light ">
+      <lucide-icon
+        name="GalleryHorizontalEnd"
+        [strokeWidth]="1"
+        class="w-7 h-7"
+        aria-label="GalleryHorizontalEnd"
+      ></lucide-icon>
+    </button>
+    <button
+      (click)="setView('list')"
+      [ngClass]="{'text-primary-dark': currentView === 'list', '': currentView !== 'list'}"
+      class="hover:text-primary-light ">
+      <lucide-icon
+        name="List"
+        [strokeWidth]="1"
+        class="w-7 h-7"
+        aria-label="List"
+      ></lucide-icon>
+    </button>
   </div>
 
-  <ng-template #noVehicles>
-    <p class="text-gray-500">No vehicles available.</p>
-  </ng-template>
+  <div *ngIf="currentView === 'carousel'">
+    <p-carousel
+      [value]="vehicles"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="false"
+      [showNavigators]="vehicles.length > 1"
+    >
+      <ng-template let-vehicle pTemplate="item">
+        <app-company-vehicle-employee-item-carousel
+          [vehicle]="vehicle"
+          [startTime]="filterForm.value.startTime"
+          [endTime]="filterForm.value.endTime">
+        </app-company-vehicle-employee-item-carousel>
+      </ng-template>
+    </p-carousel>
 
-  <!-- carousel -->
+  </div>
 
+  <ul *ngIf="currentView === 'list'" class="flex flex-col space-y-4">
+    <app-company-vehicle-employee-item
+      *ngFor="let vehicle of vehicles"
+      [vehicle]="vehicle"
+      [startTime]="filterForm.value.startTime"
+      [endTime]="filterForm.value.endTime">
+    </app-company-vehicle-employee-item>
+  </ul>
+
+  <p *ngIf="vehicles.length === 0 && isSearched && filterForm.value.startTime && filterForm.value.endTime"
+     class="text-center mt-6">
+    Aucun véhicule n'est disponible pour cette période.
+  </p>
 </div>

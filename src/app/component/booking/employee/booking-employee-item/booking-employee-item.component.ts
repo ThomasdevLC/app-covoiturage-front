@@ -4,9 +4,6 @@ import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { BookingEmployeeService } from '../../../../service/booking/employee/booking-employee.service';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
-import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
-import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
-import { VehicleStatusPipe } from '../../../../shared/pipe/vehicle-status/vehicle-status.pipe';
 import { LucideAngularModule } from 'lucide-angular';
 import { ConfirmDialogComponent } from '../../../../shared/lib/confirm-dialog/confirm-dialog.component';
 

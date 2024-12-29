@@ -1,20 +1,29 @@
-<div class="max-w-lg mx-auto h-full mt-14 ">
-<div class="flex items-center mb-4">
-  <div class="h-[1px] w-16 bg-secondary-light"></div>
-  <h1 class="text-secondary font-medium text-[2rem] mx-4 ">Publier votre trajet</h1>
+<div class="max-w-lg mx-auto h-full my-14  ">
+  <div class="flex items-center mb-4">
+    <div class="h-[1px] w-16 bg-secondary-light"></div>
+    <h1 class="text-secondary font-medium text-[2rem] mx-4 ">Publier votre trajet</h1>
   </div>
-  <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()" class="bg-white p-6  shadow-lg rounded-lg space-y-6 px-4">
+  <form [formGroup]="rideShareForm" (ngSubmit)="createNewRideShare()"
+        class="bg-white p-6  shadow-lg rounded-lg space-y-6 px-4">
     <div>
-      <label for="departureTime" class="block text-md font-medium ">Heure de départ</label>
+      <div class="flex gap-2 ">
+        <lucide-icon
+          name="CalendarSearch"
+          [strokeWidth]="1"
+          class="w-5 h-5 text-primary-light"
+          aria-label="Calendar Search">
+        </lucide-icon>
+        <label for="departureTime" class="block text-md font-medium ">Horaire de départ</label>
+      </div>
       <div>
-        <p-calendar   id="departureTime"
-                      formControlName="departureTime" [showTime]="true" hourFormat="24"
-          [minDate]="today" placeholder=""
-          class=" bg-white mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
-          required>
+        <p-calendar id="departureTime"
+                    formControlName="departureTime" [showTime]="true" hourFormat="24"
+                    [minDate]="today" placeholder=""
+                    class=" bg-white mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
+                    required>
         </p-calendar>
         <div *ngIf="rideShareForm.get('departureTime')?.invalid && rideShareForm.get('departureTime')"
-          class="text-error text-sm mt-1">
+             class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('departureTime')?.errors?.['required']">
             L'heure de départ est requise.
           </div>
@@ -23,11 +32,19 @@
     </div>
 
     <div formGroupName="departureAddress">
-      <label class="block text-md font-medium ">Adresse de départ</label>
+      <div class="flex gap-1 ">
+        <lucide-icon
+          name="MapPin"
+          [strokeWidth]="1"
+          class="w-5 h-5 text-primary-light"
+          aria-label="MapPin">
+        </lucide-icon>
+        <label class="block text-md font-medium ">Adresse de départ</label>
+      </div>
       <div class="mt-1 flex gap-2">
         <div class="w-1/4">
           <input type="number" placeholder="Numéro" formControlName="number" appAddressCapitalize
-                 class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.number')?.invalid && rideShareForm.get('departureAddress.number')"
             class="text-error text-sm mt-1">
@@ -41,7 +58,7 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Rue" formControlName="street" appAddressCapitalize
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.street')?.invalid && rideShareForm.get('departureAddress.street')"
             class="text-error text-sm mt-1">
@@ -57,7 +74,7 @@
       <div class="mt-2 flex gap-2">
         <div class="w-1/4">
           <input type="text" placeholder="Code" formControlName="code" appPostalCode
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.code')?.invalid && rideShareForm.get('departureAddress.code')"
             class="text-error text-sm mt-1">
@@ -71,7 +88,7 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Ville" formControlName="city" appAddressCapitalize
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('departureAddress.city')?.invalid && rideShareForm.get('departureAddress.city')"
             class="text-error text-sm mt-1">
@@ -87,14 +104,22 @@
     </div>
 
     <div>
-      <label for="arrivalTime" class="block  font-medium ">Heure d'arrivée</label>
+      <div class="flex gap-2 ">
+        <lucide-icon
+          name="CalendarSearch"
+          [strokeWidth]="1"
+          class="w-5 h-5 text-primary-light"
+          aria-label="Calendar Search">
+        </lucide-icon>
+        <label for="departureTime" class="block text-md font-medium ">Horaire d'arrivée</label>
+      </div>
       <div>
         <p-calendar id="arrivalTime" formControlName="arrivalTime" [showTime]="true" hourFormat="24"
-          [minDate]="today" placeholder=""
-          class="bg-white mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
-          required></p-calendar>
+                    [minDate]="today" placeholder=""
+                    class="bg-white mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
+                    required></p-calendar>
         <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.invalid && rideShareForm.get('arrivalTime')"
-          class="text-error text-sm mt-1">
+             class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('arrivalTime')?.errors?.['required']">
             L'heure d'arrivée est requise.
           </div>
@@ -103,11 +128,19 @@
     </div>
 
     <div formGroupName="arrivalAddress">
-      <label class="block text-md font-medium ">Adresse d'arrivée</label>
+      <div class="flex gap-1 ">
+        <lucide-icon
+          name="MapPin"
+          [strokeWidth]="1"
+          class="w-5 h-5 text-primary-light"
+          aria-label="MapPin">
+        </lucide-icon>
+        <label class="block text-md font-medium ">Adresse d'arrivée</label>
+      </div>
       <div class="mt-1 flex gap-2">
         <div class="w-1/4">
           <input type="number" placeholder="Numéro" formControlName="number" appAddressCapitalize
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.number')?.invalid && rideShareForm.get('arrivalAddress.number')"
             class="text-error text-sm mt-1">
@@ -121,7 +154,7 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Rue" formControlName="street" appAddressCapitalize
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.street')?.invalid && rideShareForm.get('arrivalAddress.street')"
             class="text-error text-sm mt-1">
@@ -137,7 +170,7 @@
       <div class="mt-2 flex gap-2">
         <div class="w-1/4">
           <input type="text" placeholder="Code" formControlName="code" appPostalCode
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.code')?.invalid && rideShareForm.get('arrivalAddress.code')"
             class="text-error text-sm mt-1">
@@ -151,7 +184,7 @@
         </div>
         <div class="w-3/4">
           <input type="text" placeholder="Ville" formControlName="city" appAddressCapitalize
-            class="w-full px-3 py-2 border border-border rounded-md text-sm" required />
+                 class="w-full px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:primary focus:border-primary" required />
           <div
             *ngIf="isSubmitted && rideShareForm.get('arrivalAddress.city')?.invalid && rideShareForm.get('arrivalAddress.city')"
             class="text-error text-sm mt-1">
@@ -167,13 +200,20 @@
     </div>
 
     <div>
-      <label for="availableSeats" class="block text-md font-medium text-gray-700">Paces disponibles</label>
-      <div>
+      <div class="flex gap-2 ">
+        <lucide-icon
+          name="ContactRound"
+          [strokeWidth]="1"
+          class="w-5 h-5 text-primary-light"
+          aria-label="ContactRound">
+        </lucide-icon>
+        <label for="departureTime" class="block text-md font-medium ">Places disponibles</label>
+      </div>      <div>
         <input type="number" id="availableSeats" formControlName="availableSeats" min="1"
-          class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
-          required />
+               class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
+               required />
         <div *ngIf="isSubmitted && rideShareForm.get('availableSeats')?.invalid && rideShareForm.get('availableSeats')"
-          class="text-error text-sm mt-1">
+             class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('availableSeats')?.errors?.['required']">
             Le nombre de places est requis.
           </div>
@@ -185,14 +225,14 @@
       <label for="vehicleId" class="block text-md font-medium text-gray-700">Véhicule</label>
       <div>
         <select id="vehicleId" formControlName="vehicleId"
-          class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
-          required>
+                class="mt-1 block w-full px-3 py-2 border border-border rounded-md  focus:outline-none focus:ring-primary focus:border-primary sm:text-md"
+                required>
           <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
             {{ vehicle.brand }} - {{ vehicle.model }} - {{ vehicle.number }}
           </option>
         </select>
         <div *ngIf="isSubmitted && rideShareForm.get('vehicleId')?.invalid && rideShareForm.get('vehicleId')"
-          class="text-error text-sm mt-1">
+             class="text-error text-sm mt-1">
           <div *ngIf="isSubmitted && rideShareForm.get('vehicleId')?.errors?.['required']">
             Vous devez sélectionner un véhicule.
           </div>
@@ -202,7 +242,7 @@
 
     <div class="flex justify-center">
       <button type="submit"
-        class="btn-validate">
+              class="btn-validate">
         Publier trajet
       </button>
     </div>

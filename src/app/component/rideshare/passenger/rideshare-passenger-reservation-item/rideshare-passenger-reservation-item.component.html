@@ -13,7 +13,7 @@
             aria-label="map pin"
           ></lucide-icon>
         </div>
-        <p class="text-lg ">{{ rideshare.departureAddress.city }}</p>
+        <p class="text-md ">{{ rideshare.departureAddress.city }}</p>
         <p class="text-sm font-light text-primary">{{ rideshare.departureTime | dateFormatter }}</p>
       </div>
       <div class="w-[1px] h-8 ml-2 bg-primary-light"></div>
@@ -26,7 +26,7 @@
             aria-label="map pin"
           ></lucide-icon>
         </div>
-        <p class="text-lg ">{{ rideshare.arrivalAddress.city }}</p>
+        <p class="text-md ">{{ rideshare.arrivalAddress.city }}</p>
         <p class="text-sm font-light text-primary">{{ rideshare.arrivalTime | dateFormatter }}</p>
       </div>
     </div>
@@ -34,8 +34,8 @@
       <div class="flex justify-end">
         <button (click)="onCheckDetails()" class="btn-details-rounded cursor-pointer">
           <lucide-icon
-            name="Eye"
-            [strokeWidth]="1"
+            name="ArrowUpRight"
+            [strokeWidth]="2"
             class="w-4 h-4"
             aria-label="Eye"
           ></lucide-icon>

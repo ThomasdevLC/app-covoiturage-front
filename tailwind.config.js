@@ -22,7 +22,8 @@ module.exports = {
 
       },
       fontFamily: {
-        sans: ['var(--font-family-base)', 'sans-serif'], // Pour `font-sans`
+        sans: ['var(--font-family-base)', 'sans-serif'],
+        mono: ['Overpass Mono', 'monospace'],
       },
     },
   },

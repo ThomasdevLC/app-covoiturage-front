@@ -55,8 +55,7 @@ export class MessageListComponent implements OnInit {
   deleteMessage(messageId: number): void {
     this.messageService.deleteMessage(messageId).subscribe({
       next: () => {
-        console.log(`Message ${messageId} supprimé.`);
-        this.loadMessagesForCurrentEmployee(); // Rafraîchir les messages
+        this.loadMessagesForCurrentEmployee();
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);

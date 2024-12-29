@@ -39,7 +39,7 @@
 /* Tailwind base layer */
 @layer tailwind-base {
   body {
-    font-family: var(--font-family-base);
+    font-family: var(--font-family-base), sans-serif;
     color: var(--text-color);
   }
 
@@ -50,7 +50,7 @@
   }
 
   main {
-    padding: 1rem; /* équivalent à p-4 */
+    padding: 1rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -68,7 +68,7 @@
     -moz-appearance: textfield;
   }
 
- .rideshare-calendar-input {
+  .rideshare-calendar-input {
     background-color: transparent !important;
   }
 
@@ -78,13 +78,29 @@
     border-color: transparent !important;
   }
 
+  .p-dialog .p-dialog-header {
+    color: var(--primary-light);
+    font-family: var(--font-family-base, sans-serif);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 2rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    box-sizing: border-box;
+    text-align: center;
 
+  }
+
+  .p-dialog .p-dialog-header h2 {
+    margin: auto;
+  }
+}
   .btn-validate {
     @apply w-fit bg-primary py-3 px-4 text-neutral text-sm font-normal rounded-lg flex items-center gap-2 hover:bg-primary-dark transition-all duration-300;
   }
 
   .btn-cancel {
-    @apply w-fit py-3 px-4 text-sm font-normal border border-border rounded-lg hover:border-text  transition-all duration-300;
+    @apply w-fit py-3 px-4 text-sm text-primary font-normal border border-primary-muted rounded-lg hover:border-primary-light hover:bg-primary-muted  transition-all duration-300;
   }
 
   .btn-edit {
@@ -104,9 +120,8 @@
   }
 
   .btn-details-rounded{
-    @apply flex justify-center items-center w-6 h-6 rounded-full p-4 bg-primary-muted text-primary hover:text-primary-dark  transition duration-300 ease-in-out;
+    @apply cursor-pointer flex justify-center items-center w-6 h-6 rounded-full p-4 bg-primary-muted text-primary hover:text-primary-dark  transition duration-300 ease-in-out;
 
   }
 
-}
 

@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RolesManagementItemComponent } from '../roles-management-item/roles-management-item.component';
 import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-roles-management-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RolesManagementItemComponent],
+  imports: [CommonModule, FormsModule, RolesManagementItemComponent, LucideAngularModule],
   templateUrl: './roles-management-list.component.html',
   styleUrl: './roles-management-list.component.css'
 })

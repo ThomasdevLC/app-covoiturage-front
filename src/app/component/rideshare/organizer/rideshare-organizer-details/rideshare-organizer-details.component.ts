@@ -22,8 +22,7 @@ export class RideshareOrganizerDetailsComponent {
   past: boolean = false;
 
   isConfirmVisible: boolean = false;
-  confirmationMessage: string = 'Êtes-vous sûr de vouloir annuler votre trajet ?' +
-    '  Si oui,  Les passagers seront notifiés de l\'annulation par email.';
+  confirmationMessage: string = '';
   confirmationConfirmText: string = 'Valider';
   confirmationCancelText: string = 'Retour';
 
@@ -45,9 +44,19 @@ export class RideshareOrganizerDetailsComponent {
   }
 
   showConfirmation(): void {
-    this.isConfirmVisible = true;
+    if (this.rideshare.passengers?.length) {
+      const passengerNames = this.rideshare.passengers
+        .map((passenger) => `${passenger.firstName} ${passenger.lastName}`)
+        .join(', ');
+      this.confirmationMessage = `Êtes-vous sûr de vouloir annuler votre trajet ? Les passagers : ${passengerNames} seront notifiés de l'annulation par email.`;
+    } else {
+      this.confirmationMessage = `Êtes-vous sûr de vouloir annuler votre trajet ?`;
+    }
 
+    this.isConfirmVisible = true;
   }
+
+
   onConfirmCancel(): void {
     this.onCancel();
   }

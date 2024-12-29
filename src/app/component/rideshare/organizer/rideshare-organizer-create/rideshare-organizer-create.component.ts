@@ -12,11 +12,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehicle.model';
 import { PostalCodeDirective } from '../../../../shared/directives/postal-code/postal-code.directive';
 import { AddressCapitalizeDirective } from '../../../../shared/directives/address/address-capitalize.directive.spec';
+import { LucideAngularModule } from 'lucide-angular';
+import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, CalendarModule, PostalCodeDirective, AddressCapitalizeDirective],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CalendarModule, PostalCodeDirective, AddressCapitalizeDirective, LucideAngularModule, LucideSharedModule],
   templateUrl: './rideshare-organizer-create.component.html',
   styleUrl: './rideshare-organizer-create.component.css',
 })
