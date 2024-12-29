@@ -1,23 +1,33 @@
 <div class="relative w-64 bg-white rounded shadow-lg">
-  <!-- Partie du haut : Bienvenue, Messages et bouton toggle -->
+
   <div class="flex justify-between items-center space-x-2 px-6 py-4  font-semibold">
-    <div class="flex items-center gap-2">
-    <p class="text-md">
-      Bienvenue {{ user?.firstName }}
-    </p>
-      <span
-        (mouseenter)="hover = true"
-        (mouseleave)="hover = false"
-        class="flex items-center justify-center text-secondary-light hover:text-secondary rounded transition-all duration-300"
+    <div class="flex items-center">
+      <p class="text-md mr-2">
+        Bienvenue {{ user?.firstName }}
+      </p>
+      <div
+        class="flex items-center justify-center text-secondary-light hover:text-secondary-dark rounded transition-all duration-300"
       >
-  <a routerLink="/messages">
-    <lucide-icon [name]="hover ? 'mail-open' : 'mail'" strokeWidth="1" class="w-6 h-6" aria-label="Messages"></lucide-icon>
-  </a>
-</span>
-      <span *ngIf="unreadMessagesCount > 0" class="badge">
+        <a
+          routerLink="/messages"
+          routerLinkActive="active"
+          #rla="routerLinkActive"
+        >
+          <lucide-icon
+            [name]="rla.isActive ? 'mail-open' : 'mail'"
+            strokeWidth="1"
+            class="w-6 h-6"
+            aria-label="Messages"
+          ></lucide-icon>
+        </a>
+      </div>
+
+      <span *ngIf="unreadMessagesCount > 0"
+            class="w-4 h-4 rounded-full bg-secondary mb-4 text-sm text-center text-neutral font-light badge">
     {{ unreadMessagesCount }}
   </span>
     </div>
+
 
     <button type="button"
             class="hover:text-primary focus:outline-none"
@@ -32,7 +42,6 @@
 
   </div>
 
-  <!-- Partie déroulante qui apparaît au clic -->
   <div *ngIf="menuOpen"
        class=" whitespace-nowrap">
 
@@ -52,7 +61,7 @@
           <a *ngIf="item.isLogout"
              href="#"
              (click)="logout.emit()"
-             class="flex items-center px-4 py-2 space-x-2 hover:bg-gray-100 text-gray-700 transition">
+             class="flex items-center px-4 py-2 space-x-2 hover:bg-gray-100  transition">
             <lucide-icon [name]="item.icon" strokeWidth="1" class="w-5 h-5 mr-2"></lucide-icon>
             <span>{{ item.label }}</span>
           </a>
