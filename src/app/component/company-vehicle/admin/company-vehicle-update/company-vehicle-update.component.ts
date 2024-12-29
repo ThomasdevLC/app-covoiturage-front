@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import {
   ActivatedRoute,
   Router,
-  RouterLink,
   RouterModule,
 } from '@angular/router';
 import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
@@ -24,6 +23,7 @@ import { LicensePlateDirective } from '../../../../shared/directives/license-pla
 import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
 import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
 import { VehicleStatusPipe } from '../../../../shared/pipe/vehicle-status/vehicle-status.pipe';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-company-vehicle-update',
@@ -57,9 +57,9 @@ export class CompanyVehicleUpdateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private vehicleService: CompanyVehicleAdminService,
-    private route: ActivatedRoute,
-    private router: Router,
     private errorHandlerService: ErrorHandlerService,
+    private toastService: ToastService,
+
   ) {
     this.vehicleForm = this.fb.group({
       number: [
@@ -115,6 +115,7 @@ export class CompanyVehicleUpdateComponent implements OnInit {
           const newStatus = this.vehicleForm.value.status;
           this.vehicleService.changeVehicleStatus(updatedVehicle.id, newStatus).subscribe({
             next: () => {
+              this.toastService.showSuccess('Le véhicule a bien été mis à jour.');
               this.updateComplete.emit(updatedVehicle);
               this.closeModal.emit();
             },

@@ -7,6 +7,7 @@ import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehic
 import { CompanyVehicleEmployeeService } from '../../../../service/company-vehicle/employee/company-vehicle-employee.service';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { CustomDatePipe } from '../../../../shared/pipe/custom-date/custom-date.pipe';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-booking-employee-create',
@@ -26,8 +27,9 @@ export class BookingEmployeeCreateComponent implements OnInit {
     private router: Router,
     private vehicleService: CompanyVehicleEmployeeService,
     private bookingEmployeeService: BookingEmployeeService,
-    private errorHandlerService: ErrorHandlerService
-  ) {}
+    private errorHandlerService: ErrorHandlerService,
+  private toastService: ToastService
+) {}
 
   ngOnInit(): void {
     const vehicleIdParam = this.route.snapshot.paramMap.get('id');
@@ -63,6 +65,7 @@ export class BookingEmployeeCreateComponent implements OnInit {
 
       this.bookingEmployeeService.createBooking(booking).subscribe({
         next: () => {
+          this.toastService.showSuccess('Votre réservation a bien été enregistrée.');
           this.router.navigate(['/bookings-list']);
         },
         error: (error) => {

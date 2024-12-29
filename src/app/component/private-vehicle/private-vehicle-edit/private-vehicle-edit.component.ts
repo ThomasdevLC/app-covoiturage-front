@@ -4,11 +4,14 @@ import { PrivateVehicleService } from '../../../service/private-vehicle/private-
 import { CommonModule } from '@angular/common';
 import { ErrorHandlerService } from '../../../shared/errors/error-handler.service';
 import { PrivateVehicle } from '../../../models/private-vehicle/private-vehicle.model';
+import { LicensePlateDirective } from '../../../shared/directives/license-plate/license-plate.directive';
+import { CapitalizeDirective } from '../../../shared/directives/capitalize/capitalize.directive';
+import { ToastService } from '../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-private-vehicle-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, LicensePlateDirective, CapitalizeDirective],
   templateUrl: './private-vehicle-edit.component.html',
   styleUrl: './private-vehicle-edit.component.css'
 })
@@ -23,6 +26,8 @@ export class PrivateVehicleEditComponent implements OnInit {
     private fb: FormBuilder,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
+    private toastService: ToastService,
+
   ) {}
 
 
@@ -73,6 +78,7 @@ export class PrivateVehicleEditComponent implements OnInit {
         this.errorMessage = null;
         this.updateComplete.emit(updatedVehicle);
         this.closeModal.emit(true);
+        this.toastService.showSuccess('Votre véhicule a bien été modifié.');
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);

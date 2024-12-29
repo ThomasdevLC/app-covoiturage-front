@@ -88,13 +88,13 @@
     border-top-right-radius: 0.5rem;
     box-sizing: border-box;
     text-align: center;
-
   }
 
   .p-dialog .p-dialog-header h2 {
     margin: auto;
   }
 }
+
   .btn-validate {
     @apply w-fit bg-primary py-3 px-4 text-neutral text-sm font-normal rounded-lg flex items-center gap-2 hover:bg-primary-dark transition-all duration-300;
   }

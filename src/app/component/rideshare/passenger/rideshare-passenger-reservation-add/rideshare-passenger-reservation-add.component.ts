@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router, RouterModule} from '@angular/router';
+import { RouterModule} from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
@@ -7,6 +7,7 @@ import { RidesharePassengerService } from '../../../../service/rideshare/passeng
 import { RideSharePassengerDetails } from '../../../../models/rideshare/passenger/rideshare-passenger-details.model';
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { LucideAngularModule } from 'lucide-angular';
+import { ToastService } from '../../../../shared/toast/toast.service';
 @Component({
   selector: 'app-rideshare-passenger-reservation-add',
   standalone: true,
@@ -23,7 +24,9 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
   constructor(
       private rideShareService: RidesharePassengerService,
       private errorHandlerService: ErrorHandlerService,
-    ) {}
+      private toastService: ToastService,
+
+  ) {}
 
   ngOnInit(): void {
     this.loadRideShare();
@@ -44,6 +47,7 @@ export class RidesharePassengerReservationAddComponent implements OnInit {
       this.rideShareService.joinAsPassenger(this.rideShareId).subscribe({
         next: () => {
           this.confirmReservation.emit();
+          this.toastService.showSuccess('Votre inscription au covoiturage a bien été enregistrée.');
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);

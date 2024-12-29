@@ -6,6 +6,7 @@ import { RideSharePassengerDetails } from '../../../../models/rideshare/passenge
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import {ConfirmDialogComponent} from "../../../../shared/lib/confirm-dialog/confirm-dialog.component";
 import { LucideAngularModule } from 'lucide-angular';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 
 @Component({
@@ -28,8 +29,10 @@ export class RidesharePassengerReservationDetailsComponent {
 
   constructor(
     private rideshareService: RidesharePassengerService,
-    private errorHandlerService: ErrorHandlerService
-  ) {}
+    private errorHandlerService: ErrorHandlerService,
+  private toastService: ToastService
+
+) {}
 
   ngOnInit(): void {
     this.rideshareService.past$.subscribe((value) => {
@@ -68,6 +71,7 @@ export class RidesharePassengerReservationDetailsComponent {
     this.rideshareService.cancelAsPassenger(this.rideshare.id).subscribe({
       next: () => {
         this.closeDialog.emit();
+        this.toastService.showSuccess('Votre participation a bien été annulée.');
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);
