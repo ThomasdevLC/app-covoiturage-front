@@ -1,15 +1,15 @@
     <form [formGroup]="vehicleForm" (ngSubmit)="saveChanges()" class="px-8" >
-      <div class="mb-4">
+      <div class="mb-4 font-sans">
         <label for="number" class="block text-md  ">
-          Immatriculation du véhicule
+          Immatriculation
         </label>
         <input id="number" type="text" formControlName="number"
           class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary"
-          placeholder="Entrez le numéro du véhicule" />
+          placeholder="Entrez le numéro " />
         <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
           class="text-error text-sm mt-1">
           <div *ngIf="vehicleForm.get('number')?.errors?.['required']">
-            Le numéro du véhicule est requis.
+            Le numéro  est requis.
           </div>
           <div *ngIf="vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
             Le numéro doit respecter le format suivant : FF-855-BJ.
@@ -17,31 +17,31 @@
         </div>
       </div>
 
-      <!-- Champ pour la marque du véhicule -->
+      <!-- Champ pour la marque  -->
       <div class="mb-4">
         <label for="brand" class="block text-md  ">
-          Marque du véhicule
+          Marque
         </label>
         <input id="brand" type="text" formControlName="brand"
           class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary top-5 text-transform: capitalize"
           placeholder="Entrez la marque" />
         <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
           class="text-error text-sm mt-1">
-          La marque du véhicule est requise.
+          La marque  est requise.
         </div>
       </div>
 
-      <!-- Champ pour le modèle du véhicule -->
+      <!-- Champ pour le modèle  -->
       <div class="mb-4">
         <label for="model" class="block text-md  ">
-          Modèle du véhicule
+          Modèle
         </label>
         <input id="model" type="text" formControlName="model"
           class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary text-transform: capitalize"
           placeholder="Entrez le modèle" />
         <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"
           class="text-error text-sm mt-1">
-          Le modèle du véhicule est requis.
+          Le modèle  est requis.
         </div>
       </div>
 

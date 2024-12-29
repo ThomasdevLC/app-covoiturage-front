@@ -1,15 +1,15 @@
 
 <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="px-8">
-    <div class="mb-4">
+    <div class="mb-4 font-sans">
         <label for="number" class="block text-md font-medium ">
-            Immatriculation du véhicule
+            Immatriculation
         </label>
         <input id="number" type="text" formControlName="number" appLicensePlate
             class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary"
             placeholder="" />
         <div *ngIf="isSubmitted && vehicleForm.get('number')?.invalid && vehicleForm.get('number')" class="text-error text-sm mt-1">
             <div *ngIf="isSubmitted && vehicleForm.get('number')?.errors?.['required']">
-                Le numéro d'immatriculation du véhicule est requis.
+                Le numéro d'immatriculation  est requis.
             </div>
             <div *ngIf="isSubmitted && vehicleForm.get('number')?.touched && vehicleForm.get('number')?.errors?.['pattern']">
                 Le numéro d'immatriculation doit respecter le format suivant : FF-855-BJ.
@@ -19,25 +19,25 @@
 
     <div class="mb-4">
         <label for="brand" class="block text-md font-medium ">
-            Marque du véhicule
+            Marque
         </label>
         <input id="brand" type="text" formControlName="brand" appCapitalize
             class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary top-5 text-transform: capitalize"
             placeholder="" />
         <div *ngIf="isSubmitted && vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')" class="text-error text-sm mt-1">
-            La marque du véhicule est requise.
+            La marque  est requise.
         </div>
     </div>
 
     <div class="mb-4">
         <label for="model" class="block text-md font-medium ">
-            Modèle du véhicule
+            Modèle
         </label>
         <input id="model" type="text" formControlName="model" appCapitalize
             class="mt-1 block w-full border border-border rounded-md shadow-sm p-2 focus:outline-none focus:ring-primary focus:border-primary text-transform: capitalize"
             placeholder="" />
         <div *ngIf="isSubmitted && vehicleForm.get('model')?.invalid && vehicleForm.get('model')" class="text-error text-sm mt-1">
-            Le modèle du véhicule est requis.
+            Le modèle  est requis.
         </div>
     </div>
 
