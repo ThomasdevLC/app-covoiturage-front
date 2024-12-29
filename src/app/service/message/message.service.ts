@@ -33,7 +33,7 @@ export class MessageService {
   }
 
   /**
-   * Marque un message-list comme lu.
+   * Marque un message comme lu.
    * @param messageId L'ID du message-list à marquer comme lu
    * @returns Observable<void>
    */
@@ -48,7 +48,7 @@ export class MessageService {
   }
 
   /**
-   * Supprime (logiquement) un message-list.
+   * Supprime (logiquement) un message.
    * @param messageId L'ID du message-list à supprimer
    * @returns Observable<void>
    */
