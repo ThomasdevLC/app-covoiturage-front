@@ -3,8 +3,8 @@
     <div class="h-[1px] w-16 bg-primary-light"></div>
     <h1 class="text-primary font-medium text-[2rem] mx-4 ">Messages</h1>
   </div>
-  <!-- Liste des messages -->
-  <div *ngIf="messages.length > 0; else noMessages" class="grid grid-cols-1 gap-4">
+
+  <div *ngIf="messages.length > 0; else noMessages" class="mt-6 flex flex-col gap-4">
     <app-message-item
       *ngFor="let message of messages"
       [message]="message"
@@ -14,13 +14,15 @@
     </app-message-item>
   </div>
 
-  <!-- Si aucun message -->
   <ng-template #noMessages>
-    <p class="text-gray-500 text-center">Aucun message disponible.</p>
+    <p class="mt-6 text-center">Vous n'avez pas de message.</p>
   </ng-template>
 
-  <!-- Dialog pour les détails -->
-  <p-dialog [(visible)]="displayDialog" [modal]="true" [closable]="true" >
+  <p-dialog [(visible)]="displayDialog"
+            [modal]="true"
+            [closable]="true"
+            [style]="{ width: '50vw' }"
+  >
     <ng-template pTemplate="content">
       <app-message-details
         *ngIf="selectedMessage"
