@@ -11,7 +11,6 @@ import { RoleName } from '../../../models/enums/role-name.enum';
 })
 export class SecureApiService {
   constructor(
-    private http: HttpClient,
     private authService: AuthService,
   ) {}
 

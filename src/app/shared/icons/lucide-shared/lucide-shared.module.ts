@@ -4,7 +4,7 @@ import { LucideAngularModule,
   Route,Car,CarFront, IdCard,UsersRound, PowerOff , Mail, ContactRound,Timer, MapPin, Smartphone, CalendarClock, MapPinPlus,
 CirclePlus,ListFilter,PlusSquare,ClipboardList, Clipboard, ClipboardCopy,
   ClipboardPaste,CircleParking, AlignJustify, X, MailOpen, Pen,Trash2,
-  CircleUserRound , RotateCcw, Eye, Map, GalleryHorizontalEnd,List, ArrowUpRight,EyeClosed, ShieldOff,ShieldCheck,Loader } from 'lucide-angular';
+  CircleUserRound , RotateCcw, Eye, Map, GalleryHorizontalEnd,List, ArrowUpRight,EyeClosed, ShieldOff,ShieldCheck,Loader, Shield, Crown, Dot, CircleDot } from 'lucide-angular';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ CirclePlus,ListFilter,PlusSquare,ClipboardList, Clipboard, ClipboardCopy,
       Route,Car,CarFront, IdCard,UsersRound, PowerOff , Mail, ContactRound,Timer, MapPin, Smartphone, CalendarClock, MapPinPlus,
     CirclePlus,ListFilter,PlusSquare,ClipboardList, Clipboard,ClipboardCopy,
       ClipboardPaste,CircleParking, AlignJustify, X, MailOpen, Pen,Trash2,
-      CircleUserRound , RotateCcw, Eye, Map, GalleryHorizontalEnd,List, ArrowUpRight,EyeClosed, ShieldOff,ShieldCheck ,Loader})
+      CircleUserRound , RotateCcw, Eye, Map, GalleryHorizontalEnd,List, ArrowUpRight,EyeClosed, ShieldOff,ShieldCheck ,Loader, Shield, Crown, Dot, CircleDot})
   ],
   exports: [
     LucideAngularModule

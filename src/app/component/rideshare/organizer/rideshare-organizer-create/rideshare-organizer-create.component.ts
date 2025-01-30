@@ -80,7 +80,7 @@ export class RideshareOrganizerCreateComponent {
       )
       .subscribe({
         next: (response) => {
-          this.toastService.showSuccess('Votre inscription au covoiturage a bien été enregistrée.');
+          this.toastService.showSuccess('Votre trajet a bien été enregistrée.');
           this.router.navigate(['/rideshares/organizer']);
         },
         error: (error) => {

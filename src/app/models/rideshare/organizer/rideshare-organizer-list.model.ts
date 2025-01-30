@@ -11,3 +11,5 @@ export interface RideShareOrganizerList {
     passengers: Employee[];
     vehicle: PrivateVehicle;
   }
+
+

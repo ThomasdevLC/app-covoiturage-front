@@ -12,10 +12,8 @@
         <p> {{ booking.startTime | dateFormatter }}   au </p>
         <p>{{ booking.endTime | dateFormatter }} </p>
       </div>
-
     </div>
   </div>
-
 
   <div class="flex flex-col space-y-3" *ngIf="!isPast" >
     <button (click)="onUpdateBooking()" class="btn-edit-rounded">
