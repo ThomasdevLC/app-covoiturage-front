@@ -14,8 +14,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
 import { LucideAngularModule } from 'lucide-angular';
 import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
-import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
-import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
 import {
   CompanyVehicleEmployeeItemComponent
 } from '../company-vehicle-employee-item/company-vehicle-employee-item.component';
@@ -26,7 +24,7 @@ import {
 @Component({
   selector: 'app-company-vehicle-employee-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, CalendarModule, CarouselModule, LucideAngularModule, LucideSharedModule, MotorPipe, VehicleCategoryPipe, CompanyVehicleEmployeeItemComponent, CompanyVehicleEmployeeItemCarouselComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, CalendarModule, CarouselModule, LucideAngularModule, LucideSharedModule, CompanyVehicleEmployeeItemComponent, CompanyVehicleEmployeeItemCarouselComponent],
   templateUrl: './company-vehicle-employee-list.component.html',
   styleUrls: ['./company-vehicle-employee-list.component.css'],
 })
@@ -36,6 +34,7 @@ export class CompanyVehicleEmployeeListComponent {
   currentView: string = 'carousel';
   isSearched: boolean = false;
   today : Date = new Date();
+  isLoading: boolean = false;
 
   constructor(
     private vehicleService: CompanyVehicleEmployeeService,
@@ -49,7 +48,10 @@ export class CompanyVehicleEmployeeListComponent {
   }
 
   loadVehicles(): void {
-    let { startTime, endTime } = this.filterForm.value;
+    this.isLoading = true;
+    setTimeout(() => {
+
+      let { startTime, endTime } = this.filterForm.value;
 
     const startTimeStr = startTime
       ? formatDate(startTime, "yyyy-MM-dd'T'HH:mm", 'en-US')
@@ -64,11 +66,16 @@ export class CompanyVehicleEmployeeListComponent {
       .subscribe({
         next: (data: CompanyVehicle[]) => {
           this.vehicles = data;
+          this.isLoading = false;
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);
+          this.isLoading = false;
+
         },
       });
+    }, 1000);
+
   }
 
 

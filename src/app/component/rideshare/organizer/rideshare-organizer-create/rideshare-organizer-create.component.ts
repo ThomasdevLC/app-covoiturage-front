@@ -14,6 +14,7 @@ import { PostalCodeDirective } from '../../../../shared/directives/postal-code/p
 import { AddressCapitalizeDirective } from '../../../../shared/directives/address/address-capitalize.directive.spec';
 import { LucideAngularModule } from 'lucide-angular';
 import { LucideSharedModule } from '../../../../shared/icons/lucide-shared/lucide-shared.module';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-rideshare-organizer-create',
@@ -34,6 +35,7 @@ export class RideshareOrganizerCreateComponent {
     private rideShareService: RideshareOrganizerService,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
+    private toastService: ToastService,
     private router: Router
   ) {
     // Initialisation du formulaire avec FormBuilder, ajout du champ vehicleId
@@ -78,6 +80,7 @@ export class RideshareOrganizerCreateComponent {
       )
       .subscribe({
         next: (response) => {
+          this.toastService.showSuccess('Votre trajet a bien été enregistrée.');
           this.router.navigate(['/rideshares/organizer']);
         },
         error: (error) => {

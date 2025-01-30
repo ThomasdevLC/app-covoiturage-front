@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import {BehaviorSubject, map, Observable, Subject, switchMap, tap,} from 'rxjs';
+import {BehaviorSubject, Observable, Subject, switchMap, tap,} from 'rxjs';
 import { RideShareOrganizerList } from '../../../models/rideshare/organizer/rideshare-organizer-list.model';
 import { RideShareOrganizerDetails } from '../../../models/rideshare/organizer/rideshare-organizer-details.model';
 import { RideShareOrganizerCreate } from '../../../models/rideshare/organizer/rideshare-organizer-create.model';

@@ -6,6 +6,7 @@ import { BookingEmployeeService } from '../../../../service/booking/employee/boo
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { ConfirmDialogComponent } from '../../../../shared/lib/confirm-dialog/confirm-dialog.component';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-booking-employee-item',
@@ -29,6 +30,8 @@ export class BookingEmployeeItemComponent {
 constructor(
   private bookingEmployeeService: BookingEmployeeService,
   private errorHandlerService: ErrorHandlerService,
+  private toastService: ToastService
+
 ){}
 
   showConfirmation(): void {
@@ -50,6 +53,7 @@ deleteBooking(): void {
     this.bookingEmployeeService.deleteBooking(this.booking.id).subscribe({
       next: () => {
         this.bookingDeleted.emit();
+        this.toastService.showSuccess('La réservation a bien été supprimée.');
       },
       error: (error) => {
         this.errorHandlerService.handleError(error);

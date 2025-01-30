@@ -8,6 +8,7 @@ import { ErrorHandlerService } from '../../../../shared/errors/error-handler.ser
 import { CalendarModule } from 'primeng/calendar';
 import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
 import { LucideAngularModule } from 'lucide-angular';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-booking-employee-update',
@@ -27,7 +28,9 @@ export class BookingEmployeeUpdateComponent {
   constructor(
     private fb: FormBuilder,
     private bookingEmployeeService: BookingEmployeeService,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private toastService: ToastService
+
   ) {
     this.bookingForm = this.fb.group({
       startTime: [null, Validators.required],
@@ -48,7 +51,10 @@ export class BookingEmployeeUpdateComponent {
     if (this.bookingForm.valid) {
       const updatedBooking = { ...this.booking, ...this.bookingForm.value };
       this.bookingEmployeeService.updateBooking(updatedBooking).subscribe({
-        next: () => this.updateComplete.emit(),
+        next: () => {
+          this.updateComplete.emit();
+          this.toastService.showSuccess('La réservation a bien été modifiée.');
+        },
         error: (error) => this.errorHandlerService.handleError(error),
       });
     }

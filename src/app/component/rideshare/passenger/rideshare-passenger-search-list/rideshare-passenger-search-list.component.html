@@ -1,5 +1,5 @@
 <div class="max-w-lg mx-auto h-full my-14  ">
-<div class="flex items-center mb-4">
+  <div class="flex items-center mb-4">
     <div class="h-[1px] w-16 bg-secondary-light"></div>
     <h1 class="text-secondary font-medium text-[2rem] mx-4 ">Rechercher</h1>
 
@@ -76,18 +76,27 @@
 
     </div>
   </form>
-</div>
 
-<!-- Liste des covoiturages -->
-<div class="mb-6">
-  <div class="mt-10 max-w-lg mx-auto flex flex-col gap-4 ">
-    <app-rideshare-passenger-search-item
-      *ngFor="let rideshare of rideshares" [rideshare]="rideshare"
-      (reserve)="openReservationDialog($event)">
-      class="mb-4">
-    </app-rideshare-passenger-search-item>
+  <div>
+    <div class="mt-6 flex justify-center text-primary-light">
+      <lucide-icon
+        *ngIf="isLoading"
+        name="Loader"
+        [strokeWidth]="1"
+        class="w-6 h-6 animate-spin"
+        aria-label="loading"
+      ></lucide-icon>
+    </div>
+    <div class=" max-w-lg mx-auto flex flex-col gap-4 ">
+      <app-rideshare-passenger-search-item
+        *ngFor="let rideshare of rideshares" [rideshare]="rideshare"
+        (reserve)="openReservationDialog($event)">
+        class="mb-4">
+      </app-rideshare-passenger-search-item>
+    </div>
   </div>
 </div>
+
 <p-dialog header="Réserver un Covoiturage"
           [(visible)]="displayDialog"
           [modal]="true"

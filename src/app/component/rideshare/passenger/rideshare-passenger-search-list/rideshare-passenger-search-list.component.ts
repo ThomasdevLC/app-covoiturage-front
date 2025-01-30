@@ -30,6 +30,7 @@ export class RidesharePassengerSearchListComponent {
   departureDateTime = '';
   displayDialog: boolean = false;
   selectedRideShareId!: number;
+  isLoading: boolean = false;
 
 
   constructor(
@@ -48,26 +49,31 @@ export class RidesharePassengerSearchListComponent {
   }
 
   searchRideShares(): void {
-    if (!this.departureCity && !this.arrivalCity && !this.departureDateTime) {
-      this.rideshares = [];
-      return;
-    }
+    this.isLoading = true;
+    setTimeout(() => {
+      if (!this.departureCity && !this.arrivalCity && !this.departureDateTime) {
+        this.rideshares = [];
+        return;
+      }
 
-    let formattedDateTime = '';
-    if (this.departureDateTime) {
-      formattedDateTime = new Date(this.departureDateTime).toISOString();
-    }
-    this.rideShareService
-      .getRideShares(this.departureCity, this.arrivalCity,formattedDateTime)
-      .subscribe({
-        next: (rideshares: RideSharePassengerList[]) => {
-          this.rideshares = rideshares;
-          console.log('Covoiturages récupérés:', this.rideshares);
-        },
-        error: (error) => {
-          this.errorHandlerService.handleError(error);
-        },
-      });
+      let formattedDateTime = '';
+      if (this.departureDateTime) {
+        formattedDateTime = new Date(this.departureDateTime).toISOString();
+      }
+
+      this.rideShareService
+        .getRideShares(this.departureCity, this.arrivalCity, formattedDateTime)
+        .subscribe({
+          next: (rideshares: RideSharePassengerList[]) => {
+            this.rideshares = rideshares;
+            this.isLoading = false;
+            },
+          error: (error) => {
+            this.errorHandlerService.handleError(error);
+            this.isLoading = false
+          },
+        });
+    }, 1000);
   }
 
   clearSearch(): void {

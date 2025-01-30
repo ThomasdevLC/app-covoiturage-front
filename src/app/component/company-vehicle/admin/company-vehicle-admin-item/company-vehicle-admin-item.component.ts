@@ -1,18 +1,18 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CompanyVehicle } from '../../../../models/company-vehicle/company-vehicle.model';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import {DialogModule} from "primeng/dialog";
 import {PrimeTemplate} from "primeng/api";
-import {
-  RideshareOrganizerDetailsComponent
-} from "../../../rideshare/organizer/rideshare-organizer-details/rideshare-organizer-details.component";
 import {CompanyVehicleUpdateComponent} from "../company-vehicle-update/company-vehicle-update.component";
 import { LucideAngularModule } from 'lucide-angular';
 import { VehicleCategoryPipe } from '../../../../shared/pipe/vehicle-category/vehicle-category.pipe';
 import { MotorPipe } from '../../../../shared/pipe/motor/motor.pipe';
 import { VehicleStatusPipe } from '../../../../shared/pipe/vehicle-status/vehicle-status.pipe';
 import { ConfirmDialogComponent } from '../../../../shared/lib/confirm-dialog/confirm-dialog.component';
+import { FormBuilder } from '@angular/forms';
+import { CompanyVehicleAdminService } from '../../../../service/company-vehicle/admin/company-vehicle-admin.service';
+import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-company-vehicle-admin-item',
@@ -37,6 +37,10 @@ export class CompanyVehicleAdminItemComponent {
   confirmationConfirmText: string = 'Valider';
   confirmationCancelText: string = 'Annuler';
 
+  constructor(
+    private toastService: ToastService,
+  ) {}
+
   showConfirmation(): void {
     this.isConfirmVisible = true;
   }
@@ -60,6 +64,7 @@ export class CompanyVehicleAdminItemComponent {
   }
 
   deleteVehicle() {
+    this.toastService.showSuccess('Le véhicule a bien été supprimé.');
     this.onDelete.emit(this.vehicle.id);
   }
 }
