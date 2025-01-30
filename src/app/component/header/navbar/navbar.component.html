@@ -3,7 +3,7 @@
         <a class="text-lg font-semibold text-gray-800" href="#">
       <img
         src="assets/images/logo.png"
-        alt="Avatar"
+        alt="logo"
         class="w-16"
       />
         </a>
@@ -21,7 +21,7 @@
               class="w-5 h-5"
               aria-label="Véhicules de service"
             ></lucide-icon>
-            <span>Rechercher</span>
+            <span>Rechercher trajet</span>
           </a>
 
 
@@ -58,8 +58,17 @@
             *ngIf="avatarUrl"
             [src]="avatarUrl"
             alt="Avatar"
-            class="w-12 h-12 rounded-md  "
+            class="w-12 h-12 rounded-md relative  "
           />
+
+          <lucide-icon
+          *ngIf="(currentUser$ | async)?.roles?.length"
+          [name]="getRoleIcon((currentUser$ | async)?.roles || [])"
+          [strokeWidth]="1"
+          class="w-4 h-4 right-0 top-0 text-secondary absolute"
+          aria-label="Role icon"
+        ></lucide-icon>
+
 
           <div class="absolute top-[4.2rem] right-0">
             <app-dropdown *ngIf="currentUser$ | async as user" [user]="user" (logout)="logout()"></app-dropdown>

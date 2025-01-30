@@ -17,12 +17,11 @@ import {LucideSharedModule} from "../../../shared/icons/lucide-shared/lucide-sha
 export class NavbarComponent implements OnInit {
   currentUser$: Observable<EmployeeConnected | null>;
   avatarUrl: string | null = null;
-  menuOpen: boolean = false;
+  roleIcon: string = 'User';
 
   constructor(
     private authService: AuthService,
     private router: Router
-
   ) {
     this.currentUser$ = this.authService.currentUser$;
   }
@@ -33,21 +32,28 @@ export class NavbarComponent implements OnInit {
         this.avatarUrl = user.gender === 'male'
           ? 'assets/images/avatar-m.png'
           : 'assets/images/avatar-f.png';
+
+        this.roleIcon = this.getRoleIcon(user.roles);
       } else {
         this.avatarUrl = null;
+        this.roleIcon = 'User';
       }
     });
   }
 
-
-  toggleDropdown(): void {
-    this.menuOpen = !this.menuOpen;
+  getRoleIcon(roles: string[]): string {
+    if (roles.includes('SUPER_ADMIN')) {
+      return 'Crown';
+    } else if (roles.includes('ADMIN')) {
+      return 'Shield';
+    } else {
+      return 'User';
+    }
   }
 
   logout(): void {
     this.authService.logout();
     this.authService.initializeCurrentUser();
     this.router.navigate(['/']);
-
   }
 }
