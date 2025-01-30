@@ -60,7 +60,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
-    this.currentUserSubject.next(null); // Déconnecte l'utilisateur
+    this.currentUserSubject.next(null);
   }
 
 
