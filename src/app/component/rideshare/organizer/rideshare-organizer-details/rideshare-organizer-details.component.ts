@@ -6,6 +6,7 @@ import { RideShareOrganizerDetails } from '../../../../models/rideshare/organize
 import { ErrorHandlerService } from '../../../../shared/errors/error-handler.service';
 import {ConfirmDialogComponent} from "../../../../shared/lib/confirm-dialog/confirm-dialog.component";
 import { LucideAngularModule } from 'lucide-angular';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-rideshare-organizer-details',
@@ -29,6 +30,8 @@ export class RideshareOrganizerDetailsComponent {
   constructor(
     private rideshareService: RideshareOrganizerService,
     private errorHandlerService: ErrorHandlerService,
+    private toastService: ToastService,
+
   ) {}
 
 
@@ -69,6 +72,7 @@ export class RideshareOrganizerDetailsComponent {
       this.rideshareService.deleteRideShare(this.rideshare.id).subscribe({
         next: () => {
           this.cancelled.emit();
+          this.toastService.showSuccess('Votre trajet a bien été annulé.');
         },
         error: (error) => {
           this.errorHandlerService.handleError(error);

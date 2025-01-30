@@ -3,7 +3,7 @@
         <label for="number" class="block text-md  ">
           Immatriculation
         </label>
-        <input id="number" type="text" formControlName="number"
+        <input id="number" type="text" formControlName="number" appLicensePlate
           class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary"
           placeholder="Entrez le numéro " />
         <div *ngIf="vehicleForm.get('number')?.invalid && vehicleForm.get('number')?.touched"
@@ -22,7 +22,7 @@
         <label for="brand" class="block text-md  ">
           Marque
         </label>
-        <input id="brand" type="text" formControlName="brand"
+        <input id="brand" type="text" formControlName="brand" appCapitalize
           class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary top-5 text-transform: capitalize"
           placeholder="Entrez la marque" />
         <div *ngIf="vehicleForm.get('brand')?.invalid && vehicleForm.get('brand')?.touched"
@@ -36,7 +36,7 @@
         <label for="model" class="block text-md  ">
           Modèle
         </label>
-        <input id="model" type="text" formControlName="model"
+        <input id="model" type="text" formControlName="model" appCapitalize
           class="mt-1 block w-full border border-border rounded-md  p-2 focus:outline-none focus:primary focus:border-primary text-transform: capitalize"
           placeholder="Entrez le modèle" />
         <div *ngIf="vehicleForm.get('model')?.invalid && vehicleForm.get('model')?.touched"

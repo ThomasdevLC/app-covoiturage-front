@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {  Router } from '@angular/router';
 import { RideshareOrganizerService } from '../../../../service/rideshare/organizer/rideshare-organizer.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,6 +11,7 @@ import { PrivateVehicle } from '../../../../models/private-vehicle/private-vehic
 import {RideShareOrganizerDetails} from "../../../../models/rideshare/organizer/rideshare-organizer-details.model";
 import { CalendarModule } from 'primeng/calendar';
 import { DateFormatterPipe } from '../../../../shared/pipe/date-formatter/date-formatter.pipe';
+import { ToastService } from '../../../../shared/toast/toast.service';
 
 @Component({
   selector: 'app-rideshare-organizer-update',
@@ -34,7 +34,7 @@ today: Date = new Date();
     private secureApiService: SecureApiService,
     private privateVehicleService: PrivateVehicleService,
     private errorHandlerService: ErrorHandlerService,
-    private router: Router
+    private toastService: ToastService,
   ) {
     // Initialisez le formulaire avec les mêmes champs que dans le composant create
     this.rideShareForm = this.formBuilder.group({
@@ -100,7 +100,7 @@ today: Date = new Date();
     this.rideshareService.updateRideShare(id, updatedRideShare).subscribe({
       next: (updatedRideShare) => {
         console.log('RideShare mis à jour avec succès :', updatedRideShare);
-        // Émettre un événement pour notifier le composant parent
+        this.toastService.showSuccess('Le covoiturage a bien été mis à jour.');
         this.updateCompleted.emit();
       },
       error: (error) => {
